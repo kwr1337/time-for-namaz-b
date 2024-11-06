@@ -1,0 +1,75 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  SUPER_ADMIN
+  CITY_ADMIN
+}
+
+model City {
+  id      Int      @id @default(autoincrement())
+  name    String
+  logoUrl String?
+  prayers Prayer[]
+  Mosque  Mosque[]
+  admin   Admin?   @relation("CityAdmin") // Здесь не добавляем fields и references
+}
+
+model Prayer {
+  id      Int     @id @default(autoincrement())
+  city    City    @relation(fields: [cityId], references: [id])
+  cityId  Int
+  date    String?
+  fajr    String?
+  shuruk  String?
+  zuhr    String?
+  asr     String?
+  maghrib String?
+  isha    String?
+}
+
+model Mosque {
+  id      Int     @id @default(autoincrement())
+  city    City    @relation(fields: [cityId], references: [id])
+  cityId  Int
+  name    String
+  logoUrl String?
+  media   Media[]
+  qrCode  QRCode? @relation("MosqueQRCode") // Связь без полей fields и references
+}
+
+model Media {
+  id       Int     @id @default(autoincrement())
+  mosque   Mosque  @relation(fields: [mosqueId], references: [id])
+  mosqueId Int
+  videoUrl String?
+}
+
+model QRCode {
+  id       Int    @id @default(autoincrement())
+  mosque   Mosque @relation("MosqueQRCode", fields: [mosqueId], references: [id])
+  mosqueId Int    @unique
+  imageUrl String // Ссылка на изображение QR-кода или бинарные данные
+}
+
+model ErrorMessage {
+  id      Int    @id @default(autoincrement())
+  message String
+}
+
+model Admin {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  role      Role
+  cityId    Int?     @unique
+  city      City?    @relation("CityAdmin", fields: [cityId], references: [id])
+}
