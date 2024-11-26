@@ -36,13 +36,13 @@ model Prayer {
 }
 
 model Mosque {
-  id      Int      @id @default(autoincrement())
-  city    City     @relation(fields: [cityId], references: [id])
+  id      Int     @id @default(autoincrement())
+  city    City    @relation(fields: [cityId], references: [id])
   cityId  Int
   name    String
   logoUrl String?
-  Media   Media[]
-  QRCode  QRCode[]
+  media   Media[]
+  qrCode  QRCode? @relation("MosqueQRCode") // Связь без полей fields и references
 }
 
 model Media {
@@ -54,9 +54,9 @@ model Media {
 
 model QRCode {
   id       Int    @id @default(autoincrement())
-  mosque   Mosque @relation(fields: [mosqueId], references: [id])
-  mosqueId Int
-  url      String
+  mosque   Mosque @relation("MosqueQRCode", fields: [mosqueId], references: [id])
+  mosqueId Int    @unique
+  imageUrl String // Ссылка на изображение QR-кода или бинарные данные
 }
 
 model ErrorMessage {
