@@ -32,10 +32,10 @@ async function bootstrap() {
 	const document = SwaggerModule.createDocument(app, config)
 	SwaggerModule.setup('api-docs', app, document)
 
-	const port = 80
-	console.log(`Приложение запускается на порту: ${port}`);
-	await app.listen(port);
-	console.log(`Приложение успешно запущено на порту: ${port}`);
+	// Позволяем платформе самой определить порт
+	console.log('Приложение запускается, ожидаем автоматического назначения порта...');
+	await app.listen(3000, '0.0.0.0');
+	console.log(`Приложение успешно запущено на порту ${3000}`);
 }
 
 bootstrap()
