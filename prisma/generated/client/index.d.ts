@@ -1365,13 +1365,13 @@ export namespace Prisma {
    */
 
   export type CityCountOutputType = {
-    prayers: number
     Mosque: number
+    prayers: number
   }
 
   export type CityCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    prayers?: boolean | CityCountOutputTypeCountPrayersArgs
     Mosque?: boolean | CityCountOutputTypeCountMosqueArgs
+    prayers?: boolean | CityCountOutputTypeCountPrayersArgs
   }
 
   // Custom InputTypes
@@ -1390,16 +1390,16 @@ export namespace Prisma {
   /**
    * CityCountOutputType without action
    */
-  export type CityCountOutputTypeCountPrayersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: PrayerWhereInput
+  export type CityCountOutputTypeCountMosqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MosqueWhereInput
   }
 
 
   /**
    * CityCountOutputType without action
    */
-  export type CityCountOutputTypeCountMosqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: MosqueWhereInput
+  export type CityCountOutputTypeCountPrayersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PrayerWhereInput
   }
 
 
@@ -1410,10 +1410,14 @@ export namespace Prisma {
 
   export type MosqueCountOutputType = {
     media: number
+    prayers: number
+    qrCodes: number
   }
 
   export type MosqueCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     media?: boolean | MosqueCountOutputTypeCountMediaArgs
+    prayers?: boolean | MosqueCountOutputTypeCountPrayersArgs
+    qrCodes?: boolean | MosqueCountOutputTypeCountQrCodesArgs
   }
 
   // Custom InputTypes
@@ -1434,6 +1438,22 @@ export namespace Prisma {
    */
   export type MosqueCountOutputTypeCountMediaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MediaWhereInput
+  }
+
+
+  /**
+   * MosqueCountOutputType without action
+   */
+  export type MosqueCountOutputTypeCountPrayersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PrayerWhereInput
+  }
+
+
+  /**
+   * MosqueCountOutputType without action
+   */
+  export type MosqueCountOutputTypeCountQrCodesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QRCodeWhereInput
   }
 
 
@@ -1624,9 +1644,9 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     logoUrl?: boolean
-    prayers?: boolean | City$prayersArgs<ExtArgs>
-    Mosque?: boolean | City$MosqueArgs<ExtArgs>
     admin?: boolean | City$adminArgs<ExtArgs>
+    Mosque?: boolean | City$MosqueArgs<ExtArgs>
+    prayers?: boolean | City$prayersArgs<ExtArgs>
     _count?: boolean | CityCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["city"]>
 
@@ -1637,9 +1657,9 @@ export namespace Prisma {
   }
 
   export type CityInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    prayers?: boolean | City$prayersArgs<ExtArgs>
-    Mosque?: boolean | City$MosqueArgs<ExtArgs>
     admin?: boolean | City$adminArgs<ExtArgs>
+    Mosque?: boolean | City$MosqueArgs<ExtArgs>
+    prayers?: boolean | City$prayersArgs<ExtArgs>
     _count?: boolean | CityCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -1647,9 +1667,9 @@ export namespace Prisma {
   export type $CityPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "City"
     objects: {
-      prayers: Prisma.$PrayerPayload<ExtArgs>[]
-      Mosque: Prisma.$MosquePayload<ExtArgs>[]
       admin: Prisma.$AdminPayload<ExtArgs> | null
+      Mosque: Prisma.$MosquePayload<ExtArgs>[]
+      prayers: Prisma.$PrayerPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -2020,11 +2040,11 @@ export namespace Prisma {
   export interface Prisma__CityClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
 
-    prayers<T extends City$prayersArgs<ExtArgs> = {}>(args?: Subset<T, City$prayersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PrayerPayload<ExtArgs>, T, 'findMany'> | Null>;
+    admin<T extends City$adminArgs<ExtArgs> = {}>(args?: Subset<T, City$adminArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
     Mosque<T extends City$MosqueArgs<ExtArgs> = {}>(args?: Subset<T, City$MosqueArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MosquePayload<ExtArgs>, T, 'findMany'> | Null>;
 
-    admin<T extends City$adminArgs<ExtArgs> = {}>(args?: Subset<T, City$adminArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+    prayers<T extends City$prayersArgs<ExtArgs> = {}>(args?: Subset<T, City$prayersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PrayerPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2369,23 +2389,18 @@ export namespace Prisma {
 
 
   /**
-   * City.prayers
+   * City.admin
    */
-  export type City$prayersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type City$adminArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Prayer
+     * Select specific fields to fetch from the Admin
      */
-    select?: PrayerSelect<ExtArgs> | null
+    select?: AdminSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: PrayerInclude<ExtArgs> | null
-    where?: PrayerWhereInput
-    orderBy?: PrayerOrderByWithRelationInput | PrayerOrderByWithRelationInput[]
-    cursor?: PrayerWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: PrayerScalarFieldEnum | PrayerScalarFieldEnum[]
+    include?: AdminInclude<ExtArgs> | null
+    where?: AdminWhereInput
   }
 
 
@@ -2411,18 +2426,23 @@ export namespace Prisma {
 
 
   /**
-   * City.admin
+   * City.prayers
    */
-  export type City$adminArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type City$prayersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Admin
+     * Select specific fields to fetch from the Prayer
      */
-    select?: AdminSelect<ExtArgs> | null
+    select?: PrayerSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: AdminInclude<ExtArgs> | null
-    where?: AdminWhereInput
+    include?: PrayerInclude<ExtArgs> | null
+    where?: PrayerWhereInput
+    orderBy?: PrayerOrderByWithRelationInput | PrayerOrderByWithRelationInput[]
+    cursor?: PrayerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PrayerScalarFieldEnum | PrayerScalarFieldEnum[]
   }
 
 
@@ -2457,16 +2477,19 @@ export namespace Prisma {
   export type PrayerAvgAggregateOutputType = {
     id: number | null
     cityId: number | null
+    mosqueId: number | null
   }
 
   export type PrayerSumAggregateOutputType = {
     id: number | null
     cityId: number | null
+    mosqueId: number | null
   }
 
   export type PrayerMinAggregateOutputType = {
     id: number | null
     cityId: number | null
+    mosqueId: number | null
     date: string | null
     fajr: string | null
     shuruk: string | null
@@ -2474,11 +2497,13 @@ export namespace Prisma {
     asr: string | null
     maghrib: string | null
     isha: string | null
+    mechet: string | null
   }
 
   export type PrayerMaxAggregateOutputType = {
     id: number | null
     cityId: number | null
+    mosqueId: number | null
     date: string | null
     fajr: string | null
     shuruk: string | null
@@ -2486,11 +2511,13 @@ export namespace Prisma {
     asr: string | null
     maghrib: string | null
     isha: string | null
+    mechet: string | null
   }
 
   export type PrayerCountAggregateOutputType = {
     id: number
     cityId: number
+    mosqueId: number
     date: number
     fajr: number
     shuruk: number
@@ -2498,6 +2525,7 @@ export namespace Prisma {
     asr: number
     maghrib: number
     isha: number
+    mechet: number
     _all: number
   }
 
@@ -2505,16 +2533,19 @@ export namespace Prisma {
   export type PrayerAvgAggregateInputType = {
     id?: true
     cityId?: true
+    mosqueId?: true
   }
 
   export type PrayerSumAggregateInputType = {
     id?: true
     cityId?: true
+    mosqueId?: true
   }
 
   export type PrayerMinAggregateInputType = {
     id?: true
     cityId?: true
+    mosqueId?: true
     date?: true
     fajr?: true
     shuruk?: true
@@ -2522,11 +2553,13 @@ export namespace Prisma {
     asr?: true
     maghrib?: true
     isha?: true
+    mechet?: true
   }
 
   export type PrayerMaxAggregateInputType = {
     id?: true
     cityId?: true
+    mosqueId?: true
     date?: true
     fajr?: true
     shuruk?: true
@@ -2534,11 +2567,13 @@ export namespace Prisma {
     asr?: true
     maghrib?: true
     isha?: true
+    mechet?: true
   }
 
   export type PrayerCountAggregateInputType = {
     id?: true
     cityId?: true
+    mosqueId?: true
     date?: true
     fajr?: true
     shuruk?: true
@@ -2546,6 +2581,7 @@ export namespace Prisma {
     asr?: true
     maghrib?: true
     isha?: true
+    mechet?: true
     _all?: true
   }
 
@@ -2638,6 +2674,7 @@ export namespace Prisma {
   export type PrayerGroupByOutputType = {
     id: number
     cityId: number
+    mosqueId: number | null
     date: string | null
     fajr: string | null
     shuruk: string | null
@@ -2645,6 +2682,7 @@ export namespace Prisma {
     asr: string | null
     maghrib: string | null
     isha: string | null
+    mechet: string | null
     _count: PrayerCountAggregateOutputType | null
     _avg: PrayerAvgAggregateOutputType | null
     _sum: PrayerSumAggregateOutputType | null
@@ -2669,6 +2707,7 @@ export namespace Prisma {
   export type PrayerSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     cityId?: boolean
+    mosqueId?: boolean
     date?: boolean
     fajr?: boolean
     shuruk?: boolean
@@ -2676,12 +2715,15 @@ export namespace Prisma {
     asr?: boolean
     maghrib?: boolean
     isha?: boolean
+    mechet?: boolean
     city?: boolean | CityDefaultArgs<ExtArgs>
+    mosque?: boolean | Prayer$mosqueArgs<ExtArgs>
   }, ExtArgs["result"]["prayer"]>
 
   export type PrayerSelectScalar = {
     id?: boolean
     cityId?: boolean
+    mosqueId?: boolean
     date?: boolean
     fajr?: boolean
     shuruk?: boolean
@@ -2689,10 +2731,12 @@ export namespace Prisma {
     asr?: boolean
     maghrib?: boolean
     isha?: boolean
+    mechet?: boolean
   }
 
   export type PrayerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     city?: boolean | CityDefaultArgs<ExtArgs>
+    mosque?: boolean | Prayer$mosqueArgs<ExtArgs>
   }
 
 
@@ -2700,10 +2744,12 @@ export namespace Prisma {
     name: "Prayer"
     objects: {
       city: Prisma.$CityPayload<ExtArgs>
+      mosque: Prisma.$MosquePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       cityId: number
+      mosqueId: number | null
       date: string | null
       fajr: string | null
       shuruk: string | null
@@ -2711,6 +2757,7 @@ export namespace Prisma {
       asr: string | null
       maghrib: string | null
       isha: string | null
+      mechet: string | null
     }, ExtArgs["result"]["prayer"]>
     composites: {}
   }
@@ -3078,6 +3125,8 @@ export namespace Prisma {
 
     city<T extends CityDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CityDefaultArgs<ExtArgs>>): Prisma__CityClient<$Result.GetResult<Prisma.$CityPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
+    mosque<T extends Prayer$mosqueArgs<ExtArgs> = {}>(args?: Subset<T, Prayer$mosqueArgs<ExtArgs>>): Prisma__MosqueClient<$Result.GetResult<Prisma.$MosquePayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3108,6 +3157,7 @@ export namespace Prisma {
   interface PrayerFieldRefs {
     readonly id: FieldRef<"Prayer", 'Int'>
     readonly cityId: FieldRef<"Prayer", 'Int'>
+    readonly mosqueId: FieldRef<"Prayer", 'Int'>
     readonly date: FieldRef<"Prayer", 'String'>
     readonly fajr: FieldRef<"Prayer", 'String'>
     readonly shuruk: FieldRef<"Prayer", 'String'>
@@ -3115,6 +3165,7 @@ export namespace Prisma {
     readonly asr: FieldRef<"Prayer", 'String'>
     readonly maghrib: FieldRef<"Prayer", 'String'>
     readonly isha: FieldRef<"Prayer", 'String'>
+    readonly mechet: FieldRef<"Prayer", 'String'>
   }
     
 
@@ -3427,6 +3478,22 @@ export namespace Prisma {
 
 
   /**
+   * Prayer.mosque
+   */
+  export type Prayer$mosqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Mosque
+     */
+    select?: MosqueSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MosqueInclude<ExtArgs> | null
+    where?: MosqueWhereInput
+  }
+
+
+  /**
    * Prayer without action
    */
   export type PrayerDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3636,9 +3703,10 @@ export namespace Prisma {
     cityId?: boolean
     name?: boolean
     logoUrl?: boolean
-    city?: boolean | CityDefaultArgs<ExtArgs>
     media?: boolean | Mosque$mediaArgs<ExtArgs>
-    qrCode?: boolean | Mosque$qrCodeArgs<ExtArgs>
+    prayers?: boolean | Mosque$prayersArgs<ExtArgs>
+    city?: boolean | CityDefaultArgs<ExtArgs>
+    qrCodes?: boolean | Mosque$qrCodesArgs<ExtArgs>
     _count?: boolean | MosqueCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["mosque"]>
 
@@ -3650,9 +3718,10 @@ export namespace Prisma {
   }
 
   export type MosqueInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    city?: boolean | CityDefaultArgs<ExtArgs>
     media?: boolean | Mosque$mediaArgs<ExtArgs>
-    qrCode?: boolean | Mosque$qrCodeArgs<ExtArgs>
+    prayers?: boolean | Mosque$prayersArgs<ExtArgs>
+    city?: boolean | CityDefaultArgs<ExtArgs>
+    qrCodes?: boolean | Mosque$qrCodesArgs<ExtArgs>
     _count?: boolean | MosqueCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -3660,9 +3729,10 @@ export namespace Prisma {
   export type $MosquePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Mosque"
     objects: {
-      city: Prisma.$CityPayload<ExtArgs>
       media: Prisma.$MediaPayload<ExtArgs>[]
-      qrCode: Prisma.$QRCodePayload<ExtArgs> | null
+      prayers: Prisma.$PrayerPayload<ExtArgs>[]
+      city: Prisma.$CityPayload<ExtArgs>
+      qrCodes: Prisma.$QRCodePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -4034,11 +4104,13 @@ export namespace Prisma {
   export interface Prisma__MosqueClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
 
-    city<T extends CityDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CityDefaultArgs<ExtArgs>>): Prisma__CityClient<$Result.GetResult<Prisma.$CityPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
-
     media<T extends Mosque$mediaArgs<ExtArgs> = {}>(args?: Subset<T, Mosque$mediaArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, 'findMany'> | Null>;
 
-    qrCode<T extends Mosque$qrCodeArgs<ExtArgs> = {}>(args?: Subset<T, Mosque$qrCodeArgs<ExtArgs>>): Prisma__QRCodeClient<$Result.GetResult<Prisma.$QRCodePayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+    prayers<T extends Mosque$prayersArgs<ExtArgs> = {}>(args?: Subset<T, Mosque$prayersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PrayerPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    city<T extends CityDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CityDefaultArgs<ExtArgs>>): Prisma__CityClient<$Result.GetResult<Prisma.$CityPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    qrCodes<T extends Mosque$qrCodesArgs<ExtArgs> = {}>(args?: Subset<T, Mosque$qrCodesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QRCodePayload<ExtArgs>, T, 'findMany'> | Null>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -4405,9 +4477,30 @@ export namespace Prisma {
 
 
   /**
-   * Mosque.qrCode
+   * Mosque.prayers
    */
-  export type Mosque$qrCodeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Mosque$prayersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Prayer
+     */
+    select?: PrayerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PrayerInclude<ExtArgs> | null
+    where?: PrayerWhereInput
+    orderBy?: PrayerOrderByWithRelationInput | PrayerOrderByWithRelationInput[]
+    cursor?: PrayerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PrayerScalarFieldEnum | PrayerScalarFieldEnum[]
+  }
+
+
+  /**
+   * Mosque.qrCodes
+   */
+  export type Mosque$qrCodesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the QRCode
      */
@@ -4417,6 +4510,11 @@ export namespace Prisma {
      */
     include?: QRCodeInclude<ExtArgs> | null
     where?: QRCodeWhereInput
+    orderBy?: QRCodeOrderByWithRelationInput | QRCodeOrderByWithRelationInput[]
+    cursor?: QRCodeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: QRCodeScalarFieldEnum | QRCodeScalarFieldEnum[]
   }
 
 
@@ -5396,18 +5494,21 @@ export namespace Prisma {
     id: number | null
     mosqueId: number | null
     imageUrl: string | null
+    isPrimary: boolean | null
   }
 
   export type QRCodeMaxAggregateOutputType = {
     id: number | null
     mosqueId: number | null
     imageUrl: string | null
+    isPrimary: boolean | null
   }
 
   export type QRCodeCountAggregateOutputType = {
     id: number
     mosqueId: number
     imageUrl: number
+    isPrimary: number
     _all: number
   }
 
@@ -5426,18 +5527,21 @@ export namespace Prisma {
     id?: true
     mosqueId?: true
     imageUrl?: true
+    isPrimary?: true
   }
 
   export type QRCodeMaxAggregateInputType = {
     id?: true
     mosqueId?: true
     imageUrl?: true
+    isPrimary?: true
   }
 
   export type QRCodeCountAggregateInputType = {
     id?: true
     mosqueId?: true
     imageUrl?: true
+    isPrimary?: true
     _all?: true
   }
 
@@ -5531,6 +5635,7 @@ export namespace Prisma {
     id: number
     mosqueId: number
     imageUrl: string
+    isPrimary: boolean
     _count: QRCodeCountAggregateOutputType | null
     _avg: QRCodeAvgAggregateOutputType | null
     _sum: QRCodeSumAggregateOutputType | null
@@ -5556,6 +5661,7 @@ export namespace Prisma {
     id?: boolean
     mosqueId?: boolean
     imageUrl?: boolean
+    isPrimary?: boolean
     mosque?: boolean | MosqueDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["qRCode"]>
 
@@ -5563,6 +5669,7 @@ export namespace Prisma {
     id?: boolean
     mosqueId?: boolean
     imageUrl?: boolean
+    isPrimary?: boolean
   }
 
   export type QRCodeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5579,6 +5686,7 @@ export namespace Prisma {
       id: number
       mosqueId: number
       imageUrl: string
+      isPrimary: boolean
     }, ExtArgs["result"]["qRCode"]>
     composites: {}
   }
@@ -5977,6 +6085,7 @@ export namespace Prisma {
     readonly id: FieldRef<"QRCode", 'Int'>
     readonly mosqueId: FieldRef<"QRCode", 'Int'>
     readonly imageUrl: FieldRef<"QRCode", 'String'>
+    readonly isPrimary: FieldRef<"QRCode", 'Boolean'>
   }
     
 
@@ -8184,13 +8293,15 @@ export namespace Prisma {
   export const PrayerScalarFieldEnum: {
     id: 'id',
     cityId: 'cityId',
+    mosqueId: 'mosqueId',
     date: 'date',
     fajr: 'fajr',
     shuruk: 'shuruk',
     zuhr: 'zuhr',
     asr: 'asr',
     maghrib: 'maghrib',
-    isha: 'isha'
+    isha: 'isha',
+    mechet: 'mechet'
   };
 
   export type PrayerScalarFieldEnum = (typeof PrayerScalarFieldEnum)[keyof typeof PrayerScalarFieldEnum]
@@ -8218,7 +8329,8 @@ export namespace Prisma {
   export const QRCodeScalarFieldEnum: {
     id: 'id',
     mosqueId: 'mosqueId',
-    imageUrl: 'imageUrl'
+    imageUrl: 'imageUrl',
+    isPrimary: 'isPrimary'
   };
 
   export type QRCodeScalarFieldEnum = (typeof QRCodeScalarFieldEnum)[keyof typeof QRCodeScalarFieldEnum]
@@ -8302,6 +8414,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -8353,18 +8472,18 @@ export namespace Prisma {
     id?: IntFilter<"City"> | number
     name?: StringFilter<"City"> | string
     logoUrl?: StringNullableFilter<"City"> | string | null
-    prayers?: PrayerListRelationFilter
-    Mosque?: MosqueListRelationFilter
     admin?: XOR<AdminNullableRelationFilter, AdminWhereInput> | null
+    Mosque?: MosqueListRelationFilter
+    prayers?: PrayerListRelationFilter
   }
 
   export type CityOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
     logoUrl?: SortOrderInput | SortOrder
-    prayers?: PrayerOrderByRelationAggregateInput
-    Mosque?: MosqueOrderByRelationAggregateInput
     admin?: AdminOrderByWithRelationInput
+    Mosque?: MosqueOrderByRelationAggregateInput
+    prayers?: PrayerOrderByRelationAggregateInput
   }
 
   export type CityWhereUniqueInput = Prisma.AtLeast<{
@@ -8374,9 +8493,9 @@ export namespace Prisma {
     NOT?: CityWhereInput | CityWhereInput[]
     name?: StringFilter<"City"> | string
     logoUrl?: StringNullableFilter<"City"> | string | null
-    prayers?: PrayerListRelationFilter
-    Mosque?: MosqueListRelationFilter
     admin?: XOR<AdminNullableRelationFilter, AdminWhereInput> | null
+    Mosque?: MosqueListRelationFilter
+    prayers?: PrayerListRelationFilter
   }, "id">
 
   export type CityOrderByWithAggregationInput = {
@@ -8405,6 +8524,7 @@ export namespace Prisma {
     NOT?: PrayerWhereInput | PrayerWhereInput[]
     id?: IntFilter<"Prayer"> | number
     cityId?: IntFilter<"Prayer"> | number
+    mosqueId?: IntNullableFilter<"Prayer"> | number | null
     date?: StringNullableFilter<"Prayer"> | string | null
     fajr?: StringNullableFilter<"Prayer"> | string | null
     shuruk?: StringNullableFilter<"Prayer"> | string | null
@@ -8412,12 +8532,15 @@ export namespace Prisma {
     asr?: StringNullableFilter<"Prayer"> | string | null
     maghrib?: StringNullableFilter<"Prayer"> | string | null
     isha?: StringNullableFilter<"Prayer"> | string | null
+    mechet?: StringNullableFilter<"Prayer"> | string | null
     city?: XOR<CityRelationFilter, CityWhereInput>
+    mosque?: XOR<MosqueNullableRelationFilter, MosqueWhereInput> | null
   }
 
   export type PrayerOrderByWithRelationInput = {
     id?: SortOrder
     cityId?: SortOrder
+    mosqueId?: SortOrderInput | SortOrder
     date?: SortOrderInput | SortOrder
     fajr?: SortOrderInput | SortOrder
     shuruk?: SortOrderInput | SortOrder
@@ -8425,7 +8548,9 @@ export namespace Prisma {
     asr?: SortOrderInput | SortOrder
     maghrib?: SortOrderInput | SortOrder
     isha?: SortOrderInput | SortOrder
+    mechet?: SortOrderInput | SortOrder
     city?: CityOrderByWithRelationInput
+    mosque?: MosqueOrderByWithRelationInput
   }
 
   export type PrayerWhereUniqueInput = Prisma.AtLeast<{
@@ -8434,6 +8559,7 @@ export namespace Prisma {
     OR?: PrayerWhereInput[]
     NOT?: PrayerWhereInput | PrayerWhereInput[]
     cityId?: IntFilter<"Prayer"> | number
+    mosqueId?: IntNullableFilter<"Prayer"> | number | null
     date?: StringNullableFilter<"Prayer"> | string | null
     fajr?: StringNullableFilter<"Prayer"> | string | null
     shuruk?: StringNullableFilter<"Prayer"> | string | null
@@ -8441,12 +8567,15 @@ export namespace Prisma {
     asr?: StringNullableFilter<"Prayer"> | string | null
     maghrib?: StringNullableFilter<"Prayer"> | string | null
     isha?: StringNullableFilter<"Prayer"> | string | null
+    mechet?: StringNullableFilter<"Prayer"> | string | null
     city?: XOR<CityRelationFilter, CityWhereInput>
+    mosque?: XOR<MosqueNullableRelationFilter, MosqueWhereInput> | null
   }, "id">
 
   export type PrayerOrderByWithAggregationInput = {
     id?: SortOrder
     cityId?: SortOrder
+    mosqueId?: SortOrderInput | SortOrder
     date?: SortOrderInput | SortOrder
     fajr?: SortOrderInput | SortOrder
     shuruk?: SortOrderInput | SortOrder
@@ -8454,6 +8583,7 @@ export namespace Prisma {
     asr?: SortOrderInput | SortOrder
     maghrib?: SortOrderInput | SortOrder
     isha?: SortOrderInput | SortOrder
+    mechet?: SortOrderInput | SortOrder
     _count?: PrayerCountOrderByAggregateInput
     _avg?: PrayerAvgOrderByAggregateInput
     _max?: PrayerMaxOrderByAggregateInput
@@ -8467,6 +8597,7 @@ export namespace Prisma {
     NOT?: PrayerScalarWhereWithAggregatesInput | PrayerScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Prayer"> | number
     cityId?: IntWithAggregatesFilter<"Prayer"> | number
+    mosqueId?: IntNullableWithAggregatesFilter<"Prayer"> | number | null
     date?: StringNullableWithAggregatesFilter<"Prayer"> | string | null
     fajr?: StringNullableWithAggregatesFilter<"Prayer"> | string | null
     shuruk?: StringNullableWithAggregatesFilter<"Prayer"> | string | null
@@ -8474,6 +8605,7 @@ export namespace Prisma {
     asr?: StringNullableWithAggregatesFilter<"Prayer"> | string | null
     maghrib?: StringNullableWithAggregatesFilter<"Prayer"> | string | null
     isha?: StringNullableWithAggregatesFilter<"Prayer"> | string | null
+    mechet?: StringNullableWithAggregatesFilter<"Prayer"> | string | null
   }
 
   export type MosqueWhereInput = {
@@ -8484,9 +8616,10 @@ export namespace Prisma {
     cityId?: IntFilter<"Mosque"> | number
     name?: StringFilter<"Mosque"> | string
     logoUrl?: StringNullableFilter<"Mosque"> | string | null
-    city?: XOR<CityRelationFilter, CityWhereInput>
     media?: MediaListRelationFilter
-    qrCode?: XOR<QRCodeNullableRelationFilter, QRCodeWhereInput> | null
+    prayers?: PrayerListRelationFilter
+    city?: XOR<CityRelationFilter, CityWhereInput>
+    qrCodes?: QRCodeListRelationFilter
   }
 
   export type MosqueOrderByWithRelationInput = {
@@ -8494,9 +8627,10 @@ export namespace Prisma {
     cityId?: SortOrder
     name?: SortOrder
     logoUrl?: SortOrderInput | SortOrder
-    city?: CityOrderByWithRelationInput
     media?: MediaOrderByRelationAggregateInput
-    qrCode?: QRCodeOrderByWithRelationInput
+    prayers?: PrayerOrderByRelationAggregateInput
+    city?: CityOrderByWithRelationInput
+    qrCodes?: QRCodeOrderByRelationAggregateInput
   }
 
   export type MosqueWhereUniqueInput = Prisma.AtLeast<{
@@ -8507,9 +8641,10 @@ export namespace Prisma {
     cityId?: IntFilter<"Mosque"> | number
     name?: StringFilter<"Mosque"> | string
     logoUrl?: StringNullableFilter<"Mosque"> | string | null
-    city?: XOR<CityRelationFilter, CityWhereInput>
     media?: MediaListRelationFilter
-    qrCode?: XOR<QRCodeNullableRelationFilter, QRCodeWhereInput> | null
+    prayers?: PrayerListRelationFilter
+    city?: XOR<CityRelationFilter, CityWhereInput>
+    qrCodes?: QRCodeListRelationFilter
   }, "id">
 
   export type MosqueOrderByWithAggregationInput = {
@@ -8588,6 +8723,7 @@ export namespace Prisma {
     id?: IntFilter<"QRCode"> | number
     mosqueId?: IntFilter<"QRCode"> | number
     imageUrl?: StringFilter<"QRCode"> | string
+    isPrimary?: BoolFilter<"QRCode"> | boolean
     mosque?: XOR<MosqueRelationFilter, MosqueWhereInput>
   }
 
@@ -8595,23 +8731,26 @@ export namespace Prisma {
     id?: SortOrder
     mosqueId?: SortOrder
     imageUrl?: SortOrder
+    isPrimary?: SortOrder
     mosque?: MosqueOrderByWithRelationInput
   }
 
   export type QRCodeWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    mosqueId?: number
     AND?: QRCodeWhereInput | QRCodeWhereInput[]
     OR?: QRCodeWhereInput[]
     NOT?: QRCodeWhereInput | QRCodeWhereInput[]
+    mosqueId?: IntFilter<"QRCode"> | number
     imageUrl?: StringFilter<"QRCode"> | string
+    isPrimary?: BoolFilter<"QRCode"> | boolean
     mosque?: XOR<MosqueRelationFilter, MosqueWhereInput>
-  }, "id" | "mosqueId">
+  }, "id">
 
   export type QRCodeOrderByWithAggregationInput = {
     id?: SortOrder
     mosqueId?: SortOrder
     imageUrl?: SortOrder
+    isPrimary?: SortOrder
     _count?: QRCodeCountOrderByAggregateInput
     _avg?: QRCodeAvgOrderByAggregateInput
     _max?: QRCodeMaxOrderByAggregateInput
@@ -8626,6 +8765,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"QRCode"> | number
     mosqueId?: IntWithAggregatesFilter<"QRCode"> | number
     imageUrl?: StringWithAggregatesFilter<"QRCode"> | string
+    isPrimary?: BoolWithAggregatesFilter<"QRCode"> | boolean
   }
 
   export type ErrorMessageWhereInput = {
@@ -8732,35 +8872,35 @@ export namespace Prisma {
   export type CityCreateInput = {
     name: string
     logoUrl?: string | null
-    prayers?: PrayerCreateNestedManyWithoutCityInput
-    Mosque?: MosqueCreateNestedManyWithoutCityInput
     admin?: AdminCreateNestedOneWithoutCityInput
+    Mosque?: MosqueCreateNestedManyWithoutCityInput
+    prayers?: PrayerCreateNestedManyWithoutCityInput
   }
 
   export type CityUncheckedCreateInput = {
     id?: number
     name: string
     logoUrl?: string | null
-    prayers?: PrayerUncheckedCreateNestedManyWithoutCityInput
-    Mosque?: MosqueUncheckedCreateNestedManyWithoutCityInput
     admin?: AdminUncheckedCreateNestedOneWithoutCityInput
+    Mosque?: MosqueUncheckedCreateNestedManyWithoutCityInput
+    prayers?: PrayerUncheckedCreateNestedManyWithoutCityInput
   }
 
   export type CityUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    prayers?: PrayerUpdateManyWithoutCityNestedInput
-    Mosque?: MosqueUpdateManyWithoutCityNestedInput
     admin?: AdminUpdateOneWithoutCityNestedInput
+    Mosque?: MosqueUpdateManyWithoutCityNestedInput
+    prayers?: PrayerUpdateManyWithoutCityNestedInput
   }
 
   export type CityUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    prayers?: PrayerUncheckedUpdateManyWithoutCityNestedInput
-    Mosque?: MosqueUncheckedUpdateManyWithoutCityNestedInput
     admin?: AdminUncheckedUpdateOneWithoutCityNestedInput
+    Mosque?: MosqueUncheckedUpdateManyWithoutCityNestedInput
+    prayers?: PrayerUncheckedUpdateManyWithoutCityNestedInput
   }
 
   export type CityCreateManyInput = {
@@ -8788,12 +8928,15 @@ export namespace Prisma {
     asr?: string | null
     maghrib?: string | null
     isha?: string | null
+    mechet?: string | null
     city: CityCreateNestedOneWithoutPrayersInput
+    mosque?: MosqueCreateNestedOneWithoutPrayersInput
   }
 
   export type PrayerUncheckedCreateInput = {
     id?: number
     cityId: number
+    mosqueId?: number | null
     date?: string | null
     fajr?: string | null
     shuruk?: string | null
@@ -8801,6 +8944,7 @@ export namespace Prisma {
     asr?: string | null
     maghrib?: string | null
     isha?: string | null
+    mechet?: string | null
   }
 
   export type PrayerUpdateInput = {
@@ -8811,12 +8955,15 @@ export namespace Prisma {
     asr?: NullableStringFieldUpdateOperationsInput | string | null
     maghrib?: NullableStringFieldUpdateOperationsInput | string | null
     isha?: NullableStringFieldUpdateOperationsInput | string | null
+    mechet?: NullableStringFieldUpdateOperationsInput | string | null
     city?: CityUpdateOneRequiredWithoutPrayersNestedInput
+    mosque?: MosqueUpdateOneWithoutPrayersNestedInput
   }
 
   export type PrayerUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     cityId?: IntFieldUpdateOperationsInput | number
+    mosqueId?: NullableIntFieldUpdateOperationsInput | number | null
     date?: NullableStringFieldUpdateOperationsInput | string | null
     fajr?: NullableStringFieldUpdateOperationsInput | string | null
     shuruk?: NullableStringFieldUpdateOperationsInput | string | null
@@ -8824,11 +8971,13 @@ export namespace Prisma {
     asr?: NullableStringFieldUpdateOperationsInput | string | null
     maghrib?: NullableStringFieldUpdateOperationsInput | string | null
     isha?: NullableStringFieldUpdateOperationsInput | string | null
+    mechet?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PrayerCreateManyInput = {
     id?: number
     cityId: number
+    mosqueId?: number | null
     date?: string | null
     fajr?: string | null
     shuruk?: string | null
@@ -8836,6 +8985,7 @@ export namespace Prisma {
     asr?: string | null
     maghrib?: string | null
     isha?: string | null
+    mechet?: string | null
   }
 
   export type PrayerUpdateManyMutationInput = {
@@ -8846,11 +8996,13 @@ export namespace Prisma {
     asr?: NullableStringFieldUpdateOperationsInput | string | null
     maghrib?: NullableStringFieldUpdateOperationsInput | string | null
     isha?: NullableStringFieldUpdateOperationsInput | string | null
+    mechet?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PrayerUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     cityId?: IntFieldUpdateOperationsInput | number
+    mosqueId?: NullableIntFieldUpdateOperationsInput | number | null
     date?: NullableStringFieldUpdateOperationsInput | string | null
     fajr?: NullableStringFieldUpdateOperationsInput | string | null
     shuruk?: NullableStringFieldUpdateOperationsInput | string | null
@@ -8858,14 +9010,16 @@ export namespace Prisma {
     asr?: NullableStringFieldUpdateOperationsInput | string | null
     maghrib?: NullableStringFieldUpdateOperationsInput | string | null
     isha?: NullableStringFieldUpdateOperationsInput | string | null
+    mechet?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MosqueCreateInput = {
     name: string
     logoUrl?: string | null
-    city: CityCreateNestedOneWithoutMosqueInput
     media?: MediaCreateNestedManyWithoutMosqueInput
-    qrCode?: QRCodeCreateNestedOneWithoutMosqueInput
+    prayers?: PrayerCreateNestedManyWithoutMosqueInput
+    city: CityCreateNestedOneWithoutMosqueInput
+    qrCodes?: QRCodeCreateNestedManyWithoutMosqueInput
   }
 
   export type MosqueUncheckedCreateInput = {
@@ -8874,15 +9028,17 @@ export namespace Prisma {
     name: string
     logoUrl?: string | null
     media?: MediaUncheckedCreateNestedManyWithoutMosqueInput
-    qrCode?: QRCodeUncheckedCreateNestedOneWithoutMosqueInput
+    prayers?: PrayerUncheckedCreateNestedManyWithoutMosqueInput
+    qrCodes?: QRCodeUncheckedCreateNestedManyWithoutMosqueInput
   }
 
   export type MosqueUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: CityUpdateOneRequiredWithoutMosqueNestedInput
     media?: MediaUpdateManyWithoutMosqueNestedInput
-    qrCode?: QRCodeUpdateOneWithoutMosqueNestedInput
+    prayers?: PrayerUpdateManyWithoutMosqueNestedInput
+    city?: CityUpdateOneRequiredWithoutMosqueNestedInput
+    qrCodes?: QRCodeUpdateManyWithoutMosqueNestedInput
   }
 
   export type MosqueUncheckedUpdateInput = {
@@ -8891,7 +9047,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     media?: MediaUncheckedUpdateManyWithoutMosqueNestedInput
-    qrCode?: QRCodeUncheckedUpdateOneWithoutMosqueNestedInput
+    prayers?: PrayerUncheckedUpdateManyWithoutMosqueNestedInput
+    qrCodes?: QRCodeUncheckedUpdateManyWithoutMosqueNestedInput
   }
 
   export type MosqueCreateManyInput = {
@@ -8953,40 +9110,47 @@ export namespace Prisma {
 
   export type QRCodeCreateInput = {
     imageUrl: string
-    mosque: MosqueCreateNestedOneWithoutQrCodeInput
+    isPrimary?: boolean
+    mosque: MosqueCreateNestedOneWithoutQrCodesInput
   }
 
   export type QRCodeUncheckedCreateInput = {
     id?: number
     mosqueId: number
     imageUrl: string
+    isPrimary?: boolean
   }
 
   export type QRCodeUpdateInput = {
     imageUrl?: StringFieldUpdateOperationsInput | string
-    mosque?: MosqueUpdateOneRequiredWithoutQrCodeNestedInput
+    isPrimary?: BoolFieldUpdateOperationsInput | boolean
+    mosque?: MosqueUpdateOneRequiredWithoutQrCodesNestedInput
   }
 
   export type QRCodeUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     mosqueId?: IntFieldUpdateOperationsInput | number
     imageUrl?: StringFieldUpdateOperationsInput | string
+    isPrimary?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type QRCodeCreateManyInput = {
     id?: number
     mosqueId: number
     imageUrl: string
+    isPrimary?: boolean
   }
 
   export type QRCodeUpdateManyMutationInput = {
     imageUrl?: StringFieldUpdateOperationsInput | string
+    isPrimary?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type QRCodeUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     mosqueId?: IntFieldUpdateOperationsInput | number
     imageUrl?: StringFieldUpdateOperationsInput | string
+    isPrimary?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ErrorMessageCreateInput = {
@@ -9121,10 +9285,9 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type PrayerListRelationFilter = {
-    every?: PrayerWhereInput
-    some?: PrayerWhereInput
-    none?: PrayerWhereInput
+  export type AdminNullableRelationFilter = {
+    is?: AdminWhereInput | null
+    isNot?: AdminWhereInput | null
   }
 
   export type MosqueListRelationFilter = {
@@ -9133,9 +9296,10 @@ export namespace Prisma {
     none?: MosqueWhereInput
   }
 
-  export type AdminNullableRelationFilter = {
-    is?: AdminWhereInput | null
-    isNot?: AdminWhereInput | null
+  export type PrayerListRelationFilter = {
+    every?: PrayerWhereInput
+    some?: PrayerWhereInput
+    none?: PrayerWhereInput
   }
 
   export type SortOrderInput = {
@@ -9143,11 +9307,11 @@ export namespace Prisma {
     nulls?: NullsOrder
   }
 
-  export type PrayerOrderByRelationAggregateInput = {
+  export type MosqueOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type MosqueOrderByRelationAggregateInput = {
+  export type PrayerOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -9229,14 +9393,31 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type CityRelationFilter = {
     is?: CityWhereInput
     isNot?: CityWhereInput
   }
 
+  export type MosqueNullableRelationFilter = {
+    is?: MosqueWhereInput | null
+    isNot?: MosqueWhereInput | null
+  }
+
   export type PrayerCountOrderByAggregateInput = {
     id?: SortOrder
     cityId?: SortOrder
+    mosqueId?: SortOrder
     date?: SortOrder
     fajr?: SortOrder
     shuruk?: SortOrder
@@ -9244,16 +9425,19 @@ export namespace Prisma {
     asr?: SortOrder
     maghrib?: SortOrder
     isha?: SortOrder
+    mechet?: SortOrder
   }
 
   export type PrayerAvgOrderByAggregateInput = {
     id?: SortOrder
     cityId?: SortOrder
+    mosqueId?: SortOrder
   }
 
   export type PrayerMaxOrderByAggregateInput = {
     id?: SortOrder
     cityId?: SortOrder
+    mosqueId?: SortOrder
     date?: SortOrder
     fajr?: SortOrder
     shuruk?: SortOrder
@@ -9261,11 +9445,13 @@ export namespace Prisma {
     asr?: SortOrder
     maghrib?: SortOrder
     isha?: SortOrder
+    mechet?: SortOrder
   }
 
   export type PrayerMinOrderByAggregateInput = {
     id?: SortOrder
     cityId?: SortOrder
+    mosqueId?: SortOrder
     date?: SortOrder
     fajr?: SortOrder
     shuruk?: SortOrder
@@ -9273,11 +9459,29 @@ export namespace Prisma {
     asr?: SortOrder
     maghrib?: SortOrder
     isha?: SortOrder
+    mechet?: SortOrder
   }
 
   export type PrayerSumOrderByAggregateInput = {
     id?: SortOrder
     cityId?: SortOrder
+    mosqueId?: SortOrder
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type MediaListRelationFilter = {
@@ -9286,12 +9490,17 @@ export namespace Prisma {
     none?: MediaWhereInput
   }
 
-  export type QRCodeNullableRelationFilter = {
-    is?: QRCodeWhereInput | null
-    isNot?: QRCodeWhereInput | null
+  export type QRCodeListRelationFilter = {
+    every?: QRCodeWhereInput
+    some?: QRCodeWhereInput
+    none?: QRCodeWhereInput
   }
 
   export type MediaOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type QRCodeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -9359,10 +9568,16 @@ export namespace Prisma {
     mosqueId?: SortOrder
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type QRCodeCountOrderByAggregateInput = {
     id?: SortOrder
     mosqueId?: SortOrder
     imageUrl?: SortOrder
+    isPrimary?: SortOrder
   }
 
   export type QRCodeAvgOrderByAggregateInput = {
@@ -9374,17 +9589,27 @@ export namespace Prisma {
     id?: SortOrder
     mosqueId?: SortOrder
     imageUrl?: SortOrder
+    isPrimary?: SortOrder
   }
 
   export type QRCodeMinOrderByAggregateInput = {
     id?: SortOrder
     mosqueId?: SortOrder
     imageUrl?: SortOrder
+    isPrimary?: SortOrder
   }
 
   export type QRCodeSumOrderByAggregateInput = {
     id?: SortOrder
     mosqueId?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type ErrorMessageCountOrderByAggregateInput = {
@@ -9426,17 +9651,6 @@ export namespace Prisma {
     in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
     notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
     not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
-  }
-
-  export type IntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type CityNullableRelationFilter = {
@@ -9505,27 +9719,10 @@ export namespace Prisma {
     _max?: NestedEnumRoleFilter<$PrismaModel>
   }
 
-  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type PrayerCreateNestedManyWithoutCityInput = {
-    create?: XOR<PrayerCreateWithoutCityInput, PrayerUncheckedCreateWithoutCityInput> | PrayerCreateWithoutCityInput[] | PrayerUncheckedCreateWithoutCityInput[]
-    connectOrCreate?: PrayerCreateOrConnectWithoutCityInput | PrayerCreateOrConnectWithoutCityInput[]
-    createMany?: PrayerCreateManyCityInputEnvelope
-    connect?: PrayerWhereUniqueInput | PrayerWhereUniqueInput[]
+  export type AdminCreateNestedOneWithoutCityInput = {
+    create?: XOR<AdminCreateWithoutCityInput, AdminUncheckedCreateWithoutCityInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutCityInput
+    connect?: AdminWhereUniqueInput
   }
 
   export type MosqueCreateNestedManyWithoutCityInput = {
@@ -9535,17 +9732,17 @@ export namespace Prisma {
     connect?: MosqueWhereUniqueInput | MosqueWhereUniqueInput[]
   }
 
-  export type AdminCreateNestedOneWithoutCityInput = {
-    create?: XOR<AdminCreateWithoutCityInput, AdminUncheckedCreateWithoutCityInput>
-    connectOrCreate?: AdminCreateOrConnectWithoutCityInput
-    connect?: AdminWhereUniqueInput
-  }
-
-  export type PrayerUncheckedCreateNestedManyWithoutCityInput = {
+  export type PrayerCreateNestedManyWithoutCityInput = {
     create?: XOR<PrayerCreateWithoutCityInput, PrayerUncheckedCreateWithoutCityInput> | PrayerCreateWithoutCityInput[] | PrayerUncheckedCreateWithoutCityInput[]
     connectOrCreate?: PrayerCreateOrConnectWithoutCityInput | PrayerCreateOrConnectWithoutCityInput[]
     createMany?: PrayerCreateManyCityInputEnvelope
     connect?: PrayerWhereUniqueInput | PrayerWhereUniqueInput[]
+  }
+
+  export type AdminUncheckedCreateNestedOneWithoutCityInput = {
+    create?: XOR<AdminCreateWithoutCityInput, AdminUncheckedCreateWithoutCityInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutCityInput
+    connect?: AdminWhereUniqueInput
   }
 
   export type MosqueUncheckedCreateNestedManyWithoutCityInput = {
@@ -9555,10 +9752,11 @@ export namespace Prisma {
     connect?: MosqueWhereUniqueInput | MosqueWhereUniqueInput[]
   }
 
-  export type AdminUncheckedCreateNestedOneWithoutCityInput = {
-    create?: XOR<AdminCreateWithoutCityInput, AdminUncheckedCreateWithoutCityInput>
-    connectOrCreate?: AdminCreateOrConnectWithoutCityInput
-    connect?: AdminWhereUniqueInput
+  export type PrayerUncheckedCreateNestedManyWithoutCityInput = {
+    create?: XOR<PrayerCreateWithoutCityInput, PrayerUncheckedCreateWithoutCityInput> | PrayerCreateWithoutCityInput[] | PrayerUncheckedCreateWithoutCityInput[]
+    connectOrCreate?: PrayerCreateOrConnectWithoutCityInput | PrayerCreateOrConnectWithoutCityInput[]
+    createMany?: PrayerCreateManyCityInputEnvelope
+    connect?: PrayerWhereUniqueInput | PrayerWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -9569,18 +9767,14 @@ export namespace Prisma {
     set?: string | null
   }
 
-  export type PrayerUpdateManyWithoutCityNestedInput = {
-    create?: XOR<PrayerCreateWithoutCityInput, PrayerUncheckedCreateWithoutCityInput> | PrayerCreateWithoutCityInput[] | PrayerUncheckedCreateWithoutCityInput[]
-    connectOrCreate?: PrayerCreateOrConnectWithoutCityInput | PrayerCreateOrConnectWithoutCityInput[]
-    upsert?: PrayerUpsertWithWhereUniqueWithoutCityInput | PrayerUpsertWithWhereUniqueWithoutCityInput[]
-    createMany?: PrayerCreateManyCityInputEnvelope
-    set?: PrayerWhereUniqueInput | PrayerWhereUniqueInput[]
-    disconnect?: PrayerWhereUniqueInput | PrayerWhereUniqueInput[]
-    delete?: PrayerWhereUniqueInput | PrayerWhereUniqueInput[]
-    connect?: PrayerWhereUniqueInput | PrayerWhereUniqueInput[]
-    update?: PrayerUpdateWithWhereUniqueWithoutCityInput | PrayerUpdateWithWhereUniqueWithoutCityInput[]
-    updateMany?: PrayerUpdateManyWithWhereWithoutCityInput | PrayerUpdateManyWithWhereWithoutCityInput[]
-    deleteMany?: PrayerScalarWhereInput | PrayerScalarWhereInput[]
+  export type AdminUpdateOneWithoutCityNestedInput = {
+    create?: XOR<AdminCreateWithoutCityInput, AdminUncheckedCreateWithoutCityInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutCityInput
+    upsert?: AdminUpsertWithoutCityInput
+    disconnect?: AdminWhereInput | boolean
+    delete?: AdminWhereInput | boolean
+    connect?: AdminWhereUniqueInput
+    update?: XOR<XOR<AdminUpdateToOneWithWhereWithoutCityInput, AdminUpdateWithoutCityInput>, AdminUncheckedUpdateWithoutCityInput>
   }
 
   export type MosqueUpdateManyWithoutCityNestedInput = {
@@ -9597,25 +9791,7 @@ export namespace Prisma {
     deleteMany?: MosqueScalarWhereInput | MosqueScalarWhereInput[]
   }
 
-  export type AdminUpdateOneWithoutCityNestedInput = {
-    create?: XOR<AdminCreateWithoutCityInput, AdminUncheckedCreateWithoutCityInput>
-    connectOrCreate?: AdminCreateOrConnectWithoutCityInput
-    upsert?: AdminUpsertWithoutCityInput
-    disconnect?: AdminWhereInput | boolean
-    delete?: AdminWhereInput | boolean
-    connect?: AdminWhereUniqueInput
-    update?: XOR<XOR<AdminUpdateToOneWithWhereWithoutCityInput, AdminUpdateWithoutCityInput>, AdminUncheckedUpdateWithoutCityInput>
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
-  export type PrayerUncheckedUpdateManyWithoutCityNestedInput = {
+  export type PrayerUpdateManyWithoutCityNestedInput = {
     create?: XOR<PrayerCreateWithoutCityInput, PrayerUncheckedCreateWithoutCityInput> | PrayerCreateWithoutCityInput[] | PrayerUncheckedCreateWithoutCityInput[]
     connectOrCreate?: PrayerCreateOrConnectWithoutCityInput | PrayerCreateOrConnectWithoutCityInput[]
     upsert?: PrayerUpsertWithWhereUniqueWithoutCityInput | PrayerUpsertWithWhereUniqueWithoutCityInput[]
@@ -9627,6 +9803,24 @@ export namespace Prisma {
     update?: PrayerUpdateWithWhereUniqueWithoutCityInput | PrayerUpdateWithWhereUniqueWithoutCityInput[]
     updateMany?: PrayerUpdateManyWithWhereWithoutCityInput | PrayerUpdateManyWithWhereWithoutCityInput[]
     deleteMany?: PrayerScalarWhereInput | PrayerScalarWhereInput[]
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type AdminUncheckedUpdateOneWithoutCityNestedInput = {
+    create?: XOR<AdminCreateWithoutCityInput, AdminUncheckedCreateWithoutCityInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutCityInput
+    upsert?: AdminUpsertWithoutCityInput
+    disconnect?: AdminWhereInput | boolean
+    delete?: AdminWhereInput | boolean
+    connect?: AdminWhereUniqueInput
+    update?: XOR<XOR<AdminUpdateToOneWithWhereWithoutCityInput, AdminUpdateWithoutCityInput>, AdminUncheckedUpdateWithoutCityInput>
   }
 
   export type MosqueUncheckedUpdateManyWithoutCityNestedInput = {
@@ -9643,20 +9837,30 @@ export namespace Prisma {
     deleteMany?: MosqueScalarWhereInput | MosqueScalarWhereInput[]
   }
 
-  export type AdminUncheckedUpdateOneWithoutCityNestedInput = {
-    create?: XOR<AdminCreateWithoutCityInput, AdminUncheckedCreateWithoutCityInput>
-    connectOrCreate?: AdminCreateOrConnectWithoutCityInput
-    upsert?: AdminUpsertWithoutCityInput
-    disconnect?: AdminWhereInput | boolean
-    delete?: AdminWhereInput | boolean
-    connect?: AdminWhereUniqueInput
-    update?: XOR<XOR<AdminUpdateToOneWithWhereWithoutCityInput, AdminUpdateWithoutCityInput>, AdminUncheckedUpdateWithoutCityInput>
+  export type PrayerUncheckedUpdateManyWithoutCityNestedInput = {
+    create?: XOR<PrayerCreateWithoutCityInput, PrayerUncheckedCreateWithoutCityInput> | PrayerCreateWithoutCityInput[] | PrayerUncheckedCreateWithoutCityInput[]
+    connectOrCreate?: PrayerCreateOrConnectWithoutCityInput | PrayerCreateOrConnectWithoutCityInput[]
+    upsert?: PrayerUpsertWithWhereUniqueWithoutCityInput | PrayerUpsertWithWhereUniqueWithoutCityInput[]
+    createMany?: PrayerCreateManyCityInputEnvelope
+    set?: PrayerWhereUniqueInput | PrayerWhereUniqueInput[]
+    disconnect?: PrayerWhereUniqueInput | PrayerWhereUniqueInput[]
+    delete?: PrayerWhereUniqueInput | PrayerWhereUniqueInput[]
+    connect?: PrayerWhereUniqueInput | PrayerWhereUniqueInput[]
+    update?: PrayerUpdateWithWhereUniqueWithoutCityInput | PrayerUpdateWithWhereUniqueWithoutCityInput[]
+    updateMany?: PrayerUpdateManyWithWhereWithoutCityInput | PrayerUpdateManyWithWhereWithoutCityInput[]
+    deleteMany?: PrayerScalarWhereInput | PrayerScalarWhereInput[]
   }
 
   export type CityCreateNestedOneWithoutPrayersInput = {
     create?: XOR<CityCreateWithoutPrayersInput, CityUncheckedCreateWithoutPrayersInput>
     connectOrCreate?: CityCreateOrConnectWithoutPrayersInput
     connect?: CityWhereUniqueInput
+  }
+
+  export type MosqueCreateNestedOneWithoutPrayersInput = {
+    create?: XOR<MosqueCreateWithoutPrayersInput, MosqueUncheckedCreateWithoutPrayersInput>
+    connectOrCreate?: MosqueCreateOrConnectWithoutPrayersInput
+    connect?: MosqueWhereUniqueInput
   }
 
   export type CityUpdateOneRequiredWithoutPrayersNestedInput = {
@@ -9667,10 +9871,22 @@ export namespace Prisma {
     update?: XOR<XOR<CityUpdateToOneWithWhereWithoutPrayersInput, CityUpdateWithoutPrayersInput>, CityUncheckedUpdateWithoutPrayersInput>
   }
 
-  export type CityCreateNestedOneWithoutMosqueInput = {
-    create?: XOR<CityCreateWithoutMosqueInput, CityUncheckedCreateWithoutMosqueInput>
-    connectOrCreate?: CityCreateOrConnectWithoutMosqueInput
-    connect?: CityWhereUniqueInput
+  export type MosqueUpdateOneWithoutPrayersNestedInput = {
+    create?: XOR<MosqueCreateWithoutPrayersInput, MosqueUncheckedCreateWithoutPrayersInput>
+    connectOrCreate?: MosqueCreateOrConnectWithoutPrayersInput
+    upsert?: MosqueUpsertWithoutPrayersInput
+    disconnect?: MosqueWhereInput | boolean
+    delete?: MosqueWhereInput | boolean
+    connect?: MosqueWhereUniqueInput
+    update?: XOR<XOR<MosqueUpdateToOneWithWhereWithoutPrayersInput, MosqueUpdateWithoutPrayersInput>, MosqueUncheckedUpdateWithoutPrayersInput>
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type MediaCreateNestedManyWithoutMosqueInput = {
@@ -9680,10 +9896,24 @@ export namespace Prisma {
     connect?: MediaWhereUniqueInput | MediaWhereUniqueInput[]
   }
 
-  export type QRCodeCreateNestedOneWithoutMosqueInput = {
-    create?: XOR<QRCodeCreateWithoutMosqueInput, QRCodeUncheckedCreateWithoutMosqueInput>
-    connectOrCreate?: QRCodeCreateOrConnectWithoutMosqueInput
-    connect?: QRCodeWhereUniqueInput
+  export type PrayerCreateNestedManyWithoutMosqueInput = {
+    create?: XOR<PrayerCreateWithoutMosqueInput, PrayerUncheckedCreateWithoutMosqueInput> | PrayerCreateWithoutMosqueInput[] | PrayerUncheckedCreateWithoutMosqueInput[]
+    connectOrCreate?: PrayerCreateOrConnectWithoutMosqueInput | PrayerCreateOrConnectWithoutMosqueInput[]
+    createMany?: PrayerCreateManyMosqueInputEnvelope
+    connect?: PrayerWhereUniqueInput | PrayerWhereUniqueInput[]
+  }
+
+  export type CityCreateNestedOneWithoutMosqueInput = {
+    create?: XOR<CityCreateWithoutMosqueInput, CityUncheckedCreateWithoutMosqueInput>
+    connectOrCreate?: CityCreateOrConnectWithoutMosqueInput
+    connect?: CityWhereUniqueInput
+  }
+
+  export type QRCodeCreateNestedManyWithoutMosqueInput = {
+    create?: XOR<QRCodeCreateWithoutMosqueInput, QRCodeUncheckedCreateWithoutMosqueInput> | QRCodeCreateWithoutMosqueInput[] | QRCodeUncheckedCreateWithoutMosqueInput[]
+    connectOrCreate?: QRCodeCreateOrConnectWithoutMosqueInput | QRCodeCreateOrConnectWithoutMosqueInput[]
+    createMany?: QRCodeCreateManyMosqueInputEnvelope
+    connect?: QRCodeWhereUniqueInput | QRCodeWhereUniqueInput[]
   }
 
   export type MediaUncheckedCreateNestedManyWithoutMosqueInput = {
@@ -9693,18 +9923,18 @@ export namespace Prisma {
     connect?: MediaWhereUniqueInput | MediaWhereUniqueInput[]
   }
 
-  export type QRCodeUncheckedCreateNestedOneWithoutMosqueInput = {
-    create?: XOR<QRCodeCreateWithoutMosqueInput, QRCodeUncheckedCreateWithoutMosqueInput>
-    connectOrCreate?: QRCodeCreateOrConnectWithoutMosqueInput
-    connect?: QRCodeWhereUniqueInput
+  export type PrayerUncheckedCreateNestedManyWithoutMosqueInput = {
+    create?: XOR<PrayerCreateWithoutMosqueInput, PrayerUncheckedCreateWithoutMosqueInput> | PrayerCreateWithoutMosqueInput[] | PrayerUncheckedCreateWithoutMosqueInput[]
+    connectOrCreate?: PrayerCreateOrConnectWithoutMosqueInput | PrayerCreateOrConnectWithoutMosqueInput[]
+    createMany?: PrayerCreateManyMosqueInputEnvelope
+    connect?: PrayerWhereUniqueInput | PrayerWhereUniqueInput[]
   }
 
-  export type CityUpdateOneRequiredWithoutMosqueNestedInput = {
-    create?: XOR<CityCreateWithoutMosqueInput, CityUncheckedCreateWithoutMosqueInput>
-    connectOrCreate?: CityCreateOrConnectWithoutMosqueInput
-    upsert?: CityUpsertWithoutMosqueInput
-    connect?: CityWhereUniqueInput
-    update?: XOR<XOR<CityUpdateToOneWithWhereWithoutMosqueInput, CityUpdateWithoutMosqueInput>, CityUncheckedUpdateWithoutMosqueInput>
+  export type QRCodeUncheckedCreateNestedManyWithoutMosqueInput = {
+    create?: XOR<QRCodeCreateWithoutMosqueInput, QRCodeUncheckedCreateWithoutMosqueInput> | QRCodeCreateWithoutMosqueInput[] | QRCodeUncheckedCreateWithoutMosqueInput[]
+    connectOrCreate?: QRCodeCreateOrConnectWithoutMosqueInput | QRCodeCreateOrConnectWithoutMosqueInput[]
+    createMany?: QRCodeCreateManyMosqueInputEnvelope
+    connect?: QRCodeWhereUniqueInput | QRCodeWhereUniqueInput[]
   }
 
   export type MediaUpdateManyWithoutMosqueNestedInput = {
@@ -9721,14 +9951,40 @@ export namespace Prisma {
     deleteMany?: MediaScalarWhereInput | MediaScalarWhereInput[]
   }
 
-  export type QRCodeUpdateOneWithoutMosqueNestedInput = {
-    create?: XOR<QRCodeCreateWithoutMosqueInput, QRCodeUncheckedCreateWithoutMosqueInput>
-    connectOrCreate?: QRCodeCreateOrConnectWithoutMosqueInput
-    upsert?: QRCodeUpsertWithoutMosqueInput
-    disconnect?: QRCodeWhereInput | boolean
-    delete?: QRCodeWhereInput | boolean
-    connect?: QRCodeWhereUniqueInput
-    update?: XOR<XOR<QRCodeUpdateToOneWithWhereWithoutMosqueInput, QRCodeUpdateWithoutMosqueInput>, QRCodeUncheckedUpdateWithoutMosqueInput>
+  export type PrayerUpdateManyWithoutMosqueNestedInput = {
+    create?: XOR<PrayerCreateWithoutMosqueInput, PrayerUncheckedCreateWithoutMosqueInput> | PrayerCreateWithoutMosqueInput[] | PrayerUncheckedCreateWithoutMosqueInput[]
+    connectOrCreate?: PrayerCreateOrConnectWithoutMosqueInput | PrayerCreateOrConnectWithoutMosqueInput[]
+    upsert?: PrayerUpsertWithWhereUniqueWithoutMosqueInput | PrayerUpsertWithWhereUniqueWithoutMosqueInput[]
+    createMany?: PrayerCreateManyMosqueInputEnvelope
+    set?: PrayerWhereUniqueInput | PrayerWhereUniqueInput[]
+    disconnect?: PrayerWhereUniqueInput | PrayerWhereUniqueInput[]
+    delete?: PrayerWhereUniqueInput | PrayerWhereUniqueInput[]
+    connect?: PrayerWhereUniqueInput | PrayerWhereUniqueInput[]
+    update?: PrayerUpdateWithWhereUniqueWithoutMosqueInput | PrayerUpdateWithWhereUniqueWithoutMosqueInput[]
+    updateMany?: PrayerUpdateManyWithWhereWithoutMosqueInput | PrayerUpdateManyWithWhereWithoutMosqueInput[]
+    deleteMany?: PrayerScalarWhereInput | PrayerScalarWhereInput[]
+  }
+
+  export type CityUpdateOneRequiredWithoutMosqueNestedInput = {
+    create?: XOR<CityCreateWithoutMosqueInput, CityUncheckedCreateWithoutMosqueInput>
+    connectOrCreate?: CityCreateOrConnectWithoutMosqueInput
+    upsert?: CityUpsertWithoutMosqueInput
+    connect?: CityWhereUniqueInput
+    update?: XOR<XOR<CityUpdateToOneWithWhereWithoutMosqueInput, CityUpdateWithoutMosqueInput>, CityUncheckedUpdateWithoutMosqueInput>
+  }
+
+  export type QRCodeUpdateManyWithoutMosqueNestedInput = {
+    create?: XOR<QRCodeCreateWithoutMosqueInput, QRCodeUncheckedCreateWithoutMosqueInput> | QRCodeCreateWithoutMosqueInput[] | QRCodeUncheckedCreateWithoutMosqueInput[]
+    connectOrCreate?: QRCodeCreateOrConnectWithoutMosqueInput | QRCodeCreateOrConnectWithoutMosqueInput[]
+    upsert?: QRCodeUpsertWithWhereUniqueWithoutMosqueInput | QRCodeUpsertWithWhereUniqueWithoutMosqueInput[]
+    createMany?: QRCodeCreateManyMosqueInputEnvelope
+    set?: QRCodeWhereUniqueInput | QRCodeWhereUniqueInput[]
+    disconnect?: QRCodeWhereUniqueInput | QRCodeWhereUniqueInput[]
+    delete?: QRCodeWhereUniqueInput | QRCodeWhereUniqueInput[]
+    connect?: QRCodeWhereUniqueInput | QRCodeWhereUniqueInput[]
+    update?: QRCodeUpdateWithWhereUniqueWithoutMosqueInput | QRCodeUpdateWithWhereUniqueWithoutMosqueInput[]
+    updateMany?: QRCodeUpdateManyWithWhereWithoutMosqueInput | QRCodeUpdateManyWithWhereWithoutMosqueInput[]
+    deleteMany?: QRCodeScalarWhereInput | QRCodeScalarWhereInput[]
   }
 
   export type MediaUncheckedUpdateManyWithoutMosqueNestedInput = {
@@ -9745,14 +10001,32 @@ export namespace Prisma {
     deleteMany?: MediaScalarWhereInput | MediaScalarWhereInput[]
   }
 
-  export type QRCodeUncheckedUpdateOneWithoutMosqueNestedInput = {
-    create?: XOR<QRCodeCreateWithoutMosqueInput, QRCodeUncheckedCreateWithoutMosqueInput>
-    connectOrCreate?: QRCodeCreateOrConnectWithoutMosqueInput
-    upsert?: QRCodeUpsertWithoutMosqueInput
-    disconnect?: QRCodeWhereInput | boolean
-    delete?: QRCodeWhereInput | boolean
-    connect?: QRCodeWhereUniqueInput
-    update?: XOR<XOR<QRCodeUpdateToOneWithWhereWithoutMosqueInput, QRCodeUpdateWithoutMosqueInput>, QRCodeUncheckedUpdateWithoutMosqueInput>
+  export type PrayerUncheckedUpdateManyWithoutMosqueNestedInput = {
+    create?: XOR<PrayerCreateWithoutMosqueInput, PrayerUncheckedCreateWithoutMosqueInput> | PrayerCreateWithoutMosqueInput[] | PrayerUncheckedCreateWithoutMosqueInput[]
+    connectOrCreate?: PrayerCreateOrConnectWithoutMosqueInput | PrayerCreateOrConnectWithoutMosqueInput[]
+    upsert?: PrayerUpsertWithWhereUniqueWithoutMosqueInput | PrayerUpsertWithWhereUniqueWithoutMosqueInput[]
+    createMany?: PrayerCreateManyMosqueInputEnvelope
+    set?: PrayerWhereUniqueInput | PrayerWhereUniqueInput[]
+    disconnect?: PrayerWhereUniqueInput | PrayerWhereUniqueInput[]
+    delete?: PrayerWhereUniqueInput | PrayerWhereUniqueInput[]
+    connect?: PrayerWhereUniqueInput | PrayerWhereUniqueInput[]
+    update?: PrayerUpdateWithWhereUniqueWithoutMosqueInput | PrayerUpdateWithWhereUniqueWithoutMosqueInput[]
+    updateMany?: PrayerUpdateManyWithWhereWithoutMosqueInput | PrayerUpdateManyWithWhereWithoutMosqueInput[]
+    deleteMany?: PrayerScalarWhereInput | PrayerScalarWhereInput[]
+  }
+
+  export type QRCodeUncheckedUpdateManyWithoutMosqueNestedInput = {
+    create?: XOR<QRCodeCreateWithoutMosqueInput, QRCodeUncheckedCreateWithoutMosqueInput> | QRCodeCreateWithoutMosqueInput[] | QRCodeUncheckedCreateWithoutMosqueInput[]
+    connectOrCreate?: QRCodeCreateOrConnectWithoutMosqueInput | QRCodeCreateOrConnectWithoutMosqueInput[]
+    upsert?: QRCodeUpsertWithWhereUniqueWithoutMosqueInput | QRCodeUpsertWithWhereUniqueWithoutMosqueInput[]
+    createMany?: QRCodeCreateManyMosqueInputEnvelope
+    set?: QRCodeWhereUniqueInput | QRCodeWhereUniqueInput[]
+    disconnect?: QRCodeWhereUniqueInput | QRCodeWhereUniqueInput[]
+    delete?: QRCodeWhereUniqueInput | QRCodeWhereUniqueInput[]
+    connect?: QRCodeWhereUniqueInput | QRCodeWhereUniqueInput[]
+    update?: QRCodeUpdateWithWhereUniqueWithoutMosqueInput | QRCodeUpdateWithWhereUniqueWithoutMosqueInput[]
+    updateMany?: QRCodeUpdateManyWithWhereWithoutMosqueInput | QRCodeUpdateManyWithWhereWithoutMosqueInput[]
+    deleteMany?: QRCodeScalarWhereInput | QRCodeScalarWhereInput[]
   }
 
   export type MosqueCreateNestedOneWithoutMediaInput = {
@@ -9769,18 +10043,22 @@ export namespace Prisma {
     update?: XOR<XOR<MosqueUpdateToOneWithWhereWithoutMediaInput, MosqueUpdateWithoutMediaInput>, MosqueUncheckedUpdateWithoutMediaInput>
   }
 
-  export type MosqueCreateNestedOneWithoutQrCodeInput = {
-    create?: XOR<MosqueCreateWithoutQrCodeInput, MosqueUncheckedCreateWithoutQrCodeInput>
-    connectOrCreate?: MosqueCreateOrConnectWithoutQrCodeInput
+  export type MosqueCreateNestedOneWithoutQrCodesInput = {
+    create?: XOR<MosqueCreateWithoutQrCodesInput, MosqueUncheckedCreateWithoutQrCodesInput>
+    connectOrCreate?: MosqueCreateOrConnectWithoutQrCodesInput
     connect?: MosqueWhereUniqueInput
   }
 
-  export type MosqueUpdateOneRequiredWithoutQrCodeNestedInput = {
-    create?: XOR<MosqueCreateWithoutQrCodeInput, MosqueUncheckedCreateWithoutQrCodeInput>
-    connectOrCreate?: MosqueCreateOrConnectWithoutQrCodeInput
-    upsert?: MosqueUpsertWithoutQrCodeInput
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type MosqueUpdateOneRequiredWithoutQrCodesNestedInput = {
+    create?: XOR<MosqueCreateWithoutQrCodesInput, MosqueUncheckedCreateWithoutQrCodesInput>
+    connectOrCreate?: MosqueCreateOrConnectWithoutQrCodesInput
+    upsert?: MosqueUpsertWithoutQrCodesInput
     connect?: MosqueWhereUniqueInput
-    update?: XOR<XOR<MosqueUpdateToOneWithWhereWithoutQrCodeInput, MosqueUpdateWithoutQrCodeInput>, MosqueUncheckedUpdateWithoutQrCodeInput>
+    update?: XOR<XOR<MosqueUpdateToOneWithWhereWithoutQrCodesInput, MosqueUpdateWithoutQrCodesInput>, MosqueUncheckedUpdateWithoutQrCodesInput>
   }
 
   export type CityCreateNestedOneWithoutAdminInput = {
@@ -9805,14 +10083,6 @@ export namespace Prisma {
     delete?: CityWhereInput | boolean
     connect?: CityWhereUniqueInput
     update?: XOR<XOR<CityUpdateToOneWithWhereWithoutAdminInput, CityUpdateWithoutAdminInput>, CityUncheckedUpdateWithoutAdminInput>
-  }
-
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -9926,6 +10196,46 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -9968,89 +10278,6 @@ export namespace Prisma {
     _max?: NestedEnumRoleFilter<$PrismaModel>
   }
 
-  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type PrayerCreateWithoutCityInput = {
-    date?: string | null
-    fajr?: string | null
-    shuruk?: string | null
-    zuhr?: string | null
-    asr?: string | null
-    maghrib?: string | null
-    isha?: string | null
-  }
-
-  export type PrayerUncheckedCreateWithoutCityInput = {
-    id?: number
-    date?: string | null
-    fajr?: string | null
-    shuruk?: string | null
-    zuhr?: string | null
-    asr?: string | null
-    maghrib?: string | null
-    isha?: string | null
-  }
-
-  export type PrayerCreateOrConnectWithoutCityInput = {
-    where: PrayerWhereUniqueInput
-    create: XOR<PrayerCreateWithoutCityInput, PrayerUncheckedCreateWithoutCityInput>
-  }
-
-  export type PrayerCreateManyCityInputEnvelope = {
-    data: PrayerCreateManyCityInput | PrayerCreateManyCityInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type MosqueCreateWithoutCityInput = {
-    name: string
-    logoUrl?: string | null
-    media?: MediaCreateNestedManyWithoutMosqueInput
-    qrCode?: QRCodeCreateNestedOneWithoutMosqueInput
-  }
-
-  export type MosqueUncheckedCreateWithoutCityInput = {
-    id?: number
-    name: string
-    logoUrl?: string | null
-    media?: MediaUncheckedCreateNestedManyWithoutMosqueInput
-    qrCode?: QRCodeUncheckedCreateNestedOneWithoutMosqueInput
-  }
-
-  export type MosqueCreateOrConnectWithoutCityInput = {
-    where: MosqueWhereUniqueInput
-    create: XOR<MosqueCreateWithoutCityInput, MosqueUncheckedCreateWithoutCityInput>
-  }
-
-  export type MosqueCreateManyCityInputEnvelope = {
-    data: MosqueCreateManyCityInput | MosqueCreateManyCityInput[]
-    skipDuplicates?: boolean
-  }
-
   export type AdminCreateWithoutCityInput = {
     email: string
     password: string
@@ -10071,61 +10298,66 @@ export namespace Prisma {
     create: XOR<AdminCreateWithoutCityInput, AdminUncheckedCreateWithoutCityInput>
   }
 
-  export type PrayerUpsertWithWhereUniqueWithoutCityInput = {
-    where: PrayerWhereUniqueInput
-    update: XOR<PrayerUpdateWithoutCityInput, PrayerUncheckedUpdateWithoutCityInput>
-    create: XOR<PrayerCreateWithoutCityInput, PrayerUncheckedCreateWithoutCityInput>
+  export type MosqueCreateWithoutCityInput = {
+    name: string
+    logoUrl?: string | null
+    media?: MediaCreateNestedManyWithoutMosqueInput
+    prayers?: PrayerCreateNestedManyWithoutMosqueInput
+    qrCodes?: QRCodeCreateNestedManyWithoutMosqueInput
   }
 
-  export type PrayerUpdateWithWhereUniqueWithoutCityInput = {
-    where: PrayerWhereUniqueInput
-    data: XOR<PrayerUpdateWithoutCityInput, PrayerUncheckedUpdateWithoutCityInput>
+  export type MosqueUncheckedCreateWithoutCityInput = {
+    id?: number
+    name: string
+    logoUrl?: string | null
+    media?: MediaUncheckedCreateNestedManyWithoutMosqueInput
+    prayers?: PrayerUncheckedCreateNestedManyWithoutMosqueInput
+    qrCodes?: QRCodeUncheckedCreateNestedManyWithoutMosqueInput
   }
 
-  export type PrayerUpdateManyWithWhereWithoutCityInput = {
-    where: PrayerScalarWhereInput
-    data: XOR<PrayerUpdateManyMutationInput, PrayerUncheckedUpdateManyWithoutCityInput>
-  }
-
-  export type PrayerScalarWhereInput = {
-    AND?: PrayerScalarWhereInput | PrayerScalarWhereInput[]
-    OR?: PrayerScalarWhereInput[]
-    NOT?: PrayerScalarWhereInput | PrayerScalarWhereInput[]
-    id?: IntFilter<"Prayer"> | number
-    cityId?: IntFilter<"Prayer"> | number
-    date?: StringNullableFilter<"Prayer"> | string | null
-    fajr?: StringNullableFilter<"Prayer"> | string | null
-    shuruk?: StringNullableFilter<"Prayer"> | string | null
-    zuhr?: StringNullableFilter<"Prayer"> | string | null
-    asr?: StringNullableFilter<"Prayer"> | string | null
-    maghrib?: StringNullableFilter<"Prayer"> | string | null
-    isha?: StringNullableFilter<"Prayer"> | string | null
-  }
-
-  export type MosqueUpsertWithWhereUniqueWithoutCityInput = {
+  export type MosqueCreateOrConnectWithoutCityInput = {
     where: MosqueWhereUniqueInput
-    update: XOR<MosqueUpdateWithoutCityInput, MosqueUncheckedUpdateWithoutCityInput>
     create: XOR<MosqueCreateWithoutCityInput, MosqueUncheckedCreateWithoutCityInput>
   }
 
-  export type MosqueUpdateWithWhereUniqueWithoutCityInput = {
-    where: MosqueWhereUniqueInput
-    data: XOR<MosqueUpdateWithoutCityInput, MosqueUncheckedUpdateWithoutCityInput>
+  export type MosqueCreateManyCityInputEnvelope = {
+    data: MosqueCreateManyCityInput | MosqueCreateManyCityInput[]
+    skipDuplicates?: boolean
   }
 
-  export type MosqueUpdateManyWithWhereWithoutCityInput = {
-    where: MosqueScalarWhereInput
-    data: XOR<MosqueUpdateManyMutationInput, MosqueUncheckedUpdateManyWithoutCityInput>
+  export type PrayerCreateWithoutCityInput = {
+    date?: string | null
+    fajr?: string | null
+    shuruk?: string | null
+    zuhr?: string | null
+    asr?: string | null
+    maghrib?: string | null
+    isha?: string | null
+    mechet?: string | null
+    mosque?: MosqueCreateNestedOneWithoutPrayersInput
   }
 
-  export type MosqueScalarWhereInput = {
-    AND?: MosqueScalarWhereInput | MosqueScalarWhereInput[]
-    OR?: MosqueScalarWhereInput[]
-    NOT?: MosqueScalarWhereInput | MosqueScalarWhereInput[]
-    id?: IntFilter<"Mosque"> | number
-    cityId?: IntFilter<"Mosque"> | number
-    name?: StringFilter<"Mosque"> | string
-    logoUrl?: StringNullableFilter<"Mosque"> | string | null
+  export type PrayerUncheckedCreateWithoutCityInput = {
+    id?: number
+    mosqueId?: number | null
+    date?: string | null
+    fajr?: string | null
+    shuruk?: string | null
+    zuhr?: string | null
+    asr?: string | null
+    maghrib?: string | null
+    isha?: string | null
+    mechet?: string | null
+  }
+
+  export type PrayerCreateOrConnectWithoutCityInput = {
+    where: PrayerWhereUniqueInput
+    create: XOR<PrayerCreateWithoutCityInput, PrayerUncheckedCreateWithoutCityInput>
+  }
+
+  export type PrayerCreateManyCityInputEnvelope = {
+    data: PrayerCreateManyCityInput | PrayerCreateManyCityInput[]
+    skipDuplicates?: boolean
   }
 
   export type AdminUpsertWithoutCityInput = {
@@ -10154,24 +10386,105 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
   }
 
+  export type MosqueUpsertWithWhereUniqueWithoutCityInput = {
+    where: MosqueWhereUniqueInput
+    update: XOR<MosqueUpdateWithoutCityInput, MosqueUncheckedUpdateWithoutCityInput>
+    create: XOR<MosqueCreateWithoutCityInput, MosqueUncheckedCreateWithoutCityInput>
+  }
+
+  export type MosqueUpdateWithWhereUniqueWithoutCityInput = {
+    where: MosqueWhereUniqueInput
+    data: XOR<MosqueUpdateWithoutCityInput, MosqueUncheckedUpdateWithoutCityInput>
+  }
+
+  export type MosqueUpdateManyWithWhereWithoutCityInput = {
+    where: MosqueScalarWhereInput
+    data: XOR<MosqueUpdateManyMutationInput, MosqueUncheckedUpdateManyWithoutCityInput>
+  }
+
+  export type MosqueScalarWhereInput = {
+    AND?: MosqueScalarWhereInput | MosqueScalarWhereInput[]
+    OR?: MosqueScalarWhereInput[]
+    NOT?: MosqueScalarWhereInput | MosqueScalarWhereInput[]
+    id?: IntFilter<"Mosque"> | number
+    cityId?: IntFilter<"Mosque"> | number
+    name?: StringFilter<"Mosque"> | string
+    logoUrl?: StringNullableFilter<"Mosque"> | string | null
+  }
+
+  export type PrayerUpsertWithWhereUniqueWithoutCityInput = {
+    where: PrayerWhereUniqueInput
+    update: XOR<PrayerUpdateWithoutCityInput, PrayerUncheckedUpdateWithoutCityInput>
+    create: XOR<PrayerCreateWithoutCityInput, PrayerUncheckedCreateWithoutCityInput>
+  }
+
+  export type PrayerUpdateWithWhereUniqueWithoutCityInput = {
+    where: PrayerWhereUniqueInput
+    data: XOR<PrayerUpdateWithoutCityInput, PrayerUncheckedUpdateWithoutCityInput>
+  }
+
+  export type PrayerUpdateManyWithWhereWithoutCityInput = {
+    where: PrayerScalarWhereInput
+    data: XOR<PrayerUpdateManyMutationInput, PrayerUncheckedUpdateManyWithoutCityInput>
+  }
+
+  export type PrayerScalarWhereInput = {
+    AND?: PrayerScalarWhereInput | PrayerScalarWhereInput[]
+    OR?: PrayerScalarWhereInput[]
+    NOT?: PrayerScalarWhereInput | PrayerScalarWhereInput[]
+    id?: IntFilter<"Prayer"> | number
+    cityId?: IntFilter<"Prayer"> | number
+    mosqueId?: IntNullableFilter<"Prayer"> | number | null
+    date?: StringNullableFilter<"Prayer"> | string | null
+    fajr?: StringNullableFilter<"Prayer"> | string | null
+    shuruk?: StringNullableFilter<"Prayer"> | string | null
+    zuhr?: StringNullableFilter<"Prayer"> | string | null
+    asr?: StringNullableFilter<"Prayer"> | string | null
+    maghrib?: StringNullableFilter<"Prayer"> | string | null
+    isha?: StringNullableFilter<"Prayer"> | string | null
+    mechet?: StringNullableFilter<"Prayer"> | string | null
+  }
+
   export type CityCreateWithoutPrayersInput = {
     name: string
     logoUrl?: string | null
-    Mosque?: MosqueCreateNestedManyWithoutCityInput
     admin?: AdminCreateNestedOneWithoutCityInput
+    Mosque?: MosqueCreateNestedManyWithoutCityInput
   }
 
   export type CityUncheckedCreateWithoutPrayersInput = {
     id?: number
     name: string
     logoUrl?: string | null
-    Mosque?: MosqueUncheckedCreateNestedManyWithoutCityInput
     admin?: AdminUncheckedCreateNestedOneWithoutCityInput
+    Mosque?: MosqueUncheckedCreateNestedManyWithoutCityInput
   }
 
   export type CityCreateOrConnectWithoutPrayersInput = {
     where: CityWhereUniqueInput
     create: XOR<CityCreateWithoutPrayersInput, CityUncheckedCreateWithoutPrayersInput>
+  }
+
+  export type MosqueCreateWithoutPrayersInput = {
+    name: string
+    logoUrl?: string | null
+    media?: MediaCreateNestedManyWithoutMosqueInput
+    city: CityCreateNestedOneWithoutMosqueInput
+    qrCodes?: QRCodeCreateNestedManyWithoutMosqueInput
+  }
+
+  export type MosqueUncheckedCreateWithoutPrayersInput = {
+    id?: number
+    cityId: number
+    name: string
+    logoUrl?: string | null
+    media?: MediaUncheckedCreateNestedManyWithoutMosqueInput
+    qrCodes?: QRCodeUncheckedCreateNestedManyWithoutMosqueInput
+  }
+
+  export type MosqueCreateOrConnectWithoutPrayersInput = {
+    where: MosqueWhereUniqueInput
+    create: XOR<MosqueCreateWithoutPrayersInput, MosqueUncheckedCreateWithoutPrayersInput>
   }
 
   export type CityUpsertWithoutPrayersInput = {
@@ -10188,36 +10501,44 @@ export namespace Prisma {
   export type CityUpdateWithoutPrayersInput = {
     name?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    Mosque?: MosqueUpdateManyWithoutCityNestedInput
     admin?: AdminUpdateOneWithoutCityNestedInput
+    Mosque?: MosqueUpdateManyWithoutCityNestedInput
   }
 
   export type CityUncheckedUpdateWithoutPrayersInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    Mosque?: MosqueUncheckedUpdateManyWithoutCityNestedInput
     admin?: AdminUncheckedUpdateOneWithoutCityNestedInput
+    Mosque?: MosqueUncheckedUpdateManyWithoutCityNestedInput
   }
 
-  export type CityCreateWithoutMosqueInput = {
-    name: string
-    logoUrl?: string | null
-    prayers?: PrayerCreateNestedManyWithoutCityInput
-    admin?: AdminCreateNestedOneWithoutCityInput
+  export type MosqueUpsertWithoutPrayersInput = {
+    update: XOR<MosqueUpdateWithoutPrayersInput, MosqueUncheckedUpdateWithoutPrayersInput>
+    create: XOR<MosqueCreateWithoutPrayersInput, MosqueUncheckedCreateWithoutPrayersInput>
+    where?: MosqueWhereInput
   }
 
-  export type CityUncheckedCreateWithoutMosqueInput = {
-    id?: number
-    name: string
-    logoUrl?: string | null
-    prayers?: PrayerUncheckedCreateNestedManyWithoutCityInput
-    admin?: AdminUncheckedCreateNestedOneWithoutCityInput
+  export type MosqueUpdateToOneWithWhereWithoutPrayersInput = {
+    where?: MosqueWhereInput
+    data: XOR<MosqueUpdateWithoutPrayersInput, MosqueUncheckedUpdateWithoutPrayersInput>
   }
 
-  export type CityCreateOrConnectWithoutMosqueInput = {
-    where: CityWhereUniqueInput
-    create: XOR<CityCreateWithoutMosqueInput, CityUncheckedCreateWithoutMosqueInput>
+  export type MosqueUpdateWithoutPrayersInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    media?: MediaUpdateManyWithoutMosqueNestedInput
+    city?: CityUpdateOneRequiredWithoutMosqueNestedInput
+    qrCodes?: QRCodeUpdateManyWithoutMosqueNestedInput
+  }
+
+  export type MosqueUncheckedUpdateWithoutPrayersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    cityId?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    media?: MediaUncheckedUpdateManyWithoutMosqueNestedInput
+    qrCodes?: QRCodeUncheckedUpdateManyWithoutMosqueNestedInput
   }
 
   export type MediaCreateWithoutMosqueInput = {
@@ -10239,13 +10560,70 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type PrayerCreateWithoutMosqueInput = {
+    date?: string | null
+    fajr?: string | null
+    shuruk?: string | null
+    zuhr?: string | null
+    asr?: string | null
+    maghrib?: string | null
+    isha?: string | null
+    mechet?: string | null
+    city: CityCreateNestedOneWithoutPrayersInput
+  }
+
+  export type PrayerUncheckedCreateWithoutMosqueInput = {
+    id?: number
+    cityId: number
+    date?: string | null
+    fajr?: string | null
+    shuruk?: string | null
+    zuhr?: string | null
+    asr?: string | null
+    maghrib?: string | null
+    isha?: string | null
+    mechet?: string | null
+  }
+
+  export type PrayerCreateOrConnectWithoutMosqueInput = {
+    where: PrayerWhereUniqueInput
+    create: XOR<PrayerCreateWithoutMosqueInput, PrayerUncheckedCreateWithoutMosqueInput>
+  }
+
+  export type PrayerCreateManyMosqueInputEnvelope = {
+    data: PrayerCreateManyMosqueInput | PrayerCreateManyMosqueInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CityCreateWithoutMosqueInput = {
+    name: string
+    logoUrl?: string | null
+    admin?: AdminCreateNestedOneWithoutCityInput
+    prayers?: PrayerCreateNestedManyWithoutCityInput
+  }
+
+  export type CityUncheckedCreateWithoutMosqueInput = {
+    id?: number
+    name: string
+    logoUrl?: string | null
+    admin?: AdminUncheckedCreateNestedOneWithoutCityInput
+    prayers?: PrayerUncheckedCreateNestedManyWithoutCityInput
+  }
+
+  export type CityCreateOrConnectWithoutMosqueInput = {
+    where: CityWhereUniqueInput
+    create: XOR<CityCreateWithoutMosqueInput, CityUncheckedCreateWithoutMosqueInput>
+  }
+
   export type QRCodeCreateWithoutMosqueInput = {
     imageUrl: string
+    isPrimary?: boolean
   }
 
   export type QRCodeUncheckedCreateWithoutMosqueInput = {
     id?: number
     imageUrl: string
+    isPrimary?: boolean
   }
 
   export type QRCodeCreateOrConnectWithoutMosqueInput = {
@@ -10253,30 +10631,9 @@ export namespace Prisma {
     create: XOR<QRCodeCreateWithoutMosqueInput, QRCodeUncheckedCreateWithoutMosqueInput>
   }
 
-  export type CityUpsertWithoutMosqueInput = {
-    update: XOR<CityUpdateWithoutMosqueInput, CityUncheckedUpdateWithoutMosqueInput>
-    create: XOR<CityCreateWithoutMosqueInput, CityUncheckedCreateWithoutMosqueInput>
-    where?: CityWhereInput
-  }
-
-  export type CityUpdateToOneWithWhereWithoutMosqueInput = {
-    where?: CityWhereInput
-    data: XOR<CityUpdateWithoutMosqueInput, CityUncheckedUpdateWithoutMosqueInput>
-  }
-
-  export type CityUpdateWithoutMosqueInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    prayers?: PrayerUpdateManyWithoutCityNestedInput
-    admin?: AdminUpdateOneWithoutCityNestedInput
-  }
-
-  export type CityUncheckedUpdateWithoutMosqueInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    prayers?: PrayerUncheckedUpdateManyWithoutCityNestedInput
-    admin?: AdminUncheckedUpdateOneWithoutCityNestedInput
+  export type QRCodeCreateManyMosqueInputEnvelope = {
+    data: QRCodeCreateManyMosqueInput | QRCodeCreateManyMosqueInput[]
+    skipDuplicates?: boolean
   }
 
   export type MediaUpsertWithWhereUniqueWithoutMosqueInput = {
@@ -10304,31 +10661,80 @@ export namespace Prisma {
     videoUrl?: StringNullableFilter<"Media"> | string | null
   }
 
-  export type QRCodeUpsertWithoutMosqueInput = {
-    update: XOR<QRCodeUpdateWithoutMosqueInput, QRCodeUncheckedUpdateWithoutMosqueInput>
-    create: XOR<QRCodeCreateWithoutMosqueInput, QRCodeUncheckedCreateWithoutMosqueInput>
-    where?: QRCodeWhereInput
+  export type PrayerUpsertWithWhereUniqueWithoutMosqueInput = {
+    where: PrayerWhereUniqueInput
+    update: XOR<PrayerUpdateWithoutMosqueInput, PrayerUncheckedUpdateWithoutMosqueInput>
+    create: XOR<PrayerCreateWithoutMosqueInput, PrayerUncheckedCreateWithoutMosqueInput>
   }
 
-  export type QRCodeUpdateToOneWithWhereWithoutMosqueInput = {
-    where?: QRCodeWhereInput
+  export type PrayerUpdateWithWhereUniqueWithoutMosqueInput = {
+    where: PrayerWhereUniqueInput
+    data: XOR<PrayerUpdateWithoutMosqueInput, PrayerUncheckedUpdateWithoutMosqueInput>
+  }
+
+  export type PrayerUpdateManyWithWhereWithoutMosqueInput = {
+    where: PrayerScalarWhereInput
+    data: XOR<PrayerUpdateManyMutationInput, PrayerUncheckedUpdateManyWithoutMosqueInput>
+  }
+
+  export type CityUpsertWithoutMosqueInput = {
+    update: XOR<CityUpdateWithoutMosqueInput, CityUncheckedUpdateWithoutMosqueInput>
+    create: XOR<CityCreateWithoutMosqueInput, CityUncheckedCreateWithoutMosqueInput>
+    where?: CityWhereInput
+  }
+
+  export type CityUpdateToOneWithWhereWithoutMosqueInput = {
+    where?: CityWhereInput
+    data: XOR<CityUpdateWithoutMosqueInput, CityUncheckedUpdateWithoutMosqueInput>
+  }
+
+  export type CityUpdateWithoutMosqueInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    admin?: AdminUpdateOneWithoutCityNestedInput
+    prayers?: PrayerUpdateManyWithoutCityNestedInput
+  }
+
+  export type CityUncheckedUpdateWithoutMosqueInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    admin?: AdminUncheckedUpdateOneWithoutCityNestedInput
+    prayers?: PrayerUncheckedUpdateManyWithoutCityNestedInput
+  }
+
+  export type QRCodeUpsertWithWhereUniqueWithoutMosqueInput = {
+    where: QRCodeWhereUniqueInput
+    update: XOR<QRCodeUpdateWithoutMosqueInput, QRCodeUncheckedUpdateWithoutMosqueInput>
+    create: XOR<QRCodeCreateWithoutMosqueInput, QRCodeUncheckedCreateWithoutMosqueInput>
+  }
+
+  export type QRCodeUpdateWithWhereUniqueWithoutMosqueInput = {
+    where: QRCodeWhereUniqueInput
     data: XOR<QRCodeUpdateWithoutMosqueInput, QRCodeUncheckedUpdateWithoutMosqueInput>
   }
 
-  export type QRCodeUpdateWithoutMosqueInput = {
-    imageUrl?: StringFieldUpdateOperationsInput | string
+  export type QRCodeUpdateManyWithWhereWithoutMosqueInput = {
+    where: QRCodeScalarWhereInput
+    data: XOR<QRCodeUpdateManyMutationInput, QRCodeUncheckedUpdateManyWithoutMosqueInput>
   }
 
-  export type QRCodeUncheckedUpdateWithoutMosqueInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    imageUrl?: StringFieldUpdateOperationsInput | string
+  export type QRCodeScalarWhereInput = {
+    AND?: QRCodeScalarWhereInput | QRCodeScalarWhereInput[]
+    OR?: QRCodeScalarWhereInput[]
+    NOT?: QRCodeScalarWhereInput | QRCodeScalarWhereInput[]
+    id?: IntFilter<"QRCode"> | number
+    mosqueId?: IntFilter<"QRCode"> | number
+    imageUrl?: StringFilter<"QRCode"> | string
+    isPrimary?: BoolFilter<"QRCode"> | boolean
   }
 
   export type MosqueCreateWithoutMediaInput = {
     name: string
     logoUrl?: string | null
+    prayers?: PrayerCreateNestedManyWithoutMosqueInput
     city: CityCreateNestedOneWithoutMosqueInput
-    qrCode?: QRCodeCreateNestedOneWithoutMosqueInput
+    qrCodes?: QRCodeCreateNestedManyWithoutMosqueInput
   }
 
   export type MosqueUncheckedCreateWithoutMediaInput = {
@@ -10336,7 +10742,8 @@ export namespace Prisma {
     cityId: number
     name: string
     logoUrl?: string | null
-    qrCode?: QRCodeUncheckedCreateNestedOneWithoutMosqueInput
+    prayers?: PrayerUncheckedCreateNestedManyWithoutMosqueInput
+    qrCodes?: QRCodeUncheckedCreateNestedManyWithoutMosqueInput
   }
 
   export type MosqueCreateOrConnectWithoutMediaInput = {
@@ -10358,8 +10765,9 @@ export namespace Prisma {
   export type MosqueUpdateWithoutMediaInput = {
     name?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    prayers?: PrayerUpdateManyWithoutMosqueNestedInput
     city?: CityUpdateOneRequiredWithoutMosqueNestedInput
-    qrCode?: QRCodeUpdateOneWithoutMosqueNestedInput
+    qrCodes?: QRCodeUpdateManyWithoutMosqueNestedInput
   }
 
   export type MosqueUncheckedUpdateWithoutMediaInput = {
@@ -10367,68 +10775,73 @@ export namespace Prisma {
     cityId?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    qrCode?: QRCodeUncheckedUpdateOneWithoutMosqueNestedInput
+    prayers?: PrayerUncheckedUpdateManyWithoutMosqueNestedInput
+    qrCodes?: QRCodeUncheckedUpdateManyWithoutMosqueNestedInput
   }
 
-  export type MosqueCreateWithoutQrCodeInput = {
+  export type MosqueCreateWithoutQrCodesInput = {
     name: string
     logoUrl?: string | null
-    city: CityCreateNestedOneWithoutMosqueInput
     media?: MediaCreateNestedManyWithoutMosqueInput
+    prayers?: PrayerCreateNestedManyWithoutMosqueInput
+    city: CityCreateNestedOneWithoutMosqueInput
   }
 
-  export type MosqueUncheckedCreateWithoutQrCodeInput = {
+  export type MosqueUncheckedCreateWithoutQrCodesInput = {
     id?: number
     cityId: number
     name: string
     logoUrl?: string | null
     media?: MediaUncheckedCreateNestedManyWithoutMosqueInput
+    prayers?: PrayerUncheckedCreateNestedManyWithoutMosqueInput
   }
 
-  export type MosqueCreateOrConnectWithoutQrCodeInput = {
+  export type MosqueCreateOrConnectWithoutQrCodesInput = {
     where: MosqueWhereUniqueInput
-    create: XOR<MosqueCreateWithoutQrCodeInput, MosqueUncheckedCreateWithoutQrCodeInput>
+    create: XOR<MosqueCreateWithoutQrCodesInput, MosqueUncheckedCreateWithoutQrCodesInput>
   }
 
-  export type MosqueUpsertWithoutQrCodeInput = {
-    update: XOR<MosqueUpdateWithoutQrCodeInput, MosqueUncheckedUpdateWithoutQrCodeInput>
-    create: XOR<MosqueCreateWithoutQrCodeInput, MosqueUncheckedCreateWithoutQrCodeInput>
+  export type MosqueUpsertWithoutQrCodesInput = {
+    update: XOR<MosqueUpdateWithoutQrCodesInput, MosqueUncheckedUpdateWithoutQrCodesInput>
+    create: XOR<MosqueCreateWithoutQrCodesInput, MosqueUncheckedCreateWithoutQrCodesInput>
     where?: MosqueWhereInput
   }
 
-  export type MosqueUpdateToOneWithWhereWithoutQrCodeInput = {
+  export type MosqueUpdateToOneWithWhereWithoutQrCodesInput = {
     where?: MosqueWhereInput
-    data: XOR<MosqueUpdateWithoutQrCodeInput, MosqueUncheckedUpdateWithoutQrCodeInput>
+    data: XOR<MosqueUpdateWithoutQrCodesInput, MosqueUncheckedUpdateWithoutQrCodesInput>
   }
 
-  export type MosqueUpdateWithoutQrCodeInput = {
+  export type MosqueUpdateWithoutQrCodesInput = {
     name?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: CityUpdateOneRequiredWithoutMosqueNestedInput
     media?: MediaUpdateManyWithoutMosqueNestedInput
+    prayers?: PrayerUpdateManyWithoutMosqueNestedInput
+    city?: CityUpdateOneRequiredWithoutMosqueNestedInput
   }
 
-  export type MosqueUncheckedUpdateWithoutQrCodeInput = {
+  export type MosqueUncheckedUpdateWithoutQrCodesInput = {
     id?: IntFieldUpdateOperationsInput | number
     cityId?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     media?: MediaUncheckedUpdateManyWithoutMosqueNestedInput
+    prayers?: PrayerUncheckedUpdateManyWithoutMosqueNestedInput
   }
 
   export type CityCreateWithoutAdminInput = {
     name: string
     logoUrl?: string | null
-    prayers?: PrayerCreateNestedManyWithoutCityInput
     Mosque?: MosqueCreateNestedManyWithoutCityInput
+    prayers?: PrayerCreateNestedManyWithoutCityInput
   }
 
   export type CityUncheckedCreateWithoutAdminInput = {
     id?: number
     name: string
     logoUrl?: string | null
-    prayers?: PrayerUncheckedCreateNestedManyWithoutCityInput
     Mosque?: MosqueUncheckedCreateNestedManyWithoutCityInput
+    prayers?: PrayerUncheckedCreateNestedManyWithoutCityInput
   }
 
   export type CityCreateOrConnectWithoutAdminInput = {
@@ -10450,20 +10863,27 @@ export namespace Prisma {
   export type CityUpdateWithoutAdminInput = {
     name?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    prayers?: PrayerUpdateManyWithoutCityNestedInput
     Mosque?: MosqueUpdateManyWithoutCityNestedInput
+    prayers?: PrayerUpdateManyWithoutCityNestedInput
   }
 
   export type CityUncheckedUpdateWithoutAdminInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    prayers?: PrayerUncheckedUpdateManyWithoutCityNestedInput
     Mosque?: MosqueUncheckedUpdateManyWithoutCityNestedInput
+    prayers?: PrayerUncheckedUpdateManyWithoutCityNestedInput
+  }
+
+  export type MosqueCreateManyCityInput = {
+    id?: number
+    name: string
+    logoUrl?: string | null
   }
 
   export type PrayerCreateManyCityInput = {
     id?: number
+    mosqueId?: number | null
     date?: string | null
     fajr?: string | null
     shuruk?: string | null
@@ -10471,12 +10891,30 @@ export namespace Prisma {
     asr?: string | null
     maghrib?: string | null
     isha?: string | null
+    mechet?: string | null
   }
 
-  export type MosqueCreateManyCityInput = {
-    id?: number
-    name: string
-    logoUrl?: string | null
+  export type MosqueUpdateWithoutCityInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    media?: MediaUpdateManyWithoutMosqueNestedInput
+    prayers?: PrayerUpdateManyWithoutMosqueNestedInput
+    qrCodes?: QRCodeUpdateManyWithoutMosqueNestedInput
+  }
+
+  export type MosqueUncheckedUpdateWithoutCityInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    media?: MediaUncheckedUpdateManyWithoutMosqueNestedInput
+    prayers?: PrayerUncheckedUpdateManyWithoutMosqueNestedInput
+    qrCodes?: QRCodeUncheckedUpdateManyWithoutMosqueNestedInput
+  }
+
+  export type MosqueUncheckedUpdateManyWithoutCityInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PrayerUpdateWithoutCityInput = {
@@ -10487,10 +10925,13 @@ export namespace Prisma {
     asr?: NullableStringFieldUpdateOperationsInput | string | null
     maghrib?: NullableStringFieldUpdateOperationsInput | string | null
     isha?: NullableStringFieldUpdateOperationsInput | string | null
+    mechet?: NullableStringFieldUpdateOperationsInput | string | null
+    mosque?: MosqueUpdateOneWithoutPrayersNestedInput
   }
 
   export type PrayerUncheckedUpdateWithoutCityInput = {
     id?: IntFieldUpdateOperationsInput | number
+    mosqueId?: NullableIntFieldUpdateOperationsInput | number | null
     date?: NullableStringFieldUpdateOperationsInput | string | null
     fajr?: NullableStringFieldUpdateOperationsInput | string | null
     shuruk?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10498,10 +10939,12 @@ export namespace Prisma {
     asr?: NullableStringFieldUpdateOperationsInput | string | null
     maghrib?: NullableStringFieldUpdateOperationsInput | string | null
     isha?: NullableStringFieldUpdateOperationsInput | string | null
+    mechet?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PrayerUncheckedUpdateManyWithoutCityInput = {
     id?: IntFieldUpdateOperationsInput | number
+    mosqueId?: NullableIntFieldUpdateOperationsInput | number | null
     date?: NullableStringFieldUpdateOperationsInput | string | null
     fajr?: NullableStringFieldUpdateOperationsInput | string | null
     shuruk?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10509,32 +10952,31 @@ export namespace Prisma {
     asr?: NullableStringFieldUpdateOperationsInput | string | null
     maghrib?: NullableStringFieldUpdateOperationsInput | string | null
     isha?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type MosqueUpdateWithoutCityInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    media?: MediaUpdateManyWithoutMosqueNestedInput
-    qrCode?: QRCodeUpdateOneWithoutMosqueNestedInput
-  }
-
-  export type MosqueUncheckedUpdateWithoutCityInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    media?: MediaUncheckedUpdateManyWithoutMosqueNestedInput
-    qrCode?: QRCodeUncheckedUpdateOneWithoutMosqueNestedInput
-  }
-
-  export type MosqueUncheckedUpdateManyWithoutCityInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    mechet?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MediaCreateManyMosqueInput = {
     id?: number
     videoUrl?: string | null
+  }
+
+  export type PrayerCreateManyMosqueInput = {
+    id?: number
+    cityId: number
+    date?: string | null
+    fajr?: string | null
+    shuruk?: string | null
+    zuhr?: string | null
+    asr?: string | null
+    maghrib?: string | null
+    isha?: string | null
+    mechet?: string | null
+  }
+
+  export type QRCodeCreateManyMosqueInput = {
+    id?: number
+    imageUrl: string
+    isPrimary?: boolean
   }
 
   export type MediaUpdateWithoutMosqueInput = {
@@ -10549,6 +10991,61 @@ export namespace Prisma {
   export type MediaUncheckedUpdateManyWithoutMosqueInput = {
     id?: IntFieldUpdateOperationsInput | number
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type PrayerUpdateWithoutMosqueInput = {
+    date?: NullableStringFieldUpdateOperationsInput | string | null
+    fajr?: NullableStringFieldUpdateOperationsInput | string | null
+    shuruk?: NullableStringFieldUpdateOperationsInput | string | null
+    zuhr?: NullableStringFieldUpdateOperationsInput | string | null
+    asr?: NullableStringFieldUpdateOperationsInput | string | null
+    maghrib?: NullableStringFieldUpdateOperationsInput | string | null
+    isha?: NullableStringFieldUpdateOperationsInput | string | null
+    mechet?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: CityUpdateOneRequiredWithoutPrayersNestedInput
+  }
+
+  export type PrayerUncheckedUpdateWithoutMosqueInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    cityId?: IntFieldUpdateOperationsInput | number
+    date?: NullableStringFieldUpdateOperationsInput | string | null
+    fajr?: NullableStringFieldUpdateOperationsInput | string | null
+    shuruk?: NullableStringFieldUpdateOperationsInput | string | null
+    zuhr?: NullableStringFieldUpdateOperationsInput | string | null
+    asr?: NullableStringFieldUpdateOperationsInput | string | null
+    maghrib?: NullableStringFieldUpdateOperationsInput | string | null
+    isha?: NullableStringFieldUpdateOperationsInput | string | null
+    mechet?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type PrayerUncheckedUpdateManyWithoutMosqueInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    cityId?: IntFieldUpdateOperationsInput | number
+    date?: NullableStringFieldUpdateOperationsInput | string | null
+    fajr?: NullableStringFieldUpdateOperationsInput | string | null
+    shuruk?: NullableStringFieldUpdateOperationsInput | string | null
+    zuhr?: NullableStringFieldUpdateOperationsInput | string | null
+    asr?: NullableStringFieldUpdateOperationsInput | string | null
+    maghrib?: NullableStringFieldUpdateOperationsInput | string | null
+    isha?: NullableStringFieldUpdateOperationsInput | string | null
+    mechet?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type QRCodeUpdateWithoutMosqueInput = {
+    imageUrl?: StringFieldUpdateOperationsInput | string
+    isPrimary?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type QRCodeUncheckedUpdateWithoutMosqueInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    imageUrl?: StringFieldUpdateOperationsInput | string
+    isPrimary?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type QRCodeUncheckedUpdateManyWithoutMosqueInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    imageUrl?: StringFieldUpdateOperationsInput | string
+    isPrimary?: BoolFieldUpdateOperationsInput | boolean
   }
 
 

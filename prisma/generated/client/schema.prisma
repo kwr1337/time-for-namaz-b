@@ -8,24 +8,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Role {
-  SUPER_ADMIN
-  CITY_ADMIN
-}
-
 model City {
   id      Int      @id @default(autoincrement())
   name    String
   logoUrl String?
-  prayers Prayer[]
+  admin   Admin?   @relation("CityAdmin")
   Mosque  Mosque[]
-  admin   Admin?   @relation("CityAdmin") // Здесь не добавляем fields и references
+  prayers Prayer[]
 }
 
 model Prayer {
   id      Int     @id @default(autoincrement())
-  city    City    @relation(fields: [cityId], references: [id])
   cityId  Int
+  mosqueId Int?
   date    String?
   fajr    String?
   shuruk  String?
@@ -33,30 +28,35 @@ model Prayer {
   asr     String?
   maghrib String?
   isha    String?
+  mechet  String?
+  city    City    @relation(fields: [cityId], references: [id])
+  mosque  Mosque? @relation(fields: [mosqueId], references: [id])
 }
 
 model Mosque {
-  id      Int     @id @default(autoincrement())
-  city    City    @relation(fields: [cityId], references: [id])
+  id      Int      @id @default(autoincrement())
   cityId  Int
   name    String
   logoUrl String?
   media   Media[]
-  qrCode  QRCode? @relation("MosqueQRCode") // Связь без полей fields и references
+  prayers Prayer[]
+  city    City     @relation(fields: [cityId], references: [id])
+  qrCodes QRCode[] @relation("MosqueQRCode")
 }
 
 model Media {
   id       Int     @id @default(autoincrement())
-  mosque   Mosque  @relation(fields: [mosqueId], references: [id])
   mosqueId Int
   videoUrl String?
+  mosque   Mosque  @relation(fields: [mosqueId], references: [id])
 }
 
 model QRCode {
-  id       Int    @id @default(autoincrement())
-  mosque   Mosque @relation("MosqueQRCode", fields: [mosqueId], references: [id])
-  mosqueId Int    @unique
-  imageUrl String // Ссылка на изображение QR-кода или бинарные данные
+  id       Int     @id @default(autoincrement())
+  mosqueId Int
+  imageUrl String
+  isPrimary Boolean @default(true)
+  mosque   Mosque  @relation("MosqueQRCode", fields: [mosqueId], references: [id])
 }
 
 model ErrorMessage {
@@ -72,4 +72,9 @@ model Admin {
   role      Role
   cityId    Int?     @unique
   city      City?    @relation("CityAdmin", fields: [cityId], references: [id])
+}
+
+enum Role {
+  SUPER_ADMIN
+  CITY_ADMIN
 }

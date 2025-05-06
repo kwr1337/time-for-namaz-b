@@ -17,8 +17,23 @@ export class PrayerService {
 			const jsDate = this.excelDateToJsDate(dateValue);
 			return jsDate.toISOString().split('T')[0];
 		} else if (typeof dateValue === 'string') {
-			const [datePart] = dateValue.split(' ');
-			return datePart.split('.').reverse().join('-');
+			// Проверяем формат даты (может быть ДД.ММ.ГГГГ или другой)
+			if (dateValue.includes('.')) {
+				// Формат ДД.ММ.ГГГГ с точками
+				const parts = dateValue.split('.');
+				if (parts.length === 3) {
+					// Преобразуем в ГГГГ-ММ-ДД
+					return `${parts[2]}-${parts[1].padStart(2, '0')}-${parts[0].padStart(2, '0')}`;
+				}
+			} else {
+				// Другие форматы строк дат
+				const [datePart] = dateValue.split(' ');
+				if (datePart.includes('-')) {
+					return datePart; // уже в формате YYYY-MM-DD
+				}
+			}
+			console.error('Неподдерживаемый формат даты:', dateValue);
+			return null;
 		} else {
 			console.error('Ожидалось число или строка для даты, но получено:', dateValue);
 			return null;
@@ -114,6 +129,9 @@ export class PrayerService {
 				case 'isha':
 					updatedTime = this.shiftTime(prayer.isha, shiftMinutes);
 					break;
+				case 'mechet':
+					updatedTime = this.shiftTime(prayer.mechet, shiftMinutes);
+					break;
 				default:
 					throw new Error(`Неверное название молитвы: "${prayerName}"`);
 			}
@@ -151,63 +169,90 @@ export class PrayerService {
 		const workbook = XLSX.readFile(filePath);
 		const sheetName = workbook.SheetNames[0];
 		const worksheet = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
-
+		
+		console.log('Начало импорта из Excel. Количество строк:', worksheet.length);
+		
+		let processed = 0;
+		let skipped = 0;
+		
 		for (const row of worksheet) {
-			const cityName = row['Город'] as string;
-			const date = this.formatDate(row['Дата']);
-			const fajr = this.formatTime(row['Фаджр']);
-			const shuruk = this.formatTime(row['Шурук']);
-			const zuhr = this.formatTime(row['Зухр']);
-			const asr = this.formatTime(row['Аср']);
-			const maghrib = this.formatTime(row['Магриб']);
-			const isha = this.formatTime(row['Иша']);
-
-			if (!date || !fajr || !shuruk || !zuhr || !asr || !maghrib || !isha) {
-				console.warn('Пропуск строки из-за неверного формата даты или времени');
-				continue;
+			// Логируем заголовки первой строки для отладки
+			if (processed === 0) {
+				console.log('Заголовки в Excel файле:', Object.keys(row));
 			}
-
-			let city = await this.prisma.city.findFirst({
-				where: { name: cityName },
-			});
-
-			if (!city) {
-				city = await this.prisma.city.create({
-					data: { name: cityName },
+			
+			try {
+				const cityName = row['Город'] as string;
+				const date = this.formatDate(row['День'] || row['Дата']);
+				const fajr = this.formatTime(row['ФАДЖР'] || row['Фаджр']);
+				const mechet = this.formatTime(row['Мечеть']);
+				const shuruk = this.formatTime(row['Шурук']);
+				const zuhr = this.formatTime(row['Зухр']);
+				const asr = this.formatTime(row['АСР'] || row['Аср']);
+				const maghrib = this.formatTime(row['МАГРИБ'] || row['Магриб']);
+				const isha = this.formatTime(row['ИША'] || row['Иша']);
+				
+				console.log(`Обработка строки: Город=${cityName}, Дата=${date}, Фаджр=${fajr}`);
+				
+				if (!cityName || !date || !fajr || !shuruk || !zuhr || !asr || !maghrib || !isha) {
+					console.warn('Пропуск строки из-за неверного формата данных:', 
+						{ cityName, date, fajr, shuruk, zuhr, asr, maghrib, isha });
+					skipped++;
+					continue;
+				}
+				
+				let city = await this.prisma.city.findFirst({
+					where: { name: cityName },
 				});
-			}
-
-			const existingPrayer = await this.prisma.prayer.findFirst({
-				where: {
-					cityId: city.id,
-					date,
-				},
-			});
-
-			if (existingPrayer) {
-				await this.prisma.prayer.update({
-					where: { id: existingPrayer.id },
-					data: { fajr, shuruk, zuhr, asr, maghrib, isha },
-				});
-			} else {
-				await this.prisma.prayer.create({
-					data: {
+				
+				if (!city) {
+					city = await this.prisma.city.create({
+						data: { name: cityName },
+					});
+				}
+				
+				const existingPrayer = await this.prisma.prayer.findFirst({
+					where: {
 						cityId: city.id,
 						date,
-						fajr,
-						shuruk,
-						zuhr,
-						asr,
-						maghrib,
-						isha,
 					},
 				});
+				
+				if (existingPrayer) {
+					await this.prisma.prayer.update({
+						where: { id: existingPrayer.id },
+						data: { fajr, shuruk, zuhr, asr, maghrib, isha, mechet },
+					});
+				} else {
+					await this.prisma.prayer.create({
+						data: {
+							cityId: city.id,
+							date,
+							fajr,
+							shuruk,
+							zuhr,
+							asr, 
+							maghrib,
+							isha,
+							mechet,
+						},
+					});
+				}
+				
+				processed++;
+			} catch (error) {
+				console.error('Ошибка при импорте строки:', error);
+				skipped++;
 			}
 		}
-
+		
 		fs.unlinkSync(filePath);
-
-		return { message: 'Данные успешно импортированы или обновлены!' };
+		
+		return { 
+			message: 'Данные успешно импортированы или обновлены!',
+			processed, 
+			skipped 
+		};
 	}
 
 

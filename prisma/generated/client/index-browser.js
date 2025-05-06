@@ -116,13 +116,15 @@ exports.Prisma.CityScalarFieldEnum = {
 exports.Prisma.PrayerScalarFieldEnum = {
   id: 'id',
   cityId: 'cityId',
+  mosqueId: 'mosqueId',
   date: 'date',
   fajr: 'fajr',
   shuruk: 'shuruk',
   zuhr: 'zuhr',
   asr: 'asr',
   maghrib: 'maghrib',
-  isha: 'isha'
+  isha: 'isha',
+  mechet: 'mechet'
 };
 
 exports.Prisma.MosqueScalarFieldEnum = {
@@ -141,7 +143,8 @@ exports.Prisma.MediaScalarFieldEnum = {
 exports.Prisma.QRCodeScalarFieldEnum = {
   id: 'id',
   mosqueId: 'mosqueId',
-  imageUrl: 'imageUrl'
+  imageUrl: 'imageUrl',
+  isPrimary: 'isPrimary'
 };
 
 exports.Prisma.ErrorMessageScalarFieldEnum = {

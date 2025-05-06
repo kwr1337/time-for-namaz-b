@@ -78,10 +78,10 @@ export class QRCodeController {
 
 	@Get('by-mosque/:mosqueId')
 	async findByMosque(@Param('mosqueId', ParseIntPipe) mosqueId: number) {
-		const qrCode = await this.qrCodeService.findByMosque(mosqueId);
-		if (!qrCode) {
-			return { message: `QR code for mosque with ID ${mosqueId} not found` };
+		const qrCodes = await this.qrCodeService.findByMosque(mosqueId);
+		if (!qrCodes || qrCodes.length === 0) {
+			return { message: `QR codes for mosque with ID ${mosqueId} not found` };
 		}
-		return qrCode;
+		return qrCodes;
 	}
 }
