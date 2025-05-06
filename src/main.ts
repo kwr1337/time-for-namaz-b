@@ -31,8 +31,8 @@ async function bootstrap() {
 	const document = SwaggerModule.createDocument(app, config)
 	SwaggerModule.setup('api-docs', app, document)
 
-	// Используем переменную окружения PORT, если она задана, иначе используем порт 4600
-	const port = process.env.PORT || 4600
+	// Фиксированный порт 8080 для деплоя
+	const port = 8080
 	console.log(`Application is running on port: ${port}`)
 	await app.listen(port)
 }
