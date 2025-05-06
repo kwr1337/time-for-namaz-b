@@ -8,12 +8,13 @@ import { join } from 'path'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 
 async function bootstrap() {
+	console.log('Запуск приложения...');
 	const app = await NestFactory.create(AppModule)
 
 	app.setGlobalPrefix('api')
 	app.use(cookieParser())
 	app.enableCors({
-		origin: ['http://localhost:3000'],
+		origin: ['http://localhost:3000', 'https://time2namaz.alfasoftware.webtm.ru'],
 		credentials: true,
 		exposedHeaders: 'set-cookie'
 	})
@@ -31,7 +32,10 @@ async function bootstrap() {
 	const document = SwaggerModule.createDocument(app, config)
 	SwaggerModule.setup('api-docs', app, document)
 
-	await app.listen(4600)
+	const port = 80
+	console.log(`Приложение запускается на порту: ${port}`);
+	await app.listen(port);
+	console.log(`Приложение успешно запущено на порту: ${port}`);
 }
 
 bootstrap()
