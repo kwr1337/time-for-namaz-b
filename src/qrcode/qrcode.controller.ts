@@ -3,85 +3,103 @@ import {
 	Get,
 	Post,
 	Body,
+	Patch,
 	Param,
 	Delete,
-	Put,
 	UseGuards,
 	UseInterceptors,
-	UploadedFile, ParseIntPipe
+	UploadedFile,
+	Put
 } from '@nestjs/common'
-import { FileInterceptor } from '@nestjs/platform-express';
+import { FileInterceptor } from '@nestjs/platform-express'
+import { diskStorage } from 'multer'
+import { extname } from 'path'
 import { QRCodeService } from './qrcode.service';
 import { CreateQRCodeDto } from './dto/create-qrcode.dto';
 import { UpdateQRCodeDto } from './dto/update-qrcode.dto';
+import { ApiBearerAuth, ApiConsumes, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
-import { diskStorage } from 'multer';
-import { extname } from 'path';
 
-@Controller('qrcodes')
+@ApiTags('QR-коды')
+@Controller('qrcode')
 export class QRCodeController {
-	constructor(private readonly qrCodeService: QRCodeService) {}
+	constructor(private readonly qrcodeService: QRCodeService) {}
 
-	@Post('/create')
+	@Post()
 	@UseGuards(AuthGuard('jwt'))
-	@UseInterceptors(
-		FileInterceptor('image', {
-			storage: diskStorage({
-				destination: './uploads/qrcodes', // Директория для хранения файлов
-				filename: (req, file, callback) => {
-					const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-					callback(null, `${file.fieldname}-${uniqueSuffix}${extname(file.originalname)}`);
-				},
-			}),
-		}),
-	)
-	async create(@Body() createQRCodeDto: CreateQRCodeDto, @UploadedFile() image: Express.Multer.File) {
-		return this.qrCodeService.create(createQRCodeDto, image);
-	}
-
-	@Get()
-	async findAll() {
-		return this.qrCodeService.findAll();
-	}
-
-	@Get(':id')
-	async findOne(@Param('id', ParseIntPipe) id: number) {
-		return this.qrCodeService.findOne(id);
-	}
-
-	@Put(':id')
-	@UseGuards(AuthGuard('jwt'))
+	@ApiBearerAuth()
+	@ApiOperation({ summary: 'Создать новый QR-код' })
+	@ApiResponse({ status: 201, description: 'QR-код создан успешно' })
+	@ApiConsumes('multipart/form-data')
 	@UseInterceptors(
 		FileInterceptor('image', {
 			storage: diskStorage({
 				destination: './uploads/qrcodes',
 				filename: (req, file, callback) => {
 					const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-					callback(null, `${file.fieldname}-${uniqueSuffix}${extname(file.originalname)}`);
+					const ext = extname(file.originalname);
+					callback(null, `qrcode-${uniqueSuffix}${ext}`);
 				},
 			}),
-		}),
+		})
 	)
-	async update(
-		@Param('id', ParseIntPipe) id: number,
-		@Body() updateQRCodeDto: UpdateQRCodeDto,
-		@UploadedFile() image: Express.Multer.File,
-	) {
-		return this.qrCodeService.update(id, updateQRCodeDto, image);
+	create(@Body() createQrcodeDto: CreateQRCodeDto, @UploadedFile() image: Express.Multer.File) {
+		return this.qrcodeService.create(createQrcodeDto, image);
+	}
+
+	@Get()
+	@ApiOperation({ summary: 'Получить все QR-коды' })
+	@ApiResponse({ status: 200, description: 'Список всех QR-кодов' })
+	findAll() {
+		return this.qrcodeService.findAll();
+	}
+
+	@Get(':id')
+	@ApiOperation({ summary: 'Получить QR-код по ID' })
+	@ApiResponse({ status: 200, description: 'QR-код найден' })
+	@ApiResponse({ status: 404, description: 'QR-код не найден' })
+	findOne(@Param('id') id: string) {
+		return this.qrcodeService.findOne(+id);
+	}
+
+	@Put(':id')
+	@UseGuards(AuthGuard('jwt'))
+	@ApiBearerAuth()
+	@ApiOperation({ summary: 'Обновить QR-код' })
+	@ApiResponse({ status: 200, description: 'QR-код обновлен успешно' })
+	@ApiResponse({ status: 404, description: 'QR-код не найден' })
+	@ApiConsumes('multipart/form-data')
+	@UseInterceptors(
+		FileInterceptor('image', {
+			storage: diskStorage({
+				destination: './uploads/qrcodes',
+				filename: (req, file, callback) => {
+					const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+					const ext = extname(file.originalname);
+					callback(null, `qrcode-${uniqueSuffix}${ext}`);
+				},
+			}),
+		})
+	)
+	update(@Param('id') id: string, @Body() updateQrcodeDto: UpdateQRCodeDto, @UploadedFile() image: Express.Multer.File) {
+		return this.qrcodeService.update(+id, updateQrcodeDto, image);
 	}
 
 	@Delete(':id')
 	@UseGuards(AuthGuard('jwt'))
-	async remove(@Param('id', ParseIntPipe) id: number) {
-		return this.qrCodeService.remove(id);
+	@ApiBearerAuth()
+	@ApiOperation({ summary: 'Удалить QR-код' })
+	@ApiResponse({ status: 200, description: 'QR-код удален успешно' })
+	@ApiResponse({ status: 404, description: 'QR-код не найден' })
+	remove(@Param('id') id: string) {
+		return this.qrcodeService.remove(+id);
 	}
 
 	@Get('by-mosque/:mosqueId')
-	async findByMosque(@Param('mosqueId', ParseIntPipe) mosqueId: number) {
-		const qrCodes = await this.qrCodeService.findByMosque(mosqueId);
-		if (!qrCodes || qrCodes.length === 0) {
-			return { message: `QR codes for mosque with ID ${mosqueId} not found` };
-		}
-		return qrCodes;
+	@ApiOperation({ summary: 'Получить QR-коды по ID мечети' })
+	@ApiResponse({ status: 200, description: 'QR-коды найдены' })
+	@ApiResponse({ status: 404, description: 'QR-коды не найдены' })
+	findByMosque(@Param('mosqueId') mosqueId: string) {
+		return this.qrcodeService.findByMosque(+mosqueId);
 	}
 }

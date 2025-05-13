@@ -14,6 +14,7 @@ CREATE TABLE "City" (
 CREATE TABLE "Prayer" (
     "id" SERIAL NOT NULL,
     "cityId" INTEGER NOT NULL,
+    "mosqueId" INTEGER,
     "date" TEXT,
     "fajr" TEXT,
     "shuruk" TEXT,
@@ -21,6 +22,7 @@ CREATE TABLE "Prayer" (
     "asr" TEXT,
     "maghrib" TEXT,
     "isha" TEXT,
+    "mechet" TEXT,
 
     CONSTRAINT "Prayer_pkey" PRIMARY KEY ("id")
 );
@@ -47,8 +49,12 @@ CREATE TABLE "Media" (
 -- CreateTable
 CREATE TABLE "QRCode" (
     "id" SERIAL NOT NULL,
+    "code" TEXT NOT NULL,
     "mosqueId" INTEGER NOT NULL,
-    "imageUrl" TEXT NOT NULL,
+    "isPrimary" BOOLEAN NOT NULL DEFAULT true,
+    "projectName" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "QRCode_pkey" PRIMARY KEY ("id")
 );
@@ -74,7 +80,7 @@ CREATE TABLE "Admin" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "QRCode_mosqueId_key" ON "QRCode"("mosqueId");
+CREATE UNIQUE INDEX "QRCode_code_key" ON "QRCode"("code");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Admin_email_key" ON "Admin"("email");
@@ -84,6 +90,9 @@ CREATE UNIQUE INDEX "Admin_cityId_key" ON "Admin"("cityId");
 
 -- AddForeignKey
 ALTER TABLE "Prayer" ADD CONSTRAINT "Prayer_cityId_fkey" FOREIGN KEY ("cityId") REFERENCES "City"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Prayer" ADD CONSTRAINT "Prayer_mosqueId_fkey" FOREIGN KEY ("mosqueId") REFERENCES "Mosque"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Mosque" ADD CONSTRAINT "Mosque_cityId_fkey" FOREIGN KEY ("cityId") REFERENCES "City"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

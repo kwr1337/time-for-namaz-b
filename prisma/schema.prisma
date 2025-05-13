@@ -9,28 +9,29 @@ datasource db {
 }
 
 model City {
-  id      Int      @id @default(autoincrement())
-  name    String
-  logoUrl String?
-  admin   Admin?   @relation("CityAdmin")
-  Mosque  Mosque[]
-  prayers Prayer[]
+  id              Int              @id @default(autoincrement())
+  name            String
+  logoUrl         String?
+  admin           Admin?           @relation("CityAdmin")
+  fixedPrayerTime FixedPrayerTime?
+  Mosque          Mosque[]
+  prayers         Prayer[]
 }
 
 model Prayer {
-  id      Int     @id @default(autoincrement())
-  cityId  Int
+  id       Int     @id @default(autoincrement())
+  cityId   Int
   mosqueId Int?
-  date    String?
-  fajr    String?
-  shuruk  String?
-  zuhr    String?
-  asr     String?
-  maghrib String?
-  isha    String?
-  mechet  String?
-  city    City    @relation(fields: [cityId], references: [id])
-  mosque  Mosque? @relation(fields: [mosqueId], references: [id])
+  date     String?
+  fajr     String?
+  shuruk   String?
+  zuhr     String?
+  asr      String?
+  maghrib  String?
+  isha     String?
+  mechet   String?
+  city     City    @relation(fields: [cityId], references: [id])
+  mosque   Mosque? @relation(fields: [mosqueId], references: [id])
 }
 
 model Mosque {
@@ -39,8 +40,8 @@ model Mosque {
   name    String
   logoUrl String?
   media   Media[]
-  prayers Prayer[]
   city    City     @relation(fields: [cityId], references: [id])
+  prayers Prayer[]
   qrCodes QRCode[] @relation("MosqueQRCode")
 }
 
@@ -52,11 +53,14 @@ model Media {
 }
 
 model QRCode {
-  id       Int     @id @default(autoincrement())
-  mosqueId Int
-  imageUrl String
-  isPrimary Boolean @default(true)
-  mosque   Mosque  @relation("MosqueQRCode", fields: [mosqueId], references: [id])
+  id          Int      @id @default(autoincrement())
+  mosqueId    Int
+  isPrimary   Boolean  @default(true)
+  projectName String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  imageUrl    String
+  mosque      Mosque   @relation("MosqueQRCode", fields: [mosqueId], references: [id])
 }
 
 model ErrorMessage {
@@ -72,6 +76,28 @@ model Admin {
   role      Role
   cityId    Int?     @unique
   city      City?    @relation("CityAdmin", fields: [cityId], references: [id])
+}
+
+model FixedPrayerTime {
+  id            Int      @id @default(autoincrement())
+  cityId        Int      @unique
+  fajr          String
+  shuruk        String
+  zuhr          String
+  asr           String
+  maghrib       String
+  isha          String
+  mechet        String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  asrActive     Boolean  @default(true)
+  fajrActive    Boolean  @default(true)
+  ishaActive    Boolean  @default(true)
+  maghribActive Boolean  @default(true)
+  mechetActive  Boolean  @default(true)
+  shurukActive  Boolean  @default(true)
+  zuhrActive    Boolean  @default(true)
+  city          City     @relation(fields: [cityId], references: [id])
 }
 
 enum Role {

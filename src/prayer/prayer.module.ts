@@ -8,5 +8,6 @@ import { MulterModule } from '@nestjs/platform-express';
 	imports: [MulterModule.register({ dest: './uploads' })],
 	controllers: [PrayerController],
 	providers: [PrayerService, PrismaService],
+	exports: [PrayerService],
 })
 export class PrayerModule {}

@@ -8,7 +8,12 @@ import {
 	Body,
 	Get,
 	Query,
-	UseGuards
+	UseGuards,
+	Param,
+	Put,
+	Delete,
+	BadRequestException,
+	NotFoundException
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { PrayerService } from './prayer.service';
@@ -19,7 +24,9 @@ import { RolesGuard } from '../guards/roles.guard';
 import { Roles } from '../guards/roles.decorator';
 import { $Enums } from '../../prisma/generated/client'
 import Role = $Enums.Role // Путь к вашему декоратору
- // Путь к вашему перечислению ролей
+import { CreateFixedPrayerTimeDto } from './dto/create-fixed-prayer-time.dto';
+import { UpdateFixedPrayerTimeDto } from './dto/update-fixed-prayer-time.dto';
+import { ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 @Controller('prayers')
 export class PrayerController {
@@ -81,8 +88,6 @@ export class PrayerController {
 		}
 	}
 
-
-
 	@Post('shift')
 	@UseGuards(AuthGuard('jwt'))
 	async shiftPrayerTimes(
@@ -104,7 +109,6 @@ export class PrayerController {
 		}
 	}
 
-
 	@Get('today')
 	async getTodaysPrayers(@Query('cityName') cityName: string) {
 		try {
@@ -116,6 +120,191 @@ export class PrayerController {
 			const result = await this.prayerService.getTodaysPrayersForCity(cityName);
 
 			return result;
+		} catch (error) {
+			console.error(`Ошибка при получении молитв: ${error.message}`);
+			
+			if (error.message && error.message.includes('не найден')) {
+				throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+			}
+			
+			throw new HttpException(
+				error.message || 'Произошла ошибка при получении молитв',
+				HttpStatus.INTERNAL_SERVER_ERROR
+			);
+		}
+	}
+
+	// Контроллеры для фиксированного времени намаза
+
+	@Get('fixed-time/city/:cityId')
+	@ApiOperation({ summary: 'Получить фиксированное время намаза по ID города' })
+	@ApiResponse({ status: 200, description: 'Фиксированное время намаза получено успешно' })
+	@ApiResponse({ status: 404, description: 'Город не найден' })
+	async getFixedPrayerTimeByCityId(@Param('cityId') cityId: string) {
+		try {
+			return await this.prayerService.getFixedPrayerTimeByCityId(+cityId);
+		} catch (error) {
+			if (error instanceof NotFoundException) {
+				throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+			}
+			throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@Get('fixed-time/city-name/:cityName')
+	@ApiOperation({ summary: 'Получить фиксированное время намаза по названию города' })
+	@ApiResponse({ status: 200, description: 'Фиксированное время намаза получено успешно' })
+	@ApiResponse({ status: 404, description: 'Город не найден' })
+	async getFixedPrayerTimeByCityName(@Param('cityName') cityName: string) {
+		try {
+			return await this.prayerService.getFixedPrayerTimeByCityName(cityName);
+		} catch (error) {
+			if (error instanceof NotFoundException) {
+				throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+			}
+			throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@Get('fixed-time/all')
+	@ApiOperation({ summary: 'Получить все фиксированные времена намазов' })
+	@ApiResponse({ status: 200, description: 'Список фиксированных времен намазов' })
+	async getAllFixedPrayerTimes() {
+		try {
+			return await this.prayerService.getAllFixedPrayerTimes();
+		} catch (error) {
+			throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@Put('fixed-time/city/:cityId')
+	@UseGuards(AuthGuard('jwt'))
+	@ApiBearerAuth()
+	@ApiOperation({ summary: 'Обновить фиксированное время намаза для города (альтернативный путь)' })
+	@ApiResponse({ status: 200, description: 'Фиксированное время намаза обновлено успешно' })
+	@ApiResponse({ status: 404, description: 'Город не найден' })
+	async updateFixedPrayerTimeAlt(
+		@Param('cityId') cityId: string,
+		@Body() updateFixedPrayerTimeDto: UpdateFixedPrayerTimeDto
+	) {
+		try {
+			return await this.prayerService.updateFixedPrayerTime(+cityId, updateFixedPrayerTimeDto);
+		} catch (error) {
+			if (error instanceof NotFoundException) {
+				throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+			}
+			throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@Put('fixed-time/:cityId')
+	@UseGuards(AuthGuard('jwt'))
+	@ApiBearerAuth()
+	@ApiOperation({ summary: 'Обновить фиксированное время намаза для города' })
+	@ApiResponse({ status: 200, description: 'Фиксированное время намаза обновлено успешно' })
+	@ApiResponse({ status: 404, description: 'Город не найден' })
+	async updateFixedPrayerTime(
+		@Param('cityId') cityId: string,
+		@Body() updateFixedPrayerTimeDto: UpdateFixedPrayerTimeDto
+	) {
+		try {
+			return await this.prayerService.updateFixedPrayerTime(+cityId, updateFixedPrayerTimeDto);
+		} catch (error) {
+			if (error instanceof NotFoundException) {
+				throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+			}
+			throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@Put('fixed-time/:cityId/toggle')
+	@UseGuards(AuthGuard('jwt'))
+	@ApiBearerAuth()
+	@ApiOperation({ summary: 'Включить/выключить все фиксированные времена намаза для города' })
+	@ApiResponse({ status: 200, description: 'Статус всех фиксированных времен намаза изменен успешно' })
+	@ApiResponse({ status: 404, description: 'Город не найден' })
+	async toggleFixedPrayerTime(
+		@Param('cityId') cityId: string,
+		@Body('isActive') isActive: boolean
+	) {
+		try {
+			// Устанавливаем все флаги активности одновременно
+			const updateDto: UpdateFixedPrayerTimeDto = {
+				fajrActive: isActive,
+				shurukActive: isActive,
+				zuhrActive: isActive,
+				asrActive: isActive,
+				maghribActive: isActive,
+				ishaActive: isActive,
+				mechetActive: isActive
+			};
+			return await this.prayerService.updateFixedPrayerTime(+cityId, updateDto);
+		} catch (error) {
+			if (error instanceof NotFoundException) {
+				throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+			}
+			throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@Put('fixed-time/:cityId/toggle-prayer')
+	@UseGuards(AuthGuard('jwt'))
+	@ApiBearerAuth()
+	@ApiOperation({ summary: 'Включить/выключить одно фиксированное время намаза для города' })
+	@ApiResponse({ status: 200, description: 'Статус фиксированного времени намаза изменен успешно' })
+	@ApiResponse({ status: 404, description: 'Город или тип молитвы не найден' })
+	async togglePrayerTime(
+		@Param('cityId') cityId: string,
+		@Body('prayerType') prayerType: string,
+		@Body('isActive') isActive: boolean
+	) {
+		try {
+			// Проверка параметров запроса
+			if (!prayerType || isActive === undefined) {
+				throw new BadRequestException('Тип молитвы и статус активности обязательны');
+			}
+
+			// Сопоставляем тип молитвы с полем DTO
+			const prayerTypeMap = {
+				'fajr': 'fajrActive',
+				'shuruk': 'shurukActive',
+				'zuhr': 'zuhrActive',
+				'asr': 'asrActive', 
+				'maghrib': 'maghribActive',
+				'isha': 'ishaActive',
+				'mechet': 'mechetActive'
+			};
+
+			const activeField = prayerTypeMap[prayerType.toLowerCase()];
+			if (!activeField) {
+				throw new BadRequestException(`Неверный тип молитвы: ${prayerType}`);
+			}
+
+			// Создаем объект для обновления только одного поля
+			const updateDto: any = {};
+			updateDto[activeField] = isActive;
+
+			return await this.prayerService.updateFixedPrayerTime(+cityId, updateDto);
+		} catch (error) {
+			if (error instanceof BadRequestException) {
+				throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+			}
+			if (error instanceof NotFoundException) {
+				throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+			}
+			throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	// Новый эндпоинт для создания записей FixedPrayerTime для всех городов
+	@Post('create-fixed-times-for-all-cities')
+	@UseGuards(AuthGuard('jwt'), RolesGuard)
+	@Roles(Role.SUPER_ADMIN) // Защита маршрута только для SUPER_ADMIN
+	@ApiOperation({ summary: 'Создать записи фиксированного времени намаза для всех городов' })
+	@ApiResponse({ status: 200, description: 'Записи созданы успешно' })
+	async createFixedTimesForAllCities() {
+		try {
+			return await this.prayerService.createFixedTimesForAllCities();
 		} catch (error) {
 			throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
 		}

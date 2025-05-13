@@ -1,13 +1,28 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { CreateCityDto } from './dto/create-city.dto';
+import { PrayerService } from 'src/prayer/prayer.service';
 
 @Injectable()
 export class CityService {
-	constructor(private prisma: PrismaService) {}
+	constructor(
+		private prisma: PrismaService,
+		private prayerService: PrayerService
+	) {}
 
-	create(createCityDto: CreateCityDto) {
-		return this.prisma.city.create({ data: createCityDto });
+	async create(createCityDto: CreateCityDto) {
+		// Создаем город
+		const newCity = await this.prisma.city.create({ data: createCityDto });
+		
+		// Создаем фиксированное время для города
+		try {
+			await this.prayerService.createDefaultFixedPrayerTime(newCity.id);
+		} catch (error) {
+			console.error(`Ошибка при создании фиксированного времени для города ${newCity.id}: ${error.message}`);
+			// Не выбрасываем ошибку, чтобы не прерывать основной процесс
+		}
+		
+		return newCity;
 	}
 
 	findAll() {

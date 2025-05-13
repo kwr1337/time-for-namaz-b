@@ -48,6 +48,11 @@ export type ErrorMessage = $Result.DefaultSelection<Prisma.$ErrorMessagePayload>
  * 
  */
 export type Admin = $Result.DefaultSelection<Prisma.$AdminPayload>
+/**
+ * Model FixedPrayerTime
+ * 
+ */
+export type FixedPrayerTime = $Result.DefaultSelection<Prisma.$FixedPrayerTimePayload>
 
 /**
  * Enums
@@ -257,6 +262,16 @@ export class PrismaClient<
     * ```
     */
   get admin(): Prisma.AdminDelegate<ExtArgs>;
+
+  /**
+   * `prisma.fixedPrayerTime`: Exposes CRUD operations for the **FixedPrayerTime** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more FixedPrayerTimes
+    * const fixedPrayerTimes = await prisma.fixedPrayerTime.findMany()
+    * ```
+    */
+  get fixedPrayerTime(): Prisma.FixedPrayerTimeDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -733,7 +748,8 @@ export namespace Prisma {
     Media: 'Media',
     QRCode: 'QRCode',
     ErrorMessage: 'ErrorMessage',
-    Admin: 'Admin'
+    Admin: 'Admin',
+    FixedPrayerTime: 'FixedPrayerTime'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -750,7 +766,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'city' | 'prayer' | 'mosque' | 'media' | 'qRCode' | 'errorMessage' | 'admin'
+      modelProps: 'city' | 'prayer' | 'mosque' | 'media' | 'qRCode' | 'errorMessage' | 'admin' | 'fixedPrayerTime'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -1216,6 +1232,72 @@ export namespace Prisma {
           }
         }
       }
+      FixedPrayerTime: {
+        payload: Prisma.$FixedPrayerTimePayload<ExtArgs>
+        fields: Prisma.FixedPrayerTimeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.FixedPrayerTimeFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FixedPrayerTimePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.FixedPrayerTimeFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FixedPrayerTimePayload>
+          }
+          findFirst: {
+            args: Prisma.FixedPrayerTimeFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FixedPrayerTimePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.FixedPrayerTimeFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FixedPrayerTimePayload>
+          }
+          findMany: {
+            args: Prisma.FixedPrayerTimeFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FixedPrayerTimePayload>[]
+          }
+          create: {
+            args: Prisma.FixedPrayerTimeCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FixedPrayerTimePayload>
+          }
+          createMany: {
+            args: Prisma.FixedPrayerTimeCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.FixedPrayerTimeDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FixedPrayerTimePayload>
+          }
+          update: {
+            args: Prisma.FixedPrayerTimeUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FixedPrayerTimePayload>
+          }
+          deleteMany: {
+            args: Prisma.FixedPrayerTimeDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.FixedPrayerTimeUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.FixedPrayerTimeUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FixedPrayerTimePayload>
+          }
+          aggregate: {
+            args: Prisma.FixedPrayerTimeAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateFixedPrayerTime>
+          }
+          groupBy: {
+            args: Prisma.FixedPrayerTimeGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<FixedPrayerTimeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.FixedPrayerTimeCountArgs<ExtArgs>,
+            result: $Utils.Optional<FixedPrayerTimeCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1645,6 +1727,7 @@ export namespace Prisma {
     name?: boolean
     logoUrl?: boolean
     admin?: boolean | City$adminArgs<ExtArgs>
+    fixedPrayerTime?: boolean | City$fixedPrayerTimeArgs<ExtArgs>
     Mosque?: boolean | City$MosqueArgs<ExtArgs>
     prayers?: boolean | City$prayersArgs<ExtArgs>
     _count?: boolean | CityCountOutputTypeDefaultArgs<ExtArgs>
@@ -1658,6 +1741,7 @@ export namespace Prisma {
 
   export type CityInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     admin?: boolean | City$adminArgs<ExtArgs>
+    fixedPrayerTime?: boolean | City$fixedPrayerTimeArgs<ExtArgs>
     Mosque?: boolean | City$MosqueArgs<ExtArgs>
     prayers?: boolean | City$prayersArgs<ExtArgs>
     _count?: boolean | CityCountOutputTypeDefaultArgs<ExtArgs>
@@ -1668,6 +1752,7 @@ export namespace Prisma {
     name: "City"
     objects: {
       admin: Prisma.$AdminPayload<ExtArgs> | null
+      fixedPrayerTime: Prisma.$FixedPrayerTimePayload<ExtArgs> | null
       Mosque: Prisma.$MosquePayload<ExtArgs>[]
       prayers: Prisma.$PrayerPayload<ExtArgs>[]
     }
@@ -2042,6 +2127,8 @@ export namespace Prisma {
 
     admin<T extends City$adminArgs<ExtArgs> = {}>(args?: Subset<T, City$adminArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
+    fixedPrayerTime<T extends City$fixedPrayerTimeArgs<ExtArgs> = {}>(args?: Subset<T, City$fixedPrayerTimeArgs<ExtArgs>>): Prisma__FixedPrayerTimeClient<$Result.GetResult<Prisma.$FixedPrayerTimePayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
     Mosque<T extends City$MosqueArgs<ExtArgs> = {}>(args?: Subset<T, City$MosqueArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MosquePayload<ExtArgs>, T, 'findMany'> | Null>;
 
     prayers<T extends City$prayersArgs<ExtArgs> = {}>(args?: Subset<T, City$prayersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PrayerPayload<ExtArgs>, T, 'findMany'> | Null>;
@@ -2401,6 +2488,22 @@ export namespace Prisma {
      */
     include?: AdminInclude<ExtArgs> | null
     where?: AdminWhereInput
+  }
+
+
+  /**
+   * City.fixedPrayerTime
+   */
+  export type City$fixedPrayerTimeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FixedPrayerTime
+     */
+    select?: FixedPrayerTimeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FixedPrayerTimeInclude<ExtArgs> | null
+    where?: FixedPrayerTimeWhereInput
   }
 
 
@@ -3704,8 +3807,8 @@ export namespace Prisma {
     name?: boolean
     logoUrl?: boolean
     media?: boolean | Mosque$mediaArgs<ExtArgs>
-    prayers?: boolean | Mosque$prayersArgs<ExtArgs>
     city?: boolean | CityDefaultArgs<ExtArgs>
+    prayers?: boolean | Mosque$prayersArgs<ExtArgs>
     qrCodes?: boolean | Mosque$qrCodesArgs<ExtArgs>
     _count?: boolean | MosqueCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["mosque"]>
@@ -3719,8 +3822,8 @@ export namespace Prisma {
 
   export type MosqueInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     media?: boolean | Mosque$mediaArgs<ExtArgs>
-    prayers?: boolean | Mosque$prayersArgs<ExtArgs>
     city?: boolean | CityDefaultArgs<ExtArgs>
+    prayers?: boolean | Mosque$prayersArgs<ExtArgs>
     qrCodes?: boolean | Mosque$qrCodesArgs<ExtArgs>
     _count?: boolean | MosqueCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -3730,8 +3833,8 @@ export namespace Prisma {
     name: "Mosque"
     objects: {
       media: Prisma.$MediaPayload<ExtArgs>[]
-      prayers: Prisma.$PrayerPayload<ExtArgs>[]
       city: Prisma.$CityPayload<ExtArgs>
+      prayers: Prisma.$PrayerPayload<ExtArgs>[]
       qrCodes: Prisma.$QRCodePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -4106,9 +4209,9 @@ export namespace Prisma {
 
     media<T extends Mosque$mediaArgs<ExtArgs> = {}>(args?: Subset<T, Mosque$mediaArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, 'findMany'> | Null>;
 
-    prayers<T extends Mosque$prayersArgs<ExtArgs> = {}>(args?: Subset<T, Mosque$prayersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PrayerPayload<ExtArgs>, T, 'findMany'> | Null>;
-
     city<T extends CityDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CityDefaultArgs<ExtArgs>>): Prisma__CityClient<$Result.GetResult<Prisma.$CityPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    prayers<T extends Mosque$prayersArgs<ExtArgs> = {}>(args?: Subset<T, Mosque$prayersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PrayerPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     qrCodes<T extends Mosque$qrCodesArgs<ExtArgs> = {}>(args?: Subset<T, Mosque$qrCodesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QRCodePayload<ExtArgs>, T, 'findMany'> | Null>;
 
@@ -5493,22 +5596,31 @@ export namespace Prisma {
   export type QRCodeMinAggregateOutputType = {
     id: number | null
     mosqueId: number | null
-    imageUrl: string | null
     isPrimary: boolean | null
+    projectName: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    imageUrl: string | null
   }
 
   export type QRCodeMaxAggregateOutputType = {
     id: number | null
     mosqueId: number | null
-    imageUrl: string | null
     isPrimary: boolean | null
+    projectName: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    imageUrl: string | null
   }
 
   export type QRCodeCountAggregateOutputType = {
     id: number
     mosqueId: number
-    imageUrl: number
     isPrimary: number
+    projectName: number
+    createdAt: number
+    updatedAt: number
+    imageUrl: number
     _all: number
   }
 
@@ -5526,22 +5638,31 @@ export namespace Prisma {
   export type QRCodeMinAggregateInputType = {
     id?: true
     mosqueId?: true
-    imageUrl?: true
     isPrimary?: true
+    projectName?: true
+    createdAt?: true
+    updatedAt?: true
+    imageUrl?: true
   }
 
   export type QRCodeMaxAggregateInputType = {
     id?: true
     mosqueId?: true
-    imageUrl?: true
     isPrimary?: true
+    projectName?: true
+    createdAt?: true
+    updatedAt?: true
+    imageUrl?: true
   }
 
   export type QRCodeCountAggregateInputType = {
     id?: true
     mosqueId?: true
-    imageUrl?: true
     isPrimary?: true
+    projectName?: true
+    createdAt?: true
+    updatedAt?: true
+    imageUrl?: true
     _all?: true
   }
 
@@ -5634,8 +5755,11 @@ export namespace Prisma {
   export type QRCodeGroupByOutputType = {
     id: number
     mosqueId: number
-    imageUrl: string
     isPrimary: boolean
+    projectName: string | null
+    createdAt: Date
+    updatedAt: Date
+    imageUrl: string
     _count: QRCodeCountAggregateOutputType | null
     _avg: QRCodeAvgAggregateOutputType | null
     _sum: QRCodeSumAggregateOutputType | null
@@ -5660,16 +5784,22 @@ export namespace Prisma {
   export type QRCodeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     mosqueId?: boolean
-    imageUrl?: boolean
     isPrimary?: boolean
+    projectName?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    imageUrl?: boolean
     mosque?: boolean | MosqueDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["qRCode"]>
 
   export type QRCodeSelectScalar = {
     id?: boolean
     mosqueId?: boolean
-    imageUrl?: boolean
     isPrimary?: boolean
+    projectName?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    imageUrl?: boolean
   }
 
   export type QRCodeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5685,8 +5815,11 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       mosqueId: number
-      imageUrl: string
       isPrimary: boolean
+      projectName: string | null
+      createdAt: Date
+      updatedAt: Date
+      imageUrl: string
     }, ExtArgs["result"]["qRCode"]>
     composites: {}
   }
@@ -6084,8 +6217,11 @@ export namespace Prisma {
   interface QRCodeFieldRefs {
     readonly id: FieldRef<"QRCode", 'Int'>
     readonly mosqueId: FieldRef<"QRCode", 'Int'>
-    readonly imageUrl: FieldRef<"QRCode", 'String'>
     readonly isPrimary: FieldRef<"QRCode", 'Boolean'>
+    readonly projectName: FieldRef<"QRCode", 'String'>
+    readonly createdAt: FieldRef<"QRCode", 'DateTime'>
+    readonly updatedAt: FieldRef<"QRCode", 'DateTime'>
+    readonly imageUrl: FieldRef<"QRCode", 'String'>
   }
     
 
@@ -8268,6 +8404,1105 @@ export namespace Prisma {
 
 
   /**
+   * Model FixedPrayerTime
+   */
+
+  export type AggregateFixedPrayerTime = {
+    _count: FixedPrayerTimeCountAggregateOutputType | null
+    _avg: FixedPrayerTimeAvgAggregateOutputType | null
+    _sum: FixedPrayerTimeSumAggregateOutputType | null
+    _min: FixedPrayerTimeMinAggregateOutputType | null
+    _max: FixedPrayerTimeMaxAggregateOutputType | null
+  }
+
+  export type FixedPrayerTimeAvgAggregateOutputType = {
+    id: number | null
+    cityId: number | null
+  }
+
+  export type FixedPrayerTimeSumAggregateOutputType = {
+    id: number | null
+    cityId: number | null
+  }
+
+  export type FixedPrayerTimeMinAggregateOutputType = {
+    id: number | null
+    cityId: number | null
+    fajr: string | null
+    shuruk: string | null
+    zuhr: string | null
+    asr: string | null
+    maghrib: string | null
+    isha: string | null
+    mechet: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    asrActive: boolean | null
+    fajrActive: boolean | null
+    ishaActive: boolean | null
+    maghribActive: boolean | null
+    mechetActive: boolean | null
+    shurukActive: boolean | null
+    zuhrActive: boolean | null
+  }
+
+  export type FixedPrayerTimeMaxAggregateOutputType = {
+    id: number | null
+    cityId: number | null
+    fajr: string | null
+    shuruk: string | null
+    zuhr: string | null
+    asr: string | null
+    maghrib: string | null
+    isha: string | null
+    mechet: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    asrActive: boolean | null
+    fajrActive: boolean | null
+    ishaActive: boolean | null
+    maghribActive: boolean | null
+    mechetActive: boolean | null
+    shurukActive: boolean | null
+    zuhrActive: boolean | null
+  }
+
+  export type FixedPrayerTimeCountAggregateOutputType = {
+    id: number
+    cityId: number
+    fajr: number
+    shuruk: number
+    zuhr: number
+    asr: number
+    maghrib: number
+    isha: number
+    mechet: number
+    createdAt: number
+    updatedAt: number
+    asrActive: number
+    fajrActive: number
+    ishaActive: number
+    maghribActive: number
+    mechetActive: number
+    shurukActive: number
+    zuhrActive: number
+    _all: number
+  }
+
+
+  export type FixedPrayerTimeAvgAggregateInputType = {
+    id?: true
+    cityId?: true
+  }
+
+  export type FixedPrayerTimeSumAggregateInputType = {
+    id?: true
+    cityId?: true
+  }
+
+  export type FixedPrayerTimeMinAggregateInputType = {
+    id?: true
+    cityId?: true
+    fajr?: true
+    shuruk?: true
+    zuhr?: true
+    asr?: true
+    maghrib?: true
+    isha?: true
+    mechet?: true
+    createdAt?: true
+    updatedAt?: true
+    asrActive?: true
+    fajrActive?: true
+    ishaActive?: true
+    maghribActive?: true
+    mechetActive?: true
+    shurukActive?: true
+    zuhrActive?: true
+  }
+
+  export type FixedPrayerTimeMaxAggregateInputType = {
+    id?: true
+    cityId?: true
+    fajr?: true
+    shuruk?: true
+    zuhr?: true
+    asr?: true
+    maghrib?: true
+    isha?: true
+    mechet?: true
+    createdAt?: true
+    updatedAt?: true
+    asrActive?: true
+    fajrActive?: true
+    ishaActive?: true
+    maghribActive?: true
+    mechetActive?: true
+    shurukActive?: true
+    zuhrActive?: true
+  }
+
+  export type FixedPrayerTimeCountAggregateInputType = {
+    id?: true
+    cityId?: true
+    fajr?: true
+    shuruk?: true
+    zuhr?: true
+    asr?: true
+    maghrib?: true
+    isha?: true
+    mechet?: true
+    createdAt?: true
+    updatedAt?: true
+    asrActive?: true
+    fajrActive?: true
+    ishaActive?: true
+    maghribActive?: true
+    mechetActive?: true
+    shurukActive?: true
+    zuhrActive?: true
+    _all?: true
+  }
+
+  export type FixedPrayerTimeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FixedPrayerTime to aggregate.
+     */
+    where?: FixedPrayerTimeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FixedPrayerTimes to fetch.
+     */
+    orderBy?: FixedPrayerTimeOrderByWithRelationInput | FixedPrayerTimeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: FixedPrayerTimeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FixedPrayerTimes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FixedPrayerTimes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned FixedPrayerTimes
+    **/
+    _count?: true | FixedPrayerTimeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: FixedPrayerTimeAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: FixedPrayerTimeSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FixedPrayerTimeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FixedPrayerTimeMaxAggregateInputType
+  }
+
+  export type GetFixedPrayerTimeAggregateType<T extends FixedPrayerTimeAggregateArgs> = {
+        [P in keyof T & keyof AggregateFixedPrayerTime]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFixedPrayerTime[P]>
+      : GetScalarType<T[P], AggregateFixedPrayerTime[P]>
+  }
+
+
+
+
+  export type FixedPrayerTimeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FixedPrayerTimeWhereInput
+    orderBy?: FixedPrayerTimeOrderByWithAggregationInput | FixedPrayerTimeOrderByWithAggregationInput[]
+    by: FixedPrayerTimeScalarFieldEnum[] | FixedPrayerTimeScalarFieldEnum
+    having?: FixedPrayerTimeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FixedPrayerTimeCountAggregateInputType | true
+    _avg?: FixedPrayerTimeAvgAggregateInputType
+    _sum?: FixedPrayerTimeSumAggregateInputType
+    _min?: FixedPrayerTimeMinAggregateInputType
+    _max?: FixedPrayerTimeMaxAggregateInputType
+  }
+
+  export type FixedPrayerTimeGroupByOutputType = {
+    id: number
+    cityId: number
+    fajr: string
+    shuruk: string
+    zuhr: string
+    asr: string
+    maghrib: string
+    isha: string
+    mechet: string | null
+    createdAt: Date
+    updatedAt: Date
+    asrActive: boolean
+    fajrActive: boolean
+    ishaActive: boolean
+    maghribActive: boolean
+    mechetActive: boolean
+    shurukActive: boolean
+    zuhrActive: boolean
+    _count: FixedPrayerTimeCountAggregateOutputType | null
+    _avg: FixedPrayerTimeAvgAggregateOutputType | null
+    _sum: FixedPrayerTimeSumAggregateOutputType | null
+    _min: FixedPrayerTimeMinAggregateOutputType | null
+    _max: FixedPrayerTimeMaxAggregateOutputType | null
+  }
+
+  type GetFixedPrayerTimeGroupByPayload<T extends FixedPrayerTimeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<FixedPrayerTimeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FixedPrayerTimeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FixedPrayerTimeGroupByOutputType[P]>
+            : GetScalarType<T[P], FixedPrayerTimeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type FixedPrayerTimeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    cityId?: boolean
+    fajr?: boolean
+    shuruk?: boolean
+    zuhr?: boolean
+    asr?: boolean
+    maghrib?: boolean
+    isha?: boolean
+    mechet?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    asrActive?: boolean
+    fajrActive?: boolean
+    ishaActive?: boolean
+    maghribActive?: boolean
+    mechetActive?: boolean
+    shurukActive?: boolean
+    zuhrActive?: boolean
+    city?: boolean | CityDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["fixedPrayerTime"]>
+
+  export type FixedPrayerTimeSelectScalar = {
+    id?: boolean
+    cityId?: boolean
+    fajr?: boolean
+    shuruk?: boolean
+    zuhr?: boolean
+    asr?: boolean
+    maghrib?: boolean
+    isha?: boolean
+    mechet?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    asrActive?: boolean
+    fajrActive?: boolean
+    ishaActive?: boolean
+    maghribActive?: boolean
+    mechetActive?: boolean
+    shurukActive?: boolean
+    zuhrActive?: boolean
+  }
+
+  export type FixedPrayerTimeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    city?: boolean | CityDefaultArgs<ExtArgs>
+  }
+
+
+  export type $FixedPrayerTimePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "FixedPrayerTime"
+    objects: {
+      city: Prisma.$CityPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      cityId: number
+      fajr: string
+      shuruk: string
+      zuhr: string
+      asr: string
+      maghrib: string
+      isha: string
+      mechet: string | null
+      createdAt: Date
+      updatedAt: Date
+      asrActive: boolean
+      fajrActive: boolean
+      ishaActive: boolean
+      maghribActive: boolean
+      mechetActive: boolean
+      shurukActive: boolean
+      zuhrActive: boolean
+    }, ExtArgs["result"]["fixedPrayerTime"]>
+    composites: {}
+  }
+
+
+  type FixedPrayerTimeGetPayload<S extends boolean | null | undefined | FixedPrayerTimeDefaultArgs> = $Result.GetResult<Prisma.$FixedPrayerTimePayload, S>
+
+  type FixedPrayerTimeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<FixedPrayerTimeFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: FixedPrayerTimeCountAggregateInputType | true
+    }
+
+  export interface FixedPrayerTimeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['FixedPrayerTime'], meta: { name: 'FixedPrayerTime' } }
+    /**
+     * Find zero or one FixedPrayerTime that matches the filter.
+     * @param {FixedPrayerTimeFindUniqueArgs} args - Arguments to find a FixedPrayerTime
+     * @example
+     * // Get one FixedPrayerTime
+     * const fixedPrayerTime = await prisma.fixedPrayerTime.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends FixedPrayerTimeFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, FixedPrayerTimeFindUniqueArgs<ExtArgs>>
+    ): Prisma__FixedPrayerTimeClient<$Result.GetResult<Prisma.$FixedPrayerTimePayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one FixedPrayerTime that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {FixedPrayerTimeFindUniqueOrThrowArgs} args - Arguments to find a FixedPrayerTime
+     * @example
+     * // Get one FixedPrayerTime
+     * const fixedPrayerTime = await prisma.fixedPrayerTime.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends FixedPrayerTimeFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, FixedPrayerTimeFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__FixedPrayerTimeClient<$Result.GetResult<Prisma.$FixedPrayerTimePayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first FixedPrayerTime that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FixedPrayerTimeFindFirstArgs} args - Arguments to find a FixedPrayerTime
+     * @example
+     * // Get one FixedPrayerTime
+     * const fixedPrayerTime = await prisma.fixedPrayerTime.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends FixedPrayerTimeFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, FixedPrayerTimeFindFirstArgs<ExtArgs>>
+    ): Prisma__FixedPrayerTimeClient<$Result.GetResult<Prisma.$FixedPrayerTimePayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first FixedPrayerTime that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FixedPrayerTimeFindFirstOrThrowArgs} args - Arguments to find a FixedPrayerTime
+     * @example
+     * // Get one FixedPrayerTime
+     * const fixedPrayerTime = await prisma.fixedPrayerTime.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends FixedPrayerTimeFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, FixedPrayerTimeFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__FixedPrayerTimeClient<$Result.GetResult<Prisma.$FixedPrayerTimePayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more FixedPrayerTimes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FixedPrayerTimeFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all FixedPrayerTimes
+     * const fixedPrayerTimes = await prisma.fixedPrayerTime.findMany()
+     * 
+     * // Get first 10 FixedPrayerTimes
+     * const fixedPrayerTimes = await prisma.fixedPrayerTime.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const fixedPrayerTimeWithIdOnly = await prisma.fixedPrayerTime.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends FixedPrayerTimeFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, FixedPrayerTimeFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FixedPrayerTimePayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a FixedPrayerTime.
+     * @param {FixedPrayerTimeCreateArgs} args - Arguments to create a FixedPrayerTime.
+     * @example
+     * // Create one FixedPrayerTime
+     * const FixedPrayerTime = await prisma.fixedPrayerTime.create({
+     *   data: {
+     *     // ... data to create a FixedPrayerTime
+     *   }
+     * })
+     * 
+    **/
+    create<T extends FixedPrayerTimeCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, FixedPrayerTimeCreateArgs<ExtArgs>>
+    ): Prisma__FixedPrayerTimeClient<$Result.GetResult<Prisma.$FixedPrayerTimePayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many FixedPrayerTimes.
+     *     @param {FixedPrayerTimeCreateManyArgs} args - Arguments to create many FixedPrayerTimes.
+     *     @example
+     *     // Create many FixedPrayerTimes
+     *     const fixedPrayerTime = await prisma.fixedPrayerTime.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends FixedPrayerTimeCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, FixedPrayerTimeCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a FixedPrayerTime.
+     * @param {FixedPrayerTimeDeleteArgs} args - Arguments to delete one FixedPrayerTime.
+     * @example
+     * // Delete one FixedPrayerTime
+     * const FixedPrayerTime = await prisma.fixedPrayerTime.delete({
+     *   where: {
+     *     // ... filter to delete one FixedPrayerTime
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends FixedPrayerTimeDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, FixedPrayerTimeDeleteArgs<ExtArgs>>
+    ): Prisma__FixedPrayerTimeClient<$Result.GetResult<Prisma.$FixedPrayerTimePayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one FixedPrayerTime.
+     * @param {FixedPrayerTimeUpdateArgs} args - Arguments to update one FixedPrayerTime.
+     * @example
+     * // Update one FixedPrayerTime
+     * const fixedPrayerTime = await prisma.fixedPrayerTime.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends FixedPrayerTimeUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, FixedPrayerTimeUpdateArgs<ExtArgs>>
+    ): Prisma__FixedPrayerTimeClient<$Result.GetResult<Prisma.$FixedPrayerTimePayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more FixedPrayerTimes.
+     * @param {FixedPrayerTimeDeleteManyArgs} args - Arguments to filter FixedPrayerTimes to delete.
+     * @example
+     * // Delete a few FixedPrayerTimes
+     * const { count } = await prisma.fixedPrayerTime.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends FixedPrayerTimeDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, FixedPrayerTimeDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more FixedPrayerTimes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FixedPrayerTimeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many FixedPrayerTimes
+     * const fixedPrayerTime = await prisma.fixedPrayerTime.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends FixedPrayerTimeUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, FixedPrayerTimeUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one FixedPrayerTime.
+     * @param {FixedPrayerTimeUpsertArgs} args - Arguments to update or create a FixedPrayerTime.
+     * @example
+     * // Update or create a FixedPrayerTime
+     * const fixedPrayerTime = await prisma.fixedPrayerTime.upsert({
+     *   create: {
+     *     // ... data to create a FixedPrayerTime
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the FixedPrayerTime we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends FixedPrayerTimeUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, FixedPrayerTimeUpsertArgs<ExtArgs>>
+    ): Prisma__FixedPrayerTimeClient<$Result.GetResult<Prisma.$FixedPrayerTimePayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of FixedPrayerTimes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FixedPrayerTimeCountArgs} args - Arguments to filter FixedPrayerTimes to count.
+     * @example
+     * // Count the number of FixedPrayerTimes
+     * const count = await prisma.fixedPrayerTime.count({
+     *   where: {
+     *     // ... the filter for the FixedPrayerTimes we want to count
+     *   }
+     * })
+    **/
+    count<T extends FixedPrayerTimeCountArgs>(
+      args?: Subset<T, FixedPrayerTimeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FixedPrayerTimeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a FixedPrayerTime.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FixedPrayerTimeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FixedPrayerTimeAggregateArgs>(args: Subset<T, FixedPrayerTimeAggregateArgs>): Prisma.PrismaPromise<GetFixedPrayerTimeAggregateType<T>>
+
+    /**
+     * Group by FixedPrayerTime.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FixedPrayerTimeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends FixedPrayerTimeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FixedPrayerTimeGroupByArgs['orderBy'] }
+        : { orderBy?: FixedPrayerTimeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, FixedPrayerTimeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFixedPrayerTimeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the FixedPrayerTime model
+   */
+  readonly fields: FixedPrayerTimeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for FixedPrayerTime.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__FixedPrayerTimeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    city<T extends CityDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CityDefaultArgs<ExtArgs>>): Prisma__CityClient<$Result.GetResult<Prisma.$CityPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the FixedPrayerTime model
+   */ 
+  interface FixedPrayerTimeFieldRefs {
+    readonly id: FieldRef<"FixedPrayerTime", 'Int'>
+    readonly cityId: FieldRef<"FixedPrayerTime", 'Int'>
+    readonly fajr: FieldRef<"FixedPrayerTime", 'String'>
+    readonly shuruk: FieldRef<"FixedPrayerTime", 'String'>
+    readonly zuhr: FieldRef<"FixedPrayerTime", 'String'>
+    readonly asr: FieldRef<"FixedPrayerTime", 'String'>
+    readonly maghrib: FieldRef<"FixedPrayerTime", 'String'>
+    readonly isha: FieldRef<"FixedPrayerTime", 'String'>
+    readonly mechet: FieldRef<"FixedPrayerTime", 'String'>
+    readonly createdAt: FieldRef<"FixedPrayerTime", 'DateTime'>
+    readonly updatedAt: FieldRef<"FixedPrayerTime", 'DateTime'>
+    readonly asrActive: FieldRef<"FixedPrayerTime", 'Boolean'>
+    readonly fajrActive: FieldRef<"FixedPrayerTime", 'Boolean'>
+    readonly ishaActive: FieldRef<"FixedPrayerTime", 'Boolean'>
+    readonly maghribActive: FieldRef<"FixedPrayerTime", 'Boolean'>
+    readonly mechetActive: FieldRef<"FixedPrayerTime", 'Boolean'>
+    readonly shurukActive: FieldRef<"FixedPrayerTime", 'Boolean'>
+    readonly zuhrActive: FieldRef<"FixedPrayerTime", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * FixedPrayerTime findUnique
+   */
+  export type FixedPrayerTimeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FixedPrayerTime
+     */
+    select?: FixedPrayerTimeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FixedPrayerTimeInclude<ExtArgs> | null
+    /**
+     * Filter, which FixedPrayerTime to fetch.
+     */
+    where: FixedPrayerTimeWhereUniqueInput
+  }
+
+
+  /**
+   * FixedPrayerTime findUniqueOrThrow
+   */
+  export type FixedPrayerTimeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FixedPrayerTime
+     */
+    select?: FixedPrayerTimeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FixedPrayerTimeInclude<ExtArgs> | null
+    /**
+     * Filter, which FixedPrayerTime to fetch.
+     */
+    where: FixedPrayerTimeWhereUniqueInput
+  }
+
+
+  /**
+   * FixedPrayerTime findFirst
+   */
+  export type FixedPrayerTimeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FixedPrayerTime
+     */
+    select?: FixedPrayerTimeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FixedPrayerTimeInclude<ExtArgs> | null
+    /**
+     * Filter, which FixedPrayerTime to fetch.
+     */
+    where?: FixedPrayerTimeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FixedPrayerTimes to fetch.
+     */
+    orderBy?: FixedPrayerTimeOrderByWithRelationInput | FixedPrayerTimeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FixedPrayerTimes.
+     */
+    cursor?: FixedPrayerTimeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FixedPrayerTimes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FixedPrayerTimes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FixedPrayerTimes.
+     */
+    distinct?: FixedPrayerTimeScalarFieldEnum | FixedPrayerTimeScalarFieldEnum[]
+  }
+
+
+  /**
+   * FixedPrayerTime findFirstOrThrow
+   */
+  export type FixedPrayerTimeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FixedPrayerTime
+     */
+    select?: FixedPrayerTimeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FixedPrayerTimeInclude<ExtArgs> | null
+    /**
+     * Filter, which FixedPrayerTime to fetch.
+     */
+    where?: FixedPrayerTimeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FixedPrayerTimes to fetch.
+     */
+    orderBy?: FixedPrayerTimeOrderByWithRelationInput | FixedPrayerTimeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FixedPrayerTimes.
+     */
+    cursor?: FixedPrayerTimeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FixedPrayerTimes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FixedPrayerTimes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FixedPrayerTimes.
+     */
+    distinct?: FixedPrayerTimeScalarFieldEnum | FixedPrayerTimeScalarFieldEnum[]
+  }
+
+
+  /**
+   * FixedPrayerTime findMany
+   */
+  export type FixedPrayerTimeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FixedPrayerTime
+     */
+    select?: FixedPrayerTimeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FixedPrayerTimeInclude<ExtArgs> | null
+    /**
+     * Filter, which FixedPrayerTimes to fetch.
+     */
+    where?: FixedPrayerTimeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FixedPrayerTimes to fetch.
+     */
+    orderBy?: FixedPrayerTimeOrderByWithRelationInput | FixedPrayerTimeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing FixedPrayerTimes.
+     */
+    cursor?: FixedPrayerTimeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FixedPrayerTimes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FixedPrayerTimes.
+     */
+    skip?: number
+    distinct?: FixedPrayerTimeScalarFieldEnum | FixedPrayerTimeScalarFieldEnum[]
+  }
+
+
+  /**
+   * FixedPrayerTime create
+   */
+  export type FixedPrayerTimeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FixedPrayerTime
+     */
+    select?: FixedPrayerTimeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FixedPrayerTimeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a FixedPrayerTime.
+     */
+    data: XOR<FixedPrayerTimeCreateInput, FixedPrayerTimeUncheckedCreateInput>
+  }
+
+
+  /**
+   * FixedPrayerTime createMany
+   */
+  export type FixedPrayerTimeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many FixedPrayerTimes.
+     */
+    data: FixedPrayerTimeCreateManyInput | FixedPrayerTimeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * FixedPrayerTime update
+   */
+  export type FixedPrayerTimeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FixedPrayerTime
+     */
+    select?: FixedPrayerTimeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FixedPrayerTimeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a FixedPrayerTime.
+     */
+    data: XOR<FixedPrayerTimeUpdateInput, FixedPrayerTimeUncheckedUpdateInput>
+    /**
+     * Choose, which FixedPrayerTime to update.
+     */
+    where: FixedPrayerTimeWhereUniqueInput
+  }
+
+
+  /**
+   * FixedPrayerTime updateMany
+   */
+  export type FixedPrayerTimeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update FixedPrayerTimes.
+     */
+    data: XOR<FixedPrayerTimeUpdateManyMutationInput, FixedPrayerTimeUncheckedUpdateManyInput>
+    /**
+     * Filter which FixedPrayerTimes to update
+     */
+    where?: FixedPrayerTimeWhereInput
+  }
+
+
+  /**
+   * FixedPrayerTime upsert
+   */
+  export type FixedPrayerTimeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FixedPrayerTime
+     */
+    select?: FixedPrayerTimeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FixedPrayerTimeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the FixedPrayerTime to update in case it exists.
+     */
+    where: FixedPrayerTimeWhereUniqueInput
+    /**
+     * In case the FixedPrayerTime found by the `where` argument doesn't exist, create a new FixedPrayerTime with this data.
+     */
+    create: XOR<FixedPrayerTimeCreateInput, FixedPrayerTimeUncheckedCreateInput>
+    /**
+     * In case the FixedPrayerTime was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<FixedPrayerTimeUpdateInput, FixedPrayerTimeUncheckedUpdateInput>
+  }
+
+
+  /**
+   * FixedPrayerTime delete
+   */
+  export type FixedPrayerTimeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FixedPrayerTime
+     */
+    select?: FixedPrayerTimeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FixedPrayerTimeInclude<ExtArgs> | null
+    /**
+     * Filter which FixedPrayerTime to delete.
+     */
+    where: FixedPrayerTimeWhereUniqueInput
+  }
+
+
+  /**
+   * FixedPrayerTime deleteMany
+   */
+  export type FixedPrayerTimeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FixedPrayerTimes to delete
+     */
+    where?: FixedPrayerTimeWhereInput
+  }
+
+
+  /**
+   * FixedPrayerTime without action
+   */
+  export type FixedPrayerTimeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FixedPrayerTime
+     */
+    select?: FixedPrayerTimeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FixedPrayerTimeInclude<ExtArgs> | null
+  }
+
+
+
+  /**
    * Enums
    */
 
@@ -8329,8 +9564,11 @@ export namespace Prisma {
   export const QRCodeScalarFieldEnum: {
     id: 'id',
     mosqueId: 'mosqueId',
-    imageUrl: 'imageUrl',
-    isPrimary: 'isPrimary'
+    isPrimary: 'isPrimary',
+    projectName: 'projectName',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    imageUrl: 'imageUrl'
   };
 
   export type QRCodeScalarFieldEnum = (typeof QRCodeScalarFieldEnum)[keyof typeof QRCodeScalarFieldEnum]
@@ -8354,6 +9592,30 @@ export namespace Prisma {
   };
 
   export type AdminScalarFieldEnum = (typeof AdminScalarFieldEnum)[keyof typeof AdminScalarFieldEnum]
+
+
+  export const FixedPrayerTimeScalarFieldEnum: {
+    id: 'id',
+    cityId: 'cityId',
+    fajr: 'fajr',
+    shuruk: 'shuruk',
+    zuhr: 'zuhr',
+    asr: 'asr',
+    maghrib: 'maghrib',
+    isha: 'isha',
+    mechet: 'mechet',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    asrActive: 'asrActive',
+    fajrActive: 'fajrActive',
+    ishaActive: 'ishaActive',
+    maghribActive: 'maghribActive',
+    mechetActive: 'mechetActive',
+    shurukActive: 'shurukActive',
+    zuhrActive: 'zuhrActive'
+  };
+
+  export type FixedPrayerTimeScalarFieldEnum = (typeof FixedPrayerTimeScalarFieldEnum)[keyof typeof FixedPrayerTimeScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -8473,6 +9735,7 @@ export namespace Prisma {
     name?: StringFilter<"City"> | string
     logoUrl?: StringNullableFilter<"City"> | string | null
     admin?: XOR<AdminNullableRelationFilter, AdminWhereInput> | null
+    fixedPrayerTime?: XOR<FixedPrayerTimeNullableRelationFilter, FixedPrayerTimeWhereInput> | null
     Mosque?: MosqueListRelationFilter
     prayers?: PrayerListRelationFilter
   }
@@ -8482,6 +9745,7 @@ export namespace Prisma {
     name?: SortOrder
     logoUrl?: SortOrderInput | SortOrder
     admin?: AdminOrderByWithRelationInput
+    fixedPrayerTime?: FixedPrayerTimeOrderByWithRelationInput
     Mosque?: MosqueOrderByRelationAggregateInput
     prayers?: PrayerOrderByRelationAggregateInput
   }
@@ -8494,6 +9758,7 @@ export namespace Prisma {
     name?: StringFilter<"City"> | string
     logoUrl?: StringNullableFilter<"City"> | string | null
     admin?: XOR<AdminNullableRelationFilter, AdminWhereInput> | null
+    fixedPrayerTime?: XOR<FixedPrayerTimeNullableRelationFilter, FixedPrayerTimeWhereInput> | null
     Mosque?: MosqueListRelationFilter
     prayers?: PrayerListRelationFilter
   }, "id">
@@ -8617,8 +9882,8 @@ export namespace Prisma {
     name?: StringFilter<"Mosque"> | string
     logoUrl?: StringNullableFilter<"Mosque"> | string | null
     media?: MediaListRelationFilter
-    prayers?: PrayerListRelationFilter
     city?: XOR<CityRelationFilter, CityWhereInput>
+    prayers?: PrayerListRelationFilter
     qrCodes?: QRCodeListRelationFilter
   }
 
@@ -8628,8 +9893,8 @@ export namespace Prisma {
     name?: SortOrder
     logoUrl?: SortOrderInput | SortOrder
     media?: MediaOrderByRelationAggregateInput
-    prayers?: PrayerOrderByRelationAggregateInput
     city?: CityOrderByWithRelationInput
+    prayers?: PrayerOrderByRelationAggregateInput
     qrCodes?: QRCodeOrderByRelationAggregateInput
   }
 
@@ -8642,8 +9907,8 @@ export namespace Prisma {
     name?: StringFilter<"Mosque"> | string
     logoUrl?: StringNullableFilter<"Mosque"> | string | null
     media?: MediaListRelationFilter
-    prayers?: PrayerListRelationFilter
     city?: XOR<CityRelationFilter, CityWhereInput>
+    prayers?: PrayerListRelationFilter
     qrCodes?: QRCodeListRelationFilter
   }, "id">
 
@@ -8722,16 +9987,22 @@ export namespace Prisma {
     NOT?: QRCodeWhereInput | QRCodeWhereInput[]
     id?: IntFilter<"QRCode"> | number
     mosqueId?: IntFilter<"QRCode"> | number
-    imageUrl?: StringFilter<"QRCode"> | string
     isPrimary?: BoolFilter<"QRCode"> | boolean
+    projectName?: StringNullableFilter<"QRCode"> | string | null
+    createdAt?: DateTimeFilter<"QRCode"> | Date | string
+    updatedAt?: DateTimeFilter<"QRCode"> | Date | string
+    imageUrl?: StringFilter<"QRCode"> | string
     mosque?: XOR<MosqueRelationFilter, MosqueWhereInput>
   }
 
   export type QRCodeOrderByWithRelationInput = {
     id?: SortOrder
     mosqueId?: SortOrder
-    imageUrl?: SortOrder
     isPrimary?: SortOrder
+    projectName?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    imageUrl?: SortOrder
     mosque?: MosqueOrderByWithRelationInput
   }
 
@@ -8741,16 +10012,22 @@ export namespace Prisma {
     OR?: QRCodeWhereInput[]
     NOT?: QRCodeWhereInput | QRCodeWhereInput[]
     mosqueId?: IntFilter<"QRCode"> | number
-    imageUrl?: StringFilter<"QRCode"> | string
     isPrimary?: BoolFilter<"QRCode"> | boolean
+    projectName?: StringNullableFilter<"QRCode"> | string | null
+    createdAt?: DateTimeFilter<"QRCode"> | Date | string
+    updatedAt?: DateTimeFilter<"QRCode"> | Date | string
+    imageUrl?: StringFilter<"QRCode"> | string
     mosque?: XOR<MosqueRelationFilter, MosqueWhereInput>
   }, "id">
 
   export type QRCodeOrderByWithAggregationInput = {
     id?: SortOrder
     mosqueId?: SortOrder
-    imageUrl?: SortOrder
     isPrimary?: SortOrder
+    projectName?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    imageUrl?: SortOrder
     _count?: QRCodeCountOrderByAggregateInput
     _avg?: QRCodeAvgOrderByAggregateInput
     _max?: QRCodeMaxOrderByAggregateInput
@@ -8764,8 +10041,11 @@ export namespace Prisma {
     NOT?: QRCodeScalarWhereWithAggregatesInput | QRCodeScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"QRCode"> | number
     mosqueId?: IntWithAggregatesFilter<"QRCode"> | number
-    imageUrl?: StringWithAggregatesFilter<"QRCode"> | string
     isPrimary?: BoolWithAggregatesFilter<"QRCode"> | boolean
+    projectName?: StringNullableWithAggregatesFilter<"QRCode"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"QRCode"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"QRCode"> | Date | string
+    imageUrl?: StringWithAggregatesFilter<"QRCode"> | string
   }
 
   export type ErrorMessageWhereInput = {
@@ -8869,10 +10149,133 @@ export namespace Prisma {
     cityId?: IntNullableWithAggregatesFilter<"Admin"> | number | null
   }
 
+  export type FixedPrayerTimeWhereInput = {
+    AND?: FixedPrayerTimeWhereInput | FixedPrayerTimeWhereInput[]
+    OR?: FixedPrayerTimeWhereInput[]
+    NOT?: FixedPrayerTimeWhereInput | FixedPrayerTimeWhereInput[]
+    id?: IntFilter<"FixedPrayerTime"> | number
+    cityId?: IntFilter<"FixedPrayerTime"> | number
+    fajr?: StringFilter<"FixedPrayerTime"> | string
+    shuruk?: StringFilter<"FixedPrayerTime"> | string
+    zuhr?: StringFilter<"FixedPrayerTime"> | string
+    asr?: StringFilter<"FixedPrayerTime"> | string
+    maghrib?: StringFilter<"FixedPrayerTime"> | string
+    isha?: StringFilter<"FixedPrayerTime"> | string
+    mechet?: StringNullableFilter<"FixedPrayerTime"> | string | null
+    createdAt?: DateTimeFilter<"FixedPrayerTime"> | Date | string
+    updatedAt?: DateTimeFilter<"FixedPrayerTime"> | Date | string
+    asrActive?: BoolFilter<"FixedPrayerTime"> | boolean
+    fajrActive?: BoolFilter<"FixedPrayerTime"> | boolean
+    ishaActive?: BoolFilter<"FixedPrayerTime"> | boolean
+    maghribActive?: BoolFilter<"FixedPrayerTime"> | boolean
+    mechetActive?: BoolFilter<"FixedPrayerTime"> | boolean
+    shurukActive?: BoolFilter<"FixedPrayerTime"> | boolean
+    zuhrActive?: BoolFilter<"FixedPrayerTime"> | boolean
+    city?: XOR<CityRelationFilter, CityWhereInput>
+  }
+
+  export type FixedPrayerTimeOrderByWithRelationInput = {
+    id?: SortOrder
+    cityId?: SortOrder
+    fajr?: SortOrder
+    shuruk?: SortOrder
+    zuhr?: SortOrder
+    asr?: SortOrder
+    maghrib?: SortOrder
+    isha?: SortOrder
+    mechet?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    asrActive?: SortOrder
+    fajrActive?: SortOrder
+    ishaActive?: SortOrder
+    maghribActive?: SortOrder
+    mechetActive?: SortOrder
+    shurukActive?: SortOrder
+    zuhrActive?: SortOrder
+    city?: CityOrderByWithRelationInput
+  }
+
+  export type FixedPrayerTimeWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    cityId?: number
+    AND?: FixedPrayerTimeWhereInput | FixedPrayerTimeWhereInput[]
+    OR?: FixedPrayerTimeWhereInput[]
+    NOT?: FixedPrayerTimeWhereInput | FixedPrayerTimeWhereInput[]
+    fajr?: StringFilter<"FixedPrayerTime"> | string
+    shuruk?: StringFilter<"FixedPrayerTime"> | string
+    zuhr?: StringFilter<"FixedPrayerTime"> | string
+    asr?: StringFilter<"FixedPrayerTime"> | string
+    maghrib?: StringFilter<"FixedPrayerTime"> | string
+    isha?: StringFilter<"FixedPrayerTime"> | string
+    mechet?: StringNullableFilter<"FixedPrayerTime"> | string | null
+    createdAt?: DateTimeFilter<"FixedPrayerTime"> | Date | string
+    updatedAt?: DateTimeFilter<"FixedPrayerTime"> | Date | string
+    asrActive?: BoolFilter<"FixedPrayerTime"> | boolean
+    fajrActive?: BoolFilter<"FixedPrayerTime"> | boolean
+    ishaActive?: BoolFilter<"FixedPrayerTime"> | boolean
+    maghribActive?: BoolFilter<"FixedPrayerTime"> | boolean
+    mechetActive?: BoolFilter<"FixedPrayerTime"> | boolean
+    shurukActive?: BoolFilter<"FixedPrayerTime"> | boolean
+    zuhrActive?: BoolFilter<"FixedPrayerTime"> | boolean
+    city?: XOR<CityRelationFilter, CityWhereInput>
+  }, "id" | "cityId">
+
+  export type FixedPrayerTimeOrderByWithAggregationInput = {
+    id?: SortOrder
+    cityId?: SortOrder
+    fajr?: SortOrder
+    shuruk?: SortOrder
+    zuhr?: SortOrder
+    asr?: SortOrder
+    maghrib?: SortOrder
+    isha?: SortOrder
+    mechet?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    asrActive?: SortOrder
+    fajrActive?: SortOrder
+    ishaActive?: SortOrder
+    maghribActive?: SortOrder
+    mechetActive?: SortOrder
+    shurukActive?: SortOrder
+    zuhrActive?: SortOrder
+    _count?: FixedPrayerTimeCountOrderByAggregateInput
+    _avg?: FixedPrayerTimeAvgOrderByAggregateInput
+    _max?: FixedPrayerTimeMaxOrderByAggregateInput
+    _min?: FixedPrayerTimeMinOrderByAggregateInput
+    _sum?: FixedPrayerTimeSumOrderByAggregateInput
+  }
+
+  export type FixedPrayerTimeScalarWhereWithAggregatesInput = {
+    AND?: FixedPrayerTimeScalarWhereWithAggregatesInput | FixedPrayerTimeScalarWhereWithAggregatesInput[]
+    OR?: FixedPrayerTimeScalarWhereWithAggregatesInput[]
+    NOT?: FixedPrayerTimeScalarWhereWithAggregatesInput | FixedPrayerTimeScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"FixedPrayerTime"> | number
+    cityId?: IntWithAggregatesFilter<"FixedPrayerTime"> | number
+    fajr?: StringWithAggregatesFilter<"FixedPrayerTime"> | string
+    shuruk?: StringWithAggregatesFilter<"FixedPrayerTime"> | string
+    zuhr?: StringWithAggregatesFilter<"FixedPrayerTime"> | string
+    asr?: StringWithAggregatesFilter<"FixedPrayerTime"> | string
+    maghrib?: StringWithAggregatesFilter<"FixedPrayerTime"> | string
+    isha?: StringWithAggregatesFilter<"FixedPrayerTime"> | string
+    mechet?: StringNullableWithAggregatesFilter<"FixedPrayerTime"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"FixedPrayerTime"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"FixedPrayerTime"> | Date | string
+    asrActive?: BoolWithAggregatesFilter<"FixedPrayerTime"> | boolean
+    fajrActive?: BoolWithAggregatesFilter<"FixedPrayerTime"> | boolean
+    ishaActive?: BoolWithAggregatesFilter<"FixedPrayerTime"> | boolean
+    maghribActive?: BoolWithAggregatesFilter<"FixedPrayerTime"> | boolean
+    mechetActive?: BoolWithAggregatesFilter<"FixedPrayerTime"> | boolean
+    shurukActive?: BoolWithAggregatesFilter<"FixedPrayerTime"> | boolean
+    zuhrActive?: BoolWithAggregatesFilter<"FixedPrayerTime"> | boolean
+  }
+
   export type CityCreateInput = {
     name: string
     logoUrl?: string | null
     admin?: AdminCreateNestedOneWithoutCityInput
+    fixedPrayerTime?: FixedPrayerTimeCreateNestedOneWithoutCityInput
     Mosque?: MosqueCreateNestedManyWithoutCityInput
     prayers?: PrayerCreateNestedManyWithoutCityInput
   }
@@ -8882,6 +10285,7 @@ export namespace Prisma {
     name: string
     logoUrl?: string | null
     admin?: AdminUncheckedCreateNestedOneWithoutCityInput
+    fixedPrayerTime?: FixedPrayerTimeUncheckedCreateNestedOneWithoutCityInput
     Mosque?: MosqueUncheckedCreateNestedManyWithoutCityInput
     prayers?: PrayerUncheckedCreateNestedManyWithoutCityInput
   }
@@ -8890,6 +10294,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     admin?: AdminUpdateOneWithoutCityNestedInput
+    fixedPrayerTime?: FixedPrayerTimeUpdateOneWithoutCityNestedInput
     Mosque?: MosqueUpdateManyWithoutCityNestedInput
     prayers?: PrayerUpdateManyWithoutCityNestedInput
   }
@@ -8899,6 +10304,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     admin?: AdminUncheckedUpdateOneWithoutCityNestedInput
+    fixedPrayerTime?: FixedPrayerTimeUncheckedUpdateOneWithoutCityNestedInput
     Mosque?: MosqueUncheckedUpdateManyWithoutCityNestedInput
     prayers?: PrayerUncheckedUpdateManyWithoutCityNestedInput
   }
@@ -9017,8 +10423,8 @@ export namespace Prisma {
     name: string
     logoUrl?: string | null
     media?: MediaCreateNestedManyWithoutMosqueInput
-    prayers?: PrayerCreateNestedManyWithoutMosqueInput
     city: CityCreateNestedOneWithoutMosqueInput
+    prayers?: PrayerCreateNestedManyWithoutMosqueInput
     qrCodes?: QRCodeCreateNestedManyWithoutMosqueInput
   }
 
@@ -9036,8 +10442,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     media?: MediaUpdateManyWithoutMosqueNestedInput
-    prayers?: PrayerUpdateManyWithoutMosqueNestedInput
     city?: CityUpdateOneRequiredWithoutMosqueNestedInput
+    prayers?: PrayerUpdateManyWithoutMosqueNestedInput
     qrCodes?: QRCodeUpdateManyWithoutMosqueNestedInput
   }
 
@@ -9109,48 +10515,69 @@ export namespace Prisma {
   }
 
   export type QRCodeCreateInput = {
-    imageUrl: string
     isPrimary?: boolean
+    projectName?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    imageUrl: string
     mosque: MosqueCreateNestedOneWithoutQrCodesInput
   }
 
   export type QRCodeUncheckedCreateInput = {
     id?: number
     mosqueId: number
-    imageUrl: string
     isPrimary?: boolean
+    projectName?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    imageUrl: string
   }
 
   export type QRCodeUpdateInput = {
-    imageUrl?: StringFieldUpdateOperationsInput | string
     isPrimary?: BoolFieldUpdateOperationsInput | boolean
+    projectName?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
     mosque?: MosqueUpdateOneRequiredWithoutQrCodesNestedInput
   }
 
   export type QRCodeUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     mosqueId?: IntFieldUpdateOperationsInput | number
-    imageUrl?: StringFieldUpdateOperationsInput | string
     isPrimary?: BoolFieldUpdateOperationsInput | boolean
+    projectName?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
   }
 
   export type QRCodeCreateManyInput = {
     id?: number
     mosqueId: number
-    imageUrl: string
     isPrimary?: boolean
+    projectName?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    imageUrl: string
   }
 
   export type QRCodeUpdateManyMutationInput = {
-    imageUrl?: StringFieldUpdateOperationsInput | string
     isPrimary?: BoolFieldUpdateOperationsInput | boolean
+    projectName?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
   }
 
   export type QRCodeUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     mosqueId?: IntFieldUpdateOperationsInput | number
-    imageUrl?: StringFieldUpdateOperationsInput | string
     isPrimary?: BoolFieldUpdateOperationsInput | boolean
+    projectName?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
   }
 
   export type ErrorMessageCreateInput = {
@@ -9244,6 +10671,149 @@ export namespace Prisma {
     cityId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
+  export type FixedPrayerTimeCreateInput = {
+    fajr: string
+    shuruk: string
+    zuhr: string
+    asr: string
+    maghrib: string
+    isha: string
+    mechet?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    asrActive?: boolean
+    fajrActive?: boolean
+    ishaActive?: boolean
+    maghribActive?: boolean
+    mechetActive?: boolean
+    shurukActive?: boolean
+    zuhrActive?: boolean
+    city: CityCreateNestedOneWithoutFixedPrayerTimeInput
+  }
+
+  export type FixedPrayerTimeUncheckedCreateInput = {
+    id?: number
+    cityId: number
+    fajr: string
+    shuruk: string
+    zuhr: string
+    asr: string
+    maghrib: string
+    isha: string
+    mechet?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    asrActive?: boolean
+    fajrActive?: boolean
+    ishaActive?: boolean
+    maghribActive?: boolean
+    mechetActive?: boolean
+    shurukActive?: boolean
+    zuhrActive?: boolean
+  }
+
+  export type FixedPrayerTimeUpdateInput = {
+    fajr?: StringFieldUpdateOperationsInput | string
+    shuruk?: StringFieldUpdateOperationsInput | string
+    zuhr?: StringFieldUpdateOperationsInput | string
+    asr?: StringFieldUpdateOperationsInput | string
+    maghrib?: StringFieldUpdateOperationsInput | string
+    isha?: StringFieldUpdateOperationsInput | string
+    mechet?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    asrActive?: BoolFieldUpdateOperationsInput | boolean
+    fajrActive?: BoolFieldUpdateOperationsInput | boolean
+    ishaActive?: BoolFieldUpdateOperationsInput | boolean
+    maghribActive?: BoolFieldUpdateOperationsInput | boolean
+    mechetActive?: BoolFieldUpdateOperationsInput | boolean
+    shurukActive?: BoolFieldUpdateOperationsInput | boolean
+    zuhrActive?: BoolFieldUpdateOperationsInput | boolean
+    city?: CityUpdateOneRequiredWithoutFixedPrayerTimeNestedInput
+  }
+
+  export type FixedPrayerTimeUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    cityId?: IntFieldUpdateOperationsInput | number
+    fajr?: StringFieldUpdateOperationsInput | string
+    shuruk?: StringFieldUpdateOperationsInput | string
+    zuhr?: StringFieldUpdateOperationsInput | string
+    asr?: StringFieldUpdateOperationsInput | string
+    maghrib?: StringFieldUpdateOperationsInput | string
+    isha?: StringFieldUpdateOperationsInput | string
+    mechet?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    asrActive?: BoolFieldUpdateOperationsInput | boolean
+    fajrActive?: BoolFieldUpdateOperationsInput | boolean
+    ishaActive?: BoolFieldUpdateOperationsInput | boolean
+    maghribActive?: BoolFieldUpdateOperationsInput | boolean
+    mechetActive?: BoolFieldUpdateOperationsInput | boolean
+    shurukActive?: BoolFieldUpdateOperationsInput | boolean
+    zuhrActive?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type FixedPrayerTimeCreateManyInput = {
+    id?: number
+    cityId: number
+    fajr: string
+    shuruk: string
+    zuhr: string
+    asr: string
+    maghrib: string
+    isha: string
+    mechet?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    asrActive?: boolean
+    fajrActive?: boolean
+    ishaActive?: boolean
+    maghribActive?: boolean
+    mechetActive?: boolean
+    shurukActive?: boolean
+    zuhrActive?: boolean
+  }
+
+  export type FixedPrayerTimeUpdateManyMutationInput = {
+    fajr?: StringFieldUpdateOperationsInput | string
+    shuruk?: StringFieldUpdateOperationsInput | string
+    zuhr?: StringFieldUpdateOperationsInput | string
+    asr?: StringFieldUpdateOperationsInput | string
+    maghrib?: StringFieldUpdateOperationsInput | string
+    isha?: StringFieldUpdateOperationsInput | string
+    mechet?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    asrActive?: BoolFieldUpdateOperationsInput | boolean
+    fajrActive?: BoolFieldUpdateOperationsInput | boolean
+    ishaActive?: BoolFieldUpdateOperationsInput | boolean
+    maghribActive?: BoolFieldUpdateOperationsInput | boolean
+    mechetActive?: BoolFieldUpdateOperationsInput | boolean
+    shurukActive?: BoolFieldUpdateOperationsInput | boolean
+    zuhrActive?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type FixedPrayerTimeUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    cityId?: IntFieldUpdateOperationsInput | number
+    fajr?: StringFieldUpdateOperationsInput | string
+    shuruk?: StringFieldUpdateOperationsInput | string
+    zuhr?: StringFieldUpdateOperationsInput | string
+    asr?: StringFieldUpdateOperationsInput | string
+    maghrib?: StringFieldUpdateOperationsInput | string
+    isha?: StringFieldUpdateOperationsInput | string
+    mechet?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    asrActive?: BoolFieldUpdateOperationsInput | boolean
+    fajrActive?: BoolFieldUpdateOperationsInput | boolean
+    ishaActive?: BoolFieldUpdateOperationsInput | boolean
+    maghribActive?: BoolFieldUpdateOperationsInput | boolean
+    mechetActive?: BoolFieldUpdateOperationsInput | boolean
+    shurukActive?: BoolFieldUpdateOperationsInput | boolean
+    zuhrActive?: BoolFieldUpdateOperationsInput | boolean
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -9288,6 +10858,11 @@ export namespace Prisma {
   export type AdminNullableRelationFilter = {
     is?: AdminWhereInput | null
     isNot?: AdminWhereInput | null
+  }
+
+  export type FixedPrayerTimeNullableRelationFilter = {
+    is?: FixedPrayerTimeWhereInput | null
+    isNot?: FixedPrayerTimeWhereInput | null
   }
 
   export type MosqueListRelationFilter = {
@@ -9573,11 +11148,25 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
   export type QRCodeCountOrderByAggregateInput = {
     id?: SortOrder
     mosqueId?: SortOrder
-    imageUrl?: SortOrder
     isPrimary?: SortOrder
+    projectName?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    imageUrl?: SortOrder
   }
 
   export type QRCodeAvgOrderByAggregateInput = {
@@ -9588,15 +11177,21 @@ export namespace Prisma {
   export type QRCodeMaxOrderByAggregateInput = {
     id?: SortOrder
     mosqueId?: SortOrder
-    imageUrl?: SortOrder
     isPrimary?: SortOrder
+    projectName?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    imageUrl?: SortOrder
   }
 
   export type QRCodeMinOrderByAggregateInput = {
     id?: SortOrder
     mosqueId?: SortOrder
-    imageUrl?: SortOrder
     isPrimary?: SortOrder
+    projectName?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    imageUrl?: SortOrder
   }
 
   export type QRCodeSumOrderByAggregateInput = {
@@ -9610,6 +11205,20 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type ErrorMessageCountOrderByAggregateInput = {
@@ -9633,17 +11242,6 @@ export namespace Prisma {
 
   export type ErrorMessageSumOrderByAggregateInput = {
     id?: SortOrder
-  }
-
-  export type DateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
   export type EnumRoleFilter<$PrismaModel = never> = {
@@ -9695,20 +11293,6 @@ export namespace Prisma {
     cityId?: SortOrder
   }
 
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
   export type EnumRoleWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
     in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
@@ -9719,10 +11303,89 @@ export namespace Prisma {
     _max?: NestedEnumRoleFilter<$PrismaModel>
   }
 
+  export type FixedPrayerTimeCountOrderByAggregateInput = {
+    id?: SortOrder
+    cityId?: SortOrder
+    fajr?: SortOrder
+    shuruk?: SortOrder
+    zuhr?: SortOrder
+    asr?: SortOrder
+    maghrib?: SortOrder
+    isha?: SortOrder
+    mechet?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    asrActive?: SortOrder
+    fajrActive?: SortOrder
+    ishaActive?: SortOrder
+    maghribActive?: SortOrder
+    mechetActive?: SortOrder
+    shurukActive?: SortOrder
+    zuhrActive?: SortOrder
+  }
+
+  export type FixedPrayerTimeAvgOrderByAggregateInput = {
+    id?: SortOrder
+    cityId?: SortOrder
+  }
+
+  export type FixedPrayerTimeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    cityId?: SortOrder
+    fajr?: SortOrder
+    shuruk?: SortOrder
+    zuhr?: SortOrder
+    asr?: SortOrder
+    maghrib?: SortOrder
+    isha?: SortOrder
+    mechet?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    asrActive?: SortOrder
+    fajrActive?: SortOrder
+    ishaActive?: SortOrder
+    maghribActive?: SortOrder
+    mechetActive?: SortOrder
+    shurukActive?: SortOrder
+    zuhrActive?: SortOrder
+  }
+
+  export type FixedPrayerTimeMinOrderByAggregateInput = {
+    id?: SortOrder
+    cityId?: SortOrder
+    fajr?: SortOrder
+    shuruk?: SortOrder
+    zuhr?: SortOrder
+    asr?: SortOrder
+    maghrib?: SortOrder
+    isha?: SortOrder
+    mechet?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    asrActive?: SortOrder
+    fajrActive?: SortOrder
+    ishaActive?: SortOrder
+    maghribActive?: SortOrder
+    mechetActive?: SortOrder
+    shurukActive?: SortOrder
+    zuhrActive?: SortOrder
+  }
+
+  export type FixedPrayerTimeSumOrderByAggregateInput = {
+    id?: SortOrder
+    cityId?: SortOrder
+  }
+
   export type AdminCreateNestedOneWithoutCityInput = {
     create?: XOR<AdminCreateWithoutCityInput, AdminUncheckedCreateWithoutCityInput>
     connectOrCreate?: AdminCreateOrConnectWithoutCityInput
     connect?: AdminWhereUniqueInput
+  }
+
+  export type FixedPrayerTimeCreateNestedOneWithoutCityInput = {
+    create?: XOR<FixedPrayerTimeCreateWithoutCityInput, FixedPrayerTimeUncheckedCreateWithoutCityInput>
+    connectOrCreate?: FixedPrayerTimeCreateOrConnectWithoutCityInput
+    connect?: FixedPrayerTimeWhereUniqueInput
   }
 
   export type MosqueCreateNestedManyWithoutCityInput = {
@@ -9743,6 +11406,12 @@ export namespace Prisma {
     create?: XOR<AdminCreateWithoutCityInput, AdminUncheckedCreateWithoutCityInput>
     connectOrCreate?: AdminCreateOrConnectWithoutCityInput
     connect?: AdminWhereUniqueInput
+  }
+
+  export type FixedPrayerTimeUncheckedCreateNestedOneWithoutCityInput = {
+    create?: XOR<FixedPrayerTimeCreateWithoutCityInput, FixedPrayerTimeUncheckedCreateWithoutCityInput>
+    connectOrCreate?: FixedPrayerTimeCreateOrConnectWithoutCityInput
+    connect?: FixedPrayerTimeWhereUniqueInput
   }
 
   export type MosqueUncheckedCreateNestedManyWithoutCityInput = {
@@ -9775,6 +11444,16 @@ export namespace Prisma {
     delete?: AdminWhereInput | boolean
     connect?: AdminWhereUniqueInput
     update?: XOR<XOR<AdminUpdateToOneWithWhereWithoutCityInput, AdminUpdateWithoutCityInput>, AdminUncheckedUpdateWithoutCityInput>
+  }
+
+  export type FixedPrayerTimeUpdateOneWithoutCityNestedInput = {
+    create?: XOR<FixedPrayerTimeCreateWithoutCityInput, FixedPrayerTimeUncheckedCreateWithoutCityInput>
+    connectOrCreate?: FixedPrayerTimeCreateOrConnectWithoutCityInput
+    upsert?: FixedPrayerTimeUpsertWithoutCityInput
+    disconnect?: FixedPrayerTimeWhereInput | boolean
+    delete?: FixedPrayerTimeWhereInput | boolean
+    connect?: FixedPrayerTimeWhereUniqueInput
+    update?: XOR<XOR<FixedPrayerTimeUpdateToOneWithWhereWithoutCityInput, FixedPrayerTimeUpdateWithoutCityInput>, FixedPrayerTimeUncheckedUpdateWithoutCityInput>
   }
 
   export type MosqueUpdateManyWithoutCityNestedInput = {
@@ -9821,6 +11500,16 @@ export namespace Prisma {
     delete?: AdminWhereInput | boolean
     connect?: AdminWhereUniqueInput
     update?: XOR<XOR<AdminUpdateToOneWithWhereWithoutCityInput, AdminUpdateWithoutCityInput>, AdminUncheckedUpdateWithoutCityInput>
+  }
+
+  export type FixedPrayerTimeUncheckedUpdateOneWithoutCityNestedInput = {
+    create?: XOR<FixedPrayerTimeCreateWithoutCityInput, FixedPrayerTimeUncheckedCreateWithoutCityInput>
+    connectOrCreate?: FixedPrayerTimeCreateOrConnectWithoutCityInput
+    upsert?: FixedPrayerTimeUpsertWithoutCityInput
+    disconnect?: FixedPrayerTimeWhereInput | boolean
+    delete?: FixedPrayerTimeWhereInput | boolean
+    connect?: FixedPrayerTimeWhereUniqueInput
+    update?: XOR<XOR<FixedPrayerTimeUpdateToOneWithWhereWithoutCityInput, FixedPrayerTimeUpdateWithoutCityInput>, FixedPrayerTimeUncheckedUpdateWithoutCityInput>
   }
 
   export type MosqueUncheckedUpdateManyWithoutCityNestedInput = {
@@ -9896,17 +11585,17 @@ export namespace Prisma {
     connect?: MediaWhereUniqueInput | MediaWhereUniqueInput[]
   }
 
+  export type CityCreateNestedOneWithoutMosqueInput = {
+    create?: XOR<CityCreateWithoutMosqueInput, CityUncheckedCreateWithoutMosqueInput>
+    connectOrCreate?: CityCreateOrConnectWithoutMosqueInput
+    connect?: CityWhereUniqueInput
+  }
+
   export type PrayerCreateNestedManyWithoutMosqueInput = {
     create?: XOR<PrayerCreateWithoutMosqueInput, PrayerUncheckedCreateWithoutMosqueInput> | PrayerCreateWithoutMosqueInput[] | PrayerUncheckedCreateWithoutMosqueInput[]
     connectOrCreate?: PrayerCreateOrConnectWithoutMosqueInput | PrayerCreateOrConnectWithoutMosqueInput[]
     createMany?: PrayerCreateManyMosqueInputEnvelope
     connect?: PrayerWhereUniqueInput | PrayerWhereUniqueInput[]
-  }
-
-  export type CityCreateNestedOneWithoutMosqueInput = {
-    create?: XOR<CityCreateWithoutMosqueInput, CityUncheckedCreateWithoutMosqueInput>
-    connectOrCreate?: CityCreateOrConnectWithoutMosqueInput
-    connect?: CityWhereUniqueInput
   }
 
   export type QRCodeCreateNestedManyWithoutMosqueInput = {
@@ -9951,6 +11640,14 @@ export namespace Prisma {
     deleteMany?: MediaScalarWhereInput | MediaScalarWhereInput[]
   }
 
+  export type CityUpdateOneRequiredWithoutMosqueNestedInput = {
+    create?: XOR<CityCreateWithoutMosqueInput, CityUncheckedCreateWithoutMosqueInput>
+    connectOrCreate?: CityCreateOrConnectWithoutMosqueInput
+    upsert?: CityUpsertWithoutMosqueInput
+    connect?: CityWhereUniqueInput
+    update?: XOR<XOR<CityUpdateToOneWithWhereWithoutMosqueInput, CityUpdateWithoutMosqueInput>, CityUncheckedUpdateWithoutMosqueInput>
+  }
+
   export type PrayerUpdateManyWithoutMosqueNestedInput = {
     create?: XOR<PrayerCreateWithoutMosqueInput, PrayerUncheckedCreateWithoutMosqueInput> | PrayerCreateWithoutMosqueInput[] | PrayerUncheckedCreateWithoutMosqueInput[]
     connectOrCreate?: PrayerCreateOrConnectWithoutMosqueInput | PrayerCreateOrConnectWithoutMosqueInput[]
@@ -9963,14 +11660,6 @@ export namespace Prisma {
     update?: PrayerUpdateWithWhereUniqueWithoutMosqueInput | PrayerUpdateWithWhereUniqueWithoutMosqueInput[]
     updateMany?: PrayerUpdateManyWithWhereWithoutMosqueInput | PrayerUpdateManyWithWhereWithoutMosqueInput[]
     deleteMany?: PrayerScalarWhereInput | PrayerScalarWhereInput[]
-  }
-
-  export type CityUpdateOneRequiredWithoutMosqueNestedInput = {
-    create?: XOR<CityCreateWithoutMosqueInput, CityUncheckedCreateWithoutMosqueInput>
-    connectOrCreate?: CityCreateOrConnectWithoutMosqueInput
-    upsert?: CityUpsertWithoutMosqueInput
-    connect?: CityWhereUniqueInput
-    update?: XOR<XOR<CityUpdateToOneWithWhereWithoutMosqueInput, CityUpdateWithoutMosqueInput>, CityUncheckedUpdateWithoutMosqueInput>
   }
 
   export type QRCodeUpdateManyWithoutMosqueNestedInput = {
@@ -10053,6 +11742,10 @@ export namespace Prisma {
     set?: boolean
   }
 
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
   export type MosqueUpdateOneRequiredWithoutQrCodesNestedInput = {
     create?: XOR<MosqueCreateWithoutQrCodesInput, MosqueUncheckedCreateWithoutQrCodesInput>
     connectOrCreate?: MosqueCreateOrConnectWithoutQrCodesInput
@@ -10067,10 +11760,6 @@ export namespace Prisma {
     connect?: CityWhereUniqueInput
   }
 
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
-  }
-
   export type EnumRoleFieldUpdateOperationsInput = {
     set?: $Enums.Role
   }
@@ -10083,6 +11772,20 @@ export namespace Prisma {
     delete?: CityWhereInput | boolean
     connect?: CityWhereUniqueInput
     update?: XOR<XOR<CityUpdateToOneWithWhereWithoutAdminInput, CityUpdateWithoutAdminInput>, CityUncheckedUpdateWithoutAdminInput>
+  }
+
+  export type CityCreateNestedOneWithoutFixedPrayerTimeInput = {
+    create?: XOR<CityCreateWithoutFixedPrayerTimeInput, CityUncheckedCreateWithoutFixedPrayerTimeInput>
+    connectOrCreate?: CityCreateOrConnectWithoutFixedPrayerTimeInput
+    connect?: CityWhereUniqueInput
+  }
+
+  export type CityUpdateOneRequiredWithoutFixedPrayerTimeNestedInput = {
+    create?: XOR<CityCreateWithoutFixedPrayerTimeInput, CityUncheckedCreateWithoutFixedPrayerTimeInput>
+    connectOrCreate?: CityCreateOrConnectWithoutFixedPrayerTimeInput
+    upsert?: CityUpsertWithoutFixedPrayerTimeInput
+    connect?: CityWhereUniqueInput
+    update?: XOR<XOR<CityUpdateToOneWithWhereWithoutFixedPrayerTimeInput, CityUpdateWithoutFixedPrayerTimeInput>, CityUncheckedUpdateWithoutFixedPrayerTimeInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -10228,14 +11931,6 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -10247,11 +11942,12 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type NestedEnumRoleFilter<$PrismaModel = never> = {
-    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -10266,6 +11962,13 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
   }
 
   export type NestedEnumRoleWithAggregatesFilter<$PrismaModel = never> = {
@@ -10296,6 +11999,50 @@ export namespace Prisma {
   export type AdminCreateOrConnectWithoutCityInput = {
     where: AdminWhereUniqueInput
     create: XOR<AdminCreateWithoutCityInput, AdminUncheckedCreateWithoutCityInput>
+  }
+
+  export type FixedPrayerTimeCreateWithoutCityInput = {
+    fajr: string
+    shuruk: string
+    zuhr: string
+    asr: string
+    maghrib: string
+    isha: string
+    mechet?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    asrActive?: boolean
+    fajrActive?: boolean
+    ishaActive?: boolean
+    maghribActive?: boolean
+    mechetActive?: boolean
+    shurukActive?: boolean
+    zuhrActive?: boolean
+  }
+
+  export type FixedPrayerTimeUncheckedCreateWithoutCityInput = {
+    id?: number
+    fajr: string
+    shuruk: string
+    zuhr: string
+    asr: string
+    maghrib: string
+    isha: string
+    mechet?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    asrActive?: boolean
+    fajrActive?: boolean
+    ishaActive?: boolean
+    maghribActive?: boolean
+    mechetActive?: boolean
+    shurukActive?: boolean
+    zuhrActive?: boolean
+  }
+
+  export type FixedPrayerTimeCreateOrConnectWithoutCityInput = {
+    where: FixedPrayerTimeWhereUniqueInput
+    create: XOR<FixedPrayerTimeCreateWithoutCityInput, FixedPrayerTimeUncheckedCreateWithoutCityInput>
   }
 
   export type MosqueCreateWithoutCityInput = {
@@ -10386,6 +12133,56 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
   }
 
+  export type FixedPrayerTimeUpsertWithoutCityInput = {
+    update: XOR<FixedPrayerTimeUpdateWithoutCityInput, FixedPrayerTimeUncheckedUpdateWithoutCityInput>
+    create: XOR<FixedPrayerTimeCreateWithoutCityInput, FixedPrayerTimeUncheckedCreateWithoutCityInput>
+    where?: FixedPrayerTimeWhereInput
+  }
+
+  export type FixedPrayerTimeUpdateToOneWithWhereWithoutCityInput = {
+    where?: FixedPrayerTimeWhereInput
+    data: XOR<FixedPrayerTimeUpdateWithoutCityInput, FixedPrayerTimeUncheckedUpdateWithoutCityInput>
+  }
+
+  export type FixedPrayerTimeUpdateWithoutCityInput = {
+    fajr?: StringFieldUpdateOperationsInput | string
+    shuruk?: StringFieldUpdateOperationsInput | string
+    zuhr?: StringFieldUpdateOperationsInput | string
+    asr?: StringFieldUpdateOperationsInput | string
+    maghrib?: StringFieldUpdateOperationsInput | string
+    isha?: StringFieldUpdateOperationsInput | string
+    mechet?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    asrActive?: BoolFieldUpdateOperationsInput | boolean
+    fajrActive?: BoolFieldUpdateOperationsInput | boolean
+    ishaActive?: BoolFieldUpdateOperationsInput | boolean
+    maghribActive?: BoolFieldUpdateOperationsInput | boolean
+    mechetActive?: BoolFieldUpdateOperationsInput | boolean
+    shurukActive?: BoolFieldUpdateOperationsInput | boolean
+    zuhrActive?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type FixedPrayerTimeUncheckedUpdateWithoutCityInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    fajr?: StringFieldUpdateOperationsInput | string
+    shuruk?: StringFieldUpdateOperationsInput | string
+    zuhr?: StringFieldUpdateOperationsInput | string
+    asr?: StringFieldUpdateOperationsInput | string
+    maghrib?: StringFieldUpdateOperationsInput | string
+    isha?: StringFieldUpdateOperationsInput | string
+    mechet?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    asrActive?: BoolFieldUpdateOperationsInput | boolean
+    fajrActive?: BoolFieldUpdateOperationsInput | boolean
+    ishaActive?: BoolFieldUpdateOperationsInput | boolean
+    maghribActive?: BoolFieldUpdateOperationsInput | boolean
+    mechetActive?: BoolFieldUpdateOperationsInput | boolean
+    shurukActive?: BoolFieldUpdateOperationsInput | boolean
+    zuhrActive?: BoolFieldUpdateOperationsInput | boolean
+  }
+
   export type MosqueUpsertWithWhereUniqueWithoutCityInput = {
     where: MosqueWhereUniqueInput
     update: XOR<MosqueUpdateWithoutCityInput, MosqueUncheckedUpdateWithoutCityInput>
@@ -10449,6 +12246,7 @@ export namespace Prisma {
     name: string
     logoUrl?: string | null
     admin?: AdminCreateNestedOneWithoutCityInput
+    fixedPrayerTime?: FixedPrayerTimeCreateNestedOneWithoutCityInput
     Mosque?: MosqueCreateNestedManyWithoutCityInput
   }
 
@@ -10457,6 +12255,7 @@ export namespace Prisma {
     name: string
     logoUrl?: string | null
     admin?: AdminUncheckedCreateNestedOneWithoutCityInput
+    fixedPrayerTime?: FixedPrayerTimeUncheckedCreateNestedOneWithoutCityInput
     Mosque?: MosqueUncheckedCreateNestedManyWithoutCityInput
   }
 
@@ -10502,6 +12301,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     admin?: AdminUpdateOneWithoutCityNestedInput
+    fixedPrayerTime?: FixedPrayerTimeUpdateOneWithoutCityNestedInput
     Mosque?: MosqueUpdateManyWithoutCityNestedInput
   }
 
@@ -10510,6 +12310,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     admin?: AdminUncheckedUpdateOneWithoutCityNestedInput
+    fixedPrayerTime?: FixedPrayerTimeUncheckedUpdateOneWithoutCityNestedInput
     Mosque?: MosqueUncheckedUpdateManyWithoutCityNestedInput
   }
 
@@ -10560,6 +12361,28 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type CityCreateWithoutMosqueInput = {
+    name: string
+    logoUrl?: string | null
+    admin?: AdminCreateNestedOneWithoutCityInput
+    fixedPrayerTime?: FixedPrayerTimeCreateNestedOneWithoutCityInput
+    prayers?: PrayerCreateNestedManyWithoutCityInput
+  }
+
+  export type CityUncheckedCreateWithoutMosqueInput = {
+    id?: number
+    name: string
+    logoUrl?: string | null
+    admin?: AdminUncheckedCreateNestedOneWithoutCityInput
+    fixedPrayerTime?: FixedPrayerTimeUncheckedCreateNestedOneWithoutCityInput
+    prayers?: PrayerUncheckedCreateNestedManyWithoutCityInput
+  }
+
+  export type CityCreateOrConnectWithoutMosqueInput = {
+    where: CityWhereUniqueInput
+    create: XOR<CityCreateWithoutMosqueInput, CityUncheckedCreateWithoutMosqueInput>
+  }
+
   export type PrayerCreateWithoutMosqueInput = {
     date?: string | null
     fajr?: string | null
@@ -10595,35 +12418,21 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type CityCreateWithoutMosqueInput = {
-    name: string
-    logoUrl?: string | null
-    admin?: AdminCreateNestedOneWithoutCityInput
-    prayers?: PrayerCreateNestedManyWithoutCityInput
-  }
-
-  export type CityUncheckedCreateWithoutMosqueInput = {
-    id?: number
-    name: string
-    logoUrl?: string | null
-    admin?: AdminUncheckedCreateNestedOneWithoutCityInput
-    prayers?: PrayerUncheckedCreateNestedManyWithoutCityInput
-  }
-
-  export type CityCreateOrConnectWithoutMosqueInput = {
-    where: CityWhereUniqueInput
-    create: XOR<CityCreateWithoutMosqueInput, CityUncheckedCreateWithoutMosqueInput>
-  }
-
   export type QRCodeCreateWithoutMosqueInput = {
-    imageUrl: string
     isPrimary?: boolean
+    projectName?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    imageUrl: string
   }
 
   export type QRCodeUncheckedCreateWithoutMosqueInput = {
     id?: number
-    imageUrl: string
     isPrimary?: boolean
+    projectName?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    imageUrl: string
   }
 
   export type QRCodeCreateOrConnectWithoutMosqueInput = {
@@ -10661,22 +12470,6 @@ export namespace Prisma {
     videoUrl?: StringNullableFilter<"Media"> | string | null
   }
 
-  export type PrayerUpsertWithWhereUniqueWithoutMosqueInput = {
-    where: PrayerWhereUniqueInput
-    update: XOR<PrayerUpdateWithoutMosqueInput, PrayerUncheckedUpdateWithoutMosqueInput>
-    create: XOR<PrayerCreateWithoutMosqueInput, PrayerUncheckedCreateWithoutMosqueInput>
-  }
-
-  export type PrayerUpdateWithWhereUniqueWithoutMosqueInput = {
-    where: PrayerWhereUniqueInput
-    data: XOR<PrayerUpdateWithoutMosqueInput, PrayerUncheckedUpdateWithoutMosqueInput>
-  }
-
-  export type PrayerUpdateManyWithWhereWithoutMosqueInput = {
-    where: PrayerScalarWhereInput
-    data: XOR<PrayerUpdateManyMutationInput, PrayerUncheckedUpdateManyWithoutMosqueInput>
-  }
-
   export type CityUpsertWithoutMosqueInput = {
     update: XOR<CityUpdateWithoutMosqueInput, CityUncheckedUpdateWithoutMosqueInput>
     create: XOR<CityCreateWithoutMosqueInput, CityUncheckedCreateWithoutMosqueInput>
@@ -10692,6 +12485,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     admin?: AdminUpdateOneWithoutCityNestedInput
+    fixedPrayerTime?: FixedPrayerTimeUpdateOneWithoutCityNestedInput
     prayers?: PrayerUpdateManyWithoutCityNestedInput
   }
 
@@ -10700,7 +12494,24 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     admin?: AdminUncheckedUpdateOneWithoutCityNestedInput
+    fixedPrayerTime?: FixedPrayerTimeUncheckedUpdateOneWithoutCityNestedInput
     prayers?: PrayerUncheckedUpdateManyWithoutCityNestedInput
+  }
+
+  export type PrayerUpsertWithWhereUniqueWithoutMosqueInput = {
+    where: PrayerWhereUniqueInput
+    update: XOR<PrayerUpdateWithoutMosqueInput, PrayerUncheckedUpdateWithoutMosqueInput>
+    create: XOR<PrayerCreateWithoutMosqueInput, PrayerUncheckedCreateWithoutMosqueInput>
+  }
+
+  export type PrayerUpdateWithWhereUniqueWithoutMosqueInput = {
+    where: PrayerWhereUniqueInput
+    data: XOR<PrayerUpdateWithoutMosqueInput, PrayerUncheckedUpdateWithoutMosqueInput>
+  }
+
+  export type PrayerUpdateManyWithWhereWithoutMosqueInput = {
+    where: PrayerScalarWhereInput
+    data: XOR<PrayerUpdateManyMutationInput, PrayerUncheckedUpdateManyWithoutMosqueInput>
   }
 
   export type QRCodeUpsertWithWhereUniqueWithoutMosqueInput = {
@@ -10725,15 +12536,18 @@ export namespace Prisma {
     NOT?: QRCodeScalarWhereInput | QRCodeScalarWhereInput[]
     id?: IntFilter<"QRCode"> | number
     mosqueId?: IntFilter<"QRCode"> | number
-    imageUrl?: StringFilter<"QRCode"> | string
     isPrimary?: BoolFilter<"QRCode"> | boolean
+    projectName?: StringNullableFilter<"QRCode"> | string | null
+    createdAt?: DateTimeFilter<"QRCode"> | Date | string
+    updatedAt?: DateTimeFilter<"QRCode"> | Date | string
+    imageUrl?: StringFilter<"QRCode"> | string
   }
 
   export type MosqueCreateWithoutMediaInput = {
     name: string
     logoUrl?: string | null
-    prayers?: PrayerCreateNestedManyWithoutMosqueInput
     city: CityCreateNestedOneWithoutMosqueInput
+    prayers?: PrayerCreateNestedManyWithoutMosqueInput
     qrCodes?: QRCodeCreateNestedManyWithoutMosqueInput
   }
 
@@ -10765,8 +12579,8 @@ export namespace Prisma {
   export type MosqueUpdateWithoutMediaInput = {
     name?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    prayers?: PrayerUpdateManyWithoutMosqueNestedInput
     city?: CityUpdateOneRequiredWithoutMosqueNestedInput
+    prayers?: PrayerUpdateManyWithoutMosqueNestedInput
     qrCodes?: QRCodeUpdateManyWithoutMosqueNestedInput
   }
 
@@ -10783,8 +12597,8 @@ export namespace Prisma {
     name: string
     logoUrl?: string | null
     media?: MediaCreateNestedManyWithoutMosqueInput
-    prayers?: PrayerCreateNestedManyWithoutMosqueInput
     city: CityCreateNestedOneWithoutMosqueInput
+    prayers?: PrayerCreateNestedManyWithoutMosqueInput
   }
 
   export type MosqueUncheckedCreateWithoutQrCodesInput = {
@@ -10816,8 +12630,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     media?: MediaUpdateManyWithoutMosqueNestedInput
-    prayers?: PrayerUpdateManyWithoutMosqueNestedInput
     city?: CityUpdateOneRequiredWithoutMosqueNestedInput
+    prayers?: PrayerUpdateManyWithoutMosqueNestedInput
   }
 
   export type MosqueUncheckedUpdateWithoutQrCodesInput = {
@@ -10832,6 +12646,7 @@ export namespace Prisma {
   export type CityCreateWithoutAdminInput = {
     name: string
     logoUrl?: string | null
+    fixedPrayerTime?: FixedPrayerTimeCreateNestedOneWithoutCityInput
     Mosque?: MosqueCreateNestedManyWithoutCityInput
     prayers?: PrayerCreateNestedManyWithoutCityInput
   }
@@ -10840,6 +12655,7 @@ export namespace Prisma {
     id?: number
     name: string
     logoUrl?: string | null
+    fixedPrayerTime?: FixedPrayerTimeUncheckedCreateNestedOneWithoutCityInput
     Mosque?: MosqueUncheckedCreateNestedManyWithoutCityInput
     prayers?: PrayerUncheckedCreateNestedManyWithoutCityInput
   }
@@ -10863,6 +12679,7 @@ export namespace Prisma {
   export type CityUpdateWithoutAdminInput = {
     name?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    fixedPrayerTime?: FixedPrayerTimeUpdateOneWithoutCityNestedInput
     Mosque?: MosqueUpdateManyWithoutCityNestedInput
     prayers?: PrayerUpdateManyWithoutCityNestedInput
   }
@@ -10871,6 +12688,57 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    fixedPrayerTime?: FixedPrayerTimeUncheckedUpdateOneWithoutCityNestedInput
+    Mosque?: MosqueUncheckedUpdateManyWithoutCityNestedInput
+    prayers?: PrayerUncheckedUpdateManyWithoutCityNestedInput
+  }
+
+  export type CityCreateWithoutFixedPrayerTimeInput = {
+    name: string
+    logoUrl?: string | null
+    admin?: AdminCreateNestedOneWithoutCityInput
+    Mosque?: MosqueCreateNestedManyWithoutCityInput
+    prayers?: PrayerCreateNestedManyWithoutCityInput
+  }
+
+  export type CityUncheckedCreateWithoutFixedPrayerTimeInput = {
+    id?: number
+    name: string
+    logoUrl?: string | null
+    admin?: AdminUncheckedCreateNestedOneWithoutCityInput
+    Mosque?: MosqueUncheckedCreateNestedManyWithoutCityInput
+    prayers?: PrayerUncheckedCreateNestedManyWithoutCityInput
+  }
+
+  export type CityCreateOrConnectWithoutFixedPrayerTimeInput = {
+    where: CityWhereUniqueInput
+    create: XOR<CityCreateWithoutFixedPrayerTimeInput, CityUncheckedCreateWithoutFixedPrayerTimeInput>
+  }
+
+  export type CityUpsertWithoutFixedPrayerTimeInput = {
+    update: XOR<CityUpdateWithoutFixedPrayerTimeInput, CityUncheckedUpdateWithoutFixedPrayerTimeInput>
+    create: XOR<CityCreateWithoutFixedPrayerTimeInput, CityUncheckedCreateWithoutFixedPrayerTimeInput>
+    where?: CityWhereInput
+  }
+
+  export type CityUpdateToOneWithWhereWithoutFixedPrayerTimeInput = {
+    where?: CityWhereInput
+    data: XOR<CityUpdateWithoutFixedPrayerTimeInput, CityUncheckedUpdateWithoutFixedPrayerTimeInput>
+  }
+
+  export type CityUpdateWithoutFixedPrayerTimeInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    admin?: AdminUpdateOneWithoutCityNestedInput
+    Mosque?: MosqueUpdateManyWithoutCityNestedInput
+    prayers?: PrayerUpdateManyWithoutCityNestedInput
+  }
+
+  export type CityUncheckedUpdateWithoutFixedPrayerTimeInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    admin?: AdminUncheckedUpdateOneWithoutCityNestedInput
     Mosque?: MosqueUncheckedUpdateManyWithoutCityNestedInput
     prayers?: PrayerUncheckedUpdateManyWithoutCityNestedInput
   }
@@ -10975,8 +12843,11 @@ export namespace Prisma {
 
   export type QRCodeCreateManyMosqueInput = {
     id?: number
-    imageUrl: string
     isPrimary?: boolean
+    projectName?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    imageUrl: string
   }
 
   export type MediaUpdateWithoutMosqueInput = {
@@ -11032,20 +12903,29 @@ export namespace Prisma {
   }
 
   export type QRCodeUpdateWithoutMosqueInput = {
-    imageUrl?: StringFieldUpdateOperationsInput | string
     isPrimary?: BoolFieldUpdateOperationsInput | boolean
+    projectName?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
   }
 
   export type QRCodeUncheckedUpdateWithoutMosqueInput = {
     id?: IntFieldUpdateOperationsInput | number
-    imageUrl?: StringFieldUpdateOperationsInput | string
     isPrimary?: BoolFieldUpdateOperationsInput | boolean
+    projectName?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
   }
 
   export type QRCodeUncheckedUpdateManyWithoutMosqueInput = {
     id?: IntFieldUpdateOperationsInput | number
-    imageUrl?: StringFieldUpdateOperationsInput | string
     isPrimary?: BoolFieldUpdateOperationsInput | boolean
+    projectName?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
   }
 
 
@@ -11089,6 +12969,10 @@ export namespace Prisma {
      * @deprecated Use AdminDefaultArgs instead
      */
     export type AdminArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AdminDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use FixedPrayerTimeDefaultArgs instead
+     */
+    export type FixedPrayerTimeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = FixedPrayerTimeDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

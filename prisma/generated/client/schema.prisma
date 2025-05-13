@@ -52,11 +52,14 @@ model Media {
 }
 
 model QRCode {
-  id       Int     @id @default(autoincrement())
-  mosqueId Int
-  imageUrl String
-  isPrimary Boolean @default(true)
-  mosque   Mosque  @relation("MosqueQRCode", fields: [mosqueId], references: [id])
+  id          Int      @id @default(autoincrement())
+  code        String   @unique
+  mosqueId    Int
+  mosque      Mosque   @relation("MosqueQRCode", fields: [mosqueId], references: [id])
+  isPrimary   Boolean  @default(true)
+  projectName String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model ErrorMessage {

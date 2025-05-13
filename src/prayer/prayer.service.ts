@@ -1,7 +1,9 @@
 import * as XLSX from 'xlsx';
 import * as fs from 'fs';
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
+import { UpdateFixedPrayerTimeDto } from './dto/update-fixed-prayer-time.dto';
+import { CreateFixedPrayerTimeDto } from './dto/create-fixed-prayer-time.dto';
 
 @Injectable()
 export class PrayerService {
@@ -209,6 +211,13 @@ export class PrayerService {
 					city = await this.prisma.city.create({
 						data: { name: cityName },
 					});
+					
+					// Создаем фиксированное время для нового города
+					try {
+						await this.createDefaultFixedPrayerTime(city.id);
+					} catch (error) {
+						console.error(`Ошибка при создании фиксированного времени для города ${city.name}: ${error.message}`);
+					}
 				}
 				
 				const existingPrayer = await this.prisma.prayer.findFirst({
@@ -258,32 +267,295 @@ export class PrayerService {
 
 
 	async getTodaysPrayersForCity(cityName: string): Promise<any> {
-		// Получаем текущую дату в формате YYYY-MM-DD
-		const today = new Date().toISOString().split('T')[0];
-
 		// Находим город по имени
 		const city = await this.prisma.city.findFirst({
-			where: { name: cityName },
+			where: { name: cityName }
 		});
 
 		if (!city) {
-			throw new Error(`Город с названием "${cityName}" не найден`);
+			throw new Error(`Город "${cityName}" не найден`);
 		}
 
-		// Находим записи намазов для города и текущей даты
-		const prayers = await this.prisma.prayer.findFirst({
+		// Получаем текущую дату в формате "YYYY-MM-DD"
+		const today = new Date();
+		const year = today.getFullYear();
+		const month = String(today.getMonth() + 1).padStart(2, '0');
+		const day = String(today.getDate()).padStart(2, '0');
+		const todayStr = `${year}-${month}-${day}`;
+
+		// Находим обычное время намаза для этого города на сегодня
+		const prayer = await this.prisma.prayer.findFirst({
 			where: {
 				cityId: city.id,
-				date: today,  // Фильтруем по текущей дате
-			},
+				date: todayStr
+			}
 		});
 
-		if (!prayers) {
-			return { message: `Не найдено время молитв для города" ${cityName} " на ${today}` };
+		if (!prayer) {
+			throw new Error(`Расписание намазов для города "${cityName}" на сегодня (${todayStr}) не найдено`);
 		}
 
-		return prayers;
+		// Возвращаем только обычное расписание намазов
+		return {
+			id: prayer.id,
+			cityId: prayer.cityId,
+			date: prayer.date,
+			fajr: prayer.fajr,
+			shuruk: prayer.shuruk,
+			zuhr: prayer.zuhr,
+			asr: prayer.asr,
+			maghrib: prayer.maghrib,
+			isha: prayer.isha,
+			mechet: prayer.mechet,
+			cityName: city.name
+		};
 	}
 
+	async updateFixedPrayerTime(cityId: number, updateFixedPrayerTimeDto: UpdateFixedPrayerTimeDto): Promise<any> {
+		// Проверяем, существует ли город
+		const city = await this.prisma.city.findFirst({
+			where: { id: Number(cityId) }
+		});
+
+		if (!city) {
+			throw new NotFoundException(`Город с ID ${cityId} не найден`);
+		}
+
+		// Проверяем, существует ли фиксированное время для этого города
+		const existingFixedTime = await this.prisma.fixedPrayerTime.findFirst({
+			where: { cityId: Number(cityId) }
+		});
+
+		if (!existingFixedTime) {
+			throw new NotFoundException(`Фиксированное время намаза для города ${city.name} не найдено`);
+		}
+
+		// Обновляем запись фиксированного времени
+		return this.prisma.fixedPrayerTime.update({
+			where: { id: existingFixedTime.id },
+			data: {
+				fajr: updateFixedPrayerTimeDto.fajr !== undefined ? updateFixedPrayerTimeDto.fajr : undefined,
+				shuruk: updateFixedPrayerTimeDto.shuruk !== undefined ? updateFixedPrayerTimeDto.shuruk : undefined,
+				zuhr: updateFixedPrayerTimeDto.zuhr !== undefined ? updateFixedPrayerTimeDto.zuhr : undefined,
+				asr: updateFixedPrayerTimeDto.asr !== undefined ? updateFixedPrayerTimeDto.asr : undefined,
+				maghrib: updateFixedPrayerTimeDto.maghrib !== undefined ? updateFixedPrayerTimeDto.maghrib : undefined,
+				isha: updateFixedPrayerTimeDto.isha !== undefined ? updateFixedPrayerTimeDto.isha : undefined,
+				mechet: updateFixedPrayerTimeDto.mechet !== undefined ? updateFixedPrayerTimeDto.mechet : undefined,
+				fajrActive: updateFixedPrayerTimeDto.fajrActive !== undefined ? updateFixedPrayerTimeDto.fajrActive : undefined,
+				shurukActive: updateFixedPrayerTimeDto.shurukActive !== undefined ? updateFixedPrayerTimeDto.shurukActive : undefined,
+				zuhrActive: updateFixedPrayerTimeDto.zuhrActive !== undefined ? updateFixedPrayerTimeDto.zuhrActive : undefined,
+				asrActive: updateFixedPrayerTimeDto.asrActive !== undefined ? updateFixedPrayerTimeDto.asrActive : undefined,
+				maghribActive: updateFixedPrayerTimeDto.maghribActive !== undefined ? updateFixedPrayerTimeDto.maghribActive : undefined,
+				ishaActive: updateFixedPrayerTimeDto.ishaActive !== undefined ? updateFixedPrayerTimeDto.ishaActive : undefined,
+				mechetActive: updateFixedPrayerTimeDto.mechetActive !== undefined ? updateFixedPrayerTimeDto.mechetActive : undefined
+			}
+		});
+	}
+
+	async createFixedPrayerTime(createFixedPrayerTimeDto: CreateFixedPrayerTimeDto): Promise<any> {
+		// Проверяем, существует ли город
+		const city = await this.prisma.city.findFirst({
+			where: { id: Number(createFixedPrayerTimeDto.cityId) }
+		});
+
+		if (!city) {
+			throw new NotFoundException(`Город с ID ${createFixedPrayerTimeDto.cityId} не найден`);
+		}
+
+		// Проверяем, существует ли уже фиксированное время для этого города
+		const existingFixedTime = await this.prisma.fixedPrayerTime.findFirst({
+			where: { cityId: Number(createFixedPrayerTimeDto.cityId) }
+		});
+
+		if (existingFixedTime) {
+			return this.updateFixedPrayerTime(createFixedPrayerTimeDto.cityId, createFixedPrayerTimeDto);
+		}
+
+		// Создаем запись фиксированного времени
+		return this.prisma.fixedPrayerTime.create({
+			data: {
+				cityId: Number(createFixedPrayerTimeDto.cityId),
+				fajr: createFixedPrayerTimeDto.fajr,
+				shuruk: createFixedPrayerTimeDto.shuruk,
+				zuhr: createFixedPrayerTimeDto.zuhr,
+				asr: createFixedPrayerTimeDto.asr,
+				maghrib: createFixedPrayerTimeDto.maghrib,
+				isha: createFixedPrayerTimeDto.isha,
+				mechet: createFixedPrayerTimeDto.mechet,
+				fajrActive: createFixedPrayerTimeDto.fajrActive !== undefined ? createFixedPrayerTimeDto.fajrActive : true,
+				shurukActive: createFixedPrayerTimeDto.shurukActive !== undefined ? createFixedPrayerTimeDto.shurukActive : true,
+				zuhrActive: createFixedPrayerTimeDto.zuhrActive !== undefined ? createFixedPrayerTimeDto.zuhrActive : true,
+				asrActive: createFixedPrayerTimeDto.asrActive !== undefined ? createFixedPrayerTimeDto.asrActive : true,
+				maghribActive: createFixedPrayerTimeDto.maghribActive !== undefined ? createFixedPrayerTimeDto.maghribActive : true,
+				ishaActive: createFixedPrayerTimeDto.ishaActive !== undefined ? createFixedPrayerTimeDto.ishaActive : true,
+				mechetActive: createFixedPrayerTimeDto.mechetActive !== undefined ? createFixedPrayerTimeDto.mechetActive : true
+			}
+		});
+	}
+
+	// Метод для автоматического создания фиксированного времени при создании города
+	async createDefaultFixedPrayerTime(cityId: number): Promise<any> {
+		// Проверяем, существует ли уже фиксированное время для этого города
+		const existingFixedTime = await this.prisma.fixedPrayerTime.findFirst({
+			where: { cityId: Number(cityId) }
+		});
+
+		// Если уже существует, ничего не делаем
+		if (existingFixedTime) {
+			return existingFixedTime;
+		}
+
+		// Создаем запись фиксированного времени с дефолтными значениями
+		return this.prisma.fixedPrayerTime.create({
+			data: {
+				cityId: Number(cityId),
+				fajr: "00:00",
+				shuruk: "00:00",
+				zuhr: "00:00",
+				asr: "00:00",
+				maghrib: "00:00",
+				isha: "00:00",
+				mechet: "00:00",
+				fajrActive: false,
+				shurukActive: false,
+				zuhrActive: false,
+				asrActive: false,
+				maghribActive: false,
+				ishaActive: false,
+				mechetActive: false
+			}
+		});
+	}
+
+	// Модифицируем getFixedPrayerTimeByCityId, чтобы он создавал запись, если она не существует
+	async getFixedPrayerTimeByCityId(cityId: number): Promise<any> {
+		const city = await this.prisma.city.findFirst({
+			where: { id: Number(cityId) }
+		});
+
+		if (!city) {
+			throw new NotFoundException(`Город с ID ${cityId} не найден`);
+		}
+
+		let fixedPrayerTime = await this.prisma.fixedPrayerTime.findFirst({
+			where: { cityId: Number(cityId) }
+		});
+
+		// Если фиксированное время не найдено, создаем его
+		if (!fixedPrayerTime) {
+			fixedPrayerTime = await this.createDefaultFixedPrayerTime(cityId);
+		}
+
+		return {
+			...fixedPrayerTime,
+			cityName: city.name
+		};
+	}
+
+	// Модифицируем getFixedPrayerTimeByCityName, чтобы он создавал запись, если она не существует
+	async getFixedPrayerTimeByCityName(cityName: string): Promise<any> {
+		const city = await this.prisma.city.findFirst({
+			where: { name: cityName }
+		});
+
+		if (!city) {
+			throw new NotFoundException(`Город с названием ${cityName} не найден`);
+		}
+
+		let fixedPrayerTime = await this.prisma.fixedPrayerTime.findFirst({
+			where: { cityId: city.id }
+		});
+
+		// Если фиксированное время не найдено, создаем его
+		if (!fixedPrayerTime) {
+			fixedPrayerTime = await this.createDefaultFixedPrayerTime(city.id);
+		}
+
+		return {
+			...fixedPrayerTime,
+			cityName: city.name
+		};
+	}
+
+	async getAllFixedPrayerTimes(): Promise<any> {
+		// Получаем все фиксированные времена молитв
+		const fixedPrayerTimes = await this.prisma.fixedPrayerTime.findMany({
+			include: {
+				city: {
+					select: {
+						name: true
+					}
+				}
+			}
+		});
+
+		if (!fixedPrayerTimes.length) {
+			return { message: 'Фиксированное время намаза не найдено ни для одного города' };
+		}
+
+		// Преобразуем результат для удобства использования на клиенте
+		return fixedPrayerTimes.map(fixedTime => ({
+			...fixedTime,
+			cityName: fixedTime.city.name
+		}));
+	}
+
+	// Метод для создания записей FixedPrayerTime для всех городов
+	async createFixedTimesForAllCities(): Promise<any> {
+		console.log('Начинаю создание записей FixedPrayerTime для всех городов...');
+		
+		// Получаем все города
+		const cities = await this.prisma.city.findMany();
+		console.log(`Найдено ${cities.length} городов`);
+		
+		let created = 0;
+		let alreadyExists = 0;
+		
+		// Для каждого города проверяем наличие записи в FixedPrayerTime
+		for (const city of cities) {
+			const existingFixedTime = await this.prisma.fixedPrayerTime.findFirst({
+				where: { cityId: city.id }
+			});
+			
+			if (existingFixedTime) {
+				console.log(`Город ${city.name} (ID: ${city.id}) уже имеет запись в FixedPrayerTime`);
+				alreadyExists++;
+				continue;
+			}
+			
+			// Создаем запись с дефолтными значениями
+			await this.prisma.fixedPrayerTime.create({
+				data: {
+					cityId: city.id,
+					fajr: "00:00",
+					shuruk: "00:00",
+					zuhr: "00:00",
+					asr: "00:00",
+					maghrib: "00:00",
+					isha: "00:00",
+					mechet: "00:00",
+					fajrActive: false,
+					shurukActive: false,
+					zuhrActive: false,
+					asrActive: false,
+					maghribActive: false,
+					ishaActive: false,
+					mechetActive: false
+				}
+			});
+			
+			console.log(`Создана запись FixedPrayerTime для города ${city.name} (ID: ${city.id})`);
+			created++;
+		}
+		
+		console.log(`Операция завершена. Создано новых записей: ${created}, уже существующих: ${alreadyExists}`);
+		
+		return { 
+			message: 'Операция завершена',
+			created,
+			alreadyExists,
+			total: cities.length
+		};
+	}
 
 }

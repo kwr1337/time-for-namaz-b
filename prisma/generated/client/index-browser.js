@@ -143,8 +143,11 @@ exports.Prisma.MediaScalarFieldEnum = {
 exports.Prisma.QRCodeScalarFieldEnum = {
   id: 'id',
   mosqueId: 'mosqueId',
-  imageUrl: 'imageUrl',
-  isPrimary: 'isPrimary'
+  isPrimary: 'isPrimary',
+  projectName: 'projectName',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  imageUrl: 'imageUrl'
 };
 
 exports.Prisma.ErrorMessageScalarFieldEnum = {
@@ -159,6 +162,27 @@ exports.Prisma.AdminScalarFieldEnum = {
   createdAt: 'createdAt',
   role: 'role',
   cityId: 'cityId'
+};
+
+exports.Prisma.FixedPrayerTimeScalarFieldEnum = {
+  id: 'id',
+  cityId: 'cityId',
+  fajr: 'fajr',
+  shuruk: 'shuruk',
+  zuhr: 'zuhr',
+  asr: 'asr',
+  maghrib: 'maghrib',
+  isha: 'isha',
+  mechet: 'mechet',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  asrActive: 'asrActive',
+  fajrActive: 'fajrActive',
+  ishaActive: 'ishaActive',
+  maghribActive: 'maghribActive',
+  mechetActive: 'mechetActive',
+  shurukActive: 'shurukActive',
+  zuhrActive: 'zuhrActive'
 };
 
 exports.Prisma.SortOrder = {
@@ -187,7 +211,8 @@ exports.Prisma.ModelName = {
   Media: 'Media',
   QRCode: 'QRCode',
   ErrorMessage: 'ErrorMessage',
-  Admin: 'Admin'
+  Admin: 'Admin',
+  FixedPrayerTime: 'FixedPrayerTime'
 };
 
 /**
