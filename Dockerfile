@@ -8,6 +8,9 @@ RUN npm install
 
 COPY . .
 
+# Копируем файл с переменными окружения
+COPY .env.deploy .env
+
 # Генерируем Prisma клиент
 RUN npx prisma generate
 
