@@ -29,7 +29,7 @@ export class PrayerService {
 				}
 			} else {
 				// Другие форматы строк дат
-				const [datePart] = dateValue.split(' ');
+			const [datePart] = dateValue.split(' ');
 				if (datePart.includes('-')) {
 					return datePart; // уже в формате YYYY-MM-DD
 				}
@@ -176,91 +176,117 @@ export class PrayerService {
 		
 		let processed = 0;
 		let skipped = 0;
-		
+		let errors = [];
+
 		for (const row of worksheet) {
-			// Логируем заголовки первой строки для отладки
-			if (processed === 0) {
-				console.log('Заголовки в Excel файле:', Object.keys(row));
-			}
-			
 			try {
-				const cityName = row['Город'] as string;
+			const cityName = row['Город'] as string;
 				const date = this.formatDate(row['День'] || row['Дата']);
 				const fajr = this.formatTime(row['ФАДЖР'] || row['Фаджр']);
 				const mechet = this.formatTime(row['Мечеть']);
-				const shuruk = this.formatTime(row['Шурук']);
-				const zuhr = this.formatTime(row['Зухр']);
+			const shuruk = this.formatTime(row['Шурук']);
+			const zuhr = this.formatTime(row['Зухр']);
 				const asr = this.formatTime(row['АСР'] || row['Аср']);
 				const maghrib = this.formatTime(row['МАГРИБ'] || row['Магриб']);
 				const isha = this.formatTime(row['ИША'] || row['Иша']);
 				
-				console.log(`Обработка строки: Город=${cityName}, Дата=${date}, Фаджр=${fajr}`);
-				
-				if (!cityName || !date || !fajr || !shuruk || !zuhr || !asr || !maghrib || !isha) {
-					console.warn('Пропуск строки из-за неверного формата данных:', 
-						{ cityName, date, fajr, shuruk, zuhr, asr, maghrib, isha });
-					skipped++;
-					continue;
-				}
-				
-				let city = await this.prisma.city.findFirst({
-					where: { name: cityName },
+				console.log(`[Excel Import] Обработка строки:`, {
+					cityName,
+					date,
+					fajr,
+					shuruk,
+					zuhr,
+					asr,
+					maghrib,
+					isha,
+					mechet,
+					originalRow: row
 				});
 				
-				if (!city) {
-					city = await this.prisma.city.create({
-						data: { name: cityName },
+				if (!cityName || !date || !fajr || !shuruk || !zuhr || !asr || !maghrib || !isha) {
+					console.warn('[Excel Import] Пропуск строки из-за неверного формата данных:', 
+						{ cityName, date, fajr, shuruk, zuhr, asr, maghrib, isha });
+					errors.push({
+						cityName,
+						date,
+						error: 'Неполные данные в строке'
 					});
+					skipped++;
+				continue;
+			}
+
+			let city = await this.prisma.city.findFirst({
+				where: { name: cityName },
+			});
+
+			if (!city) {
+					console.log(`[Excel Import] Создание нового города: ${cityName}`);
+				city = await this.prisma.city.create({
+					data: { name: cityName },
+				});
 					
 					// Создаем фиксированное время для нового города
 					try {
 						await this.createDefaultFixedPrayerTime(city.id);
 					} catch (error) {
-						console.error(`Ошибка при создании фиксированного времени для города ${city.name}: ${error.message}`);
+						console.error(`[Excel Import] Ошибка при создании фиксированного времени для города ${city.name}:`, error);
 					}
-				}
-				
-				const existingPrayer = await this.prisma.prayer.findFirst({
-					where: {
-						cityId: city.id,
-						date,
-					},
-				});
+			}
+
+			const existingPrayer = await this.prisma.prayer.findFirst({
+				where: {
+					cityId: city.id,
+					date,
+				},
+			});
+
+				const prayerData = {
+						fajr,
+						shuruk,
+						zuhr,
+						asr,
+						maghrib,
+						isha,
+					mechet,
+					cityId: city.id,
+					date,
+				};
+
+				console.log(`[Excel Import] ${existingPrayer ? 'Обновление' : 'Создание'} записи для города ${cityName} на дату ${date}:`, prayerData);
 				
 				if (existingPrayer) {
 					await this.prisma.prayer.update({
 						where: { id: existingPrayer.id },
-						data: { fajr, shuruk, zuhr, asr, maghrib, isha, mechet },
+						data: prayerData,
 					});
 				} else {
 					await this.prisma.prayer.create({
-						data: {
-							cityId: city.id,
-							date,
-							fajr,
-							shuruk,
-							zuhr,
-							asr, 
-							maghrib,
-							isha,
-							mechet,
-						},
+						data: prayerData,
 					});
 				}
 				
 				processed++;
 			} catch (error) {
-				console.error('Ошибка при импорте строки:', error);
+				console.error('[Excel Import] Ошибка при импорте строки:', error);
+				errors.push({
+					row: processed + skipped + 1,
+					error: error.message
+				});
 				skipped++;
 			}
 		}
 		
+		try {
 		fs.unlinkSync(filePath);
+		} catch (error) {
+			console.error('[Excel Import] Ошибка при удалении временного файла:', error);
+		}
 		
 		return { 
 			message: 'Данные успешно импортированы или обновлены!',
 			processed, 
-			skipped 
+			skipped,
+			errors: errors.length > 0 ? errors : undefined
 		};
 	}
 
