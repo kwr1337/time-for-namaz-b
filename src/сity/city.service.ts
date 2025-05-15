@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { CreateCityDto } from './dto/create-city.dto';
+import { UpdateCityDto } from './dto/update-city.dto';
 import { PrayerService } from 'src/prayer/prayer.service';
 
 @Injectable()
@@ -43,6 +44,15 @@ export class CityService {
 				id: Number(id)
 			},
 			data: { logoUrl },
+		});
+	}
+
+	update(id: number, updateCityDto: UpdateCityDto) {
+		return this.prisma.city.update({
+			where: {
+				id: Number(id)
+			},
+			data: updateCityDto,
 		});
 	}
 

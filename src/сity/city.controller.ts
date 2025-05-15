@@ -22,6 +22,7 @@ import { Roles } from '../guards/roles.decorator';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
+import { UpdateCityDto } from './dto/update-city.dto';
 
 @Controller('cities')
 export class CityController {
@@ -107,6 +108,21 @@ export class CityController {
 			return await this.cityService.remove(id);
 		} catch (error) {
 			throw new HttpException('Ошибка удаления города', HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@Put(':id')
+	@UseGuards(AuthGuard('jwt'), RolesGuard)
+	@Roles(Role.SUPER_ADMIN, Role.CITY_ADMIN)
+	async update(@Param('id') id: number, @Body() updateCityDto: UpdateCityDto) {
+		try {
+			const city = await this.cityService.findOne(id);
+			if (!city) {
+				throw new HttpException('Город не найден', HttpStatus.NOT_FOUND);
+			}
+			return await this.cityService.update(id, updateCityDto);
+		} catch (error) {
+			throw new HttpException('Ошибка обновления города', HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 }

@@ -10,8 +10,21 @@ export class PrayerService {
 	constructor(private prisma: PrismaService) {}
 
 	private excelDateToJsDate(excelDate: number): Date {
-		const EXCEL_EPOCH = new Date(1899, 11, 30);
-		return new Date(EXCEL_EPOCH.getTime() + (excelDate * 24 * 60 * 60 * 1000));
+		// Excel использует систему дат, где 1 = 1 день, а дробная часть = время
+		const days = Math.floor(excelDate);
+		const fraction = excelDate - days;
+		
+		// Начало отсчета Excel - 30 декабря 1899
+		const date = new Date(Date.UTC(1899, 11, 30));
+		
+		// Добавляем дни
+		date.setUTCDate(date.getUTCDate() + days);
+		
+		// Добавляем время (в миллисекундах)
+		const milliseconds = Math.round(fraction * 24 * 60 * 60 * 1000);
+		date.setUTCMilliseconds(date.getUTCMilliseconds() + milliseconds);
+		
+		return date;
 	}
 
 	private formatDate(dateValue: any): string | null {
@@ -55,45 +68,60 @@ export class PrayerService {
 		return prayers;
 	}
 
-
 	private formatTime(timeValue: any): string | null {
-		const subtractMinutes = (date: Date, minutes: number) => {
-			date.setMinutes(date.getMinutes() - minutes);
-			return date;
-		};
-
-		const roundToNearestMinute = (date: Date): Date => {
-			const seconds = date.getSeconds();
-			if (seconds >= 31) {
-				date.setMinutes(date.getMinutes() + 1);
-			}
-			date.setSeconds(0);
-			date.setMilliseconds(0);
-			return date;
-		};
+		if (!timeValue) return null;
 
 		if (typeof timeValue === 'number') {
-			const jsDate = this.excelDateToJsDate(timeValue);
-			const adjustedDate = subtractMinutes(jsDate, 30);
-			const roundedDate = roundToNearestMinute(adjustedDate);
-			const hours = roundedDate.getHours().toString().padStart(2, '0');
-			const minutes = roundedDate.getMinutes().toString().padStart(2, '0');
-			return `${hours}:${minutes}`;
+			// Для числового формата из Excel (дробная часть суток)
+			const totalMinutes = Math.round(timeValue * 24 * 60);
+			const hours = Math.floor(totalMinutes / 60);
+			const minutes = totalMinutes % 60;
+			return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
 		} else if (typeof timeValue === 'string') {
-			const [hours, minutes, seconds] = timeValue.split(':').map(num => parseInt(num, 10));
-			const date = new Date();
-			date.setHours(hours, minutes, seconds, 0);
-			const adjustedDate = subtractMinutes(date, 30);
-			const roundedDate = roundToNearestMinute(adjustedDate);
-			const adjustedHours = roundedDate.getHours().toString().padStart(2, '0');
-			const adjustedMinutes = roundedDate.getMinutes().toString().padStart(2, '0');
-			return `${adjustedHours}:${adjustedMinutes}`;
-		} else {
-			console.error('Ожидалось число или строка для времени, но получено:', timeValue);
+			// Очищаем строку от лишних символов
+			const clean = timeValue.trim();
+			
+			// Если строка — это число, например "0.2375", конвертируем как число
+			if (!isNaN(Number(clean))) {
+				return this.formatTime(Number(clean));
+			}
+			
+			// Для строк в формате ЧЧ:ММ или ЧЧ:ММ:СС
+			const parts = clean.split(':');
+			if (parts.length >= 2) {
+				const hours = parts[0].trim().padStart(2, '0');
+				const minutes = parts[1].trim().split('.')[0].padStart(2, '0'); // Убираем секунды, если есть
+				
+				// Проверяем, что это числа
+				if (isNaN(Number(hours)) || isNaN(Number(minutes))) {
+					console.error('Некорректные часы или минуты:', timeValue);
+					return null;
+				}
+				
+				return `${hours}:${minutes}`;
+			}
+			
+			// Для других форматов (например, ЧЧ.ММ)
+			const dotParts = clean.split('.');
+			if (dotParts.length >= 2) {
+				const hours = dotParts[0].trim().padStart(2, '0');
+				const minutes = dotParts[1].trim().padStart(2, '0');
+				
+				if (isNaN(Number(hours)) || isNaN(Number(minutes))) {
+					console.error('Некорректные часы или минуты (формат с точкой):', timeValue);
+					return null;
+				}
+				
+				return `${hours}:${minutes}`;
+			}
+			
+			console.error('Некорректный формат времени:', timeValue);
 			return null;
 		}
+		
+		console.error('Ожидалось число или строка для времени, но получено:', timeValue);
+		return null;
 	}
-
 
 	// обновление времени
 	async shiftPrayerTimesForCity(cityId: number, prayerName: string, shiftMinutes: number): Promise<any> {
@@ -148,8 +176,6 @@ export class PrayerService {
 		return { message: `Все ${prayerName} время сдвинуто на ${shiftMinutes} минут в городе с ID "${cityId}"` };
 	}
 
-
-
 	private shiftTime(timeString: string | null, shiftMinutes: number): string | null {
 		if (!timeString) {
 			return null;
@@ -170,9 +196,19 @@ export class PrayerService {
 	async importFromExcel(filePath: string): Promise<any> {
 		const workbook = XLSX.readFile(filePath);
 		const sheetName = workbook.SheetNames[0];
-		const worksheet = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
+		
+		// Прямое извлечение данных без преобразования
+		const worksheet = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { 
+			raw: true, 
+			defval: null // Устанавливаем null как значение по умолчанию для пустых ячеек
+		});
 		
 		console.log('Начало импорта из Excel. Количество строк:', worksheet.length);
+		
+		// Логирование данных первой строки
+		if (worksheet.length > 0) {
+			console.log('Первая строка (исходные данные):', worksheet[0]);
+		}
 		
 		let processed = 0;
 		let skipped = 0;
@@ -180,31 +216,35 @@ export class PrayerService {
 
 		for (const row of worksheet) {
 			try {
-			const cityName = row['Город'] as string;
+				const cityName = String(row['Город'] || '').trim();
 				const date = this.formatDate(row['День'] || row['Дата']);
+				
+				// Форматируем все времена намазов
 				const fajr = this.formatTime(row['ФАДЖР'] || row['Фаджр']);
-				const mechet = this.formatTime(row['Мечеть']);
-			const shuruk = this.formatTime(row['Шурук']);
-			const zuhr = this.formatTime(row['Зухр']);
+				const shuruk = this.formatTime(row['Шурук']);
+				const zuhr = this.formatTime(row['Зухр']);
 				const asr = this.formatTime(row['АСР'] || row['Аср']);
 				const maghrib = this.formatTime(row['МАГРИБ'] || row['Магриб']);
 				const isha = this.formatTime(row['ИША'] || row['Иша']);
+				const mechet = this.formatTime(row['Мечеть']);
 				
-				console.log(`[Excel Import] Обработка строки:`, {
-					cityName,
-					date,
-					fajr,
-					shuruk,
-					zuhr,
-					asr,
-					maghrib,
-					isha,
-					mechet,
-					originalRow: row
+				// Отладка - печатаем значения
+				console.log(`[Excel Import] Строка ${processed + 1}:`, {
+					город: cityName,
+					дата: date,
+					времена: {
+						фаджр: fajr,
+						шурук: shuruk,
+						зухр: zuhr,
+						аср: asr,
+						магриб: maghrib,
+						иша: isha,
+						мечеть: mechet
+					}
 				});
 				
 				if (!cityName || !date || !fajr || !shuruk || !zuhr || !asr || !maghrib || !isha) {
-					console.warn('[Excel Import] Пропуск строки из-за неверного формата данных:', 
+					console.warn('[Excel Import] Пропуск строки - неполные данные:', 
 						{ cityName, date, fajr, shuruk, zuhr, asr, maghrib, isha });
 					errors.push({
 						cityName,
@@ -212,60 +252,71 @@ export class PrayerService {
 						error: 'Неполные данные в строке'
 					});
 					skipped++;
-				continue;
-			}
+					continue;
+				}
 
-			let city = await this.prisma.city.findFirst({
-				where: { name: cityName },
-			});
-
-			if (!city) {
-					console.log(`[Excel Import] Создание нового города: ${cityName}`);
-				city = await this.prisma.city.create({
-					data: { name: cityName },
+				let city = await this.prisma.city.findFirst({
+					where: { name: cityName },
 				});
+
+				if (!city) {
+					console.log(`[Excel Import] Создание нового города: ${cityName}`);
+					city = await this.prisma.city.create({
+						data: { name: cityName },
+					});
 					
-					// Создаем фиксированное время для нового города
 					try {
 						await this.createDefaultFixedPrayerTime(city.id);
 					} catch (error) {
 						console.error(`[Excel Import] Ошибка при создании фиксированного времени для города ${city.name}:`, error);
 					}
-			}
+				}
 
-			const existingPrayer = await this.prisma.prayer.findFirst({
-				where: {
-					cityId: city.id,
-					date,
-				},
-			});
+				// Ищем существующую запись молитвы по cityId и date
+				const existingPrayer = await this.prisma.prayer.findFirst({
+					where: {
+						cityId: city.id,
+						date: date
+					}
+				});
 
-				const prayerData = {
-						fajr,
-						shuruk,
-						zuhr,
-						asr,
-						maghrib,
-						isha,
-					mechet,
-					cityId: city.id,
-					date,
-				};
-
-				console.log(`[Excel Import] ${existingPrayer ? 'Обновление' : 'Создание'} записи для города ${cityName} на дату ${date}:`, prayerData);
-				
+				// Обновляем или создаем запись
 				if (existingPrayer) {
 					await this.prisma.prayer.update({
 						where: { id: existingPrayer.id },
-						data: prayerData,
+						data: {
+							fajr,
+							shuruk,
+							zuhr,
+							asr,
+							maghrib,
+							isha,
+							mechet
+						}
 					});
+					console.log(`[Excel Import] Обновлена запись для города ${cityName} на дату ${date}`);
 				} else {
 					await this.prisma.prayer.create({
-						data: prayerData,
+						data: {
+							cityId: city.id,
+							date,
+							fajr,
+							shuruk,
+							zuhr,
+							asr,
+							maghrib,
+							isha,
+							mechet
+						}
 					});
+					console.log(`[Excel Import] Создана новая запись для города ${cityName} на дату ${date}`);
 				}
 				
 				processed++;
+				
+				if (processed % 100 === 0) {
+					console.log(`Обработано ${processed} записей...`);
+				}
 			} catch (error) {
 				console.error('[Excel Import] Ошибка при импорте строки:', error);
 				errors.push({
@@ -277,7 +328,7 @@ export class PrayerService {
 		}
 		
 		try {
-		fs.unlinkSync(filePath);
+			fs.unlinkSync(filePath);
 		} catch (error) {
 			console.error('[Excel Import] Ошибка при удалении временного файла:', error);
 		}
@@ -289,8 +340,6 @@ export class PrayerService {
 			errors: errors.length > 0 ? errors : undefined
 		};
 	}
-
-
 
 	async getTodaysPrayersForCity(cityName: string): Promise<any> {
 		// Находим город по имени
