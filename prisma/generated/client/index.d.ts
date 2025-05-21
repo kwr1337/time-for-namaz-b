@@ -53,6 +53,16 @@ export type Admin = $Result.DefaultSelection<Prisma.$AdminPayload>
  * 
  */
 export type FixedPrayerTime = $Result.DefaultSelection<Prisma.$FixedPrayerTimePayload>
+/**
+ * Model PrayerTimeChange
+ * 
+ */
+export type PrayerTimeChange = $Result.DefaultSelection<Prisma.$PrayerTimeChangePayload>
+/**
+ * Model AuditLog
+ * 
+ */
+export type AuditLog = $Result.DefaultSelection<Prisma.$AuditLogPayload>
 
 /**
  * Enums
@@ -272,6 +282,26 @@ export class PrismaClient<
     * ```
     */
   get fixedPrayerTime(): Prisma.FixedPrayerTimeDelegate<ExtArgs>;
+
+  /**
+   * `prisma.prayerTimeChange`: Exposes CRUD operations for the **PrayerTimeChange** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PrayerTimeChanges
+    * const prayerTimeChanges = await prisma.prayerTimeChange.findMany()
+    * ```
+    */
+  get prayerTimeChange(): Prisma.PrayerTimeChangeDelegate<ExtArgs>;
+
+  /**
+   * `prisma.auditLog`: Exposes CRUD operations for the **AuditLog** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AuditLogs
+    * const auditLogs = await prisma.auditLog.findMany()
+    * ```
+    */
+  get auditLog(): Prisma.AuditLogDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -749,7 +779,9 @@ export namespace Prisma {
     QRCode: 'QRCode',
     ErrorMessage: 'ErrorMessage',
     Admin: 'Admin',
-    FixedPrayerTime: 'FixedPrayerTime'
+    FixedPrayerTime: 'FixedPrayerTime',
+    PrayerTimeChange: 'PrayerTimeChange',
+    AuditLog: 'AuditLog'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -766,7 +798,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'city' | 'prayer' | 'mosque' | 'media' | 'qRCode' | 'errorMessage' | 'admin' | 'fixedPrayerTime'
+      modelProps: 'city' | 'prayer' | 'mosque' | 'media' | 'qRCode' | 'errorMessage' | 'admin' | 'fixedPrayerTime' | 'prayerTimeChange' | 'auditLog'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -1298,6 +1330,138 @@ export namespace Prisma {
           }
         }
       }
+      PrayerTimeChange: {
+        payload: Prisma.$PrayerTimeChangePayload<ExtArgs>
+        fields: Prisma.PrayerTimeChangeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PrayerTimeChangeFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$PrayerTimeChangePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PrayerTimeChangeFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$PrayerTimeChangePayload>
+          }
+          findFirst: {
+            args: Prisma.PrayerTimeChangeFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$PrayerTimeChangePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PrayerTimeChangeFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$PrayerTimeChangePayload>
+          }
+          findMany: {
+            args: Prisma.PrayerTimeChangeFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$PrayerTimeChangePayload>[]
+          }
+          create: {
+            args: Prisma.PrayerTimeChangeCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$PrayerTimeChangePayload>
+          }
+          createMany: {
+            args: Prisma.PrayerTimeChangeCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.PrayerTimeChangeDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$PrayerTimeChangePayload>
+          }
+          update: {
+            args: Prisma.PrayerTimeChangeUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$PrayerTimeChangePayload>
+          }
+          deleteMany: {
+            args: Prisma.PrayerTimeChangeDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PrayerTimeChangeUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.PrayerTimeChangeUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$PrayerTimeChangePayload>
+          }
+          aggregate: {
+            args: Prisma.PrayerTimeChangeAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregatePrayerTimeChange>
+          }
+          groupBy: {
+            args: Prisma.PrayerTimeChangeGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<PrayerTimeChangeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PrayerTimeChangeCountArgs<ExtArgs>,
+            result: $Utils.Optional<PrayerTimeChangeCountAggregateOutputType> | number
+          }
+        }
+      }
+      AuditLog: {
+        payload: Prisma.$AuditLogPayload<ExtArgs>
+        fields: Prisma.AuditLogFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AuditLogFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AuditLogFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload>
+          }
+          findFirst: {
+            args: Prisma.AuditLogFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AuditLogFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload>
+          }
+          findMany: {
+            args: Prisma.AuditLogFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload>[]
+          }
+          create: {
+            args: Prisma.AuditLogCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload>
+          }
+          createMany: {
+            args: Prisma.AuditLogCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.AuditLogDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload>
+          }
+          update: {
+            args: Prisma.AuditLogUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload>
+          }
+          deleteMany: {
+            args: Prisma.AuditLogDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AuditLogUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.AuditLogUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload>
+          }
+          aggregate: {
+            args: Prisma.AuditLogAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateAuditLog>
+          }
+          groupBy: {
+            args: Prisma.AuditLogGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<AuditLogGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AuditLogCountArgs<ExtArgs>,
+            result: $Utils.Optional<AuditLogCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1487,6 +1651,40 @@ export namespace Prisma {
 
 
   /**
+   * Count Type PrayerCountOutputType
+   */
+
+  export type PrayerCountOutputType = {
+    changes: number
+  }
+
+  export type PrayerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    changes?: boolean | PrayerCountOutputTypeCountChangesArgs
+  }
+
+  // Custom InputTypes
+
+  /**
+   * PrayerCountOutputType without action
+   */
+  export type PrayerCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PrayerCountOutputType
+     */
+    select?: PrayerCountOutputTypeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * PrayerCountOutputType without action
+   */
+  export type PrayerCountOutputTypeCountChangesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PrayerTimeChangeWhereInput
+  }
+
+
+
+  /**
    * Count Type MosqueCountOutputType
    */
 
@@ -1536,6 +1734,50 @@ export namespace Prisma {
    */
   export type MosqueCountOutputTypeCountQrCodesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: QRCodeWhereInput
+  }
+
+
+
+  /**
+   * Count Type AdminCountOutputType
+   */
+
+  export type AdminCountOutputType = {
+    prayerChanges: number
+    auditLogs: number
+  }
+
+  export type AdminCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    prayerChanges?: boolean | AdminCountOutputTypeCountPrayerChangesArgs
+    auditLogs?: boolean | AdminCountOutputTypeCountAuditLogsArgs
+  }
+
+  // Custom InputTypes
+
+  /**
+   * AdminCountOutputType without action
+   */
+  export type AdminCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdminCountOutputType
+     */
+    select?: AdminCountOutputTypeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * AdminCountOutputType without action
+   */
+  export type AdminCountOutputTypeCountPrayerChangesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PrayerTimeChangeWhereInput
+  }
+
+
+  /**
+   * AdminCountOutputType without action
+   */
+  export type AdminCountOutputTypeCountAuditLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AuditLogWhereInput
   }
 
 
@@ -2821,6 +3063,8 @@ export namespace Prisma {
     mechet?: boolean
     city?: boolean | CityDefaultArgs<ExtArgs>
     mosque?: boolean | Prayer$mosqueArgs<ExtArgs>
+    changes?: boolean | Prayer$changesArgs<ExtArgs>
+    _count?: boolean | PrayerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["prayer"]>
 
   export type PrayerSelectScalar = {
@@ -2840,6 +3084,8 @@ export namespace Prisma {
   export type PrayerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     city?: boolean | CityDefaultArgs<ExtArgs>
     mosque?: boolean | Prayer$mosqueArgs<ExtArgs>
+    changes?: boolean | Prayer$changesArgs<ExtArgs>
+    _count?: boolean | PrayerCountOutputTypeDefaultArgs<ExtArgs>
   }
 
 
@@ -2848,6 +3094,7 @@ export namespace Prisma {
     objects: {
       city: Prisma.$CityPayload<ExtArgs>
       mosque: Prisma.$MosquePayload<ExtArgs> | null
+      changes: Prisma.$PrayerTimeChangePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -3230,6 +3477,8 @@ export namespace Prisma {
 
     mosque<T extends Prayer$mosqueArgs<ExtArgs> = {}>(args?: Subset<T, Prayer$mosqueArgs<ExtArgs>>): Prisma__MosqueClient<$Result.GetResult<Prisma.$MosquePayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
+    changes<T extends Prayer$changesArgs<ExtArgs> = {}>(args?: Subset<T, Prayer$changesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PrayerTimeChangePayload<ExtArgs>, T, 'findMany'> | Null>;
+
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3593,6 +3842,27 @@ export namespace Prisma {
      */
     include?: MosqueInclude<ExtArgs> | null
     where?: MosqueWhereInput
+  }
+
+
+  /**
+   * Prayer.changes
+   */
+  export type Prayer$changesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PrayerTimeChange
+     */
+    select?: PrayerTimeChangeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PrayerTimeChangeInclude<ExtArgs> | null
+    where?: PrayerTimeChangeWhereInput
+    orderBy?: PrayerTimeChangeOrderByWithRelationInput | PrayerTimeChangeOrderByWithRelationInput[]
+    cursor?: PrayerTimeChangeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PrayerTimeChangeScalarFieldEnum | PrayerTimeChangeScalarFieldEnum[]
   }
 
 
@@ -7631,6 +7901,9 @@ export namespace Prisma {
     role?: boolean
     cityId?: boolean
     city?: boolean | Admin$cityArgs<ExtArgs>
+    prayerChanges?: boolean | Admin$prayerChangesArgs<ExtArgs>
+    auditLogs?: boolean | Admin$auditLogsArgs<ExtArgs>
+    _count?: boolean | AdminCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["admin"]>
 
   export type AdminSelectScalar = {
@@ -7644,6 +7917,9 @@ export namespace Prisma {
 
   export type AdminInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     city?: boolean | Admin$cityArgs<ExtArgs>
+    prayerChanges?: boolean | Admin$prayerChangesArgs<ExtArgs>
+    auditLogs?: boolean | Admin$auditLogsArgs<ExtArgs>
+    _count?: boolean | AdminCountOutputTypeDefaultArgs<ExtArgs>
   }
 
 
@@ -7651,6 +7927,8 @@ export namespace Prisma {
     name: "Admin"
     objects: {
       city: Prisma.$CityPayload<ExtArgs> | null
+      prayerChanges: Prisma.$PrayerTimeChangePayload<ExtArgs>[]
+      auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -8026,6 +8304,10 @@ export namespace Prisma {
 
     city<T extends Admin$cityArgs<ExtArgs> = {}>(args?: Subset<T, Admin$cityArgs<ExtArgs>>): Prisma__CityClient<$Result.GetResult<Prisma.$CityPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
+    prayerChanges<T extends Admin$prayerChangesArgs<ExtArgs> = {}>(args?: Subset<T, Admin$prayerChangesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PrayerTimeChangePayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    auditLogs<T extends Admin$auditLogsArgs<ExtArgs> = {}>(args?: Subset<T, Admin$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, 'findMany'> | Null>;
+
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8384,6 +8666,48 @@ export namespace Prisma {
      */
     include?: CityInclude<ExtArgs> | null
     where?: CityWhereInput
+  }
+
+
+  /**
+   * Admin.prayerChanges
+   */
+  export type Admin$prayerChangesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PrayerTimeChange
+     */
+    select?: PrayerTimeChangeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PrayerTimeChangeInclude<ExtArgs> | null
+    where?: PrayerTimeChangeWhereInput
+    orderBy?: PrayerTimeChangeOrderByWithRelationInput | PrayerTimeChangeOrderByWithRelationInput[]
+    cursor?: PrayerTimeChangeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PrayerTimeChangeScalarFieldEnum | PrayerTimeChangeScalarFieldEnum[]
+  }
+
+
+  /**
+   * Admin.auditLogs
+   */
+  export type Admin$auditLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AuditLogInclude<ExtArgs> | null
+    where?: AuditLogWhereInput
+    orderBy?: AuditLogOrderByWithRelationInput | AuditLogOrderByWithRelationInput[]
+    cursor?: AuditLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AuditLogScalarFieldEnum | AuditLogScalarFieldEnum[]
   }
 
 
@@ -9503,6 +9827,1993 @@ export namespace Prisma {
 
 
   /**
+   * Model PrayerTimeChange
+   */
+
+  export type AggregatePrayerTimeChange = {
+    _count: PrayerTimeChangeCountAggregateOutputType | null
+    _avg: PrayerTimeChangeAvgAggregateOutputType | null
+    _sum: PrayerTimeChangeSumAggregateOutputType | null
+    _min: PrayerTimeChangeMinAggregateOutputType | null
+    _max: PrayerTimeChangeMaxAggregateOutputType | null
+  }
+
+  export type PrayerTimeChangeAvgAggregateOutputType = {
+    id: number | null
+    prayerId: number | null
+    shiftMinutes: number | null
+    changedBy: number | null
+  }
+
+  export type PrayerTimeChangeSumAggregateOutputType = {
+    id: number | null
+    prayerId: number | null
+    shiftMinutes: number | null
+    changedBy: number | null
+  }
+
+  export type PrayerTimeChangeMinAggregateOutputType = {
+    id: number | null
+    prayerId: number | null
+    prayerType: string | null
+    oldTime: string | null
+    newTime: string | null
+    shiftMinutes: number | null
+    changedAt: Date | null
+    changedBy: number | null
+  }
+
+  export type PrayerTimeChangeMaxAggregateOutputType = {
+    id: number | null
+    prayerId: number | null
+    prayerType: string | null
+    oldTime: string | null
+    newTime: string | null
+    shiftMinutes: number | null
+    changedAt: Date | null
+    changedBy: number | null
+  }
+
+  export type PrayerTimeChangeCountAggregateOutputType = {
+    id: number
+    prayerId: number
+    prayerType: number
+    oldTime: number
+    newTime: number
+    shiftMinutes: number
+    changedAt: number
+    changedBy: number
+    _all: number
+  }
+
+
+  export type PrayerTimeChangeAvgAggregateInputType = {
+    id?: true
+    prayerId?: true
+    shiftMinutes?: true
+    changedBy?: true
+  }
+
+  export type PrayerTimeChangeSumAggregateInputType = {
+    id?: true
+    prayerId?: true
+    shiftMinutes?: true
+    changedBy?: true
+  }
+
+  export type PrayerTimeChangeMinAggregateInputType = {
+    id?: true
+    prayerId?: true
+    prayerType?: true
+    oldTime?: true
+    newTime?: true
+    shiftMinutes?: true
+    changedAt?: true
+    changedBy?: true
+  }
+
+  export type PrayerTimeChangeMaxAggregateInputType = {
+    id?: true
+    prayerId?: true
+    prayerType?: true
+    oldTime?: true
+    newTime?: true
+    shiftMinutes?: true
+    changedAt?: true
+    changedBy?: true
+  }
+
+  export type PrayerTimeChangeCountAggregateInputType = {
+    id?: true
+    prayerId?: true
+    prayerType?: true
+    oldTime?: true
+    newTime?: true
+    shiftMinutes?: true
+    changedAt?: true
+    changedBy?: true
+    _all?: true
+  }
+
+  export type PrayerTimeChangeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PrayerTimeChange to aggregate.
+     */
+    where?: PrayerTimeChangeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PrayerTimeChanges to fetch.
+     */
+    orderBy?: PrayerTimeChangeOrderByWithRelationInput | PrayerTimeChangeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PrayerTimeChangeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PrayerTimeChanges from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PrayerTimeChanges.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PrayerTimeChanges
+    **/
+    _count?: true | PrayerTimeChangeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PrayerTimeChangeAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PrayerTimeChangeSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PrayerTimeChangeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PrayerTimeChangeMaxAggregateInputType
+  }
+
+  export type GetPrayerTimeChangeAggregateType<T extends PrayerTimeChangeAggregateArgs> = {
+        [P in keyof T & keyof AggregatePrayerTimeChange]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePrayerTimeChange[P]>
+      : GetScalarType<T[P], AggregatePrayerTimeChange[P]>
+  }
+
+
+
+
+  export type PrayerTimeChangeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PrayerTimeChangeWhereInput
+    orderBy?: PrayerTimeChangeOrderByWithAggregationInput | PrayerTimeChangeOrderByWithAggregationInput[]
+    by: PrayerTimeChangeScalarFieldEnum[] | PrayerTimeChangeScalarFieldEnum
+    having?: PrayerTimeChangeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PrayerTimeChangeCountAggregateInputType | true
+    _avg?: PrayerTimeChangeAvgAggregateInputType
+    _sum?: PrayerTimeChangeSumAggregateInputType
+    _min?: PrayerTimeChangeMinAggregateInputType
+    _max?: PrayerTimeChangeMaxAggregateInputType
+  }
+
+  export type PrayerTimeChangeGroupByOutputType = {
+    id: number
+    prayerId: number
+    prayerType: string
+    oldTime: string
+    newTime: string
+    shiftMinutes: number
+    changedAt: Date
+    changedBy: number
+    _count: PrayerTimeChangeCountAggregateOutputType | null
+    _avg: PrayerTimeChangeAvgAggregateOutputType | null
+    _sum: PrayerTimeChangeSumAggregateOutputType | null
+    _min: PrayerTimeChangeMinAggregateOutputType | null
+    _max: PrayerTimeChangeMaxAggregateOutputType | null
+  }
+
+  type GetPrayerTimeChangeGroupByPayload<T extends PrayerTimeChangeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PrayerTimeChangeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PrayerTimeChangeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PrayerTimeChangeGroupByOutputType[P]>
+            : GetScalarType<T[P], PrayerTimeChangeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PrayerTimeChangeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    prayerId?: boolean
+    prayerType?: boolean
+    oldTime?: boolean
+    newTime?: boolean
+    shiftMinutes?: boolean
+    changedAt?: boolean
+    changedBy?: boolean
+    prayer?: boolean | PrayerDefaultArgs<ExtArgs>
+    user?: boolean | AdminDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["prayerTimeChange"]>
+
+  export type PrayerTimeChangeSelectScalar = {
+    id?: boolean
+    prayerId?: boolean
+    prayerType?: boolean
+    oldTime?: boolean
+    newTime?: boolean
+    shiftMinutes?: boolean
+    changedAt?: boolean
+    changedBy?: boolean
+  }
+
+  export type PrayerTimeChangeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    prayer?: boolean | PrayerDefaultArgs<ExtArgs>
+    user?: boolean | AdminDefaultArgs<ExtArgs>
+  }
+
+
+  export type $PrayerTimeChangePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PrayerTimeChange"
+    objects: {
+      prayer: Prisma.$PrayerPayload<ExtArgs>
+      user: Prisma.$AdminPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      prayerId: number
+      prayerType: string
+      oldTime: string
+      newTime: string
+      shiftMinutes: number
+      changedAt: Date
+      changedBy: number
+    }, ExtArgs["result"]["prayerTimeChange"]>
+    composites: {}
+  }
+
+
+  type PrayerTimeChangeGetPayload<S extends boolean | null | undefined | PrayerTimeChangeDefaultArgs> = $Result.GetResult<Prisma.$PrayerTimeChangePayload, S>
+
+  type PrayerTimeChangeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<PrayerTimeChangeFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: PrayerTimeChangeCountAggregateInputType | true
+    }
+
+  export interface PrayerTimeChangeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PrayerTimeChange'], meta: { name: 'PrayerTimeChange' } }
+    /**
+     * Find zero or one PrayerTimeChange that matches the filter.
+     * @param {PrayerTimeChangeFindUniqueArgs} args - Arguments to find a PrayerTimeChange
+     * @example
+     * // Get one PrayerTimeChange
+     * const prayerTimeChange = await prisma.prayerTimeChange.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends PrayerTimeChangeFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, PrayerTimeChangeFindUniqueArgs<ExtArgs>>
+    ): Prisma__PrayerTimeChangeClient<$Result.GetResult<Prisma.$PrayerTimeChangePayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one PrayerTimeChange that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {PrayerTimeChangeFindUniqueOrThrowArgs} args - Arguments to find a PrayerTimeChange
+     * @example
+     * // Get one PrayerTimeChange
+     * const prayerTimeChange = await prisma.prayerTimeChange.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends PrayerTimeChangeFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, PrayerTimeChangeFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__PrayerTimeChangeClient<$Result.GetResult<Prisma.$PrayerTimeChangePayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first PrayerTimeChange that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PrayerTimeChangeFindFirstArgs} args - Arguments to find a PrayerTimeChange
+     * @example
+     * // Get one PrayerTimeChange
+     * const prayerTimeChange = await prisma.prayerTimeChange.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends PrayerTimeChangeFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, PrayerTimeChangeFindFirstArgs<ExtArgs>>
+    ): Prisma__PrayerTimeChangeClient<$Result.GetResult<Prisma.$PrayerTimeChangePayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first PrayerTimeChange that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PrayerTimeChangeFindFirstOrThrowArgs} args - Arguments to find a PrayerTimeChange
+     * @example
+     * // Get one PrayerTimeChange
+     * const prayerTimeChange = await prisma.prayerTimeChange.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends PrayerTimeChangeFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, PrayerTimeChangeFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__PrayerTimeChangeClient<$Result.GetResult<Prisma.$PrayerTimeChangePayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more PrayerTimeChanges that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PrayerTimeChangeFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PrayerTimeChanges
+     * const prayerTimeChanges = await prisma.prayerTimeChange.findMany()
+     * 
+     * // Get first 10 PrayerTimeChanges
+     * const prayerTimeChanges = await prisma.prayerTimeChange.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const prayerTimeChangeWithIdOnly = await prisma.prayerTimeChange.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends PrayerTimeChangeFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, PrayerTimeChangeFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PrayerTimeChangePayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a PrayerTimeChange.
+     * @param {PrayerTimeChangeCreateArgs} args - Arguments to create a PrayerTimeChange.
+     * @example
+     * // Create one PrayerTimeChange
+     * const PrayerTimeChange = await prisma.prayerTimeChange.create({
+     *   data: {
+     *     // ... data to create a PrayerTimeChange
+     *   }
+     * })
+     * 
+    **/
+    create<T extends PrayerTimeChangeCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, PrayerTimeChangeCreateArgs<ExtArgs>>
+    ): Prisma__PrayerTimeChangeClient<$Result.GetResult<Prisma.$PrayerTimeChangePayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many PrayerTimeChanges.
+     *     @param {PrayerTimeChangeCreateManyArgs} args - Arguments to create many PrayerTimeChanges.
+     *     @example
+     *     // Create many PrayerTimeChanges
+     *     const prayerTimeChange = await prisma.prayerTimeChange.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends PrayerTimeChangeCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, PrayerTimeChangeCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a PrayerTimeChange.
+     * @param {PrayerTimeChangeDeleteArgs} args - Arguments to delete one PrayerTimeChange.
+     * @example
+     * // Delete one PrayerTimeChange
+     * const PrayerTimeChange = await prisma.prayerTimeChange.delete({
+     *   where: {
+     *     // ... filter to delete one PrayerTimeChange
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends PrayerTimeChangeDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, PrayerTimeChangeDeleteArgs<ExtArgs>>
+    ): Prisma__PrayerTimeChangeClient<$Result.GetResult<Prisma.$PrayerTimeChangePayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one PrayerTimeChange.
+     * @param {PrayerTimeChangeUpdateArgs} args - Arguments to update one PrayerTimeChange.
+     * @example
+     * // Update one PrayerTimeChange
+     * const prayerTimeChange = await prisma.prayerTimeChange.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends PrayerTimeChangeUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, PrayerTimeChangeUpdateArgs<ExtArgs>>
+    ): Prisma__PrayerTimeChangeClient<$Result.GetResult<Prisma.$PrayerTimeChangePayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more PrayerTimeChanges.
+     * @param {PrayerTimeChangeDeleteManyArgs} args - Arguments to filter PrayerTimeChanges to delete.
+     * @example
+     * // Delete a few PrayerTimeChanges
+     * const { count } = await prisma.prayerTimeChange.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends PrayerTimeChangeDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, PrayerTimeChangeDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PrayerTimeChanges.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PrayerTimeChangeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PrayerTimeChanges
+     * const prayerTimeChange = await prisma.prayerTimeChange.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends PrayerTimeChangeUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, PrayerTimeChangeUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one PrayerTimeChange.
+     * @param {PrayerTimeChangeUpsertArgs} args - Arguments to update or create a PrayerTimeChange.
+     * @example
+     * // Update or create a PrayerTimeChange
+     * const prayerTimeChange = await prisma.prayerTimeChange.upsert({
+     *   create: {
+     *     // ... data to create a PrayerTimeChange
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PrayerTimeChange we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends PrayerTimeChangeUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, PrayerTimeChangeUpsertArgs<ExtArgs>>
+    ): Prisma__PrayerTimeChangeClient<$Result.GetResult<Prisma.$PrayerTimeChangePayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of PrayerTimeChanges.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PrayerTimeChangeCountArgs} args - Arguments to filter PrayerTimeChanges to count.
+     * @example
+     * // Count the number of PrayerTimeChanges
+     * const count = await prisma.prayerTimeChange.count({
+     *   where: {
+     *     // ... the filter for the PrayerTimeChanges we want to count
+     *   }
+     * })
+    **/
+    count<T extends PrayerTimeChangeCountArgs>(
+      args?: Subset<T, PrayerTimeChangeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PrayerTimeChangeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PrayerTimeChange.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PrayerTimeChangeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PrayerTimeChangeAggregateArgs>(args: Subset<T, PrayerTimeChangeAggregateArgs>): Prisma.PrismaPromise<GetPrayerTimeChangeAggregateType<T>>
+
+    /**
+     * Group by PrayerTimeChange.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PrayerTimeChangeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PrayerTimeChangeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PrayerTimeChangeGroupByArgs['orderBy'] }
+        : { orderBy?: PrayerTimeChangeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PrayerTimeChangeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPrayerTimeChangeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PrayerTimeChange model
+   */
+  readonly fields: PrayerTimeChangeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PrayerTimeChange.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PrayerTimeChangeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    prayer<T extends PrayerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PrayerDefaultArgs<ExtArgs>>): Prisma__PrayerClient<$Result.GetResult<Prisma.$PrayerPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    user<T extends AdminDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AdminDefaultArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the PrayerTimeChange model
+   */ 
+  interface PrayerTimeChangeFieldRefs {
+    readonly id: FieldRef<"PrayerTimeChange", 'Int'>
+    readonly prayerId: FieldRef<"PrayerTimeChange", 'Int'>
+    readonly prayerType: FieldRef<"PrayerTimeChange", 'String'>
+    readonly oldTime: FieldRef<"PrayerTimeChange", 'String'>
+    readonly newTime: FieldRef<"PrayerTimeChange", 'String'>
+    readonly shiftMinutes: FieldRef<"PrayerTimeChange", 'Int'>
+    readonly changedAt: FieldRef<"PrayerTimeChange", 'DateTime'>
+    readonly changedBy: FieldRef<"PrayerTimeChange", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * PrayerTimeChange findUnique
+   */
+  export type PrayerTimeChangeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PrayerTimeChange
+     */
+    select?: PrayerTimeChangeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PrayerTimeChangeInclude<ExtArgs> | null
+    /**
+     * Filter, which PrayerTimeChange to fetch.
+     */
+    where: PrayerTimeChangeWhereUniqueInput
+  }
+
+
+  /**
+   * PrayerTimeChange findUniqueOrThrow
+   */
+  export type PrayerTimeChangeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PrayerTimeChange
+     */
+    select?: PrayerTimeChangeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PrayerTimeChangeInclude<ExtArgs> | null
+    /**
+     * Filter, which PrayerTimeChange to fetch.
+     */
+    where: PrayerTimeChangeWhereUniqueInput
+  }
+
+
+  /**
+   * PrayerTimeChange findFirst
+   */
+  export type PrayerTimeChangeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PrayerTimeChange
+     */
+    select?: PrayerTimeChangeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PrayerTimeChangeInclude<ExtArgs> | null
+    /**
+     * Filter, which PrayerTimeChange to fetch.
+     */
+    where?: PrayerTimeChangeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PrayerTimeChanges to fetch.
+     */
+    orderBy?: PrayerTimeChangeOrderByWithRelationInput | PrayerTimeChangeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PrayerTimeChanges.
+     */
+    cursor?: PrayerTimeChangeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PrayerTimeChanges from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PrayerTimeChanges.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PrayerTimeChanges.
+     */
+    distinct?: PrayerTimeChangeScalarFieldEnum | PrayerTimeChangeScalarFieldEnum[]
+  }
+
+
+  /**
+   * PrayerTimeChange findFirstOrThrow
+   */
+  export type PrayerTimeChangeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PrayerTimeChange
+     */
+    select?: PrayerTimeChangeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PrayerTimeChangeInclude<ExtArgs> | null
+    /**
+     * Filter, which PrayerTimeChange to fetch.
+     */
+    where?: PrayerTimeChangeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PrayerTimeChanges to fetch.
+     */
+    orderBy?: PrayerTimeChangeOrderByWithRelationInput | PrayerTimeChangeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PrayerTimeChanges.
+     */
+    cursor?: PrayerTimeChangeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PrayerTimeChanges from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PrayerTimeChanges.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PrayerTimeChanges.
+     */
+    distinct?: PrayerTimeChangeScalarFieldEnum | PrayerTimeChangeScalarFieldEnum[]
+  }
+
+
+  /**
+   * PrayerTimeChange findMany
+   */
+  export type PrayerTimeChangeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PrayerTimeChange
+     */
+    select?: PrayerTimeChangeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PrayerTimeChangeInclude<ExtArgs> | null
+    /**
+     * Filter, which PrayerTimeChanges to fetch.
+     */
+    where?: PrayerTimeChangeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PrayerTimeChanges to fetch.
+     */
+    orderBy?: PrayerTimeChangeOrderByWithRelationInput | PrayerTimeChangeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PrayerTimeChanges.
+     */
+    cursor?: PrayerTimeChangeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PrayerTimeChanges from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PrayerTimeChanges.
+     */
+    skip?: number
+    distinct?: PrayerTimeChangeScalarFieldEnum | PrayerTimeChangeScalarFieldEnum[]
+  }
+
+
+  /**
+   * PrayerTimeChange create
+   */
+  export type PrayerTimeChangeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PrayerTimeChange
+     */
+    select?: PrayerTimeChangeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PrayerTimeChangeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PrayerTimeChange.
+     */
+    data: XOR<PrayerTimeChangeCreateInput, PrayerTimeChangeUncheckedCreateInput>
+  }
+
+
+  /**
+   * PrayerTimeChange createMany
+   */
+  export type PrayerTimeChangeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PrayerTimeChanges.
+     */
+    data: PrayerTimeChangeCreateManyInput | PrayerTimeChangeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * PrayerTimeChange update
+   */
+  export type PrayerTimeChangeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PrayerTimeChange
+     */
+    select?: PrayerTimeChangeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PrayerTimeChangeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PrayerTimeChange.
+     */
+    data: XOR<PrayerTimeChangeUpdateInput, PrayerTimeChangeUncheckedUpdateInput>
+    /**
+     * Choose, which PrayerTimeChange to update.
+     */
+    where: PrayerTimeChangeWhereUniqueInput
+  }
+
+
+  /**
+   * PrayerTimeChange updateMany
+   */
+  export type PrayerTimeChangeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PrayerTimeChanges.
+     */
+    data: XOR<PrayerTimeChangeUpdateManyMutationInput, PrayerTimeChangeUncheckedUpdateManyInput>
+    /**
+     * Filter which PrayerTimeChanges to update
+     */
+    where?: PrayerTimeChangeWhereInput
+  }
+
+
+  /**
+   * PrayerTimeChange upsert
+   */
+  export type PrayerTimeChangeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PrayerTimeChange
+     */
+    select?: PrayerTimeChangeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PrayerTimeChangeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PrayerTimeChange to update in case it exists.
+     */
+    where: PrayerTimeChangeWhereUniqueInput
+    /**
+     * In case the PrayerTimeChange found by the `where` argument doesn't exist, create a new PrayerTimeChange with this data.
+     */
+    create: XOR<PrayerTimeChangeCreateInput, PrayerTimeChangeUncheckedCreateInput>
+    /**
+     * In case the PrayerTimeChange was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PrayerTimeChangeUpdateInput, PrayerTimeChangeUncheckedUpdateInput>
+  }
+
+
+  /**
+   * PrayerTimeChange delete
+   */
+  export type PrayerTimeChangeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PrayerTimeChange
+     */
+    select?: PrayerTimeChangeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PrayerTimeChangeInclude<ExtArgs> | null
+    /**
+     * Filter which PrayerTimeChange to delete.
+     */
+    where: PrayerTimeChangeWhereUniqueInput
+  }
+
+
+  /**
+   * PrayerTimeChange deleteMany
+   */
+  export type PrayerTimeChangeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PrayerTimeChanges to delete
+     */
+    where?: PrayerTimeChangeWhereInput
+  }
+
+
+  /**
+   * PrayerTimeChange without action
+   */
+  export type PrayerTimeChangeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PrayerTimeChange
+     */
+    select?: PrayerTimeChangeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PrayerTimeChangeInclude<ExtArgs> | null
+  }
+
+
+
+  /**
+   * Model AuditLog
+   */
+
+  export type AggregateAuditLog = {
+    _count: AuditLogCountAggregateOutputType | null
+    _avg: AuditLogAvgAggregateOutputType | null
+    _sum: AuditLogSumAggregateOutputType | null
+    _min: AuditLogMinAggregateOutputType | null
+    _max: AuditLogMaxAggregateOutputType | null
+  }
+
+  export type AuditLogAvgAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    entityId: number | null
+  }
+
+  export type AuditLogSumAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    entityId: number | null
+  }
+
+  export type AuditLogMinAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    action: string | null
+    entity: string | null
+    entityId: number | null
+    createdAt: Date | null
+  }
+
+  export type AuditLogMaxAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    action: string | null
+    entity: string | null
+    entityId: number | null
+    createdAt: Date | null
+  }
+
+  export type AuditLogCountAggregateOutputType = {
+    id: number
+    userId: number
+    action: number
+    entity: number
+    entityId: number
+    oldValue: number
+    newValue: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type AuditLogAvgAggregateInputType = {
+    id?: true
+    userId?: true
+    entityId?: true
+  }
+
+  export type AuditLogSumAggregateInputType = {
+    id?: true
+    userId?: true
+    entityId?: true
+  }
+
+  export type AuditLogMinAggregateInputType = {
+    id?: true
+    userId?: true
+    action?: true
+    entity?: true
+    entityId?: true
+    createdAt?: true
+  }
+
+  export type AuditLogMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    action?: true
+    entity?: true
+    entityId?: true
+    createdAt?: true
+  }
+
+  export type AuditLogCountAggregateInputType = {
+    id?: true
+    userId?: true
+    action?: true
+    entity?: true
+    entityId?: true
+    oldValue?: true
+    newValue?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type AuditLogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AuditLog to aggregate.
+     */
+    where?: AuditLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AuditLogs to fetch.
+     */
+    orderBy?: AuditLogOrderByWithRelationInput | AuditLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AuditLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AuditLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AuditLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AuditLogs
+    **/
+    _count?: true | AuditLogCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AuditLogAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AuditLogSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AuditLogMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AuditLogMaxAggregateInputType
+  }
+
+  export type GetAuditLogAggregateType<T extends AuditLogAggregateArgs> = {
+        [P in keyof T & keyof AggregateAuditLog]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAuditLog[P]>
+      : GetScalarType<T[P], AggregateAuditLog[P]>
+  }
+
+
+
+
+  export type AuditLogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AuditLogWhereInput
+    orderBy?: AuditLogOrderByWithAggregationInput | AuditLogOrderByWithAggregationInput[]
+    by: AuditLogScalarFieldEnum[] | AuditLogScalarFieldEnum
+    having?: AuditLogScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AuditLogCountAggregateInputType | true
+    _avg?: AuditLogAvgAggregateInputType
+    _sum?: AuditLogSumAggregateInputType
+    _min?: AuditLogMinAggregateInputType
+    _max?: AuditLogMaxAggregateInputType
+  }
+
+  export type AuditLogGroupByOutputType = {
+    id: number
+    userId: number
+    action: string
+    entity: string
+    entityId: number
+    oldValue: JsonValue | null
+    newValue: JsonValue | null
+    createdAt: Date
+    _count: AuditLogCountAggregateOutputType | null
+    _avg: AuditLogAvgAggregateOutputType | null
+    _sum: AuditLogSumAggregateOutputType | null
+    _min: AuditLogMinAggregateOutputType | null
+    _max: AuditLogMaxAggregateOutputType | null
+  }
+
+  type GetAuditLogGroupByPayload<T extends AuditLogGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AuditLogGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AuditLogGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AuditLogGroupByOutputType[P]>
+            : GetScalarType<T[P], AuditLogGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AuditLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    action?: boolean
+    entity?: boolean
+    entityId?: boolean
+    oldValue?: boolean
+    newValue?: boolean
+    createdAt?: boolean
+    user?: boolean | AdminDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["auditLog"]>
+
+  export type AuditLogSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    action?: boolean
+    entity?: boolean
+    entityId?: boolean
+    oldValue?: boolean
+    newValue?: boolean
+    createdAt?: boolean
+  }
+
+  export type AuditLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | AdminDefaultArgs<ExtArgs>
+  }
+
+
+  export type $AuditLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AuditLog"
+    objects: {
+      user: Prisma.$AdminPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      userId: number
+      action: string
+      entity: string
+      entityId: number
+      oldValue: Prisma.JsonValue | null
+      newValue: Prisma.JsonValue | null
+      createdAt: Date
+    }, ExtArgs["result"]["auditLog"]>
+    composites: {}
+  }
+
+
+  type AuditLogGetPayload<S extends boolean | null | undefined | AuditLogDefaultArgs> = $Result.GetResult<Prisma.$AuditLogPayload, S>
+
+  type AuditLogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<AuditLogFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: AuditLogCountAggregateInputType | true
+    }
+
+  export interface AuditLogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AuditLog'], meta: { name: 'AuditLog' } }
+    /**
+     * Find zero or one AuditLog that matches the filter.
+     * @param {AuditLogFindUniqueArgs} args - Arguments to find a AuditLog
+     * @example
+     * // Get one AuditLog
+     * const auditLog = await prisma.auditLog.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends AuditLogFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, AuditLogFindUniqueArgs<ExtArgs>>
+    ): Prisma__AuditLogClient<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one AuditLog that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {AuditLogFindUniqueOrThrowArgs} args - Arguments to find a AuditLog
+     * @example
+     * // Get one AuditLog
+     * const auditLog = await prisma.auditLog.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends AuditLogFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, AuditLogFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__AuditLogClient<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first AuditLog that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditLogFindFirstArgs} args - Arguments to find a AuditLog
+     * @example
+     * // Get one AuditLog
+     * const auditLog = await prisma.auditLog.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends AuditLogFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, AuditLogFindFirstArgs<ExtArgs>>
+    ): Prisma__AuditLogClient<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first AuditLog that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditLogFindFirstOrThrowArgs} args - Arguments to find a AuditLog
+     * @example
+     * // Get one AuditLog
+     * const auditLog = await prisma.auditLog.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends AuditLogFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, AuditLogFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__AuditLogClient<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more AuditLogs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditLogFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AuditLogs
+     * const auditLogs = await prisma.auditLog.findMany()
+     * 
+     * // Get first 10 AuditLogs
+     * const auditLogs = await prisma.auditLog.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const auditLogWithIdOnly = await prisma.auditLog.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends AuditLogFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, AuditLogFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a AuditLog.
+     * @param {AuditLogCreateArgs} args - Arguments to create a AuditLog.
+     * @example
+     * // Create one AuditLog
+     * const AuditLog = await prisma.auditLog.create({
+     *   data: {
+     *     // ... data to create a AuditLog
+     *   }
+     * })
+     * 
+    **/
+    create<T extends AuditLogCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, AuditLogCreateArgs<ExtArgs>>
+    ): Prisma__AuditLogClient<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many AuditLogs.
+     *     @param {AuditLogCreateManyArgs} args - Arguments to create many AuditLogs.
+     *     @example
+     *     // Create many AuditLogs
+     *     const auditLog = await prisma.auditLog.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends AuditLogCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, AuditLogCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a AuditLog.
+     * @param {AuditLogDeleteArgs} args - Arguments to delete one AuditLog.
+     * @example
+     * // Delete one AuditLog
+     * const AuditLog = await prisma.auditLog.delete({
+     *   where: {
+     *     // ... filter to delete one AuditLog
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends AuditLogDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, AuditLogDeleteArgs<ExtArgs>>
+    ): Prisma__AuditLogClient<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one AuditLog.
+     * @param {AuditLogUpdateArgs} args - Arguments to update one AuditLog.
+     * @example
+     * // Update one AuditLog
+     * const auditLog = await prisma.auditLog.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends AuditLogUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, AuditLogUpdateArgs<ExtArgs>>
+    ): Prisma__AuditLogClient<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more AuditLogs.
+     * @param {AuditLogDeleteManyArgs} args - Arguments to filter AuditLogs to delete.
+     * @example
+     * // Delete a few AuditLogs
+     * const { count } = await prisma.auditLog.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends AuditLogDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, AuditLogDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AuditLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditLogUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AuditLogs
+     * const auditLog = await prisma.auditLog.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends AuditLogUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, AuditLogUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one AuditLog.
+     * @param {AuditLogUpsertArgs} args - Arguments to update or create a AuditLog.
+     * @example
+     * // Update or create a AuditLog
+     * const auditLog = await prisma.auditLog.upsert({
+     *   create: {
+     *     // ... data to create a AuditLog
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AuditLog we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends AuditLogUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, AuditLogUpsertArgs<ExtArgs>>
+    ): Prisma__AuditLogClient<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of AuditLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditLogCountArgs} args - Arguments to filter AuditLogs to count.
+     * @example
+     * // Count the number of AuditLogs
+     * const count = await prisma.auditLog.count({
+     *   where: {
+     *     // ... the filter for the AuditLogs we want to count
+     *   }
+     * })
+    **/
+    count<T extends AuditLogCountArgs>(
+      args?: Subset<T, AuditLogCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AuditLogCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AuditLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditLogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AuditLogAggregateArgs>(args: Subset<T, AuditLogAggregateArgs>): Prisma.PrismaPromise<GetAuditLogAggregateType<T>>
+
+    /**
+     * Group by AuditLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditLogGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AuditLogGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AuditLogGroupByArgs['orderBy'] }
+        : { orderBy?: AuditLogGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AuditLogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAuditLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AuditLog model
+   */
+  readonly fields: AuditLogFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AuditLog.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AuditLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    user<T extends AdminDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AdminDefaultArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the AuditLog model
+   */ 
+  interface AuditLogFieldRefs {
+    readonly id: FieldRef<"AuditLog", 'Int'>
+    readonly userId: FieldRef<"AuditLog", 'Int'>
+    readonly action: FieldRef<"AuditLog", 'String'>
+    readonly entity: FieldRef<"AuditLog", 'String'>
+    readonly entityId: FieldRef<"AuditLog", 'Int'>
+    readonly oldValue: FieldRef<"AuditLog", 'Json'>
+    readonly newValue: FieldRef<"AuditLog", 'Json'>
+    readonly createdAt: FieldRef<"AuditLog", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * AuditLog findUnique
+   */
+  export type AuditLogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AuditLogInclude<ExtArgs> | null
+    /**
+     * Filter, which AuditLog to fetch.
+     */
+    where: AuditLogWhereUniqueInput
+  }
+
+
+  /**
+   * AuditLog findUniqueOrThrow
+   */
+  export type AuditLogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AuditLogInclude<ExtArgs> | null
+    /**
+     * Filter, which AuditLog to fetch.
+     */
+    where: AuditLogWhereUniqueInput
+  }
+
+
+  /**
+   * AuditLog findFirst
+   */
+  export type AuditLogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AuditLogInclude<ExtArgs> | null
+    /**
+     * Filter, which AuditLog to fetch.
+     */
+    where?: AuditLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AuditLogs to fetch.
+     */
+    orderBy?: AuditLogOrderByWithRelationInput | AuditLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AuditLogs.
+     */
+    cursor?: AuditLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AuditLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AuditLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AuditLogs.
+     */
+    distinct?: AuditLogScalarFieldEnum | AuditLogScalarFieldEnum[]
+  }
+
+
+  /**
+   * AuditLog findFirstOrThrow
+   */
+  export type AuditLogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AuditLogInclude<ExtArgs> | null
+    /**
+     * Filter, which AuditLog to fetch.
+     */
+    where?: AuditLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AuditLogs to fetch.
+     */
+    orderBy?: AuditLogOrderByWithRelationInput | AuditLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AuditLogs.
+     */
+    cursor?: AuditLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AuditLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AuditLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AuditLogs.
+     */
+    distinct?: AuditLogScalarFieldEnum | AuditLogScalarFieldEnum[]
+  }
+
+
+  /**
+   * AuditLog findMany
+   */
+  export type AuditLogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AuditLogInclude<ExtArgs> | null
+    /**
+     * Filter, which AuditLogs to fetch.
+     */
+    where?: AuditLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AuditLogs to fetch.
+     */
+    orderBy?: AuditLogOrderByWithRelationInput | AuditLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AuditLogs.
+     */
+    cursor?: AuditLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AuditLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AuditLogs.
+     */
+    skip?: number
+    distinct?: AuditLogScalarFieldEnum | AuditLogScalarFieldEnum[]
+  }
+
+
+  /**
+   * AuditLog create
+   */
+  export type AuditLogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AuditLogInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AuditLog.
+     */
+    data: XOR<AuditLogCreateInput, AuditLogUncheckedCreateInput>
+  }
+
+
+  /**
+   * AuditLog createMany
+   */
+  export type AuditLogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AuditLogs.
+     */
+    data: AuditLogCreateManyInput | AuditLogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * AuditLog update
+   */
+  export type AuditLogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AuditLogInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AuditLog.
+     */
+    data: XOR<AuditLogUpdateInput, AuditLogUncheckedUpdateInput>
+    /**
+     * Choose, which AuditLog to update.
+     */
+    where: AuditLogWhereUniqueInput
+  }
+
+
+  /**
+   * AuditLog updateMany
+   */
+  export type AuditLogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AuditLogs.
+     */
+    data: XOR<AuditLogUpdateManyMutationInput, AuditLogUncheckedUpdateManyInput>
+    /**
+     * Filter which AuditLogs to update
+     */
+    where?: AuditLogWhereInput
+  }
+
+
+  /**
+   * AuditLog upsert
+   */
+  export type AuditLogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AuditLogInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AuditLog to update in case it exists.
+     */
+    where: AuditLogWhereUniqueInput
+    /**
+     * In case the AuditLog found by the `where` argument doesn't exist, create a new AuditLog with this data.
+     */
+    create: XOR<AuditLogCreateInput, AuditLogUncheckedCreateInput>
+    /**
+     * In case the AuditLog was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AuditLogUpdateInput, AuditLogUncheckedUpdateInput>
+  }
+
+
+  /**
+   * AuditLog delete
+   */
+  export type AuditLogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AuditLogInclude<ExtArgs> | null
+    /**
+     * Filter which AuditLog to delete.
+     */
+    where: AuditLogWhereUniqueInput
+  }
+
+
+  /**
+   * AuditLog deleteMany
+   */
+  export type AuditLogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AuditLogs to delete
+     */
+    where?: AuditLogWhereInput
+  }
+
+
+  /**
+   * AuditLog without action
+   */
+  export type AuditLogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AuditLogInclude<ExtArgs> | null
+  }
+
+
+
+  /**
    * Enums
    */
 
@@ -9618,12 +11929,48 @@ export namespace Prisma {
   export type FixedPrayerTimeScalarFieldEnum = (typeof FixedPrayerTimeScalarFieldEnum)[keyof typeof FixedPrayerTimeScalarFieldEnum]
 
 
+  export const PrayerTimeChangeScalarFieldEnum: {
+    id: 'id',
+    prayerId: 'prayerId',
+    prayerType: 'prayerType',
+    oldTime: 'oldTime',
+    newTime: 'newTime',
+    shiftMinutes: 'shiftMinutes',
+    changedAt: 'changedAt',
+    changedBy: 'changedBy'
+  };
+
+  export type PrayerTimeChangeScalarFieldEnum = (typeof PrayerTimeChangeScalarFieldEnum)[keyof typeof PrayerTimeChangeScalarFieldEnum]
+
+
+  export const AuditLogScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    action: 'action',
+    entity: 'entity',
+    entityId: 'entityId',
+    oldValue: 'oldValue',
+    newValue: 'newValue',
+    createdAt: 'createdAt'
+  };
+
+  export type AuditLogScalarFieldEnum = (typeof AuditLogScalarFieldEnum)[keyof typeof AuditLogScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
   export const QueryMode: {
@@ -9640,6 +11987,15 @@ export namespace Prisma {
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   /**
@@ -9707,6 +12063,13 @@ export namespace Prisma {
    * Reference to a field of type 'Role[]'
    */
   export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
     
 
 
@@ -9800,6 +12163,7 @@ export namespace Prisma {
     mechet?: StringNullableFilter<"Prayer"> | string | null
     city?: XOR<CityRelationFilter, CityWhereInput>
     mosque?: XOR<MosqueNullableRelationFilter, MosqueWhereInput> | null
+    changes?: PrayerTimeChangeListRelationFilter
   }
 
   export type PrayerOrderByWithRelationInput = {
@@ -9816,6 +12180,7 @@ export namespace Prisma {
     mechet?: SortOrderInput | SortOrder
     city?: CityOrderByWithRelationInput
     mosque?: MosqueOrderByWithRelationInput
+    changes?: PrayerTimeChangeOrderByRelationAggregateInput
   }
 
   export type PrayerWhereUniqueInput = Prisma.AtLeast<{
@@ -9835,6 +12200,7 @@ export namespace Prisma {
     mechet?: StringNullableFilter<"Prayer"> | string | null
     city?: XOR<CityRelationFilter, CityWhereInput>
     mosque?: XOR<MosqueNullableRelationFilter, MosqueWhereInput> | null
+    changes?: PrayerTimeChangeListRelationFilter
   }, "id">
 
   export type PrayerOrderByWithAggregationInput = {
@@ -10098,6 +12464,8 @@ export namespace Prisma {
     role?: EnumRoleFilter<"Admin"> | $Enums.Role
     cityId?: IntNullableFilter<"Admin"> | number | null
     city?: XOR<CityNullableRelationFilter, CityWhereInput> | null
+    prayerChanges?: PrayerTimeChangeListRelationFilter
+    auditLogs?: AuditLogListRelationFilter
   }
 
   export type AdminOrderByWithRelationInput = {
@@ -10108,6 +12476,8 @@ export namespace Prisma {
     role?: SortOrder
     cityId?: SortOrderInput | SortOrder
     city?: CityOrderByWithRelationInput
+    prayerChanges?: PrayerTimeChangeOrderByRelationAggregateInput
+    auditLogs?: AuditLogOrderByRelationAggregateInput
   }
 
   export type AdminWhereUniqueInput = Prisma.AtLeast<{
@@ -10121,6 +12491,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Admin"> | Date | string
     role?: EnumRoleFilter<"Admin"> | $Enums.Role
     city?: XOR<CityNullableRelationFilter, CityWhereInput> | null
+    prayerChanges?: PrayerTimeChangeListRelationFilter
+    auditLogs?: AuditLogListRelationFilter
   }, "id" | "email" | "cityId">
 
   export type AdminOrderByWithAggregationInput = {
@@ -10271,6 +12643,153 @@ export namespace Prisma {
     zuhrActive?: BoolWithAggregatesFilter<"FixedPrayerTime"> | boolean
   }
 
+  export type PrayerTimeChangeWhereInput = {
+    AND?: PrayerTimeChangeWhereInput | PrayerTimeChangeWhereInput[]
+    OR?: PrayerTimeChangeWhereInput[]
+    NOT?: PrayerTimeChangeWhereInput | PrayerTimeChangeWhereInput[]
+    id?: IntFilter<"PrayerTimeChange"> | number
+    prayerId?: IntFilter<"PrayerTimeChange"> | number
+    prayerType?: StringFilter<"PrayerTimeChange"> | string
+    oldTime?: StringFilter<"PrayerTimeChange"> | string
+    newTime?: StringFilter<"PrayerTimeChange"> | string
+    shiftMinutes?: IntFilter<"PrayerTimeChange"> | number
+    changedAt?: DateTimeFilter<"PrayerTimeChange"> | Date | string
+    changedBy?: IntFilter<"PrayerTimeChange"> | number
+    prayer?: XOR<PrayerRelationFilter, PrayerWhereInput>
+    user?: XOR<AdminRelationFilter, AdminWhereInput>
+  }
+
+  export type PrayerTimeChangeOrderByWithRelationInput = {
+    id?: SortOrder
+    prayerId?: SortOrder
+    prayerType?: SortOrder
+    oldTime?: SortOrder
+    newTime?: SortOrder
+    shiftMinutes?: SortOrder
+    changedAt?: SortOrder
+    changedBy?: SortOrder
+    prayer?: PrayerOrderByWithRelationInput
+    user?: AdminOrderByWithRelationInput
+  }
+
+  export type PrayerTimeChangeWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: PrayerTimeChangeWhereInput | PrayerTimeChangeWhereInput[]
+    OR?: PrayerTimeChangeWhereInput[]
+    NOT?: PrayerTimeChangeWhereInput | PrayerTimeChangeWhereInput[]
+    prayerId?: IntFilter<"PrayerTimeChange"> | number
+    prayerType?: StringFilter<"PrayerTimeChange"> | string
+    oldTime?: StringFilter<"PrayerTimeChange"> | string
+    newTime?: StringFilter<"PrayerTimeChange"> | string
+    shiftMinutes?: IntFilter<"PrayerTimeChange"> | number
+    changedAt?: DateTimeFilter<"PrayerTimeChange"> | Date | string
+    changedBy?: IntFilter<"PrayerTimeChange"> | number
+    prayer?: XOR<PrayerRelationFilter, PrayerWhereInput>
+    user?: XOR<AdminRelationFilter, AdminWhereInput>
+  }, "id">
+
+  export type PrayerTimeChangeOrderByWithAggregationInput = {
+    id?: SortOrder
+    prayerId?: SortOrder
+    prayerType?: SortOrder
+    oldTime?: SortOrder
+    newTime?: SortOrder
+    shiftMinutes?: SortOrder
+    changedAt?: SortOrder
+    changedBy?: SortOrder
+    _count?: PrayerTimeChangeCountOrderByAggregateInput
+    _avg?: PrayerTimeChangeAvgOrderByAggregateInput
+    _max?: PrayerTimeChangeMaxOrderByAggregateInput
+    _min?: PrayerTimeChangeMinOrderByAggregateInput
+    _sum?: PrayerTimeChangeSumOrderByAggregateInput
+  }
+
+  export type PrayerTimeChangeScalarWhereWithAggregatesInput = {
+    AND?: PrayerTimeChangeScalarWhereWithAggregatesInput | PrayerTimeChangeScalarWhereWithAggregatesInput[]
+    OR?: PrayerTimeChangeScalarWhereWithAggregatesInput[]
+    NOT?: PrayerTimeChangeScalarWhereWithAggregatesInput | PrayerTimeChangeScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"PrayerTimeChange"> | number
+    prayerId?: IntWithAggregatesFilter<"PrayerTimeChange"> | number
+    prayerType?: StringWithAggregatesFilter<"PrayerTimeChange"> | string
+    oldTime?: StringWithAggregatesFilter<"PrayerTimeChange"> | string
+    newTime?: StringWithAggregatesFilter<"PrayerTimeChange"> | string
+    shiftMinutes?: IntWithAggregatesFilter<"PrayerTimeChange"> | number
+    changedAt?: DateTimeWithAggregatesFilter<"PrayerTimeChange"> | Date | string
+    changedBy?: IntWithAggregatesFilter<"PrayerTimeChange"> | number
+  }
+
+  export type AuditLogWhereInput = {
+    AND?: AuditLogWhereInput | AuditLogWhereInput[]
+    OR?: AuditLogWhereInput[]
+    NOT?: AuditLogWhereInput | AuditLogWhereInput[]
+    id?: IntFilter<"AuditLog"> | number
+    userId?: IntFilter<"AuditLog"> | number
+    action?: StringFilter<"AuditLog"> | string
+    entity?: StringFilter<"AuditLog"> | string
+    entityId?: IntFilter<"AuditLog"> | number
+    oldValue?: JsonNullableFilter<"AuditLog">
+    newValue?: JsonNullableFilter<"AuditLog">
+    createdAt?: DateTimeFilter<"AuditLog"> | Date | string
+    user?: XOR<AdminRelationFilter, AdminWhereInput>
+  }
+
+  export type AuditLogOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    action?: SortOrder
+    entity?: SortOrder
+    entityId?: SortOrder
+    oldValue?: SortOrderInput | SortOrder
+    newValue?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    user?: AdminOrderByWithRelationInput
+  }
+
+  export type AuditLogWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: AuditLogWhereInput | AuditLogWhereInput[]
+    OR?: AuditLogWhereInput[]
+    NOT?: AuditLogWhereInput | AuditLogWhereInput[]
+    userId?: IntFilter<"AuditLog"> | number
+    action?: StringFilter<"AuditLog"> | string
+    entity?: StringFilter<"AuditLog"> | string
+    entityId?: IntFilter<"AuditLog"> | number
+    oldValue?: JsonNullableFilter<"AuditLog">
+    newValue?: JsonNullableFilter<"AuditLog">
+    createdAt?: DateTimeFilter<"AuditLog"> | Date | string
+    user?: XOR<AdminRelationFilter, AdminWhereInput>
+  }, "id">
+
+  export type AuditLogOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    action?: SortOrder
+    entity?: SortOrder
+    entityId?: SortOrder
+    oldValue?: SortOrderInput | SortOrder
+    newValue?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: AuditLogCountOrderByAggregateInput
+    _avg?: AuditLogAvgOrderByAggregateInput
+    _max?: AuditLogMaxOrderByAggregateInput
+    _min?: AuditLogMinOrderByAggregateInput
+    _sum?: AuditLogSumOrderByAggregateInput
+  }
+
+  export type AuditLogScalarWhereWithAggregatesInput = {
+    AND?: AuditLogScalarWhereWithAggregatesInput | AuditLogScalarWhereWithAggregatesInput[]
+    OR?: AuditLogScalarWhereWithAggregatesInput[]
+    NOT?: AuditLogScalarWhereWithAggregatesInput | AuditLogScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"AuditLog"> | number
+    userId?: IntWithAggregatesFilter<"AuditLog"> | number
+    action?: StringWithAggregatesFilter<"AuditLog"> | string
+    entity?: StringWithAggregatesFilter<"AuditLog"> | string
+    entityId?: IntWithAggregatesFilter<"AuditLog"> | number
+    oldValue?: JsonNullableWithAggregatesFilter<"AuditLog">
+    newValue?: JsonNullableWithAggregatesFilter<"AuditLog">
+    createdAt?: DateTimeWithAggregatesFilter<"AuditLog"> | Date | string
+  }
+
   export type CityCreateInput = {
     name: string
     logoUrl?: string | null
@@ -10337,6 +12856,7 @@ export namespace Prisma {
     mechet?: string | null
     city: CityCreateNestedOneWithoutPrayersInput
     mosque?: MosqueCreateNestedOneWithoutPrayersInput
+    changes?: PrayerTimeChangeCreateNestedManyWithoutPrayerInput
   }
 
   export type PrayerUncheckedCreateInput = {
@@ -10351,6 +12871,7 @@ export namespace Prisma {
     maghrib?: string | null
     isha?: string | null
     mechet?: string | null
+    changes?: PrayerTimeChangeUncheckedCreateNestedManyWithoutPrayerInput
   }
 
   export type PrayerUpdateInput = {
@@ -10364,6 +12885,7 @@ export namespace Prisma {
     mechet?: NullableStringFieldUpdateOperationsInput | string | null
     city?: CityUpdateOneRequiredWithoutPrayersNestedInput
     mosque?: MosqueUpdateOneWithoutPrayersNestedInput
+    changes?: PrayerTimeChangeUpdateManyWithoutPrayerNestedInput
   }
 
   export type PrayerUncheckedUpdateInput = {
@@ -10378,6 +12900,7 @@ export namespace Prisma {
     maghrib?: NullableStringFieldUpdateOperationsInput | string | null
     isha?: NullableStringFieldUpdateOperationsInput | string | null
     mechet?: NullableStringFieldUpdateOperationsInput | string | null
+    changes?: PrayerTimeChangeUncheckedUpdateManyWithoutPrayerNestedInput
   }
 
   export type PrayerCreateManyInput = {
@@ -10618,6 +13141,8 @@ export namespace Prisma {
     createdAt?: Date | string
     role: $Enums.Role
     city?: CityCreateNestedOneWithoutAdminInput
+    prayerChanges?: PrayerTimeChangeCreateNestedManyWithoutUserInput
+    auditLogs?: AuditLogCreateNestedManyWithoutUserInput
   }
 
   export type AdminUncheckedCreateInput = {
@@ -10627,6 +13152,8 @@ export namespace Prisma {
     createdAt?: Date | string
     role: $Enums.Role
     cityId?: number | null
+    prayerChanges?: PrayerTimeChangeUncheckedCreateNestedManyWithoutUserInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type AdminUpdateInput = {
@@ -10635,6 +13162,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     city?: CityUpdateOneWithoutAdminNestedInput
+    prayerChanges?: PrayerTimeChangeUpdateManyWithoutUserNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
   }
 
   export type AdminUncheckedUpdateInput = {
@@ -10644,6 +13173,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     cityId?: NullableIntFieldUpdateOperationsInput | number | null
+    prayerChanges?: PrayerTimeChangeUncheckedUpdateManyWithoutUserNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AdminCreateManyInput = {
@@ -10812,6 +13343,151 @@ export namespace Prisma {
     mechetActive?: BoolFieldUpdateOperationsInput | boolean
     shurukActive?: BoolFieldUpdateOperationsInput | boolean
     zuhrActive?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type PrayerTimeChangeCreateInput = {
+    prayerType: string
+    oldTime: string
+    newTime: string
+    shiftMinutes: number
+    changedAt?: Date | string
+    prayer: PrayerCreateNestedOneWithoutChangesInput
+    user: AdminCreateNestedOneWithoutPrayerChangesInput
+  }
+
+  export type PrayerTimeChangeUncheckedCreateInput = {
+    id?: number
+    prayerId: number
+    prayerType: string
+    oldTime: string
+    newTime: string
+    shiftMinutes: number
+    changedAt?: Date | string
+    changedBy: number
+  }
+
+  export type PrayerTimeChangeUpdateInput = {
+    prayerType?: StringFieldUpdateOperationsInput | string
+    oldTime?: StringFieldUpdateOperationsInput | string
+    newTime?: StringFieldUpdateOperationsInput | string
+    shiftMinutes?: IntFieldUpdateOperationsInput | number
+    changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    prayer?: PrayerUpdateOneRequiredWithoutChangesNestedInput
+    user?: AdminUpdateOneRequiredWithoutPrayerChangesNestedInput
+  }
+
+  export type PrayerTimeChangeUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    prayerId?: IntFieldUpdateOperationsInput | number
+    prayerType?: StringFieldUpdateOperationsInput | string
+    oldTime?: StringFieldUpdateOperationsInput | string
+    newTime?: StringFieldUpdateOperationsInput | string
+    shiftMinutes?: IntFieldUpdateOperationsInput | number
+    changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    changedBy?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type PrayerTimeChangeCreateManyInput = {
+    id?: number
+    prayerId: number
+    prayerType: string
+    oldTime: string
+    newTime: string
+    shiftMinutes: number
+    changedAt?: Date | string
+    changedBy: number
+  }
+
+  export type PrayerTimeChangeUpdateManyMutationInput = {
+    prayerType?: StringFieldUpdateOperationsInput | string
+    oldTime?: StringFieldUpdateOperationsInput | string
+    newTime?: StringFieldUpdateOperationsInput | string
+    shiftMinutes?: IntFieldUpdateOperationsInput | number
+    changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PrayerTimeChangeUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    prayerId?: IntFieldUpdateOperationsInput | number
+    prayerType?: StringFieldUpdateOperationsInput | string
+    oldTime?: StringFieldUpdateOperationsInput | string
+    newTime?: StringFieldUpdateOperationsInput | string
+    shiftMinutes?: IntFieldUpdateOperationsInput | number
+    changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    changedBy?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type AuditLogCreateInput = {
+    action: string
+    entity: string
+    entityId: number
+    oldValue?: NullableJsonNullValueInput | InputJsonValue
+    newValue?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    user: AdminCreateNestedOneWithoutAuditLogsInput
+  }
+
+  export type AuditLogUncheckedCreateInput = {
+    id?: number
+    userId: number
+    action: string
+    entity: string
+    entityId: number
+    oldValue?: NullableJsonNullValueInput | InputJsonValue
+    newValue?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type AuditLogUpdateInput = {
+    action?: StringFieldUpdateOperationsInput | string
+    entity?: StringFieldUpdateOperationsInput | string
+    entityId?: IntFieldUpdateOperationsInput | number
+    oldValue?: NullableJsonNullValueInput | InputJsonValue
+    newValue?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: AdminUpdateOneRequiredWithoutAuditLogsNestedInput
+  }
+
+  export type AuditLogUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    action?: StringFieldUpdateOperationsInput | string
+    entity?: StringFieldUpdateOperationsInput | string
+    entityId?: IntFieldUpdateOperationsInput | number
+    oldValue?: NullableJsonNullValueInput | InputJsonValue
+    newValue?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AuditLogCreateManyInput = {
+    id?: number
+    userId: number
+    action: string
+    entity: string
+    entityId: number
+    oldValue?: NullableJsonNullValueInput | InputJsonValue
+    newValue?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type AuditLogUpdateManyMutationInput = {
+    action?: StringFieldUpdateOperationsInput | string
+    entity?: StringFieldUpdateOperationsInput | string
+    entityId?: IntFieldUpdateOperationsInput | number
+    oldValue?: NullableJsonNullValueInput | InputJsonValue
+    newValue?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AuditLogUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    action?: StringFieldUpdateOperationsInput | string
+    entity?: StringFieldUpdateOperationsInput | string
+    entityId?: IntFieldUpdateOperationsInput | number
+    oldValue?: NullableJsonNullValueInput | InputJsonValue
+    newValue?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -10987,6 +13663,16 @@ export namespace Prisma {
   export type MosqueNullableRelationFilter = {
     is?: MosqueWhereInput | null
     isNot?: MosqueWhereInput | null
+  }
+
+  export type PrayerTimeChangeListRelationFilter = {
+    every?: PrayerTimeChangeWhereInput
+    some?: PrayerTimeChangeWhereInput
+    none?: PrayerTimeChangeWhereInput
+  }
+
+  export type PrayerTimeChangeOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type PrayerCountOrderByAggregateInput = {
@@ -11256,6 +13942,16 @@ export namespace Prisma {
     isNot?: CityWhereInput | null
   }
 
+  export type AuditLogListRelationFilter = {
+    every?: AuditLogWhereInput
+    some?: AuditLogWhereInput
+    none?: AuditLogWhereInput
+  }
+
+  export type AuditLogOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type AdminCountOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
@@ -11374,6 +14070,151 @@ export namespace Prisma {
   export type FixedPrayerTimeSumOrderByAggregateInput = {
     id?: SortOrder
     cityId?: SortOrder
+  }
+
+  export type PrayerRelationFilter = {
+    is?: PrayerWhereInput
+    isNot?: PrayerWhereInput
+  }
+
+  export type AdminRelationFilter = {
+    is?: AdminWhereInput
+    isNot?: AdminWhereInput
+  }
+
+  export type PrayerTimeChangeCountOrderByAggregateInput = {
+    id?: SortOrder
+    prayerId?: SortOrder
+    prayerType?: SortOrder
+    oldTime?: SortOrder
+    newTime?: SortOrder
+    shiftMinutes?: SortOrder
+    changedAt?: SortOrder
+    changedBy?: SortOrder
+  }
+
+  export type PrayerTimeChangeAvgOrderByAggregateInput = {
+    id?: SortOrder
+    prayerId?: SortOrder
+    shiftMinutes?: SortOrder
+    changedBy?: SortOrder
+  }
+
+  export type PrayerTimeChangeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    prayerId?: SortOrder
+    prayerType?: SortOrder
+    oldTime?: SortOrder
+    newTime?: SortOrder
+    shiftMinutes?: SortOrder
+    changedAt?: SortOrder
+    changedBy?: SortOrder
+  }
+
+  export type PrayerTimeChangeMinOrderByAggregateInput = {
+    id?: SortOrder
+    prayerId?: SortOrder
+    prayerType?: SortOrder
+    oldTime?: SortOrder
+    newTime?: SortOrder
+    shiftMinutes?: SortOrder
+    changedAt?: SortOrder
+    changedBy?: SortOrder
+  }
+
+  export type PrayerTimeChangeSumOrderByAggregateInput = {
+    id?: SortOrder
+    prayerId?: SortOrder
+    shiftMinutes?: SortOrder
+    changedBy?: SortOrder
+  }
+  export type JsonNullableFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type AuditLogCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    action?: SortOrder
+    entity?: SortOrder
+    entityId?: SortOrder
+    oldValue?: SortOrder
+    newValue?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AuditLogAvgOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    entityId?: SortOrder
+  }
+
+  export type AuditLogMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    action?: SortOrder
+    entity?: SortOrder
+    entityId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AuditLogMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    action?: SortOrder
+    entity?: SortOrder
+    entityId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AuditLogSumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    entityId?: SortOrder
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
   export type AdminCreateNestedOneWithoutCityInput = {
@@ -11552,6 +14393,20 @@ export namespace Prisma {
     connect?: MosqueWhereUniqueInput
   }
 
+  export type PrayerTimeChangeCreateNestedManyWithoutPrayerInput = {
+    create?: XOR<PrayerTimeChangeCreateWithoutPrayerInput, PrayerTimeChangeUncheckedCreateWithoutPrayerInput> | PrayerTimeChangeCreateWithoutPrayerInput[] | PrayerTimeChangeUncheckedCreateWithoutPrayerInput[]
+    connectOrCreate?: PrayerTimeChangeCreateOrConnectWithoutPrayerInput | PrayerTimeChangeCreateOrConnectWithoutPrayerInput[]
+    createMany?: PrayerTimeChangeCreateManyPrayerInputEnvelope
+    connect?: PrayerTimeChangeWhereUniqueInput | PrayerTimeChangeWhereUniqueInput[]
+  }
+
+  export type PrayerTimeChangeUncheckedCreateNestedManyWithoutPrayerInput = {
+    create?: XOR<PrayerTimeChangeCreateWithoutPrayerInput, PrayerTimeChangeUncheckedCreateWithoutPrayerInput> | PrayerTimeChangeCreateWithoutPrayerInput[] | PrayerTimeChangeUncheckedCreateWithoutPrayerInput[]
+    connectOrCreate?: PrayerTimeChangeCreateOrConnectWithoutPrayerInput | PrayerTimeChangeCreateOrConnectWithoutPrayerInput[]
+    createMany?: PrayerTimeChangeCreateManyPrayerInputEnvelope
+    connect?: PrayerTimeChangeWhereUniqueInput | PrayerTimeChangeWhereUniqueInput[]
+  }
+
   export type CityUpdateOneRequiredWithoutPrayersNestedInput = {
     create?: XOR<CityCreateWithoutPrayersInput, CityUncheckedCreateWithoutPrayersInput>
     connectOrCreate?: CityCreateOrConnectWithoutPrayersInput
@@ -11570,12 +14425,40 @@ export namespace Prisma {
     update?: XOR<XOR<MosqueUpdateToOneWithWhereWithoutPrayersInput, MosqueUpdateWithoutPrayersInput>, MosqueUncheckedUpdateWithoutPrayersInput>
   }
 
+  export type PrayerTimeChangeUpdateManyWithoutPrayerNestedInput = {
+    create?: XOR<PrayerTimeChangeCreateWithoutPrayerInput, PrayerTimeChangeUncheckedCreateWithoutPrayerInput> | PrayerTimeChangeCreateWithoutPrayerInput[] | PrayerTimeChangeUncheckedCreateWithoutPrayerInput[]
+    connectOrCreate?: PrayerTimeChangeCreateOrConnectWithoutPrayerInput | PrayerTimeChangeCreateOrConnectWithoutPrayerInput[]
+    upsert?: PrayerTimeChangeUpsertWithWhereUniqueWithoutPrayerInput | PrayerTimeChangeUpsertWithWhereUniqueWithoutPrayerInput[]
+    createMany?: PrayerTimeChangeCreateManyPrayerInputEnvelope
+    set?: PrayerTimeChangeWhereUniqueInput | PrayerTimeChangeWhereUniqueInput[]
+    disconnect?: PrayerTimeChangeWhereUniqueInput | PrayerTimeChangeWhereUniqueInput[]
+    delete?: PrayerTimeChangeWhereUniqueInput | PrayerTimeChangeWhereUniqueInput[]
+    connect?: PrayerTimeChangeWhereUniqueInput | PrayerTimeChangeWhereUniqueInput[]
+    update?: PrayerTimeChangeUpdateWithWhereUniqueWithoutPrayerInput | PrayerTimeChangeUpdateWithWhereUniqueWithoutPrayerInput[]
+    updateMany?: PrayerTimeChangeUpdateManyWithWhereWithoutPrayerInput | PrayerTimeChangeUpdateManyWithWhereWithoutPrayerInput[]
+    deleteMany?: PrayerTimeChangeScalarWhereInput | PrayerTimeChangeScalarWhereInput[]
+  }
+
   export type NullableIntFieldUpdateOperationsInput = {
     set?: number | null
     increment?: number
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type PrayerTimeChangeUncheckedUpdateManyWithoutPrayerNestedInput = {
+    create?: XOR<PrayerTimeChangeCreateWithoutPrayerInput, PrayerTimeChangeUncheckedCreateWithoutPrayerInput> | PrayerTimeChangeCreateWithoutPrayerInput[] | PrayerTimeChangeUncheckedCreateWithoutPrayerInput[]
+    connectOrCreate?: PrayerTimeChangeCreateOrConnectWithoutPrayerInput | PrayerTimeChangeCreateOrConnectWithoutPrayerInput[]
+    upsert?: PrayerTimeChangeUpsertWithWhereUniqueWithoutPrayerInput | PrayerTimeChangeUpsertWithWhereUniqueWithoutPrayerInput[]
+    createMany?: PrayerTimeChangeCreateManyPrayerInputEnvelope
+    set?: PrayerTimeChangeWhereUniqueInput | PrayerTimeChangeWhereUniqueInput[]
+    disconnect?: PrayerTimeChangeWhereUniqueInput | PrayerTimeChangeWhereUniqueInput[]
+    delete?: PrayerTimeChangeWhereUniqueInput | PrayerTimeChangeWhereUniqueInput[]
+    connect?: PrayerTimeChangeWhereUniqueInput | PrayerTimeChangeWhereUniqueInput[]
+    update?: PrayerTimeChangeUpdateWithWhereUniqueWithoutPrayerInput | PrayerTimeChangeUpdateWithWhereUniqueWithoutPrayerInput[]
+    updateMany?: PrayerTimeChangeUpdateManyWithWhereWithoutPrayerInput | PrayerTimeChangeUpdateManyWithWhereWithoutPrayerInput[]
+    deleteMany?: PrayerTimeChangeScalarWhereInput | PrayerTimeChangeScalarWhereInput[]
   }
 
   export type MediaCreateNestedManyWithoutMosqueInput = {
@@ -11760,6 +14643,34 @@ export namespace Prisma {
     connect?: CityWhereUniqueInput
   }
 
+  export type PrayerTimeChangeCreateNestedManyWithoutUserInput = {
+    create?: XOR<PrayerTimeChangeCreateWithoutUserInput, PrayerTimeChangeUncheckedCreateWithoutUserInput> | PrayerTimeChangeCreateWithoutUserInput[] | PrayerTimeChangeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PrayerTimeChangeCreateOrConnectWithoutUserInput | PrayerTimeChangeCreateOrConnectWithoutUserInput[]
+    createMany?: PrayerTimeChangeCreateManyUserInputEnvelope
+    connect?: PrayerTimeChangeWhereUniqueInput | PrayerTimeChangeWhereUniqueInput[]
+  }
+
+  export type AuditLogCreateNestedManyWithoutUserInput = {
+    create?: XOR<AuditLogCreateWithoutUserInput, AuditLogUncheckedCreateWithoutUserInput> | AuditLogCreateWithoutUserInput[] | AuditLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AuditLogCreateOrConnectWithoutUserInput | AuditLogCreateOrConnectWithoutUserInput[]
+    createMany?: AuditLogCreateManyUserInputEnvelope
+    connect?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
+  }
+
+  export type PrayerTimeChangeUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<PrayerTimeChangeCreateWithoutUserInput, PrayerTimeChangeUncheckedCreateWithoutUserInput> | PrayerTimeChangeCreateWithoutUserInput[] | PrayerTimeChangeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PrayerTimeChangeCreateOrConnectWithoutUserInput | PrayerTimeChangeCreateOrConnectWithoutUserInput[]
+    createMany?: PrayerTimeChangeCreateManyUserInputEnvelope
+    connect?: PrayerTimeChangeWhereUniqueInput | PrayerTimeChangeWhereUniqueInput[]
+  }
+
+  export type AuditLogUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<AuditLogCreateWithoutUserInput, AuditLogUncheckedCreateWithoutUserInput> | AuditLogCreateWithoutUserInput[] | AuditLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AuditLogCreateOrConnectWithoutUserInput | AuditLogCreateOrConnectWithoutUserInput[]
+    createMany?: AuditLogCreateManyUserInputEnvelope
+    connect?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
+  }
+
   export type EnumRoleFieldUpdateOperationsInput = {
     set?: $Enums.Role
   }
@@ -11774,6 +14685,62 @@ export namespace Prisma {
     update?: XOR<XOR<CityUpdateToOneWithWhereWithoutAdminInput, CityUpdateWithoutAdminInput>, CityUncheckedUpdateWithoutAdminInput>
   }
 
+  export type PrayerTimeChangeUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PrayerTimeChangeCreateWithoutUserInput, PrayerTimeChangeUncheckedCreateWithoutUserInput> | PrayerTimeChangeCreateWithoutUserInput[] | PrayerTimeChangeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PrayerTimeChangeCreateOrConnectWithoutUserInput | PrayerTimeChangeCreateOrConnectWithoutUserInput[]
+    upsert?: PrayerTimeChangeUpsertWithWhereUniqueWithoutUserInput | PrayerTimeChangeUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PrayerTimeChangeCreateManyUserInputEnvelope
+    set?: PrayerTimeChangeWhereUniqueInput | PrayerTimeChangeWhereUniqueInput[]
+    disconnect?: PrayerTimeChangeWhereUniqueInput | PrayerTimeChangeWhereUniqueInput[]
+    delete?: PrayerTimeChangeWhereUniqueInput | PrayerTimeChangeWhereUniqueInput[]
+    connect?: PrayerTimeChangeWhereUniqueInput | PrayerTimeChangeWhereUniqueInput[]
+    update?: PrayerTimeChangeUpdateWithWhereUniqueWithoutUserInput | PrayerTimeChangeUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PrayerTimeChangeUpdateManyWithWhereWithoutUserInput | PrayerTimeChangeUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PrayerTimeChangeScalarWhereInput | PrayerTimeChangeScalarWhereInput[]
+  }
+
+  export type AuditLogUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AuditLogCreateWithoutUserInput, AuditLogUncheckedCreateWithoutUserInput> | AuditLogCreateWithoutUserInput[] | AuditLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AuditLogCreateOrConnectWithoutUserInput | AuditLogCreateOrConnectWithoutUserInput[]
+    upsert?: AuditLogUpsertWithWhereUniqueWithoutUserInput | AuditLogUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AuditLogCreateManyUserInputEnvelope
+    set?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
+    disconnect?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
+    delete?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
+    connect?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
+    update?: AuditLogUpdateWithWhereUniqueWithoutUserInput | AuditLogUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AuditLogUpdateManyWithWhereWithoutUserInput | AuditLogUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AuditLogScalarWhereInput | AuditLogScalarWhereInput[]
+  }
+
+  export type PrayerTimeChangeUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PrayerTimeChangeCreateWithoutUserInput, PrayerTimeChangeUncheckedCreateWithoutUserInput> | PrayerTimeChangeCreateWithoutUserInput[] | PrayerTimeChangeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PrayerTimeChangeCreateOrConnectWithoutUserInput | PrayerTimeChangeCreateOrConnectWithoutUserInput[]
+    upsert?: PrayerTimeChangeUpsertWithWhereUniqueWithoutUserInput | PrayerTimeChangeUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PrayerTimeChangeCreateManyUserInputEnvelope
+    set?: PrayerTimeChangeWhereUniqueInput | PrayerTimeChangeWhereUniqueInput[]
+    disconnect?: PrayerTimeChangeWhereUniqueInput | PrayerTimeChangeWhereUniqueInput[]
+    delete?: PrayerTimeChangeWhereUniqueInput | PrayerTimeChangeWhereUniqueInput[]
+    connect?: PrayerTimeChangeWhereUniqueInput | PrayerTimeChangeWhereUniqueInput[]
+    update?: PrayerTimeChangeUpdateWithWhereUniqueWithoutUserInput | PrayerTimeChangeUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PrayerTimeChangeUpdateManyWithWhereWithoutUserInput | PrayerTimeChangeUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PrayerTimeChangeScalarWhereInput | PrayerTimeChangeScalarWhereInput[]
+  }
+
+  export type AuditLogUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AuditLogCreateWithoutUserInput, AuditLogUncheckedCreateWithoutUserInput> | AuditLogCreateWithoutUserInput[] | AuditLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AuditLogCreateOrConnectWithoutUserInput | AuditLogCreateOrConnectWithoutUserInput[]
+    upsert?: AuditLogUpsertWithWhereUniqueWithoutUserInput | AuditLogUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AuditLogCreateManyUserInputEnvelope
+    set?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
+    disconnect?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
+    delete?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
+    connect?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
+    update?: AuditLogUpdateWithWhereUniqueWithoutUserInput | AuditLogUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AuditLogUpdateManyWithWhereWithoutUserInput | AuditLogUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AuditLogScalarWhereInput | AuditLogScalarWhereInput[]
+  }
+
   export type CityCreateNestedOneWithoutFixedPrayerTimeInput = {
     create?: XOR<CityCreateWithoutFixedPrayerTimeInput, CityUncheckedCreateWithoutFixedPrayerTimeInput>
     connectOrCreate?: CityCreateOrConnectWithoutFixedPrayerTimeInput
@@ -11786,6 +14753,48 @@ export namespace Prisma {
     upsert?: CityUpsertWithoutFixedPrayerTimeInput
     connect?: CityWhereUniqueInput
     update?: XOR<XOR<CityUpdateToOneWithWhereWithoutFixedPrayerTimeInput, CityUpdateWithoutFixedPrayerTimeInput>, CityUncheckedUpdateWithoutFixedPrayerTimeInput>
+  }
+
+  export type PrayerCreateNestedOneWithoutChangesInput = {
+    create?: XOR<PrayerCreateWithoutChangesInput, PrayerUncheckedCreateWithoutChangesInput>
+    connectOrCreate?: PrayerCreateOrConnectWithoutChangesInput
+    connect?: PrayerWhereUniqueInput
+  }
+
+  export type AdminCreateNestedOneWithoutPrayerChangesInput = {
+    create?: XOR<AdminCreateWithoutPrayerChangesInput, AdminUncheckedCreateWithoutPrayerChangesInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutPrayerChangesInput
+    connect?: AdminWhereUniqueInput
+  }
+
+  export type PrayerUpdateOneRequiredWithoutChangesNestedInput = {
+    create?: XOR<PrayerCreateWithoutChangesInput, PrayerUncheckedCreateWithoutChangesInput>
+    connectOrCreate?: PrayerCreateOrConnectWithoutChangesInput
+    upsert?: PrayerUpsertWithoutChangesInput
+    connect?: PrayerWhereUniqueInput
+    update?: XOR<XOR<PrayerUpdateToOneWithWhereWithoutChangesInput, PrayerUpdateWithoutChangesInput>, PrayerUncheckedUpdateWithoutChangesInput>
+  }
+
+  export type AdminUpdateOneRequiredWithoutPrayerChangesNestedInput = {
+    create?: XOR<AdminCreateWithoutPrayerChangesInput, AdminUncheckedCreateWithoutPrayerChangesInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutPrayerChangesInput
+    upsert?: AdminUpsertWithoutPrayerChangesInput
+    connect?: AdminWhereUniqueInput
+    update?: XOR<XOR<AdminUpdateToOneWithWhereWithoutPrayerChangesInput, AdminUpdateWithoutPrayerChangesInput>, AdminUncheckedUpdateWithoutPrayerChangesInput>
+  }
+
+  export type AdminCreateNestedOneWithoutAuditLogsInput = {
+    create?: XOR<AdminCreateWithoutAuditLogsInput, AdminUncheckedCreateWithoutAuditLogsInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutAuditLogsInput
+    connect?: AdminWhereUniqueInput
+  }
+
+  export type AdminUpdateOneRequiredWithoutAuditLogsNestedInput = {
+    create?: XOR<AdminCreateWithoutAuditLogsInput, AdminUncheckedCreateWithoutAuditLogsInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutAuditLogsInput
+    upsert?: AdminUpsertWithoutAuditLogsInput
+    connect?: AdminWhereUniqueInput
+    update?: XOR<XOR<AdminUpdateToOneWithWhereWithoutAuditLogsInput, AdminUpdateWithoutAuditLogsInput>, AdminUncheckedUpdateWithoutAuditLogsInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -11980,12 +14989,36 @@ export namespace Prisma {
     _min?: NestedEnumRoleFilter<$PrismaModel>
     _max?: NestedEnumRoleFilter<$PrismaModel>
   }
+  export type NestedJsonNullableFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type AdminCreateWithoutCityInput = {
     email: string
     password: string
     createdAt?: Date | string
     role: $Enums.Role
+    prayerChanges?: PrayerTimeChangeCreateNestedManyWithoutUserInput
+    auditLogs?: AuditLogCreateNestedManyWithoutUserInput
   }
 
   export type AdminUncheckedCreateWithoutCityInput = {
@@ -11994,6 +15027,8 @@ export namespace Prisma {
     password: string
     createdAt?: Date | string
     role: $Enums.Role
+    prayerChanges?: PrayerTimeChangeUncheckedCreateNestedManyWithoutUserInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type AdminCreateOrConnectWithoutCityInput = {
@@ -12082,6 +15117,7 @@ export namespace Prisma {
     isha?: string | null
     mechet?: string | null
     mosque?: MosqueCreateNestedOneWithoutPrayersInput
+    changes?: PrayerTimeChangeCreateNestedManyWithoutPrayerInput
   }
 
   export type PrayerUncheckedCreateWithoutCityInput = {
@@ -12095,6 +15131,7 @@ export namespace Prisma {
     maghrib?: string | null
     isha?: string | null
     mechet?: string | null
+    changes?: PrayerTimeChangeUncheckedCreateNestedManyWithoutPrayerInput
   }
 
   export type PrayerCreateOrConnectWithoutCityInput = {
@@ -12123,6 +15160,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    prayerChanges?: PrayerTimeChangeUpdateManyWithoutUserNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
   }
 
   export type AdminUncheckedUpdateWithoutCityInput = {
@@ -12131,6 +15170,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    prayerChanges?: PrayerTimeChangeUncheckedUpdateManyWithoutUserNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type FixedPrayerTimeUpsertWithoutCityInput = {
@@ -12286,6 +15327,35 @@ export namespace Prisma {
     create: XOR<MosqueCreateWithoutPrayersInput, MosqueUncheckedCreateWithoutPrayersInput>
   }
 
+  export type PrayerTimeChangeCreateWithoutPrayerInput = {
+    prayerType: string
+    oldTime: string
+    newTime: string
+    shiftMinutes: number
+    changedAt?: Date | string
+    user: AdminCreateNestedOneWithoutPrayerChangesInput
+  }
+
+  export type PrayerTimeChangeUncheckedCreateWithoutPrayerInput = {
+    id?: number
+    prayerType: string
+    oldTime: string
+    newTime: string
+    shiftMinutes: number
+    changedAt?: Date | string
+    changedBy: number
+  }
+
+  export type PrayerTimeChangeCreateOrConnectWithoutPrayerInput = {
+    where: PrayerTimeChangeWhereUniqueInput
+    create: XOR<PrayerTimeChangeCreateWithoutPrayerInput, PrayerTimeChangeUncheckedCreateWithoutPrayerInput>
+  }
+
+  export type PrayerTimeChangeCreateManyPrayerInputEnvelope = {
+    data: PrayerTimeChangeCreateManyPrayerInput | PrayerTimeChangeCreateManyPrayerInput[]
+    skipDuplicates?: boolean
+  }
+
   export type CityUpsertWithoutPrayersInput = {
     update: XOR<CityUpdateWithoutPrayersInput, CityUncheckedUpdateWithoutPrayersInput>
     create: XOR<CityCreateWithoutPrayersInput, CityUncheckedCreateWithoutPrayersInput>
@@ -12342,6 +15412,36 @@ export namespace Prisma {
     qrCodes?: QRCodeUncheckedUpdateManyWithoutMosqueNestedInput
   }
 
+  export type PrayerTimeChangeUpsertWithWhereUniqueWithoutPrayerInput = {
+    where: PrayerTimeChangeWhereUniqueInput
+    update: XOR<PrayerTimeChangeUpdateWithoutPrayerInput, PrayerTimeChangeUncheckedUpdateWithoutPrayerInput>
+    create: XOR<PrayerTimeChangeCreateWithoutPrayerInput, PrayerTimeChangeUncheckedCreateWithoutPrayerInput>
+  }
+
+  export type PrayerTimeChangeUpdateWithWhereUniqueWithoutPrayerInput = {
+    where: PrayerTimeChangeWhereUniqueInput
+    data: XOR<PrayerTimeChangeUpdateWithoutPrayerInput, PrayerTimeChangeUncheckedUpdateWithoutPrayerInput>
+  }
+
+  export type PrayerTimeChangeUpdateManyWithWhereWithoutPrayerInput = {
+    where: PrayerTimeChangeScalarWhereInput
+    data: XOR<PrayerTimeChangeUpdateManyMutationInput, PrayerTimeChangeUncheckedUpdateManyWithoutPrayerInput>
+  }
+
+  export type PrayerTimeChangeScalarWhereInput = {
+    AND?: PrayerTimeChangeScalarWhereInput | PrayerTimeChangeScalarWhereInput[]
+    OR?: PrayerTimeChangeScalarWhereInput[]
+    NOT?: PrayerTimeChangeScalarWhereInput | PrayerTimeChangeScalarWhereInput[]
+    id?: IntFilter<"PrayerTimeChange"> | number
+    prayerId?: IntFilter<"PrayerTimeChange"> | number
+    prayerType?: StringFilter<"PrayerTimeChange"> | string
+    oldTime?: StringFilter<"PrayerTimeChange"> | string
+    newTime?: StringFilter<"PrayerTimeChange"> | string
+    shiftMinutes?: IntFilter<"PrayerTimeChange"> | number
+    changedAt?: DateTimeFilter<"PrayerTimeChange"> | Date | string
+    changedBy?: IntFilter<"PrayerTimeChange"> | number
+  }
+
   export type MediaCreateWithoutMosqueInput = {
     videoUrl?: string | null
   }
@@ -12393,6 +15493,7 @@ export namespace Prisma {
     isha?: string | null
     mechet?: string | null
     city: CityCreateNestedOneWithoutPrayersInput
+    changes?: PrayerTimeChangeCreateNestedManyWithoutPrayerInput
   }
 
   export type PrayerUncheckedCreateWithoutMosqueInput = {
@@ -12406,6 +15507,7 @@ export namespace Prisma {
     maghrib?: string | null
     isha?: string | null
     mechet?: string | null
+    changes?: PrayerTimeChangeUncheckedCreateNestedManyWithoutPrayerInput
   }
 
   export type PrayerCreateOrConnectWithoutMosqueInput = {
@@ -12665,6 +15767,64 @@ export namespace Prisma {
     create: XOR<CityCreateWithoutAdminInput, CityUncheckedCreateWithoutAdminInput>
   }
 
+  export type PrayerTimeChangeCreateWithoutUserInput = {
+    prayerType: string
+    oldTime: string
+    newTime: string
+    shiftMinutes: number
+    changedAt?: Date | string
+    prayer: PrayerCreateNestedOneWithoutChangesInput
+  }
+
+  export type PrayerTimeChangeUncheckedCreateWithoutUserInput = {
+    id?: number
+    prayerId: number
+    prayerType: string
+    oldTime: string
+    newTime: string
+    shiftMinutes: number
+    changedAt?: Date | string
+  }
+
+  export type PrayerTimeChangeCreateOrConnectWithoutUserInput = {
+    where: PrayerTimeChangeWhereUniqueInput
+    create: XOR<PrayerTimeChangeCreateWithoutUserInput, PrayerTimeChangeUncheckedCreateWithoutUserInput>
+  }
+
+  export type PrayerTimeChangeCreateManyUserInputEnvelope = {
+    data: PrayerTimeChangeCreateManyUserInput | PrayerTimeChangeCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AuditLogCreateWithoutUserInput = {
+    action: string
+    entity: string
+    entityId: number
+    oldValue?: NullableJsonNullValueInput | InputJsonValue
+    newValue?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type AuditLogUncheckedCreateWithoutUserInput = {
+    id?: number
+    action: string
+    entity: string
+    entityId: number
+    oldValue?: NullableJsonNullValueInput | InputJsonValue
+    newValue?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type AuditLogCreateOrConnectWithoutUserInput = {
+    where: AuditLogWhereUniqueInput
+    create: XOR<AuditLogCreateWithoutUserInput, AuditLogUncheckedCreateWithoutUserInput>
+  }
+
+  export type AuditLogCreateManyUserInputEnvelope = {
+    data: AuditLogCreateManyUserInput | AuditLogCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type CityUpsertWithoutAdminInput = {
     update: XOR<CityUpdateWithoutAdminInput, CityUncheckedUpdateWithoutAdminInput>
     create: XOR<CityCreateWithoutAdminInput, CityUncheckedCreateWithoutAdminInput>
@@ -12691,6 +15851,52 @@ export namespace Prisma {
     fixedPrayerTime?: FixedPrayerTimeUncheckedUpdateOneWithoutCityNestedInput
     Mosque?: MosqueUncheckedUpdateManyWithoutCityNestedInput
     prayers?: PrayerUncheckedUpdateManyWithoutCityNestedInput
+  }
+
+  export type PrayerTimeChangeUpsertWithWhereUniqueWithoutUserInput = {
+    where: PrayerTimeChangeWhereUniqueInput
+    update: XOR<PrayerTimeChangeUpdateWithoutUserInput, PrayerTimeChangeUncheckedUpdateWithoutUserInput>
+    create: XOR<PrayerTimeChangeCreateWithoutUserInput, PrayerTimeChangeUncheckedCreateWithoutUserInput>
+  }
+
+  export type PrayerTimeChangeUpdateWithWhereUniqueWithoutUserInput = {
+    where: PrayerTimeChangeWhereUniqueInput
+    data: XOR<PrayerTimeChangeUpdateWithoutUserInput, PrayerTimeChangeUncheckedUpdateWithoutUserInput>
+  }
+
+  export type PrayerTimeChangeUpdateManyWithWhereWithoutUserInput = {
+    where: PrayerTimeChangeScalarWhereInput
+    data: XOR<PrayerTimeChangeUpdateManyMutationInput, PrayerTimeChangeUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type AuditLogUpsertWithWhereUniqueWithoutUserInput = {
+    where: AuditLogWhereUniqueInput
+    update: XOR<AuditLogUpdateWithoutUserInput, AuditLogUncheckedUpdateWithoutUserInput>
+    create: XOR<AuditLogCreateWithoutUserInput, AuditLogUncheckedCreateWithoutUserInput>
+  }
+
+  export type AuditLogUpdateWithWhereUniqueWithoutUserInput = {
+    where: AuditLogWhereUniqueInput
+    data: XOR<AuditLogUpdateWithoutUserInput, AuditLogUncheckedUpdateWithoutUserInput>
+  }
+
+  export type AuditLogUpdateManyWithWhereWithoutUserInput = {
+    where: AuditLogScalarWhereInput
+    data: XOR<AuditLogUpdateManyMutationInput, AuditLogUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type AuditLogScalarWhereInput = {
+    AND?: AuditLogScalarWhereInput | AuditLogScalarWhereInput[]
+    OR?: AuditLogScalarWhereInput[]
+    NOT?: AuditLogScalarWhereInput | AuditLogScalarWhereInput[]
+    id?: IntFilter<"AuditLog"> | number
+    userId?: IntFilter<"AuditLog"> | number
+    action?: StringFilter<"AuditLog"> | string
+    entity?: StringFilter<"AuditLog"> | string
+    entityId?: IntFilter<"AuditLog"> | number
+    oldValue?: JsonNullableFilter<"AuditLog">
+    newValue?: JsonNullableFilter<"AuditLog">
+    createdAt?: DateTimeFilter<"AuditLog"> | Date | string
   }
 
   export type CityCreateWithoutFixedPrayerTimeInput = {
@@ -12741,6 +15947,184 @@ export namespace Prisma {
     admin?: AdminUncheckedUpdateOneWithoutCityNestedInput
     Mosque?: MosqueUncheckedUpdateManyWithoutCityNestedInput
     prayers?: PrayerUncheckedUpdateManyWithoutCityNestedInput
+  }
+
+  export type PrayerCreateWithoutChangesInput = {
+    date?: string | null
+    fajr?: string | null
+    shuruk?: string | null
+    zuhr?: string | null
+    asr?: string | null
+    maghrib?: string | null
+    isha?: string | null
+    mechet?: string | null
+    city: CityCreateNestedOneWithoutPrayersInput
+    mosque?: MosqueCreateNestedOneWithoutPrayersInput
+  }
+
+  export type PrayerUncheckedCreateWithoutChangesInput = {
+    id?: number
+    cityId: number
+    mosqueId?: number | null
+    date?: string | null
+    fajr?: string | null
+    shuruk?: string | null
+    zuhr?: string | null
+    asr?: string | null
+    maghrib?: string | null
+    isha?: string | null
+    mechet?: string | null
+  }
+
+  export type PrayerCreateOrConnectWithoutChangesInput = {
+    where: PrayerWhereUniqueInput
+    create: XOR<PrayerCreateWithoutChangesInput, PrayerUncheckedCreateWithoutChangesInput>
+  }
+
+  export type AdminCreateWithoutPrayerChangesInput = {
+    email: string
+    password: string
+    createdAt?: Date | string
+    role: $Enums.Role
+    city?: CityCreateNestedOneWithoutAdminInput
+    auditLogs?: AuditLogCreateNestedManyWithoutUserInput
+  }
+
+  export type AdminUncheckedCreateWithoutPrayerChangesInput = {
+    id?: number
+    email: string
+    password: string
+    createdAt?: Date | string
+    role: $Enums.Role
+    cityId?: number | null
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type AdminCreateOrConnectWithoutPrayerChangesInput = {
+    where: AdminWhereUniqueInput
+    create: XOR<AdminCreateWithoutPrayerChangesInput, AdminUncheckedCreateWithoutPrayerChangesInput>
+  }
+
+  export type PrayerUpsertWithoutChangesInput = {
+    update: XOR<PrayerUpdateWithoutChangesInput, PrayerUncheckedUpdateWithoutChangesInput>
+    create: XOR<PrayerCreateWithoutChangesInput, PrayerUncheckedCreateWithoutChangesInput>
+    where?: PrayerWhereInput
+  }
+
+  export type PrayerUpdateToOneWithWhereWithoutChangesInput = {
+    where?: PrayerWhereInput
+    data: XOR<PrayerUpdateWithoutChangesInput, PrayerUncheckedUpdateWithoutChangesInput>
+  }
+
+  export type PrayerUpdateWithoutChangesInput = {
+    date?: NullableStringFieldUpdateOperationsInput | string | null
+    fajr?: NullableStringFieldUpdateOperationsInput | string | null
+    shuruk?: NullableStringFieldUpdateOperationsInput | string | null
+    zuhr?: NullableStringFieldUpdateOperationsInput | string | null
+    asr?: NullableStringFieldUpdateOperationsInput | string | null
+    maghrib?: NullableStringFieldUpdateOperationsInput | string | null
+    isha?: NullableStringFieldUpdateOperationsInput | string | null
+    mechet?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: CityUpdateOneRequiredWithoutPrayersNestedInput
+    mosque?: MosqueUpdateOneWithoutPrayersNestedInput
+  }
+
+  export type PrayerUncheckedUpdateWithoutChangesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    cityId?: IntFieldUpdateOperationsInput | number
+    mosqueId?: NullableIntFieldUpdateOperationsInput | number | null
+    date?: NullableStringFieldUpdateOperationsInput | string | null
+    fajr?: NullableStringFieldUpdateOperationsInput | string | null
+    shuruk?: NullableStringFieldUpdateOperationsInput | string | null
+    zuhr?: NullableStringFieldUpdateOperationsInput | string | null
+    asr?: NullableStringFieldUpdateOperationsInput | string | null
+    maghrib?: NullableStringFieldUpdateOperationsInput | string | null
+    isha?: NullableStringFieldUpdateOperationsInput | string | null
+    mechet?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AdminUpsertWithoutPrayerChangesInput = {
+    update: XOR<AdminUpdateWithoutPrayerChangesInput, AdminUncheckedUpdateWithoutPrayerChangesInput>
+    create: XOR<AdminCreateWithoutPrayerChangesInput, AdminUncheckedCreateWithoutPrayerChangesInput>
+    where?: AdminWhereInput
+  }
+
+  export type AdminUpdateToOneWithWhereWithoutPrayerChangesInput = {
+    where?: AdminWhereInput
+    data: XOR<AdminUpdateWithoutPrayerChangesInput, AdminUncheckedUpdateWithoutPrayerChangesInput>
+  }
+
+  export type AdminUpdateWithoutPrayerChangesInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    city?: CityUpdateOneWithoutAdminNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
+  }
+
+  export type AdminUncheckedUpdateWithoutPrayerChangesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    cityId?: NullableIntFieldUpdateOperationsInput | number | null
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type AdminCreateWithoutAuditLogsInput = {
+    email: string
+    password: string
+    createdAt?: Date | string
+    role: $Enums.Role
+    city?: CityCreateNestedOneWithoutAdminInput
+    prayerChanges?: PrayerTimeChangeCreateNestedManyWithoutUserInput
+  }
+
+  export type AdminUncheckedCreateWithoutAuditLogsInput = {
+    id?: number
+    email: string
+    password: string
+    createdAt?: Date | string
+    role: $Enums.Role
+    cityId?: number | null
+    prayerChanges?: PrayerTimeChangeUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type AdminCreateOrConnectWithoutAuditLogsInput = {
+    where: AdminWhereUniqueInput
+    create: XOR<AdminCreateWithoutAuditLogsInput, AdminUncheckedCreateWithoutAuditLogsInput>
+  }
+
+  export type AdminUpsertWithoutAuditLogsInput = {
+    update: XOR<AdminUpdateWithoutAuditLogsInput, AdminUncheckedUpdateWithoutAuditLogsInput>
+    create: XOR<AdminCreateWithoutAuditLogsInput, AdminUncheckedCreateWithoutAuditLogsInput>
+    where?: AdminWhereInput
+  }
+
+  export type AdminUpdateToOneWithWhereWithoutAuditLogsInput = {
+    where?: AdminWhereInput
+    data: XOR<AdminUpdateWithoutAuditLogsInput, AdminUncheckedUpdateWithoutAuditLogsInput>
+  }
+
+  export type AdminUpdateWithoutAuditLogsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    city?: CityUpdateOneWithoutAdminNestedInput
+    prayerChanges?: PrayerTimeChangeUpdateManyWithoutUserNestedInput
+  }
+
+  export type AdminUncheckedUpdateWithoutAuditLogsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    cityId?: NullableIntFieldUpdateOperationsInput | number | null
+    prayerChanges?: PrayerTimeChangeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type MosqueCreateManyCityInput = {
@@ -12795,6 +16179,7 @@ export namespace Prisma {
     isha?: NullableStringFieldUpdateOperationsInput | string | null
     mechet?: NullableStringFieldUpdateOperationsInput | string | null
     mosque?: MosqueUpdateOneWithoutPrayersNestedInput
+    changes?: PrayerTimeChangeUpdateManyWithoutPrayerNestedInput
   }
 
   export type PrayerUncheckedUpdateWithoutCityInput = {
@@ -12808,6 +16193,7 @@ export namespace Prisma {
     maghrib?: NullableStringFieldUpdateOperationsInput | string | null
     isha?: NullableStringFieldUpdateOperationsInput | string | null
     mechet?: NullableStringFieldUpdateOperationsInput | string | null
+    changes?: PrayerTimeChangeUncheckedUpdateManyWithoutPrayerNestedInput
   }
 
   export type PrayerUncheckedUpdateManyWithoutCityInput = {
@@ -12821,6 +16207,45 @@ export namespace Prisma {
     maghrib?: NullableStringFieldUpdateOperationsInput | string | null
     isha?: NullableStringFieldUpdateOperationsInput | string | null
     mechet?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type PrayerTimeChangeCreateManyPrayerInput = {
+    id?: number
+    prayerType: string
+    oldTime: string
+    newTime: string
+    shiftMinutes: number
+    changedAt?: Date | string
+    changedBy: number
+  }
+
+  export type PrayerTimeChangeUpdateWithoutPrayerInput = {
+    prayerType?: StringFieldUpdateOperationsInput | string
+    oldTime?: StringFieldUpdateOperationsInput | string
+    newTime?: StringFieldUpdateOperationsInput | string
+    shiftMinutes?: IntFieldUpdateOperationsInput | number
+    changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: AdminUpdateOneRequiredWithoutPrayerChangesNestedInput
+  }
+
+  export type PrayerTimeChangeUncheckedUpdateWithoutPrayerInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    prayerType?: StringFieldUpdateOperationsInput | string
+    oldTime?: StringFieldUpdateOperationsInput | string
+    newTime?: StringFieldUpdateOperationsInput | string
+    shiftMinutes?: IntFieldUpdateOperationsInput | number
+    changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    changedBy?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type PrayerTimeChangeUncheckedUpdateManyWithoutPrayerInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    prayerType?: StringFieldUpdateOperationsInput | string
+    oldTime?: StringFieldUpdateOperationsInput | string
+    newTime?: StringFieldUpdateOperationsInput | string
+    shiftMinutes?: IntFieldUpdateOperationsInput | number
+    changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    changedBy?: IntFieldUpdateOperationsInput | number
   }
 
   export type MediaCreateManyMosqueInput = {
@@ -12874,6 +16299,7 @@ export namespace Prisma {
     isha?: NullableStringFieldUpdateOperationsInput | string | null
     mechet?: NullableStringFieldUpdateOperationsInput | string | null
     city?: CityUpdateOneRequiredWithoutPrayersNestedInput
+    changes?: PrayerTimeChangeUpdateManyWithoutPrayerNestedInput
   }
 
   export type PrayerUncheckedUpdateWithoutMosqueInput = {
@@ -12887,6 +16313,7 @@ export namespace Prisma {
     maghrib?: NullableStringFieldUpdateOperationsInput | string | null
     isha?: NullableStringFieldUpdateOperationsInput | string | null
     mechet?: NullableStringFieldUpdateOperationsInput | string | null
+    changes?: PrayerTimeChangeUncheckedUpdateManyWithoutPrayerNestedInput
   }
 
   export type PrayerUncheckedUpdateManyWithoutMosqueInput = {
@@ -12928,6 +16355,84 @@ export namespace Prisma {
     imageUrl?: StringFieldUpdateOperationsInput | string
   }
 
+  export type PrayerTimeChangeCreateManyUserInput = {
+    id?: number
+    prayerId: number
+    prayerType: string
+    oldTime: string
+    newTime: string
+    shiftMinutes: number
+    changedAt?: Date | string
+  }
+
+  export type AuditLogCreateManyUserInput = {
+    id?: number
+    action: string
+    entity: string
+    entityId: number
+    oldValue?: NullableJsonNullValueInput | InputJsonValue
+    newValue?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type PrayerTimeChangeUpdateWithoutUserInput = {
+    prayerType?: StringFieldUpdateOperationsInput | string
+    oldTime?: StringFieldUpdateOperationsInput | string
+    newTime?: StringFieldUpdateOperationsInput | string
+    shiftMinutes?: IntFieldUpdateOperationsInput | number
+    changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    prayer?: PrayerUpdateOneRequiredWithoutChangesNestedInput
+  }
+
+  export type PrayerTimeChangeUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    prayerId?: IntFieldUpdateOperationsInput | number
+    prayerType?: StringFieldUpdateOperationsInput | string
+    oldTime?: StringFieldUpdateOperationsInput | string
+    newTime?: StringFieldUpdateOperationsInput | string
+    shiftMinutes?: IntFieldUpdateOperationsInput | number
+    changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PrayerTimeChangeUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    prayerId?: IntFieldUpdateOperationsInput | number
+    prayerType?: StringFieldUpdateOperationsInput | string
+    oldTime?: StringFieldUpdateOperationsInput | string
+    newTime?: StringFieldUpdateOperationsInput | string
+    shiftMinutes?: IntFieldUpdateOperationsInput | number
+    changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AuditLogUpdateWithoutUserInput = {
+    action?: StringFieldUpdateOperationsInput | string
+    entity?: StringFieldUpdateOperationsInput | string
+    entityId?: IntFieldUpdateOperationsInput | number
+    oldValue?: NullableJsonNullValueInput | InputJsonValue
+    newValue?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AuditLogUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    action?: StringFieldUpdateOperationsInput | string
+    entity?: StringFieldUpdateOperationsInput | string
+    entityId?: IntFieldUpdateOperationsInput | number
+    oldValue?: NullableJsonNullValueInput | InputJsonValue
+    newValue?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AuditLogUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    action?: StringFieldUpdateOperationsInput | string
+    entity?: StringFieldUpdateOperationsInput | string
+    entityId?: IntFieldUpdateOperationsInput | number
+    oldValue?: NullableJsonNullValueInput | InputJsonValue
+    newValue?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
 
 
   /**
@@ -12938,9 +16443,17 @@ export namespace Prisma {
      */
     export type CityCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CityCountOutputTypeDefaultArgs<ExtArgs>
     /**
+     * @deprecated Use PrayerCountOutputTypeDefaultArgs instead
+     */
+    export type PrayerCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PrayerCountOutputTypeDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use MosqueCountOutputTypeDefaultArgs instead
      */
     export type MosqueCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MosqueCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use AdminCountOutputTypeDefaultArgs instead
+     */
+    export type AdminCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AdminCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use CityDefaultArgs instead
      */
@@ -12973,6 +16486,14 @@ export namespace Prisma {
      * @deprecated Use FixedPrayerTimeDefaultArgs instead
      */
     export type FixedPrayerTimeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = FixedPrayerTimeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use PrayerTimeChangeDefaultArgs instead
+     */
+    export type PrayerTimeChangeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PrayerTimeChangeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use AuditLogDefaultArgs instead
+     */
+    export type AuditLogArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AuditLogDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

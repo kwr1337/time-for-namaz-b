@@ -9,7 +9,8 @@ import {
 	UseGuards,
 	UseInterceptors,
 	UploadedFile,
-	Put
+	Put,
+	Request
 } from '@nestjs/common'
 import { FileInterceptor } from '@nestjs/platform-express'
 import { diskStorage } from 'multer'
@@ -43,8 +44,8 @@ export class QRCodeController {
 			}),
 		})
 	)
-	create(@Body() createQrcodeDto: CreateQRCodeDto, @UploadedFile() image: Express.Multer.File) {
-		return this.qrcodeService.create(createQrcodeDto, image);
+	create(@Body() createQrcodeDto: CreateQRCodeDto, @UploadedFile() image: Express.Multer.File, @Request() req: any) {
+		return this.qrcodeService.create(createQrcodeDto, image, req.user.id);
 	}
 
 	@Get()
@@ -81,8 +82,8 @@ export class QRCodeController {
 			}),
 		})
 	)
-	update(@Param('id') id: string, @Body() updateQrcodeDto: UpdateQRCodeDto, @UploadedFile() image: Express.Multer.File) {
-		return this.qrcodeService.update(+id, updateQrcodeDto, image);
+	update(@Param('id') id: string, @Body() updateQrcodeDto: UpdateQRCodeDto, @UploadedFile() image: Express.Multer.File, @Request() req: any) {
+		return this.qrcodeService.update(+id, updateQrcodeDto, req.user.id, image);
 	}
 
 	@Delete(':id')
@@ -91,8 +92,8 @@ export class QRCodeController {
 	@ApiOperation({ summary: 'Удалить QR-код' })
 	@ApiResponse({ status: 200, description: 'QR-код удален успешно' })
 	@ApiResponse({ status: 404, description: 'QR-код не найден' })
-	remove(@Param('id') id: string) {
-		return this.qrcodeService.remove(+id);
+	remove(@Param('id') id: string, @Request() req: any) {
+		return this.qrcodeService.remove(+id, req.user.id);
 	}
 
 	@Get('by-mosque/:mosqueId')

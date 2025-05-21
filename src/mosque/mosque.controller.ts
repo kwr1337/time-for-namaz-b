@@ -28,16 +28,14 @@ export class MosqueController {
 			},
 		}),
 	}))
-	async create(@Body() createMosqueDto: CreateMosqueDto, @UploadedFile() file: Express.Multer.File) {
+	async create(@Body() createMosqueDto: CreateMosqueDto, @UploadedFile() file: Express.Multer.File, @Request() req: any) {
 		try {
-			// Если файл загружен, устанавливаем путь к логотипу
 			if (file) {
-				createMosqueDto.logoUrl = file.path; // Устанавливаем путь к логотипу
+				createMosqueDto.logoUrl = file.path;
 			} else {
-				createMosqueDto.logoUrl = null; // Устанавливаем null, если логотип не передан
+				createMosqueDto.logoUrl = null;
 			}
-
-			const mosque = await this.mosqueService.create(createMosqueDto);
+			const mosque = await this.mosqueService.create(createMosqueDto, req.user.id);
 			return mosque;
 		} catch (error) {
 			console.error(error);
@@ -82,25 +80,21 @@ export class MosqueController {
 			},
 		}),
 	}))
-	async update(@Param('id') id: number, @Body() updateMosqueDto: UpdateMosqueDto, @UploadedFile() file: Express.Multer.File, @Request() req) {
+	async update(@Param('id') id: number, @Body() updateMosqueDto: UpdateMosqueDto, @UploadedFile() file: Express.Multer.File, @Request() req: any) {
 		try {
 			const mosque = await this.mosqueService.findOne(id);
 			if (!mosque) {
 				throw new HttpException('Мечеть не найдена', HttpStatus.NOT_FOUND);
 			}
-
 			if (req.user.role === Role.CITY_ADMIN && req.user.cityId !== mosque.cityId) {
 				throw new HttpException('Запрещено', HttpStatus.FORBIDDEN);
 			}
-
-			// Если файл логотипа загружен, обновляем путь к логотипу
 			if (file) {
-				updateMosqueDto.logoUrl = file.path; // Устанавливаем путь к логотипу
+				updateMosqueDto.logoUrl = file.path;
 			} else {
-				delete updateMosqueDto.logoUrl; // Удаляем свойство, если логотип не передан
+				delete updateMosqueDto.logoUrl;
 			}
-
-			return this.mosqueService.update(id, updateMosqueDto);
+			return this.mosqueService.update(id, updateMosqueDto, req.user.id);
 		} catch (error) {
 			console.log(error);
 			throw new HttpException('Ошибка при обновлении мечети', HttpStatus.INTERNAL_SERVER_ERROR);
@@ -111,9 +105,9 @@ export class MosqueController {
 	@Delete(':id')
 	@UseGuards(AuthGuard('jwt'), RolesGuard)
 	@Roles(Role.SUPER_ADMIN)
-	async remove(@Param('id') id: number) {
+	async remove(@Param('id') id: number, @Request() req: any) {
 		try {
-			const mosque = await this.mosqueService.remove(id);
+			const mosque = await this.mosqueService.remove(id, req.user.id);
 			return { message: 'Мечеть успешно удалена' };
 		} catch (error) {
 			throw new HttpException('Ошибка при удалении мечети', HttpStatus.INTERNAL_SERVER_ERROR);

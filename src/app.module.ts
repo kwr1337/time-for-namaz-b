@@ -7,6 +7,7 @@ import { AdminModule } from './admin/ admin.module'
 import { ErrorMessageModule } from './errorMessage/error-message.module'
 import { CityModule } from './сity/city.module'
 import { MosqueModule } from './mosque/mosque.module'
+import { AuditLogModule } from './audit-log/audit-log.module'
 
 @Module({
 	imports: [
@@ -17,7 +18,8 @@ import { MosqueModule } from './mosque/mosque.module'
 		AdminModule,
 		ErrorMessageModule,
 		CityModule,
-		MosqueModule
+		MosqueModule,
+		AuditLogModule
 	]
 })
 export class AppModule {}

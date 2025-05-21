@@ -1,11 +1,22 @@
+import { ApiProperty } from '@nestjs/swagger';
+import { IsString, IsEnum } from 'class-validator';
+
+export enum PrayerType {
+	FAJR = 'fajr',
+	SHURUK = 'shuruk',
+	ZUHR = 'zuhr',
+	ASR = 'asr',
+	MAGHRIB = 'maghrib',
+	ISHA = 'isha',
+	MECHET = 'mechet'
+}
+
 export class UpdatePrayerDto {
-	cityId?: number;
-	date?: Date;
-	fajrStart?: Date;
-	fajrIqama?: Date;
-	sunrise?: Date;
-	zuhrStart?: Date;
-	asrStart?: Date;
-	maghribStart?: Date;
-	ishaStart?: Date;
+	@ApiProperty({ description: 'Тип намаза', enum: PrayerType })
+	@IsEnum(PrayerType)
+	prayerType: PrayerType;
+
+	@ApiProperty({ description: 'Новое время намаза' })
+	@IsString()
+	time: string;
 }

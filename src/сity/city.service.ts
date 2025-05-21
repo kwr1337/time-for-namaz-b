@@ -3,6 +3,7 @@ import { PrismaService } from 'src/prisma.service';
 import { CreateCityDto } from './dto/create-city.dto';
 import { UpdateCityDto } from './dto/update-city.dto';
 import { PrayerService } from 'src/prayer/prayer.service';
+import { logAction } from 'src/common/audit-log.util';
 
 @Injectable()
 export class CityService {
@@ -11,7 +12,7 @@ export class CityService {
 		private prayerService: PrayerService
 	) {}
 
-	async create(createCityDto: CreateCityDto) {
+	async create(createCityDto: CreateCityDto, userId: number) {
 		// Создаем город
 		const newCity = await this.prisma.city.create({ data: createCityDto });
 		
@@ -23,6 +24,7 @@ export class CityService {
 			// Не выбрасываем ошибку, чтобы не прерывать основной процесс
 		}
 		
+		await logAction(this.prisma, userId, 'create', 'City', newCity.id, null, newCity);
 		return newCity;
 	}
 
@@ -38,29 +40,24 @@ export class CityService {
 		});
 	}
 
-	updateLogo(id: number, logoUrl: string) {
-		return this.prisma.city.update({
-			where: {
-				id: Number(id)
-			},
-			data: { logoUrl },
-		});
+	async updateLogo(id: number, logoUrl: string, userId: number) {
+		const oldCity = await this.prisma.city.findUnique({ where: { id: Number(id) } });
+		const updatedCity = await this.prisma.city.update({ where: { id: Number(id) }, data: { logoUrl } });
+		await logAction(this.prisma, userId, 'update', 'City', updatedCity.id, oldCity, updatedCity);
+		return updatedCity;
 	}
 
-	update(id: number, updateCityDto: UpdateCityDto) {
-		return this.prisma.city.update({
-			where: {
-				id: Number(id)
-			},
-			data: updateCityDto,
-		});
+	async update(id: number, updateCityDto: UpdateCityDto, userId: number) {
+		const oldCity = await this.prisma.city.findUnique({ where: { id: Number(id) } });
+		const updatedCity = await this.prisma.city.update({ where: { id: Number(id) }, data: updateCityDto });
+		await logAction(this.prisma, userId, 'update', 'City', updatedCity.id, oldCity, updatedCity);
+		return updatedCity;
 	}
 
-	remove(id: number) {
-		return this.prisma.city.delete({
-			where: {
-				id: Number(id)
-			}
-		});
+	async remove(id: number, userId: number) {
+		const oldCity = await this.prisma.city.findUnique({ where: { id: Number(id) } });
+		const deletedCity = await this.prisma.city.delete({ where: { id: Number(id) } });
+		await logAction(this.prisma, userId, 'delete', 'City', deletedCity.id, oldCity, null);
+		return deletedCity;
 	}
 }

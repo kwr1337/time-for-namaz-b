@@ -10,7 +10,9 @@ import {
 	HttpException,
 	HttpStatus,
 	UploadedFile,
-	UseInterceptors
+	UseInterceptors,
+	Request,
+	ParseIntPipe
 } from '@nestjs/common';
 import { CityService } from './city.service';
 import { CreateCityDto } from './dto/create-city.dto';
@@ -23,6 +25,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
 import { UpdateCityDto } from './dto/update-city.dto';
+import { ApiTags, ApiOperation, ApiResponse, ApiConsumes, ApiBody } from '@nestjs/swagger';
 
 @Controller('cities')
 export class CityController {
@@ -30,10 +33,12 @@ export class CityController {
 
 	@Post()
 	@UseGuards(AuthGuard('jwt'), RolesGuard)
-	@Roles(Role.SUPER_ADMIN, Role.CITY_ADMIN)
-	async create(@Body() createCityDto: CreateCityDto) {
+	@Roles(Role.SUPER_ADMIN)
+	@ApiOperation({ summary: 'Создание города' })
+	@ApiResponse({ status: 201, description: 'Город успешно создан.' })
+	async create(@Body() createCityDto: CreateCityDto, @Request() req: any) {
 		try {
-			return await this.cityService.create(createCityDto);
+			return await this.cityService.create(createCityDto, req.user.id);
 		} catch (error) {
 			throw new HttpException('Ошибка создания города', HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -66,46 +71,44 @@ export class CityController {
 	@Roles(Role.SUPER_ADMIN, Role.CITY_ADMIN)
 	@UseInterceptors(FileInterceptor('file', {
 		storage: diskStorage({
-			destination: './uploads/cities',
-			filename: (req, file, callback) => {
-				const fileExtname = extname(file.originalname);
-				callback(null, `city-${req.params.id}-${Date.now()}${fileExtname}`);
+			destination: './uploads/logos',
+			filename: (req, file, cb) => {
+				const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('');
+				return cb(null, `${randomName}${extname(file.originalname)}`);
 			},
 		}),
-		fileFilter: (req, file, callback) => {
-			const allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif'];
-			if (!allowedMimeTypes.includes(file.mimetype)) {
-				return callback(
-					new HttpException('Допустимы только изображения!', HttpStatus.BAD_REQUEST),
-					false
-				);
-			}
-			callback(null, true);
-		},
 	}))
-	async uploadLogo(@Param('id') id: number, @UploadedFile() file: Express.Multer.File) {
-		if (!file) {
-			throw new HttpException('Файл не был загружен', HttpStatus.BAD_REQUEST);
-		}
-		const logoUrl = `/uploads/cities/${file.filename}`;
-		try {
-			const updatedCity = await this.cityService.updateLogo(id, logoUrl);
-			return { message: 'Логотип обновлен успешно', updatedCity };
-		} catch (error) {
-			throw new HttpException('Ошибка обновления логотипа города', HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+	@ApiOperation({ summary: 'Загрузка логотипа для города' })
+	@ApiConsumes('multipart/form-data')
+	@ApiBody({
+		schema: {
+			type: 'object',
+			properties: {
+				file: {
+					type: 'string',
+					format: 'binary',
+				},
+			},
+		},
+	})
+	async updateLogo(@Param('id') id: string, @UploadedFile() file: Express.Multer.File, @Request() req: any) {
+		const logoUrl = `/uploads/logos/${file.filename}`;
+		return this.cityService.updateLogo(+id, logoUrl, req.user.id);
 	}
 
 	@Delete(':id')
 	@UseGuards(AuthGuard('jwt'), RolesGuard)
-	@Roles(Role.SUPER_ADMIN, Role.CITY_ADMIN)
-	async remove(@Param('id') id: number) {
+	@Roles(Role.SUPER_ADMIN)
+	@ApiOperation({ summary: 'Удаление города по ID' })
+	@ApiResponse({ status: 200, description: 'Город успешно удален.' })
+	@ApiResponse({ status: 404, description: 'Город не найден.' })
+	async remove(@Param('id', ParseIntPipe) id: number, @Request() req: any) {
 		try {
 			const city = await this.cityService.findOne(id);
 			if (!city) {
 				throw new HttpException('Город не найден', HttpStatus.NOT_FOUND);
 			}
-			return await this.cityService.remove(id);
+			return await this.cityService.remove(id, req.user.id);
 		} catch (error) {
 			throw new HttpException('Ошибка удаления города', HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -113,14 +116,17 @@ export class CityController {
 
 	@Put(':id')
 	@UseGuards(AuthGuard('jwt'), RolesGuard)
-	@Roles(Role.SUPER_ADMIN, Role.CITY_ADMIN)
-	async update(@Param('id') id: number, @Body() updateCityDto: UpdateCityDto) {
+	@Roles(Role.SUPER_ADMIN)
+	@ApiOperation({ summary: 'Обновление города по ID' })
+	@ApiResponse({ status: 200, description: 'Город успешно обновлен.' })
+	@ApiResponse({ status: 404, description: 'Город не найден.' })
+	async update(@Param('id', ParseIntPipe) id: number, @Body() updateCityDto: UpdateCityDto, @Request() req: any) {
 		try {
 			const city = await this.cityService.findOne(id);
 			if (!city) {
 				throw new HttpException('Город не найден', HttpStatus.NOT_FOUND);
 			}
-			return await this.cityService.update(id, updateCityDto);
+			return await this.cityService.update(id, updateCityDto, req.user.id);
 		} catch (error) {
 			throw new HttpException('Ошибка обновления города', HttpStatus.INTERNAL_SERVER_ERROR);
 		}

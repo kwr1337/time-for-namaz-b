@@ -4,12 +4,13 @@ import { CreateQRCodeDto } from './dto/create-qrcode.dto';
 import { UpdateQRCodeDto } from './dto/update-qrcode.dto';
 import * as fs from 'fs';
 import * as path from 'path';
+import { logAction } from 'src/common/audit-log.util';
 
 @Injectable()
 export class QRCodeService {
 	constructor(private prisma: PrismaService) {}
 
-	async create(createQRCodeDto: CreateQRCodeDto, image: Express.Multer.File) {
+	async create(createQRCodeDto: CreateQRCodeDto, image: Express.Multer.File, userId: number) {
 		// Проверка наличия изображения
 		if (!image) {
 			throw new BadRequestException('Изображение QR-кода обязательно');
@@ -77,7 +78,7 @@ export class QRCodeService {
 		// Получаем путь к изображению относительно корня сервера
 		const imageUrl = `/uploads/qrcodes/${path.basename(image.path)}`;
 
-		return this.prisma.qRCode.create({
+		const createdQRCode = await this.prisma.qRCode.create({
 			data: {
 				imageUrl,
 				mosqueId: mosqueId,
@@ -85,6 +86,8 @@ export class QRCodeService {
 				projectName
 			},
 		});
+		await logAction(this.prisma, userId, 'create', 'QRCode', createdQRCode.id, null, createdQRCode);
+		return createdQRCode;
 	}
 
 	findAll() {
@@ -122,7 +125,7 @@ export class QRCodeService {
 		return qrCode;
 	}
 
-	async update(id: number, updateQRCodeDto: UpdateQRCodeDto, image?: Express.Multer.File) {
+	async update(id: number, updateQRCodeDto: UpdateQRCodeDto, userId: number, image?: Express.Multer.File) {
 		// Проверяем существование QR-кода
 		const existingQRCode = await this.prisma.qRCode.findFirst({
 			where: { id }
@@ -243,7 +246,7 @@ export class QRCodeService {
 			}
 		}
 		
-		return this.prisma.qRCode.update({
+		const updatedQRCode = await this.prisma.qRCode.update({
 			where: { id },
 			data,
 			include: {
@@ -254,9 +257,11 @@ export class QRCodeService {
 				}
 			}
 		});
+		await logAction(this.prisma, userId, 'update', 'QRCode', updatedQRCode.id, existingQRCode, updatedQRCode);
+		return updatedQRCode;
 	}
 
-	async remove(id: number) {
+	async remove(id: number, userId: number) {
 		const qrCode = await this.prisma.qRCode.findFirst({ where: { id } });
 		
 		if (!qrCode) {
@@ -292,7 +297,7 @@ export class QRCodeService {
 			}
 		}
 		
-		return this.prisma.qRCode.delete({ 
+		const deletedQRCode = await this.prisma.qRCode.delete({ 
 			where: { id },
 			include: {
 				mosque: {
@@ -302,6 +307,8 @@ export class QRCodeService {
 				}
 			}
 		});
+		await logAction(this.prisma, userId, 'delete', 'QRCode', deletedQRCode.id, qrCode, null);
+		return deletedQRCode;
 	}
 
 	async findByMosque(mosqueId: number) {

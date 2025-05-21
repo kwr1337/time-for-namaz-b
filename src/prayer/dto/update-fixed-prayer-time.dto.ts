@@ -1,59 +1,44 @@
-import { IsBoolean, IsOptional, IsString } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsString, IsOptional, IsNumber } from 'class-validator';
 
 export class UpdateFixedPrayerTimeDto {
-  @IsOptional()
+  @ApiProperty({ description: 'Время фаджр', required: false })
   @IsString()
+  @IsOptional()
   fajr?: string;
 
-  @IsOptional()
+  @ApiProperty({ description: 'Время шурук', required: false })
   @IsString()
+  @IsOptional()
   shuruk?: string;
 
-  @IsOptional()
+  @ApiProperty({ description: 'Время зухр', required: false })
   @IsString()
+  @IsOptional()
   zuhr?: string;
 
-  @IsOptional()
+  @ApiProperty({ description: 'Время аср', required: false })
   @IsString()
+  @IsOptional()
   asr?: string;
 
-  @IsOptional()
+  @ApiProperty({ description: 'Время магриб', required: false })
   @IsString()
+  @IsOptional()
   maghrib?: string;
 
-  @IsOptional()
+  @ApiProperty({ description: 'Время иша', required: false })
   @IsString()
+  @IsOptional()
   isha?: string;
 
-  @IsOptional()
+  @ApiProperty({ description: 'Время мечеть', required: false })
   @IsString()
+  @IsOptional()
   mechet?: string;
 
+  @ApiProperty({ description: 'ID пользователя, который внес изменения', required: false })
+  @IsNumber()
   @IsOptional()
-  @IsBoolean()
-  fajrActive?: boolean;
-
-  @IsOptional()
-  @IsBoolean()
-  shurukActive?: boolean;
-
-  @IsOptional()
-  @IsBoolean()
-  zuhrActive?: boolean;
-
-  @IsOptional()
-  @IsBoolean()
-  asrActive?: boolean;
-
-  @IsOptional()
-  @IsBoolean()
-  maghribActive?: boolean;
-
-  @IsOptional()
-  @IsBoolean()
-  ishaActive?: boolean;
-
-  @IsOptional()
-  @IsBoolean()
-  mechetActive?: boolean;
+  userId?: number;
 } 

@@ -13,7 +13,10 @@ import {
 	Put,
 	Delete,
 	BadRequestException,
-	NotFoundException
+	NotFoundException,
+	Request,
+	UnauthorizedException,
+	Req
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { PrayerService } from './prayer.service';
@@ -26,50 +29,48 @@ import { $Enums } from '../../prisma/generated/client'
 import Role = $Enums.Role // Путь к вашему декоратору
 import { CreateFixedPrayerTimeDto } from './dto/create-fixed-prayer-time.dto';
 import { UpdateFixedPrayerTimeDto } from './dto/update-fixed-prayer-time.dto';
-import { ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags, ApiConsumes, ApiBody } from '@nestjs/swagger';
+import { UpdatePrayerDto } from './dto/update-prayer.dto';
 
 @Controller('prayers')
 export class PrayerController {
 	constructor(private readonly prayerService: PrayerService) {}
 
 	@Post('import')
+	@UseInterceptors(FileInterceptor('file'))
 	@UseGuards(AuthGuard('jwt'), RolesGuard)
-	@Roles(Role.SUPER_ADMIN) // Защита маршрута только для SUPER_ADMIN
-	@UseInterceptors(FileInterceptor('file', {
-		storage: diskStorage({
-			destination: './uploads',
-			filename: (req, file, callback) => {
-				const filename: string = file.originalname.split('.')[0];
-				const fileExtname: string = extname(file.originalname);
-				callback(null, `${filename}-${Date.now()}${fileExtname}`);
+	@Roles(Role.SUPER_ADMIN)
+	@ApiOperation({ summary: 'Импорт расписания намазов из Excel файла' })
+	@ApiConsumes('multipart/form-data')
+	@ApiBody({
+		schema: {
+			type: 'object',
+			properties: {
+				file: {
+					type: 'string',
+					format: 'binary',
+				},
 			},
-		}),
-		fileFilter: (req, file, callback) => {
-			const allowedMimeTypes = [
-				'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // Для .xlsx файлов
-				'application/vnd.ms-excel' // Для старых .xls файлов (если нужно)
-			];
-
-			if (!allowedMimeTypes.includes(file.mimetype)) {
-				return callback(new HttpException('Разрешены только файлы Excel!', HttpStatus.BAD_REQUEST), false);
-			}
-
-			callback(null, true);
 		},
-	}))
-	async importFromExcel(@UploadedFile() file: Express.Multer.File) {
-		try {
-			if (!file) {
-				throw new HttpException('Файл не загружен', HttpStatus.BAD_REQUEST);
-			}
-
-			// Импортируем данные из Excel
-			const result = await this.prayerService.importFromExcel(file.path);
-
-			return result;
-		} catch (error) {
-			throw new HttpException(error.message || 'Произошла ошибка при импорте данных.', HttpStatus.INTERNAL_SERVER_ERROR);
+	})
+	@ApiResponse({ status: 200, description: 'Файл успешно импортирован' })
+	@ApiResponse({ status: 400, description: 'Неверный формат файла' })
+	@ApiResponse({ status: 401, description: 'Не авторизован' })
+	@ApiResponse({ status: 403, description: 'Нет прав доступа' })
+	async importFromExcel(
+		@UploadedFile() file: Express.Multer.File,
+		@Request() req
+	) {
+		if (!file) {
+			throw new BadRequestException('Файл не был загружен');
 		}
+		// Получаем ID админа из запроса
+		const adminId = req.user.id;
+		if (!adminId) {
+			throw new UnauthorizedException('ID администратора не найден в запросе');
+		}
+		const result = await this.prayerService.importFromExcel(file.path, adminId);
+		return result;
 	}
 
 	@Get('all')
@@ -93,16 +94,15 @@ export class PrayerController {
 	async shiftPrayerTimes(
 		@Body('cityId') cityId: number,
 		@Body('prayerName') prayerName: string,
-		@Body('shiftMinutes') shiftMinutes: number
+		@Body('shiftMinutes') shiftMinutes: number,
+		@Request() req: any
 	) {
 		try {
 			if (!cityId || !prayerName || shiftMinutes === undefined) {
 				throw new HttpException('Отсутствуют обязательные параметры', HttpStatus.BAD_REQUEST);
 			}
-
-			// Сдвигаем время намазов для города по ID
-			const result = await this.prayerService.shiftPrayerTimesForCity(cityId, prayerName, shiftMinutes);
-
+			const userId = req.user.id;
+			const result = await this.prayerService.shiftPrayerTimesForCity(cityId, prayerName, shiftMinutes, userId);
 			return result;
 		} catch (error) {
 			throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -185,10 +185,11 @@ export class PrayerController {
 	@ApiResponse({ status: 404, description: 'Город не найден' })
 	async updateFixedPrayerTimeAlt(
 		@Param('cityId') cityId: string,
-		@Body() updateFixedPrayerTimeDto: UpdateFixedPrayerTimeDto
+		@Body() updateFixedPrayerTimeDto: UpdateFixedPrayerTimeDto,
+		@Req() req: any
 	) {
 		try {
-			return await this.prayerService.updateFixedPrayerTime(+cityId, updateFixedPrayerTimeDto);
+			return await this.prayerService.updateCityFixedPrayerTime(+cityId, updateFixedPrayerTimeDto, req.user.id);
 		} catch (error) {
 			if (error instanceof NotFoundException) {
 				throw new HttpException(error.message, HttpStatus.NOT_FOUND);
@@ -197,24 +198,19 @@ export class PrayerController {
 		}
 	}
 
-	@Put('fixed-time/:cityId')
-	@UseGuards(AuthGuard('jwt'))
-	@ApiBearerAuth()
-	@ApiOperation({ summary: 'Обновить фиксированное время намаза для города' })
-	@ApiResponse({ status: 200, description: 'Фиксированное время намаза обновлено успешно' })
-	@ApiResponse({ status: 404, description: 'Город не найден' })
+	@Put(':id/fixed-time')
+	@UseGuards(AuthGuard('jwt'), RolesGuard)
+	@Roles(Role.SUPER_ADMIN, Role.CITY_ADMIN)
+	@ApiOperation({ summary: 'Обновить фиксированное время намаза' })
+	@ApiResponse({ status: 200, description: 'Время намаза успешно обновлено' })
+	@ApiResponse({ status: 404, description: 'Намаз не найден' })
 	async updateFixedPrayerTime(
-		@Param('cityId') cityId: string,
-		@Body() updateFixedPrayerTimeDto: UpdateFixedPrayerTimeDto
+		@Param('id') id: string,
+		@Body() updateFixedPrayerTimeDto: UpdateFixedPrayerTimeDto,
+		@Req() req: any,
 	) {
-		try {
-			return await this.prayerService.updateFixedPrayerTime(+cityId, updateFixedPrayerTimeDto);
-		} catch (error) {
-			if (error instanceof NotFoundException) {
-				throw new HttpException(error.message, HttpStatus.NOT_FOUND);
-			}
-			throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+		updateFixedPrayerTimeDto.userId = req.user.id;
+		return this.prayerService.updateFixedPrayerTime(+id, updateFixedPrayerTimeDto);
 	}
 
 	@Put('fixed-time/:cityId/toggle')
@@ -225,20 +221,25 @@ export class PrayerController {
 	@ApiResponse({ status: 404, description: 'Город не найден' })
 	async toggleFixedPrayerTime(
 		@Param('cityId') cityId: string,
-		@Body('isActive') isActive: boolean
+		@Body('isActive') isActive: boolean,
+		@Req() req: any
 	) {
 		try {
-			// Устанавливаем все флаги активности одновременно
-			const updateDto: UpdateFixedPrayerTimeDto = {
-				fajrActive: isActive,
-				shurukActive: isActive,
-				zuhrActive: isActive,
-				asrActive: isActive,
-				maghribActive: isActive,
-				ishaActive: isActive,
-				mechetActive: isActive
-			};
-			return await this.prayerService.updateFixedPrayerTime(+cityId, updateDto);
+			// Получаем текущие значения времени
+			const fixedTime = await this.prayerService.getFixedPrayerTimeByCityId(+cityId);
+			
+			// Обновляем каждое время намаза по отдельности
+			const prayerTypes = ['fajr', 'shuruk', 'zuhr', 'asr', 'maghrib', 'isha', 'mechet'];
+			for (const prayerType of prayerTypes) {
+				await this.prayerService.togglePrayerTime(
+					+cityId,
+					prayerType,
+					isActive,
+					req.user.id
+				);
+			}
+
+			return { message: 'Все времена намаза успешно обновлены' };
 		} catch (error) {
 			if (error instanceof NotFoundException) {
 				throw new HttpException(error.message, HttpStatus.NOT_FOUND);
@@ -256,7 +257,8 @@ export class PrayerController {
 	async togglePrayerTime(
 		@Param('cityId') cityId: string,
 		@Body('prayerType') prayerType: string,
-		@Body('isActive') isActive: boolean
+		@Body('isActive') isActive: boolean,
+		@Req() req: any
 	) {
 		try {
 			// Проверка параметров запроса
@@ -264,27 +266,12 @@ export class PrayerController {
 				throw new BadRequestException('Тип молитвы и статус активности обязательны');
 			}
 
-			// Сопоставляем тип молитвы с полем DTO
-			const prayerTypeMap = {
-				'fajr': 'fajrActive',
-				'shuruk': 'shurukActive',
-				'zuhr': 'zuhrActive',
-				'asr': 'asrActive', 
-				'maghrib': 'maghribActive',
-				'isha': 'ishaActive',
-				'mechet': 'mechetActive'
-			};
-
-			const activeField = prayerTypeMap[prayerType.toLowerCase()];
-			if (!activeField) {
-				throw new BadRequestException(`Неверный тип молитвы: ${prayerType}`);
-			}
-
-			// Создаем объект для обновления только одного поля
-			const updateDto: any = {};
-			updateDto[activeField] = isActive;
-
-			return await this.prayerService.updateFixedPrayerTime(+cityId, updateDto);
+			return await this.prayerService.togglePrayerTime(
+				+cityId,
+				prayerType,
+				isActive,
+				req.user.id
+			);
 		} catch (error) {
 			if (error instanceof BadRequestException) {
 				throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
@@ -299,7 +286,7 @@ export class PrayerController {
 	// Новый эндпоинт для создания записей FixedPrayerTime для всех городов
 	@Post('create-fixed-times-for-all-cities')
 	@UseGuards(AuthGuard('jwt'), RolesGuard)
-	@Roles(Role.SUPER_ADMIN) // Защита маршрута только для SUPER_ADMIN
+	@Roles($Enums.Role.SUPER_ADMIN) // Защита маршрута только для SUPER_ADMIN
 	@ApiOperation({ summary: 'Создать записи фиксированного времени намаза для всех городов' })
 	@ApiResponse({ status: 200, description: 'Записи созданы успешно' })
 	async createFixedTimesForAllCities() {
@@ -308,5 +295,45 @@ export class PrayerController {
 		} catch (error) {
 			throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+
+	@Put(':id/time')
+	@UseGuards(AuthGuard('jwt'), RolesGuard)
+	@Roles($Enums.Role.SUPER_ADMIN, $Enums.Role.CITY_ADMIN)
+	@ApiOperation({ summary: 'Изменить время намаза' })
+	@ApiResponse({ status: 200, description: 'Время намаза успешно изменено' })
+	@ApiResponse({ status: 404, description: 'Намаз не найден' })
+	async updatePrayerTime(
+		@Param('id') id: string,
+		@Body() updatePrayerDto: UpdatePrayerDto,
+		@Request() req: any,
+	) {
+		const userId = req.user.id;
+		return this.prayerService.updatePrayerTime(
+			+id,
+			updatePrayerDto.prayerType,
+			updatePrayerDto.time,
+			userId,
+		);
+	}
+
+	@Get('city/:cityId/changes')
+	@UseGuards(AuthGuard('jwt'), RolesGuard)
+	@Roles($Enums.Role.SUPER_ADMIN, $Enums.Role.CITY_ADMIN)
+	@ApiOperation({ summary: 'Получить историю изменений времени намазов для города' })
+	@ApiResponse({ status: 200, description: 'История изменений успешно получена' })
+	@ApiResponse({ status: 404, description: 'Город не найден' })
+	async getCityPrayerTimeChanges(@Param('cityId') cityId: string) {
+		return this.prayerService.getCityPrayerTimeChanges(+cityId);
+	}
+
+	@Get(':id/changes')
+	@UseGuards(AuthGuard('jwt'), RolesGuard)
+	@Roles($Enums.Role.SUPER_ADMIN, $Enums.Role.CITY_ADMIN)
+	@ApiOperation({ summary: 'Получить историю изменений времени конкретного намаза' })
+	@ApiResponse({ status: 200, description: 'История изменений успешно получена' })
+	@ApiResponse({ status: 404, description: 'Намаз не найден' })
+	async getPrayerTimeChanges(@Param('id') id: string) {
+		return this.prayerService.getPrayerTimeChanges(+id);
 	}
 }

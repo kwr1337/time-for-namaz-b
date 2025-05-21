@@ -185,9 +185,36 @@ exports.Prisma.FixedPrayerTimeScalarFieldEnum = {
   zuhrActive: 'zuhrActive'
 };
 
+exports.Prisma.PrayerTimeChangeScalarFieldEnum = {
+  id: 'id',
+  prayerId: 'prayerId',
+  prayerType: 'prayerType',
+  oldTime: 'oldTime',
+  newTime: 'newTime',
+  shiftMinutes: 'shiftMinutes',
+  changedAt: 'changedAt',
+  changedBy: 'changedBy'
+};
+
+exports.Prisma.AuditLogScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  action: 'action',
+  entity: 'entity',
+  entityId: 'entityId',
+  oldValue: 'oldValue',
+  newValue: 'newValue',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -198,6 +225,12 @@ exports.Prisma.QueryMode = {
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 exports.Role = exports.$Enums.Role = {
   SUPER_ADMIN: 'SUPER_ADMIN',
@@ -212,7 +245,9 @@ exports.Prisma.ModelName = {
   QRCode: 'QRCode',
   ErrorMessage: 'ErrorMessage',
   Admin: 'Admin',
-  FixedPrayerTime: 'FixedPrayerTime'
+  FixedPrayerTime: 'FixedPrayerTime',
+  PrayerTimeChange: 'PrayerTimeChange',
+  AuditLog: 'AuditLog'
 };
 
 /**
