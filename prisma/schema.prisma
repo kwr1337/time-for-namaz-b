@@ -93,13 +93,13 @@ model FixedPrayerTime {
   mechet        String?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
-  asrActive     Boolean  @default(true)
-  fajrActive    Boolean  @default(true)
-  ishaActive    Boolean  @default(true)
-  maghribActive Boolean  @default(true)
-  mechetActive  Boolean  @default(true)
-  shurukActive  Boolean  @default(true)
-  zuhrActive    Boolean  @default(true)
+  fajrActive    Boolean  @default(false)
+  shurukActive  Boolean  @default(false)
+  zuhrActive    Boolean  @default(false)
+  asrActive     Boolean  @default(false)
+  maghribActive Boolean  @default(false)
+  ishaActive    Boolean  @default(false)
+  mechetActive  Boolean  @default(false)
   city          City     @relation(fields: [cityId], references: [id])
 }
 

@@ -176,13 +176,13 @@ exports.Prisma.FixedPrayerTimeScalarFieldEnum = {
   mechet: 'mechet',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  asrActive: 'asrActive',
   fajrActive: 'fajrActive',
-  ishaActive: 'ishaActive',
-  maghribActive: 'maghribActive',
-  mechetActive: 'mechetActive',
   shurukActive: 'shurukActive',
-  zuhrActive: 'zuhrActive'
+  zuhrActive: 'zuhrActive',
+  asrActive: 'asrActive',
+  maghribActive: 'maghribActive',
+  ishaActive: 'ishaActive',
+  mechetActive: 'mechetActive'
 };
 
 exports.Prisma.PrayerTimeChangeScalarFieldEnum = {

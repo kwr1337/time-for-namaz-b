@@ -32,6 +32,7 @@ model Prayer {
   mechet   String?
   city     City    @relation(fields: [cityId], references: [id])
   mosque   Mosque? @relation(fields: [mosqueId], references: [id])
+  changes  PrayerTimeChange[]
 }
 
 model Mosque {
@@ -76,6 +77,8 @@ model Admin {
   role      Role
   cityId    Int?     @unique
   city      City?    @relation("CityAdmin", fields: [cityId], references: [id])
+  prayerChanges PrayerTimeChange[]
+  auditLogs AuditLog[]
 }
 
 model FixedPrayerTime {
@@ -90,17 +93,42 @@ model FixedPrayerTime {
   mechet        String?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
-  asrActive     Boolean  @default(true)
-  fajrActive    Boolean  @default(true)
-  ishaActive    Boolean  @default(true)
-  maghribActive Boolean  @default(true)
-  mechetActive  Boolean  @default(true)
-  shurukActive  Boolean  @default(true)
-  zuhrActive    Boolean  @default(true)
+  fajrActive    Boolean  @default(false)
+  shurukActive  Boolean  @default(false)
+  zuhrActive    Boolean  @default(false)
+  asrActive     Boolean  @default(false)
+  maghribActive Boolean  @default(false)
+  ishaActive    Boolean  @default(false)
+  mechetActive  Boolean  @default(false)
   city          City     @relation(fields: [cityId], references: [id])
+}
+
+model PrayerTimeChange {
+  id        Int      @id @default(autoincrement())
+  prayerId  Int
+  prayer    Prayer   @relation(fields: [prayerId], references: [id])
+  prayerType String  // тип намаза (fajr, zuhr и т.д.)
+  oldTime   String
+  newTime   String
+  shiftMinutes Int   // на сколько минут изменилось время
+  changedAt DateTime @default(now())
+  changedBy Int
+  user      Admin    @relation(fields: [changedBy], references: [id])
 }
 
 enum Role {
   SUPER_ADMIN
   CITY_ADMIN
+}
+
+model AuditLog {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      Admin    @relation(fields: [userId], references: [id])
+  action    String   // create, update, delete
+  entity    String   // имя сущности (например, Prayer, City)
+  entityId  Int      // ID сущности
+  oldValue  Json?
+  newValue  Json?
+  createdAt DateTime @default(now())
 }

@@ -8761,13 +8761,13 @@ export namespace Prisma {
     mechet: string | null
     createdAt: Date | null
     updatedAt: Date | null
-    asrActive: boolean | null
     fajrActive: boolean | null
-    ishaActive: boolean | null
-    maghribActive: boolean | null
-    mechetActive: boolean | null
     shurukActive: boolean | null
     zuhrActive: boolean | null
+    asrActive: boolean | null
+    maghribActive: boolean | null
+    ishaActive: boolean | null
+    mechetActive: boolean | null
   }
 
   export type FixedPrayerTimeMaxAggregateOutputType = {
@@ -8782,13 +8782,13 @@ export namespace Prisma {
     mechet: string | null
     createdAt: Date | null
     updatedAt: Date | null
-    asrActive: boolean | null
     fajrActive: boolean | null
-    ishaActive: boolean | null
-    maghribActive: boolean | null
-    mechetActive: boolean | null
     shurukActive: boolean | null
     zuhrActive: boolean | null
+    asrActive: boolean | null
+    maghribActive: boolean | null
+    ishaActive: boolean | null
+    mechetActive: boolean | null
   }
 
   export type FixedPrayerTimeCountAggregateOutputType = {
@@ -8803,13 +8803,13 @@ export namespace Prisma {
     mechet: number
     createdAt: number
     updatedAt: number
-    asrActive: number
     fajrActive: number
-    ishaActive: number
-    maghribActive: number
-    mechetActive: number
     shurukActive: number
     zuhrActive: number
+    asrActive: number
+    maghribActive: number
+    ishaActive: number
+    mechetActive: number
     _all: number
   }
 
@@ -8836,13 +8836,13 @@ export namespace Prisma {
     mechet?: true
     createdAt?: true
     updatedAt?: true
-    asrActive?: true
     fajrActive?: true
-    ishaActive?: true
-    maghribActive?: true
-    mechetActive?: true
     shurukActive?: true
     zuhrActive?: true
+    asrActive?: true
+    maghribActive?: true
+    ishaActive?: true
+    mechetActive?: true
   }
 
   export type FixedPrayerTimeMaxAggregateInputType = {
@@ -8857,13 +8857,13 @@ export namespace Prisma {
     mechet?: true
     createdAt?: true
     updatedAt?: true
-    asrActive?: true
     fajrActive?: true
-    ishaActive?: true
-    maghribActive?: true
-    mechetActive?: true
     shurukActive?: true
     zuhrActive?: true
+    asrActive?: true
+    maghribActive?: true
+    ishaActive?: true
+    mechetActive?: true
   }
 
   export type FixedPrayerTimeCountAggregateInputType = {
@@ -8878,13 +8878,13 @@ export namespace Prisma {
     mechet?: true
     createdAt?: true
     updatedAt?: true
-    asrActive?: true
     fajrActive?: true
-    ishaActive?: true
-    maghribActive?: true
-    mechetActive?: true
     shurukActive?: true
     zuhrActive?: true
+    asrActive?: true
+    maghribActive?: true
+    ishaActive?: true
+    mechetActive?: true
     _all?: true
   }
 
@@ -8986,13 +8986,13 @@ export namespace Prisma {
     mechet: string | null
     createdAt: Date
     updatedAt: Date
-    asrActive: boolean
     fajrActive: boolean
-    ishaActive: boolean
-    maghribActive: boolean
-    mechetActive: boolean
     shurukActive: boolean
     zuhrActive: boolean
+    asrActive: boolean
+    maghribActive: boolean
+    ishaActive: boolean
+    mechetActive: boolean
     _count: FixedPrayerTimeCountAggregateOutputType | null
     _avg: FixedPrayerTimeAvgAggregateOutputType | null
     _sum: FixedPrayerTimeSumAggregateOutputType | null
@@ -9026,13 +9026,13 @@ export namespace Prisma {
     mechet?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    asrActive?: boolean
     fajrActive?: boolean
-    ishaActive?: boolean
-    maghribActive?: boolean
-    mechetActive?: boolean
     shurukActive?: boolean
     zuhrActive?: boolean
+    asrActive?: boolean
+    maghribActive?: boolean
+    ishaActive?: boolean
+    mechetActive?: boolean
     city?: boolean | CityDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["fixedPrayerTime"]>
 
@@ -9048,13 +9048,13 @@ export namespace Prisma {
     mechet?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    asrActive?: boolean
     fajrActive?: boolean
-    ishaActive?: boolean
-    maghribActive?: boolean
-    mechetActive?: boolean
     shurukActive?: boolean
     zuhrActive?: boolean
+    asrActive?: boolean
+    maghribActive?: boolean
+    ishaActive?: boolean
+    mechetActive?: boolean
   }
 
   export type FixedPrayerTimeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9079,13 +9079,13 @@ export namespace Prisma {
       mechet: string | null
       createdAt: Date
       updatedAt: Date
-      asrActive: boolean
       fajrActive: boolean
-      ishaActive: boolean
-      maghribActive: boolean
-      mechetActive: boolean
       shurukActive: boolean
       zuhrActive: boolean
+      asrActive: boolean
+      maghribActive: boolean
+      ishaActive: boolean
+      mechetActive: boolean
     }, ExtArgs["result"]["fixedPrayerTime"]>
     composites: {}
   }
@@ -9492,13 +9492,13 @@ export namespace Prisma {
     readonly mechet: FieldRef<"FixedPrayerTime", 'String'>
     readonly createdAt: FieldRef<"FixedPrayerTime", 'DateTime'>
     readonly updatedAt: FieldRef<"FixedPrayerTime", 'DateTime'>
-    readonly asrActive: FieldRef<"FixedPrayerTime", 'Boolean'>
     readonly fajrActive: FieldRef<"FixedPrayerTime", 'Boolean'>
-    readonly ishaActive: FieldRef<"FixedPrayerTime", 'Boolean'>
-    readonly maghribActive: FieldRef<"FixedPrayerTime", 'Boolean'>
-    readonly mechetActive: FieldRef<"FixedPrayerTime", 'Boolean'>
     readonly shurukActive: FieldRef<"FixedPrayerTime", 'Boolean'>
     readonly zuhrActive: FieldRef<"FixedPrayerTime", 'Boolean'>
+    readonly asrActive: FieldRef<"FixedPrayerTime", 'Boolean'>
+    readonly maghribActive: FieldRef<"FixedPrayerTime", 'Boolean'>
+    readonly ishaActive: FieldRef<"FixedPrayerTime", 'Boolean'>
+    readonly mechetActive: FieldRef<"FixedPrayerTime", 'Boolean'>
   }
     
 
@@ -11917,13 +11917,13 @@ export namespace Prisma {
     mechet: 'mechet',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    asrActive: 'asrActive',
     fajrActive: 'fajrActive',
-    ishaActive: 'ishaActive',
-    maghribActive: 'maghribActive',
-    mechetActive: 'mechetActive',
     shurukActive: 'shurukActive',
-    zuhrActive: 'zuhrActive'
+    zuhrActive: 'zuhrActive',
+    asrActive: 'asrActive',
+    maghribActive: 'maghribActive',
+    ishaActive: 'ishaActive',
+    mechetActive: 'mechetActive'
   };
 
   export type FixedPrayerTimeScalarFieldEnum = (typeof FixedPrayerTimeScalarFieldEnum)[keyof typeof FixedPrayerTimeScalarFieldEnum]
@@ -12536,13 +12536,13 @@ export namespace Prisma {
     mechet?: StringNullableFilter<"FixedPrayerTime"> | string | null
     createdAt?: DateTimeFilter<"FixedPrayerTime"> | Date | string
     updatedAt?: DateTimeFilter<"FixedPrayerTime"> | Date | string
-    asrActive?: BoolFilter<"FixedPrayerTime"> | boolean
     fajrActive?: BoolFilter<"FixedPrayerTime"> | boolean
-    ishaActive?: BoolFilter<"FixedPrayerTime"> | boolean
-    maghribActive?: BoolFilter<"FixedPrayerTime"> | boolean
-    mechetActive?: BoolFilter<"FixedPrayerTime"> | boolean
     shurukActive?: BoolFilter<"FixedPrayerTime"> | boolean
     zuhrActive?: BoolFilter<"FixedPrayerTime"> | boolean
+    asrActive?: BoolFilter<"FixedPrayerTime"> | boolean
+    maghribActive?: BoolFilter<"FixedPrayerTime"> | boolean
+    ishaActive?: BoolFilter<"FixedPrayerTime"> | boolean
+    mechetActive?: BoolFilter<"FixedPrayerTime"> | boolean
     city?: XOR<CityRelationFilter, CityWhereInput>
   }
 
@@ -12558,13 +12558,13 @@ export namespace Prisma {
     mechet?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    asrActive?: SortOrder
     fajrActive?: SortOrder
-    ishaActive?: SortOrder
-    maghribActive?: SortOrder
-    mechetActive?: SortOrder
     shurukActive?: SortOrder
     zuhrActive?: SortOrder
+    asrActive?: SortOrder
+    maghribActive?: SortOrder
+    ishaActive?: SortOrder
+    mechetActive?: SortOrder
     city?: CityOrderByWithRelationInput
   }
 
@@ -12583,13 +12583,13 @@ export namespace Prisma {
     mechet?: StringNullableFilter<"FixedPrayerTime"> | string | null
     createdAt?: DateTimeFilter<"FixedPrayerTime"> | Date | string
     updatedAt?: DateTimeFilter<"FixedPrayerTime"> | Date | string
-    asrActive?: BoolFilter<"FixedPrayerTime"> | boolean
     fajrActive?: BoolFilter<"FixedPrayerTime"> | boolean
-    ishaActive?: BoolFilter<"FixedPrayerTime"> | boolean
-    maghribActive?: BoolFilter<"FixedPrayerTime"> | boolean
-    mechetActive?: BoolFilter<"FixedPrayerTime"> | boolean
     shurukActive?: BoolFilter<"FixedPrayerTime"> | boolean
     zuhrActive?: BoolFilter<"FixedPrayerTime"> | boolean
+    asrActive?: BoolFilter<"FixedPrayerTime"> | boolean
+    maghribActive?: BoolFilter<"FixedPrayerTime"> | boolean
+    ishaActive?: BoolFilter<"FixedPrayerTime"> | boolean
+    mechetActive?: BoolFilter<"FixedPrayerTime"> | boolean
     city?: XOR<CityRelationFilter, CityWhereInput>
   }, "id" | "cityId">
 
@@ -12605,13 +12605,13 @@ export namespace Prisma {
     mechet?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    asrActive?: SortOrder
     fajrActive?: SortOrder
-    ishaActive?: SortOrder
-    maghribActive?: SortOrder
-    mechetActive?: SortOrder
     shurukActive?: SortOrder
     zuhrActive?: SortOrder
+    asrActive?: SortOrder
+    maghribActive?: SortOrder
+    ishaActive?: SortOrder
+    mechetActive?: SortOrder
     _count?: FixedPrayerTimeCountOrderByAggregateInput
     _avg?: FixedPrayerTimeAvgOrderByAggregateInput
     _max?: FixedPrayerTimeMaxOrderByAggregateInput
@@ -12634,13 +12634,13 @@ export namespace Prisma {
     mechet?: StringNullableWithAggregatesFilter<"FixedPrayerTime"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"FixedPrayerTime"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"FixedPrayerTime"> | Date | string
-    asrActive?: BoolWithAggregatesFilter<"FixedPrayerTime"> | boolean
     fajrActive?: BoolWithAggregatesFilter<"FixedPrayerTime"> | boolean
-    ishaActive?: BoolWithAggregatesFilter<"FixedPrayerTime"> | boolean
-    maghribActive?: BoolWithAggregatesFilter<"FixedPrayerTime"> | boolean
-    mechetActive?: BoolWithAggregatesFilter<"FixedPrayerTime"> | boolean
     shurukActive?: BoolWithAggregatesFilter<"FixedPrayerTime"> | boolean
     zuhrActive?: BoolWithAggregatesFilter<"FixedPrayerTime"> | boolean
+    asrActive?: BoolWithAggregatesFilter<"FixedPrayerTime"> | boolean
+    maghribActive?: BoolWithAggregatesFilter<"FixedPrayerTime"> | boolean
+    ishaActive?: BoolWithAggregatesFilter<"FixedPrayerTime"> | boolean
+    mechetActive?: BoolWithAggregatesFilter<"FixedPrayerTime"> | boolean
   }
 
   export type PrayerTimeChangeWhereInput = {
@@ -13212,13 +13212,13 @@ export namespace Prisma {
     mechet?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    asrActive?: boolean
     fajrActive?: boolean
-    ishaActive?: boolean
-    maghribActive?: boolean
-    mechetActive?: boolean
     shurukActive?: boolean
     zuhrActive?: boolean
+    asrActive?: boolean
+    maghribActive?: boolean
+    ishaActive?: boolean
+    mechetActive?: boolean
     city: CityCreateNestedOneWithoutFixedPrayerTimeInput
   }
 
@@ -13234,13 +13234,13 @@ export namespace Prisma {
     mechet?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    asrActive?: boolean
     fajrActive?: boolean
-    ishaActive?: boolean
-    maghribActive?: boolean
-    mechetActive?: boolean
     shurukActive?: boolean
     zuhrActive?: boolean
+    asrActive?: boolean
+    maghribActive?: boolean
+    ishaActive?: boolean
+    mechetActive?: boolean
   }
 
   export type FixedPrayerTimeUpdateInput = {
@@ -13253,13 +13253,13 @@ export namespace Prisma {
     mechet?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    asrActive?: BoolFieldUpdateOperationsInput | boolean
     fajrActive?: BoolFieldUpdateOperationsInput | boolean
-    ishaActive?: BoolFieldUpdateOperationsInput | boolean
-    maghribActive?: BoolFieldUpdateOperationsInput | boolean
-    mechetActive?: BoolFieldUpdateOperationsInput | boolean
     shurukActive?: BoolFieldUpdateOperationsInput | boolean
     zuhrActive?: BoolFieldUpdateOperationsInput | boolean
+    asrActive?: BoolFieldUpdateOperationsInput | boolean
+    maghribActive?: BoolFieldUpdateOperationsInput | boolean
+    ishaActive?: BoolFieldUpdateOperationsInput | boolean
+    mechetActive?: BoolFieldUpdateOperationsInput | boolean
     city?: CityUpdateOneRequiredWithoutFixedPrayerTimeNestedInput
   }
 
@@ -13275,13 +13275,13 @@ export namespace Prisma {
     mechet?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    asrActive?: BoolFieldUpdateOperationsInput | boolean
     fajrActive?: BoolFieldUpdateOperationsInput | boolean
-    ishaActive?: BoolFieldUpdateOperationsInput | boolean
-    maghribActive?: BoolFieldUpdateOperationsInput | boolean
-    mechetActive?: BoolFieldUpdateOperationsInput | boolean
     shurukActive?: BoolFieldUpdateOperationsInput | boolean
     zuhrActive?: BoolFieldUpdateOperationsInput | boolean
+    asrActive?: BoolFieldUpdateOperationsInput | boolean
+    maghribActive?: BoolFieldUpdateOperationsInput | boolean
+    ishaActive?: BoolFieldUpdateOperationsInput | boolean
+    mechetActive?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type FixedPrayerTimeCreateManyInput = {
@@ -13296,13 +13296,13 @@ export namespace Prisma {
     mechet?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    asrActive?: boolean
     fajrActive?: boolean
-    ishaActive?: boolean
-    maghribActive?: boolean
-    mechetActive?: boolean
     shurukActive?: boolean
     zuhrActive?: boolean
+    asrActive?: boolean
+    maghribActive?: boolean
+    ishaActive?: boolean
+    mechetActive?: boolean
   }
 
   export type FixedPrayerTimeUpdateManyMutationInput = {
@@ -13315,13 +13315,13 @@ export namespace Prisma {
     mechet?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    asrActive?: BoolFieldUpdateOperationsInput | boolean
     fajrActive?: BoolFieldUpdateOperationsInput | boolean
-    ishaActive?: BoolFieldUpdateOperationsInput | boolean
-    maghribActive?: BoolFieldUpdateOperationsInput | boolean
-    mechetActive?: BoolFieldUpdateOperationsInput | boolean
     shurukActive?: BoolFieldUpdateOperationsInput | boolean
     zuhrActive?: BoolFieldUpdateOperationsInput | boolean
+    asrActive?: BoolFieldUpdateOperationsInput | boolean
+    maghribActive?: BoolFieldUpdateOperationsInput | boolean
+    ishaActive?: BoolFieldUpdateOperationsInput | boolean
+    mechetActive?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type FixedPrayerTimeUncheckedUpdateManyInput = {
@@ -13336,13 +13336,13 @@ export namespace Prisma {
     mechet?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    asrActive?: BoolFieldUpdateOperationsInput | boolean
     fajrActive?: BoolFieldUpdateOperationsInput | boolean
-    ishaActive?: BoolFieldUpdateOperationsInput | boolean
-    maghribActive?: BoolFieldUpdateOperationsInput | boolean
-    mechetActive?: BoolFieldUpdateOperationsInput | boolean
     shurukActive?: BoolFieldUpdateOperationsInput | boolean
     zuhrActive?: BoolFieldUpdateOperationsInput | boolean
+    asrActive?: BoolFieldUpdateOperationsInput | boolean
+    maghribActive?: BoolFieldUpdateOperationsInput | boolean
+    ishaActive?: BoolFieldUpdateOperationsInput | boolean
+    mechetActive?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type PrayerTimeChangeCreateInput = {
@@ -14011,13 +14011,13 @@ export namespace Prisma {
     mechet?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    asrActive?: SortOrder
     fajrActive?: SortOrder
-    ishaActive?: SortOrder
-    maghribActive?: SortOrder
-    mechetActive?: SortOrder
     shurukActive?: SortOrder
     zuhrActive?: SortOrder
+    asrActive?: SortOrder
+    maghribActive?: SortOrder
+    ishaActive?: SortOrder
+    mechetActive?: SortOrder
   }
 
   export type FixedPrayerTimeAvgOrderByAggregateInput = {
@@ -14037,13 +14037,13 @@ export namespace Prisma {
     mechet?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    asrActive?: SortOrder
     fajrActive?: SortOrder
-    ishaActive?: SortOrder
-    maghribActive?: SortOrder
-    mechetActive?: SortOrder
     shurukActive?: SortOrder
     zuhrActive?: SortOrder
+    asrActive?: SortOrder
+    maghribActive?: SortOrder
+    ishaActive?: SortOrder
+    mechetActive?: SortOrder
   }
 
   export type FixedPrayerTimeMinOrderByAggregateInput = {
@@ -14058,13 +14058,13 @@ export namespace Prisma {
     mechet?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    asrActive?: SortOrder
     fajrActive?: SortOrder
-    ishaActive?: SortOrder
-    maghribActive?: SortOrder
-    mechetActive?: SortOrder
     shurukActive?: SortOrder
     zuhrActive?: SortOrder
+    asrActive?: SortOrder
+    maghribActive?: SortOrder
+    ishaActive?: SortOrder
+    mechetActive?: SortOrder
   }
 
   export type FixedPrayerTimeSumOrderByAggregateInput = {
@@ -15046,13 +15046,13 @@ export namespace Prisma {
     mechet?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    asrActive?: boolean
     fajrActive?: boolean
-    ishaActive?: boolean
-    maghribActive?: boolean
-    mechetActive?: boolean
     shurukActive?: boolean
     zuhrActive?: boolean
+    asrActive?: boolean
+    maghribActive?: boolean
+    ishaActive?: boolean
+    mechetActive?: boolean
   }
 
   export type FixedPrayerTimeUncheckedCreateWithoutCityInput = {
@@ -15066,13 +15066,13 @@ export namespace Prisma {
     mechet?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    asrActive?: boolean
     fajrActive?: boolean
-    ishaActive?: boolean
-    maghribActive?: boolean
-    mechetActive?: boolean
     shurukActive?: boolean
     zuhrActive?: boolean
+    asrActive?: boolean
+    maghribActive?: boolean
+    ishaActive?: boolean
+    mechetActive?: boolean
   }
 
   export type FixedPrayerTimeCreateOrConnectWithoutCityInput = {
@@ -15195,13 +15195,13 @@ export namespace Prisma {
     mechet?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    asrActive?: BoolFieldUpdateOperationsInput | boolean
     fajrActive?: BoolFieldUpdateOperationsInput | boolean
-    ishaActive?: BoolFieldUpdateOperationsInput | boolean
-    maghribActive?: BoolFieldUpdateOperationsInput | boolean
-    mechetActive?: BoolFieldUpdateOperationsInput | boolean
     shurukActive?: BoolFieldUpdateOperationsInput | boolean
     zuhrActive?: BoolFieldUpdateOperationsInput | boolean
+    asrActive?: BoolFieldUpdateOperationsInput | boolean
+    maghribActive?: BoolFieldUpdateOperationsInput | boolean
+    ishaActive?: BoolFieldUpdateOperationsInput | boolean
+    mechetActive?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type FixedPrayerTimeUncheckedUpdateWithoutCityInput = {
@@ -15215,13 +15215,13 @@ export namespace Prisma {
     mechet?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    asrActive?: BoolFieldUpdateOperationsInput | boolean
     fajrActive?: BoolFieldUpdateOperationsInput | boolean
-    ishaActive?: BoolFieldUpdateOperationsInput | boolean
-    maghribActive?: BoolFieldUpdateOperationsInput | boolean
-    mechetActive?: BoolFieldUpdateOperationsInput | boolean
     shurukActive?: BoolFieldUpdateOperationsInput | boolean
     zuhrActive?: BoolFieldUpdateOperationsInput | boolean
+    asrActive?: BoolFieldUpdateOperationsInput | boolean
+    maghribActive?: BoolFieldUpdateOperationsInput | boolean
+    ishaActive?: BoolFieldUpdateOperationsInput | boolean
+    mechetActive?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type MosqueUpsertWithWhereUniqueWithoutCityInput = {
