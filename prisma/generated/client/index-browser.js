@@ -161,7 +161,8 @@ exports.Prisma.AdminScalarFieldEnum = {
   password: 'password',
   createdAt: 'createdAt',
   role: 'role',
-  cityId: 'cityId'
+  cityId: 'cityId',
+  mosqueId: 'mosqueId'
 };
 
 exports.Prisma.FixedPrayerTimeScalarFieldEnum = {
@@ -185,6 +186,41 @@ exports.Prisma.FixedPrayerTimeScalarFieldEnum = {
   mechetActive: 'mechetActive'
 };
 
+exports.Prisma.FixedMosquePrayerTimeScalarFieldEnum = {
+  id: 'id',
+  mosqueId: 'mosqueId',
+  fajr: 'fajr',
+  shuruk: 'shuruk',
+  zuhr: 'zuhr',
+  asr: 'asr',
+  maghrib: 'maghrib',
+  isha: 'isha',
+  mechet: 'mechet',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  fajrActive: 'fajrActive',
+  shurukActive: 'shurukActive',
+  zuhrActive: 'zuhrActive',
+  asrActive: 'asrActive',
+  maghribActive: 'maghribActive',
+  ishaActive: 'ishaActive',
+  mechetActive: 'mechetActive',
+  fajrIqamaEnabled: 'fajrIqamaEnabled',
+  fajrIqamaMinutes: 'fajrIqamaMinutes',
+  shurukIqamaEnabled: 'shurukIqamaEnabled',
+  shurukIqamaMinutes: 'shurukIqamaMinutes',
+  zuhrIqamaEnabled: 'zuhrIqamaEnabled',
+  zuhrIqamaMinutes: 'zuhrIqamaMinutes',
+  asrIqamaEnabled: 'asrIqamaEnabled',
+  asrIqamaMinutes: 'asrIqamaMinutes',
+  maghribIqamaEnabled: 'maghribIqamaEnabled',
+  maghribIqamaMinutes: 'maghribIqamaMinutes',
+  ishaIqamaEnabled: 'ishaIqamaEnabled',
+  ishaIqamaMinutes: 'ishaIqamaMinutes',
+  mechetIqamaEnabled: 'mechetIqamaEnabled',
+  mechetIqamaMinutes: 'mechetIqamaMinutes'
+};
+
 exports.Prisma.PrayerTimeChangeScalarFieldEnum = {
   id: 'id',
   prayerId: 'prayerId',
@@ -205,6 +241,37 @@ exports.Prisma.AuditLogScalarFieldEnum = {
   oldValue: 'oldValue',
   newValue: 'newValue',
   createdAt: 'createdAt'
+};
+
+exports.Prisma.TranslationScalarFieldEnum = {
+  id: 'id',
+  key: 'key',
+  ru: 'ru',
+  tt: 'tt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MosqueLanguageSettingsScalarFieldEnum = {
+  id: 'id',
+  mosqueId: 'mosqueId',
+  translationsEnabled: 'translationsEnabled',
+  languageToggleEnabled: 'languageToggleEnabled',
+  languageToggleIntervalSeconds: 'languageToggleIntervalSeconds',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.NameOfAllahScalarFieldEnum = {
+  id: 'id',
+  mosqueId: 'mosqueId',
+  arabic: 'arabic',
+  transcription: 'transcription',
+  meaning: 'meaning',
+  transcriptionTatar: 'transcriptionTatar',
+  meaningTatar: 'meaningTatar',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -234,7 +301,8 @@ exports.Prisma.JsonNullValueFilter = {
 };
 exports.Role = exports.$Enums.Role = {
   SUPER_ADMIN: 'SUPER_ADMIN',
-  CITY_ADMIN: 'CITY_ADMIN'
+  CITY_ADMIN: 'CITY_ADMIN',
+  MOSQUE_ADMIN: 'MOSQUE_ADMIN'
 };
 
 exports.Prisma.ModelName = {
@@ -246,8 +314,12 @@ exports.Prisma.ModelName = {
   ErrorMessage: 'ErrorMessage',
   Admin: 'Admin',
   FixedPrayerTime: 'FixedPrayerTime',
+  FixedMosquePrayerTime: 'FixedMosquePrayerTime',
   PrayerTimeChange: 'PrayerTimeChange',
-  AuditLog: 'AuditLog'
+  AuditLog: 'AuditLog',
+  Translation: 'Translation',
+  MosqueLanguageSettings: 'MosqueLanguageSettings',
+  NameOfAllah: 'NameOfAllah'
 };
 
 /**

@@ -1,24 +1,75 @@
-import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException, BadRequestException, ConflictException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { CreateAdminDto } from './dto/create-admin.dto';
 import { LoginAdminDto } from './dto/login-admin.dto';
 import * as bcrypt from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 
 @Injectable()
 export class AdminService {
 	constructor(private prisma: PrismaService, private jwtService: JwtService) {}
 
 	async create(createAdminDto: CreateAdminDto) {
-		const hashedPassword = await bcrypt.hash(createAdminDto.password, 10);
-		return this.prisma.admin.create({
-			data: {
-				email: createAdminDto.email,
-				password: hashedPassword,
-				role: createAdminDto.role,
-				cityId: createAdminDto.cityId, // Добавляем ID города
-			},
+		// Проверяем, существует ли админ с таким email
+		const existingByEmail = await this.prisma.admin.findUnique({
+			where: { email: createAdminDto.email },
 		});
+		if (existingByEmail) {
+			throw new ConflictException(`Админ с email ${createAdminDto.email} уже существует`);
+		}
+
+		// Проверяем, занят ли cityId другим админом
+		if (createAdminDto.cityId) {
+			const existingByCity = await this.prisma.admin.findUnique({
+				where: { cityId: createAdminDto.cityId },
+			});
+			if (existingByCity) {
+				throw new ConflictException(`Город с ID ${createAdminDto.cityId} уже имеет админа`);
+			}
+		}
+
+		// Проверяем, занят ли mosqueId другим админом
+		if (createAdminDto.mosqueId) {
+			const existingByMosque = await this.prisma.admin.findUnique({
+				where: { mosqueId: createAdminDto.mosqueId },
+			});
+			if (existingByMosque) {
+				throw new ConflictException(`Мечеть с ID ${createAdminDto.mosqueId} уже имеет админа`);
+			}
+		}
+
+		const hashedPassword = await bcrypt.hash(createAdminDto.password, 10);
+		
+		try {
+			return await this.prisma.admin.create({
+				data: {
+					email: createAdminDto.email,
+					password: hashedPassword,
+					role: createAdminDto.role,
+					cityId: createAdminDto.cityId,
+					mosqueId: createAdminDto.mosqueId,
+				},
+			});
+		} catch (error) {
+			if (error instanceof PrismaClientKnownRequestError) {
+				if (error.code === 'P2002') {
+					// Unique constraint failed
+					const target = error.meta?.target as string[];
+					if (target?.includes('email')) {
+						throw new ConflictException(`Админ с email ${createAdminDto.email} уже существует`);
+					}
+					if (target?.includes('cityId')) {
+						throw new ConflictException(`Город с ID ${createAdminDto.cityId} уже имеет админа`);
+					}
+					if (target?.includes('mosqueId')) {
+						throw new ConflictException(`Мечеть с ID ${createAdminDto.mosqueId} уже имеет админа`);
+					}
+					throw new ConflictException('Нарушено уникальное ограничение');
+				}
+			}
+			throw error;
+		}
 	}
 
 	async login(loginAdminDto: LoginAdminDto) {

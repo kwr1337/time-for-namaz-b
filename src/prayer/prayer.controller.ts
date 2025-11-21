@@ -74,10 +74,17 @@ export class PrayerController {
 	}
 
 	@Get('all')
-	async getAllPrayers(@Query('cityId') cityId: number) {
+	async getAllPrayers(@Query('cityId') cityId?: number, @Query('mosqueId') mosqueId?: number) {
 		try {
+			// Если передан mosqueId, получаем все намазы для мечети
+			if (mosqueId) {
+				const result = await this.prayerService.getAllPrayersForMosque(mosqueId);
+				return result;
+			}
+
+			// Иначе получаем для города
 			if (!cityId) {
-				throw new HttpException('ID города обязателен', HttpStatus.BAD_REQUEST);
+				throw new HttpException('ID города или мечети обязателен', HttpStatus.BAD_REQUEST);
 			}
 
 			// Получаем все намазы для города по ID
@@ -90,30 +97,102 @@ export class PrayerController {
 	}
 
 	@Post('shift')
-	@UseGuards(AuthGuard('jwt'))
+	@UseGuards(AuthGuard('jwt'), RolesGuard)
+	@Roles($Enums.Role.SUPER_ADMIN, $Enums.Role.CITY_ADMIN, $Enums.Role.MOSQUE_ADMIN)
 	async shiftPrayerTimes(
-		@Body('cityId') cityId: number,
-		@Body('prayerName') prayerName: string,
-		@Body('shiftMinutes') shiftMinutes: number,
-		@Request() req: any
+		@Request() req: any,
+		@Body() body: { mosqueId?: number | string; prayerName?: string; shiftMinutes?: number | string }
 	) {
+		console.log('=== SHIFT PRAYER TIMES REQUEST ===');
+		console.log('Request received at:', new Date().toISOString());
+		console.log('User from request:', req.user);
+		console.log('Raw body:', body);
+		console.log('Body type:', typeof body);
+		console.log('Body keys:', body ? Object.keys(body) : 'body is null/undefined');
+		
 		try {
-			if (!cityId || !prayerName || shiftMinutes === undefined) {
-				throw new HttpException('Отсутствуют обязательные параметры', HttpStatus.BAD_REQUEST);
+			// Проверяем, что body существует
+			if (!body || typeof body !== 'object') {
+				console.error('Body is missing or invalid:', body);
+				throw new HttpException('Тело запроса отсутствует или имеет неверный формат', HttpStatus.BAD_REQUEST);
 			}
-			const userId = req.user.id;
-			const result = await this.prayerService.shiftPrayerTimesForCity(cityId, prayerName, shiftMinutes, userId);
+
+			// Логируем входящие данные для отладки
+			console.log('Received body:', JSON.stringify(body, null, 2));
+			console.log('mosqueId:', body.mosqueId, 'type:', typeof body.mosqueId);
+			console.log('prayerName:', body.prayerName, 'type:', typeof body.prayerName);
+			console.log('shiftMinutes:', body.shiftMinutes, 'type:', typeof body.shiftMinutes);
+
+			// Проверяем обязательные параметры
+			if (body.mosqueId === undefined || body.mosqueId === null || body.mosqueId === '') {
+				console.error('Missing mosqueId');
+				throw new HttpException('Отсутствует обязательный параметр: mosqueId', HttpStatus.BAD_REQUEST);
+			}
+			
+			if (!body.prayerName || (typeof body.prayerName === 'string' && body.prayerName.trim() === '')) {
+				console.error('Missing or empty prayerName:', body.prayerName);
+				throw new HttpException('Отсутствует обязательный параметр: prayerName', HttpStatus.BAD_REQUEST);
+			}
+			
+			if (body.shiftMinutes === undefined || body.shiftMinutes === null || body.shiftMinutes === '') {
+				console.error('Missing shiftMinutes');
+				throw new HttpException('Отсутствует обязательный параметр: shiftMinutes', HttpStatus.BAD_REQUEST);
+			}
+
+			const userId = req.user?.id;
+			if (!userId) {
+				throw new HttpException('Пользователь не авторизован', HttpStatus.UNAUTHORIZED);
+			}
+
+			// Преобразуем параметры в правильные типы
+			const mosqueIdNum = Number(body.mosqueId);
+			if (isNaN(mosqueIdNum) || mosqueIdNum <= 0) {
+				throw new HttpException('mosqueId должен быть положительным числом', HttpStatus.BAD_REQUEST);
+			}
+
+			const shiftMinutesNum = Number(body.shiftMinutes);
+			if (isNaN(shiftMinutesNum)) {
+				throw new HttpException('shiftMinutes должен быть числом', HttpStatus.BAD_REQUEST);
+			}
+
+			// Сдвигаем время для мечети
+			const prayerNameStr = typeof body.prayerName === 'string' ? body.prayerName.trim() : String(body.prayerName);
+			const result = await this.prayerService.shiftPrayerTimesForMosque(
+				mosqueIdNum,
+				prayerNameStr,
+				shiftMinutesNum,
+				userId
+			);
 			return result;
+
 		} catch (error) {
-			throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+			if (error instanceof HttpException) {
+				throw error;
+			}
+			if (error instanceof NotFoundException) {
+				throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+			}
+			if (error instanceof BadRequestException) {
+				throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+			}
+			// Логируем полную ошибку для отладки
+			console.error('Error in shiftPrayerTimes:', error);
+			throw new HttpException(error.message || 'Внутренняя ошибка сервера', HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@Get('today')
-	async getTodaysPrayers(@Query('cityName') cityName: string) {
+	async getTodaysPrayers(@Query('cityName') cityName: string, @Query('mosqueId') mosqueId?: number) {
 		try {
+			// Если передан mosqueId, получаем время для мечети
+			if (mosqueId) {
+				const result = await this.prayerService.getTodaysPrayersForMosque(mosqueId);
+				return result;
+			}
+
+			// Иначе получаем для города
 			if (!cityName) {
-				throw new HttpException('Название города обязательно', HttpStatus.BAD_REQUEST);
+				throw new HttpException('Название города или ID мечети обязательно', HttpStatus.BAD_REQUEST);
 			}
 
 			// Получаем намазы для города на сегодня
@@ -131,6 +210,29 @@ export class PrayerController {
 				error.message || 'Произошла ошибка при получении молитв',
 				HttpStatus.INTERNAL_SERVER_ERROR
 			);
+		}
+	}
+
+	@Get('date')
+	@ApiOperation({ summary: 'Получить время намазов для мечети на конкретную дату' })
+	@ApiResponse({ status: 200, description: 'Время намазов получено успешно' })
+	@ApiResponse({ status: 404, description: 'Мечеть не найдена' })
+	async getPrayersByDate(
+		@Query('mosqueId') mosqueId: number,
+		@Query('date') date: string
+	) {
+		try {
+			if (!mosqueId || !date) {
+				throw new HttpException('ID мечети и дата обязательны', HttpStatus.BAD_REQUEST);
+			}
+
+			const result = await this.prayerService.getPrayersForMosqueByDate(mosqueId, date);
+			return result;
+		} catch (error) {
+			if (error instanceof NotFoundException) {
+				throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+			}
+			throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
@@ -317,14 +419,19 @@ export class PrayerController {
 		);
 	}
 
-	@Get('city/:cityId/changes')
+	@Get('mosque/:mosqueId/changes')
 	@UseGuards(AuthGuard('jwt'), RolesGuard)
-	@Roles($Enums.Role.SUPER_ADMIN, $Enums.Role.CITY_ADMIN)
-	@ApiOperation({ summary: 'Получить историю изменений времени намазов для города' })
+	@Roles($Enums.Role.SUPER_ADMIN, $Enums.Role.CITY_ADMIN, $Enums.Role.MOSQUE_ADMIN)
+	@ApiBearerAuth()
+	@ApiOperation({ summary: 'Получить историю изменений времени намазов для мечети' })
 	@ApiResponse({ status: 200, description: 'История изменений успешно получена' })
-	@ApiResponse({ status: 404, description: 'Город не найден' })
-	async getCityPrayerTimeChanges(@Param('cityId') cityId: string) {
-		return this.prayerService.getCityPrayerTimeChanges(+cityId);
+	@ApiResponse({ status: 404, description: 'Мечеть не найдена' })
+	async getMosquePrayerTimeChanges(
+		@Param('mosqueId') mosqueId: string,
+		@Req() req: any
+	) {
+		const userId = req.user?.id;
+		return this.prayerService.getMosquePrayerTimeChanges(+mosqueId, userId);
 	}
 
 	@Get(':id/changes')
@@ -335,5 +442,79 @@ export class PrayerController {
 	@ApiResponse({ status: 404, description: 'Намаз не найден' })
 	async getPrayerTimeChanges(@Param('id') id: string) {
 		return this.prayerService.getPrayerTimeChanges(+id);
+	}
+
+	// Эндпоинты для мечетей
+
+	@Get('fixed-time/mosque/:mosqueId')
+	@ApiOperation({ summary: 'Получить фиксированное время намаза по ID мечети' })
+	@ApiResponse({ status: 200, description: 'Фиксированное время намаза получено успешно' })
+	@ApiResponse({ status: 404, description: 'Мечеть не найдена' })
+	async getFixedMosquePrayerTimeByMosqueId(@Param('mosqueId') mosqueId: string) {
+		try {
+			return await this.prayerService.getFixedMosquePrayerTimeByMosqueId(+mosqueId);
+		} catch (error) {
+			if (error instanceof NotFoundException) {
+				throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+			}
+			throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@Put('fixed-time/mosque/:mosqueId')
+	@UseGuards(AuthGuard('jwt'), RolesGuard)
+	@Roles($Enums.Role.SUPER_ADMIN, $Enums.Role.CITY_ADMIN, $Enums.Role.MOSQUE_ADMIN)
+	@ApiBearerAuth()
+	@ApiOperation({ summary: 'Обновить фиксированное время намаза для мечети' })
+	@ApiResponse({ status: 200, description: 'Фиксированное время намаза обновлено успешно' })
+	@ApiResponse({ status: 404, description: 'Мечеть не найдена' })
+	async updateFixedMosquePrayerTime(
+		@Param('mosqueId') mosqueId: string,
+		@Body() updateFixedPrayerTimeDto: UpdateFixedPrayerTimeDto,
+		@Req() req: any
+	) {
+		try {
+			return await this.prayerService.updateFixedMosquePrayerTime(+mosqueId, updateFixedPrayerTimeDto, req.user.id);
+		} catch (error) {
+			if (error instanceof NotFoundException || error instanceof BadRequestException) {
+				throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+			}
+			throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@Put('fixed-time/mosque/:mosqueId/toggle-prayer')
+	@UseGuards(AuthGuard('jwt'), RolesGuard)
+	@Roles($Enums.Role.SUPER_ADMIN, $Enums.Role.CITY_ADMIN, $Enums.Role.MOSQUE_ADMIN)
+	@ApiBearerAuth()
+	@ApiOperation({ summary: 'Включить/выключить одно фиксированное время намаза для мечети' })
+	@ApiResponse({ status: 200, description: 'Статус фиксированного времени намаза изменен успешно' })
+	@ApiResponse({ status: 404, description: 'Мечеть или тип молитвы не найден' })
+	async toggleMosquePrayerTime(
+		@Param('mosqueId') mosqueId: string,
+		@Body('prayerType') prayerType: string,
+		@Body('isActive') isActive: boolean,
+		@Req() req: any
+	) {
+		try {
+			if (!prayerType || isActive === undefined) {
+				throw new BadRequestException('Тип молитвы и статус активности обязательны');
+			}
+
+			return await this.prayerService.toggleMosquePrayerTime(
+				+mosqueId,
+				prayerType,
+				isActive,
+				req.user.id
+			);
+		} catch (error) {
+			if (error instanceof BadRequestException) {
+				throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+			}
+			if (error instanceof NotFoundException) {
+				throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+			}
+			throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 }

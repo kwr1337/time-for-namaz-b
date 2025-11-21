@@ -36,14 +36,18 @@ model Prayer {
 }
 
 model Mosque {
-  id      Int      @id @default(autoincrement())
-  cityId  Int
-  name    String
-  logoUrl String?
-  media   Media[]
-  city    City     @relation(fields: [cityId], references: [id])
-  prayers Prayer[]
-  qrCodes QRCode[] @relation("MosqueQRCode")
+  id              Int                    @id @default(autoincrement())
+  cityId          Int
+  name            String
+  logoUrl         String?
+  admin           Admin?                 @relation("MosqueAdmin")
+  fixedPrayerTime FixedMosquePrayerTime?
+  languageSettings MosqueLanguageSettings?
+  namesOfAllah    NameOfAllah[]
+  media           Media[]
+  city            City                   @relation(fields: [cityId], references: [id])
+  prayers         Prayer[]
+  qrCodes         QRCode[]               @relation("MosqueQRCode")
 }
 
 model Media {
@@ -76,7 +80,9 @@ model Admin {
   createdAt DateTime @default(now())
   role      Role
   cityId    Int?     @unique
+  mosqueId  Int?     @unique
   city      City?    @relation("CityAdmin", fields: [cityId], references: [id])
+  mosque    Mosque?  @relation("MosqueAdmin", fields: [mosqueId], references: [id])
   prayerChanges PrayerTimeChange[]
   auditLogs AuditLog[]
 }
@@ -103,6 +109,42 @@ model FixedPrayerTime {
   city          City     @relation(fields: [cityId], references: [id])
 }
 
+model FixedMosquePrayerTime {
+  id                Int      @id @default(autoincrement())
+  mosqueId          Int      @unique
+  fajr              String
+  shuruk            String
+  zuhr              String
+  asr               String
+  maghrib           String
+  isha              String
+  mechet            String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  fajrActive        Boolean  @default(false)
+  shurukActive      Boolean  @default(false)
+  zuhrActive        Boolean  @default(false)
+  asrActive         Boolean  @default(false)
+  maghribActive     Boolean  @default(false)
+  ishaActive        Boolean  @default(false)
+  mechetActive      Boolean  @default(false)
+  fajrIqamaEnabled  Boolean  @default(false)
+  fajrIqamaMinutes  Int      @default(0)
+  shurukIqamaEnabled Boolean  @default(false)
+  shurukIqamaMinutes Int     @default(0)
+  zuhrIqamaEnabled  Boolean  @default(false)
+  zuhrIqamaMinutes  Int      @default(0)
+  asrIqamaEnabled   Boolean  @default(false)
+  asrIqamaMinutes   Int      @default(0)
+  maghribIqamaEnabled Boolean @default(false)
+  maghribIqamaMinutes Int    @default(0)
+  ishaIqamaEnabled  Boolean  @default(false)
+  ishaIqamaMinutes  Int      @default(0)
+  mechetIqamaEnabled Boolean @default(false)
+  mechetIqamaMinutes Int     @default(0)
+  mosque            Mosque   @relation(fields: [mosqueId], references: [id])
+}
+
 model PrayerTimeChange {
   id        Int      @id @default(autoincrement())
   prayerId  Int
@@ -119,6 +161,7 @@ model PrayerTimeChange {
 enum Role {
   SUPER_ADMIN
   CITY_ADMIN
+  MOSQUE_ADMIN
 }
 
 model AuditLog {
@@ -131,4 +174,40 @@ model AuditLog {
   oldValue  Json?
   newValue  Json?
   createdAt DateTime @default(now())
+}
+
+model Translation {
+  id        Int      @id @default(autoincrement())
+  key       String   @unique
+  ru        String
+  tt        String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model MosqueLanguageSettings {
+  id                          Int      @id @default(autoincrement())
+  mosqueId                    Int      @unique
+  translationsEnabled         Boolean  @default(true)
+  languageToggleEnabled       Boolean  @default(false)
+  languageToggleIntervalSeconds Int    @default(30)
+  createdAt                   DateTime @default(now())
+  updatedAt                   DateTime @updatedAt
+  mosque                      Mosque   @relation(fields: [mosqueId], references: [id])
+}
+
+model NameOfAllah {
+  id                Int      @id @default(autoincrement())
+  mosqueId          Int
+  arabic            String
+  transcription     String
+  meaning           String
+  transcriptionTatar String?
+  meaningTatar      String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  mosque            Mosque   @relation(fields: [mosqueId], references: [id])
+  
+  @@unique([mosqueId, arabic])
+  @@index([mosqueId])
 }

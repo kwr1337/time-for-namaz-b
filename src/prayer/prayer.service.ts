@@ -70,6 +70,159 @@ export class PrayerService {
 		return prayers;
 	}
 
+	async getAllPrayersForMosque(mosqueId: number): Promise<any> {
+		// Находим все записи намазов для данной мечети
+		const prayers = await this.prisma.prayer.findMany({
+			where: { mosqueId: Number(mosqueId) },
+			orderBy: { date: 'asc' }
+		});
+
+		if (!prayers.length) {
+			return { message: `Не найдено времени молитв для мечети с ID "${mosqueId}"` };
+		}
+
+		return prayers;
+	}
+
+	async getPrayersForMosqueByDate(mosqueId: number, date: string): Promise<any> {
+		// Находим мечеть
+		const mosque = await this.prisma.mosque.findUnique({
+			where: { id: Number(mosqueId) },
+			include: { city: true }
+		});
+
+		if (!mosque) {
+			throw new NotFoundException(`Мечеть с ID ${mosqueId} не найдена`);
+		}
+
+		// Получаем фиксированное время мечети (включая настройки икамата)
+		// Если его нет, создаем дефолтное (для хранения настроек икамата)
+		let fixedTime = await this.prisma.fixedMosquePrayerTime.findUnique({
+			where: { mosqueId: mosque.id }
+		});
+
+		if (!fixedTime) {
+			// Создаем дефолтное фиксированное время для хранения настроек икамата
+			fixedTime = await this.prisma.fixedMosquePrayerTime.create({
+				data: {
+					mosqueId: mosque.id,
+					fajr: "00:00",
+					shuruk: "00:00",
+					zuhr: "00:00",
+					asr: "00:00",
+					maghrib: "00:00",
+					isha: "00:00",
+					mechet: "00:00",
+					fajrActive: false,
+					shurukActive: false,
+					zuhrActive: false,
+					asrActive: false,
+					maghribActive: false,
+					ishaActive: false,
+					mechetActive: false,
+					fajrIqamaEnabled: false,
+					fajrIqamaMinutes: 0,
+					shurukIqamaEnabled: false,
+					shurukIqamaMinutes: 0,
+					zuhrIqamaEnabled: false,
+					zuhrIqamaMinutes: 0,
+					asrIqamaEnabled: false,
+					asrIqamaMinutes: 0,
+					maghribIqamaEnabled: false,
+					maghribIqamaMinutes: 0,
+					ishaIqamaEnabled: false,
+					ishaIqamaMinutes: 0,
+					mechetIqamaEnabled: false,
+					mechetIqamaMinutes: 0
+				}
+			});
+		}
+
+		// Находим обычное время намаза для мечети на указанную дату
+		let prayer = await this.prisma.prayer.findFirst({
+			where: {
+				mosqueId: mosque.id,
+				date: date
+			}
+		});
+
+		// Если нет времени для мечети, используем время города как fallback
+		if (!prayer) {
+			prayer = await this.prisma.prayer.findFirst({
+				where: {
+					cityId: mosque.cityId,
+					date: date,
+					mosqueId: null
+				}
+			});
+		}
+
+		if (!prayer) {
+			throw new NotFoundException(`Расписание намазов для мечети "${mosque.name}" на дату ${date} не найдено`);
+		}
+
+		// Формируем результат с учетом приоритета: фиксированное время -> обычное время мечети -> время города
+		const result: any = {
+			id: prayer.id,
+			mosqueId: mosque.id,
+			cityId: mosque.cityId,
+			date: prayer.date,
+			fajr: prayer.fajr,
+			shuruk: prayer.shuruk,
+			zuhr: prayer.zuhr,
+			asr: prayer.asr,
+			maghrib: prayer.maghrib,
+			isha: prayer.isha,
+			mechet: prayer.mechet,
+			mosqueName: mosque.name,
+			cityName: mosque.city.name
+		};
+
+		// Если есть фиксированное время и намаз активен, используем его для времени намаза
+		if (fixedTime) {
+			if (fixedTime.fajrActive && fixedTime.fajr) result.fajr = fixedTime.fajr;
+			if (fixedTime.shurukActive && fixedTime.shuruk) result.shuruk = fixedTime.shuruk;
+			if (fixedTime.zuhrActive && fixedTime.zuhr) result.zuhr = fixedTime.zuhr;
+			if (fixedTime.asrActive && fixedTime.asr) result.asr = fixedTime.asr;
+			if (fixedTime.maghribActive && fixedTime.maghrib) result.maghrib = fixedTime.maghrib;
+			if (fixedTime.ishaActive && fixedTime.isha) result.isha = fixedTime.isha;
+			if (fixedTime.mechetActive && fixedTime.mechet) result.mechet = fixedTime.mechet;
+		}
+
+		// ВСЕГДА добавляем информацию об икамате (независимо от того, используется фиксированное время или нет)
+		// Икамат применяется к любому времени намаза (обычному или фиксированному)
+		result.fajrIqama = fixedTime.fajrIqamaEnabled ? {
+			enabled: fixedTime.fajrIqamaEnabled,
+			minutes: fixedTime.fajrIqamaMinutes
+		} : null;
+		result.shurukIqama = fixedTime.shurukIqamaEnabled ? {
+			enabled: fixedTime.shurukIqamaEnabled,
+			minutes: fixedTime.shurukIqamaMinutes
+		} : null;
+		result.zuhrIqama = fixedTime.zuhrIqamaEnabled ? {
+			enabled: fixedTime.zuhrIqamaEnabled,
+			minutes: fixedTime.zuhrIqamaMinutes
+		} : null;
+		result.asrIqama = fixedTime.asrIqamaEnabled ? {
+			enabled: fixedTime.asrIqamaEnabled,
+			minutes: fixedTime.asrIqamaMinutes
+		} : null;
+		result.maghribIqama = fixedTime.maghribIqamaEnabled ? {
+			enabled: fixedTime.maghribIqamaEnabled,
+			minutes: fixedTime.maghribIqamaMinutes
+		} : null;
+		result.ishaIqama = fixedTime.ishaIqamaEnabled ? {
+			enabled: fixedTime.ishaIqamaEnabled,
+			minutes: fixedTime.ishaIqamaMinutes
+		} : null;
+		result.mechetIqama = fixedTime.mechetIqamaEnabled ? {
+			enabled: fixedTime.mechetIqamaEnabled,
+			minutes: fixedTime.mechetIqamaMinutes
+		} : null;
+
+		return result;
+	}
+
 	private formatTime(timeValue: any): string | null {
 		if (!timeValue) return null;
 
@@ -137,7 +290,13 @@ export class PrayerService {
 			throw new Error(`Город с ID "${cityId}" не найден`);
 		}
 		
-		const prayers = await this.prisma.prayer.findMany({ where: { cityId: cityId } });
+		// Получаем только записи города (mosqueId должен быть null)
+		const prayers = await this.prisma.prayer.findMany({ 
+			where: { 
+				cityId: cityId,
+				mosqueId: null  // Только записи города, не мечетей
+			} 
+		});
 		if (prayers.length === 0) {
 			throw new Error(`Нет записей намазов для города с ID "${cityId}"`);
 		}
@@ -233,6 +392,144 @@ export class PrayerService {
 		}
 		// --- End audit log ---
 		return { message: `Все ${prayerName} время сдвинуто на ${shiftMinutes} минут в городе с ID "${cityId}"` };
+	}
+
+	async shiftPrayerTimesForMosque(mosqueId: number, prayerName: string, shiftMinutes: number, userId: number): Promise<any> {
+		// Получаем информацию о мечети
+		const mosque = await this.prisma.mosque.findUnique({
+			where: { id: mosqueId },
+			select: { id: true, name: true, cityId: true, city: { select: { name: true } } }
+		});
+		
+		if (!mosque) {
+			throw new NotFoundException(`Мечеть с ID "${mosqueId}" не найдена`);
+		}
+
+		// Проверяем права доступа
+		const admin = await this.prisma.admin.findUnique({
+			where: { id: userId }
+		});
+
+		if (!admin) {
+			throw new NotFoundException(`Администратор с ID ${userId} не найден`);
+		}
+
+		// MOSQUE_ADMIN может управлять только временем своей мечети
+		if (admin.role === 'MOSQUE_ADMIN') {
+			if (admin.mosqueId !== Number(mosqueId)) {
+				throw new BadRequestException('У вас нет прав для управления временем этой мечети');
+			}
+		}
+
+		// CITY_ADMIN может управлять временем мечетей только своего города
+		if (admin.role === 'CITY_ADMIN') {
+			if (admin.cityId !== mosque.cityId) {
+				throw new BadRequestException('У вас нет прав для управления временем мечетей этого города');
+			}
+		}
+		
+		// Получаем только записи этой мечети
+		const prayers = await this.prisma.prayer.findMany({ 
+			where: { 
+				mosqueId: mosqueId
+			} 
+		});
+		if (prayers.length === 0) {
+			throw new NotFoundException(`Нет записей намазов для мечети с ID "${mosqueId}"`);
+		}
+
+		const changedPrayers = [];
+		for (const prayer of prayers) {
+			let updatedTime: string | null = null;
+			let oldTime: string | null = null;
+			switch (prayerName.toLowerCase()) {
+				case 'fajr': oldTime = prayer.fajr; updatedTime = this.shiftTime(prayer.fajr, shiftMinutes); break;
+				case 'shuruk': oldTime = prayer.shuruk; updatedTime = this.shiftTime(prayer.shuruk, shiftMinutes); break;
+				case 'zuhr': oldTime = prayer.zuhr; updatedTime = this.shiftTime(prayer.zuhr, shiftMinutes); break;
+				case 'asr': oldTime = prayer.asr; updatedTime = this.shiftTime(prayer.asr, shiftMinutes); break;
+				case 'maghrib': oldTime = prayer.maghrib; updatedTime = this.shiftTime(prayer.maghrib, shiftMinutes); break;
+				case 'isha': oldTime = prayer.isha; updatedTime = this.shiftTime(prayer.isha, shiftMinutes); break;
+				case 'mechet': oldTime = prayer.mechet; updatedTime = this.shiftTime(prayer.mechet, shiftMinutes); break;
+				default: throw new BadRequestException(`Неверное название молитвы: "${prayerName}"`);
+			}
+			if (oldTime === updatedTime) continue;
+			await this.prisma.prayer.update({
+				where: { id: prayer.id },
+				data: { [prayerName.toLowerCase()]: updatedTime },
+			});
+			changedPrayers.push({
+				id: prayer.id,
+				prayerType: prayerName.toLowerCase(),
+				oldTime,
+				newTime: updatedTime,
+				date: prayer.date
+			});
+			const existingChange = await this.prisma.prayerTimeChange.findFirst({
+				where: { prayerId: prayer.id, prayerType: prayerName.toLowerCase() },
+			});
+			let newShift = shiftMinutes;
+			if (existingChange) {
+				newShift = existingChange.shiftMinutes + shiftMinutes;
+				if (newShift === 0) {
+					await this.prisma.prayerTimeChange.delete({ where: { id: existingChange.id } });
+					continue;
+				} else {
+					await this.prisma.prayerTimeChange.update({
+						where: { id: existingChange.id },
+						data: {
+							oldTime: existingChange.oldTime,
+							newTime: updatedTime ?? '',
+							shiftMinutes: newShift,
+							changedBy: userId,
+						},
+					});
+					continue;
+				}
+			} else {
+				await this.prisma.prayerTimeChange.create({
+					data: {
+						prayerId: prayer.id,
+						prayerType: prayerName.toLowerCase(),
+						oldTime: oldTime ?? '',
+						newTime: updatedTime ?? '',
+						shiftMinutes: shiftMinutes,
+						changedBy: userId,
+					},
+				});
+			}
+		}
+		// --- Audit log для массового сдвига ---
+		if (changedPrayers.length > 0) {
+			await logAction(
+				this.prisma,
+				userId,
+				'bulk-update',
+				'Prayer',
+				mosqueId,
+				{ 
+					prayers: changedPrayers.map(pr => ({ 
+						id: pr.id, 
+						prayerType: pr.prayerType, 
+						oldTime: pr.oldTime, 
+						date: pr.date 
+					})),
+					mosqueInfo: mosque
+				},
+				{ 
+					prayers: changedPrayers.map(pr => ({ 
+						id: pr.id, 
+						prayerType: pr.prayerType, 
+						newTime: pr.newTime,
+						date: pr.date
+					})),
+					mosqueInfo: mosque,
+					shiftMinutes: shiftMinutes,
+					prayerType: prayerName.toLowerCase()
+				}
+			);
+		}
+		// --- End audit log ---
+		return { message: `Все ${prayerName} время сдвинуто на ${shiftMinutes} минут в мечети "${mosque.name}" (ID: ${mosqueId})` };
 	}
 
 	private shiftTime(timeString: string | null, shiftMinutes: number): string | null {
@@ -452,6 +749,152 @@ export class PrayerService {
 			mechet: prayer.mechet,
 			cityName: city.name
 		};
+	}
+
+	async getTodaysPrayersForMosque(mosqueId: number): Promise<any> {
+		// Находим мечеть
+		const mosque = await this.prisma.mosque.findUnique({
+			where: { id: Number(mosqueId) },
+			include: { city: true }
+		});
+
+		if (!mosque) {
+			throw new NotFoundException(`Мечеть с ID ${mosqueId} не найдена`);
+		}
+
+		// Получаем текущую дату в формате "YYYY-MM-DD"
+		const today = new Date();
+		const year = today.getFullYear();
+		const month = String(today.getMonth() + 1).padStart(2, '0');
+		const day = String(today.getDate()).padStart(2, '0');
+		const todayStr = `${year}-${month}-${day}`;
+
+		// Получаем фиксированное время мечети (включая настройки икамата)
+		// Если его нет, создаем дефолтное (для хранения настроек икамата)
+		let fixedTime = await this.prisma.fixedMosquePrayerTime.findUnique({
+			where: { mosqueId: mosque.id }
+		});
+
+		if (!fixedTime) {
+			// Создаем дефолтное фиксированное время для хранения настроек икамата
+			fixedTime = await this.prisma.fixedMosquePrayerTime.create({
+				data: {
+					mosqueId: mosque.id,
+					fajr: "00:00",
+					shuruk: "00:00",
+					zuhr: "00:00",
+					asr: "00:00",
+					maghrib: "00:00",
+					isha: "00:00",
+					mechet: "00:00",
+					fajrActive: false,
+					shurukActive: false,
+					zuhrActive: false,
+					asrActive: false,
+					maghribActive: false,
+					ishaActive: false,
+					mechetActive: false,
+					fajrIqamaEnabled: false,
+					fajrIqamaMinutes: 0,
+					shurukIqamaEnabled: false,
+					shurukIqamaMinutes: 0,
+					zuhrIqamaEnabled: false,
+					zuhrIqamaMinutes: 0,
+					asrIqamaEnabled: false,
+					asrIqamaMinutes: 0,
+					maghribIqamaEnabled: false,
+					maghribIqamaMinutes: 0,
+					ishaIqamaEnabled: false,
+					ishaIqamaMinutes: 0,
+					mechetIqamaEnabled: false,
+					mechetIqamaMinutes: 0
+				}
+			});
+		}
+
+		// Находим обычное время намаза для мечети на сегодня
+		let prayer = await this.prisma.prayer.findFirst({
+			where: {
+				mosqueId: mosque.id,
+				date: todayStr
+			}
+		});
+
+		// Если нет времени для мечети, используем время города как fallback
+		if (!prayer) {
+			prayer = await this.prisma.prayer.findFirst({
+				where: {
+					cityId: mosque.cityId,
+					date: todayStr,
+					mosqueId: null
+				}
+			});
+		}
+
+		if (!prayer) {
+			throw new NotFoundException(`Расписание намазов для мечети "${mosque.name}" на сегодня (${todayStr}) не найдено`);
+		}
+
+		// Формируем результат с учетом приоритета: фиксированное время -> обычное время мечети -> время города
+		const result: any = {
+			id: prayer.id,
+			mosqueId: mosque.id,
+			cityId: mosque.cityId,
+			date: prayer.date,
+			fajr: prayer.fajr,
+			shuruk: prayer.shuruk,
+			zuhr: prayer.zuhr,
+			asr: prayer.asr,
+			maghrib: prayer.maghrib,
+			isha: prayer.isha,
+			mechet: prayer.mechet,
+			mosqueName: mosque.name,
+			cityName: mosque.city.name
+		};
+
+		// Если есть фиксированное время и намаз активен, используем его для времени намаза
+		if (fixedTime) {
+			if (fixedTime.fajrActive && fixedTime.fajr) result.fajr = fixedTime.fajr;
+			if (fixedTime.shurukActive && fixedTime.shuruk) result.shuruk = fixedTime.shuruk;
+			if (fixedTime.zuhrActive && fixedTime.zuhr) result.zuhr = fixedTime.zuhr;
+			if (fixedTime.asrActive && fixedTime.asr) result.asr = fixedTime.asr;
+			if (fixedTime.maghribActive && fixedTime.maghrib) result.maghrib = fixedTime.maghrib;
+			if (fixedTime.ishaActive && fixedTime.isha) result.isha = fixedTime.isha;
+			if (fixedTime.mechetActive && fixedTime.mechet) result.mechet = fixedTime.mechet;
+		}
+
+		// ВСЕГДА добавляем информацию об икамате (независимо от того, используется фиксированное время или нет)
+		// Икамат применяется к любому времени намаза (обычному или фиксированному)
+		result.fajrIqama = fixedTime.fajrIqamaEnabled ? {
+			enabled: fixedTime.fajrIqamaEnabled,
+			minutes: fixedTime.fajrIqamaMinutes
+		} : null;
+		result.shurukIqama = fixedTime.shurukIqamaEnabled ? {
+			enabled: fixedTime.shurukIqamaEnabled,
+			minutes: fixedTime.shurukIqamaMinutes
+		} : null;
+		result.zuhrIqama = fixedTime.zuhrIqamaEnabled ? {
+			enabled: fixedTime.zuhrIqamaEnabled,
+			minutes: fixedTime.zuhrIqamaMinutes
+		} : null;
+		result.asrIqama = fixedTime.asrIqamaEnabled ? {
+			enabled: fixedTime.asrIqamaEnabled,
+			minutes: fixedTime.asrIqamaMinutes
+		} : null;
+		result.maghribIqama = fixedTime.maghribIqamaEnabled ? {
+			enabled: fixedTime.maghribIqamaEnabled,
+			minutes: fixedTime.maghribIqamaMinutes
+		} : null;
+		result.ishaIqama = fixedTime.ishaIqamaEnabled ? {
+			enabled: fixedTime.ishaIqamaEnabled,
+			minutes: fixedTime.ishaIqamaMinutes
+		} : null;
+		result.mechetIqama = fixedTime.mechetIqamaEnabled ? {
+			enabled: fixedTime.mechetIqamaEnabled,
+			minutes: fixedTime.mechetIqamaMinutes
+		} : null;
+
+		return result;
 	}
 
 	async updateFixedPrayerTime(id: number, updateFixedPrayerTimeDto: UpdateFixedPrayerTimeDto) {
@@ -893,6 +1336,92 @@ export class PrayerService {
 		});
 	}
 
+	async getMosquePrayerTimeChanges(mosqueId: number, userId?: number) {
+		// Проверяем существование мечети
+		const mosque = await this.prisma.mosque.findUnique({
+			where: { id: mosqueId },
+			include: { city: { select: { name: true } } }
+		});
+
+		if (!mosque) {
+			throw new NotFoundException('Мечеть не найдена');
+		}
+
+		// Проверяем права доступа
+		if (userId) {
+			const admin = await this.prisma.admin.findUnique({
+				where: { id: userId }
+			});
+
+			if (admin) {
+				// MOSQUE_ADMIN может видеть изменения только своей мечети
+				if (admin.role === 'MOSQUE_ADMIN') {
+					if (admin.mosqueId !== Number(mosqueId)) {
+						throw new BadRequestException('У вас нет прав для просмотра изменений этой мечети');
+					}
+				}
+
+				// CITY_ADMIN может видеть изменения мечетей только своего города
+				if (admin.role === 'CITY_ADMIN') {
+					if (admin.cityId !== mosque.cityId) {
+						throw new BadRequestException('У вас нет прав для просмотра изменений мечетей этого города');
+					}
+				}
+			}
+		}
+
+		// Получаем все записи намазов для этой мечети
+		const prayers = await this.prisma.prayer.findMany({
+			where: { 
+				mosqueId: mosqueId 
+			},
+			select: { id: true },
+		});
+
+		const prayerIds = prayers.map(p => p.id);
+
+		if (prayerIds.length === 0) {
+			return [];
+		}
+
+		return this.prisma.prayerTimeChange.findMany({
+			where: {
+				prayerId: {
+					in: prayerIds,
+				},
+			},
+			include: {
+				prayer: {
+					select: {
+						id: true,
+						date: true,
+						city: {
+							select: {
+								name: true,
+							},
+						},
+						mosque: {
+							select: {
+								id: true,
+								name: true,
+							},
+						},
+					},
+				},
+				user: {
+					select: {
+						id: true,
+						email: true,
+						role: true,
+					},
+				},
+			},
+			orderBy: {
+				changedAt: 'desc',
+			},
+		});
+	}
+
 	async togglePrayerTime(cityId: number, prayerType: string, isActive: boolean, userId: number) {
 		const fixedTime = await this.prisma.fixedPrayerTime.findFirst({
 			where: { cityId },
@@ -1055,6 +1584,316 @@ export class PrayerService {
 			...updatedFixedTime,
 			cityName: city.name
 		};
+	}
+
+	// Методы для работы с FixedMosquePrayerTime
+
+	async getFixedMosquePrayerTimeByMosqueId(mosqueId: number): Promise<any> {
+		const mosque = await this.prisma.mosque.findUnique({
+			where: { id: Number(mosqueId) },
+			include: { city: true }
+		});
+
+		if (!mosque) {
+			throw new NotFoundException(`Мечеть с ID ${mosqueId} не найдена`);
+		}
+
+		let fixedPrayerTime = await this.prisma.fixedMosquePrayerTime.findUnique({
+			where: { mosqueId: Number(mosqueId) }
+		});
+
+		// Если фиксированное время не найдено, создаем его
+		if (!fixedPrayerTime) {
+			fixedPrayerTime = await this.prisma.fixedMosquePrayerTime.create({
+				data: {
+					mosqueId: Number(mosqueId),
+					fajr: "00:00",
+					shuruk: "00:00",
+					zuhr: "00:00",
+					asr: "00:00",
+					maghrib: "00:00",
+					isha: "00:00",
+					mechet: "00:00",
+					fajrActive: false,
+					shurukActive: false,
+					zuhrActive: false,
+					asrActive: false,
+					maghribActive: false,
+					ishaActive: false,
+					mechetActive: false,
+					fajrIqamaEnabled: false,
+					fajrIqamaMinutes: 0,
+					shurukIqamaEnabled: false,
+					shurukIqamaMinutes: 0,
+					zuhrIqamaEnabled: false,
+					zuhrIqamaMinutes: 0,
+					asrIqamaEnabled: false,
+					asrIqamaMinutes: 0,
+					maghribIqamaEnabled: false,
+					maghribIqamaMinutes: 0,
+					ishaIqamaEnabled: false,
+					ishaIqamaMinutes: 0,
+					mechetIqamaEnabled: false,
+					mechetIqamaMinutes: 0
+				}
+			});
+		}
+
+		return {
+			...fixedPrayerTime,
+			mosqueName: mosque.name,
+			cityName: mosque.city.name
+		};
+	}
+
+	async updateFixedMosquePrayerTime(mosqueId: number, updateFixedPrayerTimeDto: UpdateFixedPrayerTimeDto, userId?: number): Promise<any> {
+		const mosque = await this.prisma.mosque.findUnique({
+			where: { id: Number(mosqueId) },
+			include: { city: true }
+		});
+
+		if (!mosque) {
+			throw new NotFoundException(`Мечеть с ID ${mosqueId} не найдена`);
+		}
+
+		// Проверяем права доступа: MOSQUE_ADMIN может редактировать только фиксированное время своей мечети
+		if (userId) {
+			const admin = await this.prisma.admin.findUnique({
+				where: { id: userId }
+			});
+
+			if (admin && admin.role === 'MOSQUE_ADMIN') {
+				if (admin.mosqueId !== Number(mosqueId)) {
+					throw new BadRequestException('У вас нет прав для редактирования фиксированного времени этой мечети');
+				}
+			}
+		}
+
+		const existingFixedTime = await this.prisma.fixedMosquePrayerTime.findUnique({
+			where: { mosqueId: Number(mosqueId) }
+		});
+
+		if (!existingFixedTime) {
+			throw new NotFoundException(`Фиксированное время намаза для мечети "${mosque.name}" не найдено`);
+		}
+
+		const oldValues = {
+			fajr: existingFixedTime.fajr,
+			shuruk: existingFixedTime.shuruk,
+			zuhr: existingFixedTime.zuhr,
+			asr: existingFixedTime.asr,
+			maghrib: existingFixedTime.maghrib,
+			isha: existingFixedTime.isha,
+			mechet: existingFixedTime.mechet,
+			fajrActive: existingFixedTime.fajrActive,
+			shurukActive: existingFixedTime.shurukActive,
+			zuhrActive: existingFixedTime.zuhrActive,
+			asrActive: existingFixedTime.asrActive,
+			maghribActive: existingFixedTime.maghribActive,
+			ishaActive: existingFixedTime.ishaActive,
+			mechetActive: existingFixedTime.mechetActive,
+			fajrIqamaEnabled: existingFixedTime.fajrIqamaEnabled,
+			fajrIqamaMinutes: existingFixedTime.fajrIqamaMinutes,
+			shurukIqamaEnabled: existingFixedTime.shurukIqamaEnabled,
+			shurukIqamaMinutes: existingFixedTime.shurukIqamaMinutes,
+			zuhrIqamaEnabled: existingFixedTime.zuhrIqamaEnabled,
+			zuhrIqamaMinutes: existingFixedTime.zuhrIqamaMinutes,
+			asrIqamaEnabled: existingFixedTime.asrIqamaEnabled,
+			asrIqamaMinutes: existingFixedTime.asrIqamaMinutes,
+			maghribIqamaEnabled: existingFixedTime.maghribIqamaEnabled,
+			maghribIqamaMinutes: existingFixedTime.maghribIqamaMinutes,
+			ishaIqamaEnabled: existingFixedTime.ishaIqamaEnabled,
+			ishaIqamaMinutes: existingFixedTime.ishaIqamaMinutes,
+			mechetIqamaEnabled: existingFixedTime.mechetIqamaEnabled,
+			mechetIqamaMinutes: existingFixedTime.mechetIqamaMinutes
+		};
+
+		// Строим объект data только с теми полями, которые действительно переданы
+		const updateData: any = {};
+		
+		if (updateFixedPrayerTimeDto.fajr !== undefined) updateData.fajr = updateFixedPrayerTimeDto.fajr;
+		if (updateFixedPrayerTimeDto.shuruk !== undefined) updateData.shuruk = updateFixedPrayerTimeDto.shuruk;
+		if (updateFixedPrayerTimeDto.zuhr !== undefined) updateData.zuhr = updateFixedPrayerTimeDto.zuhr;
+		if (updateFixedPrayerTimeDto.asr !== undefined) updateData.asr = updateFixedPrayerTimeDto.asr;
+		if (updateFixedPrayerTimeDto.maghrib !== undefined) updateData.maghrib = updateFixedPrayerTimeDto.maghrib;
+		if (updateFixedPrayerTimeDto.isha !== undefined) updateData.isha = updateFixedPrayerTimeDto.isha;
+		if (updateFixedPrayerTimeDto.mechet !== undefined) updateData.mechet = updateFixedPrayerTimeDto.mechet;
+		
+		// Поля икамата - важно: проверяем !== undefined, чтобы можно было передать false
+		if (updateFixedPrayerTimeDto.fajrIqamaEnabled !== undefined) updateData.fajrIqamaEnabled = updateFixedPrayerTimeDto.fajrIqamaEnabled;
+		if (updateFixedPrayerTimeDto.fajrIqamaMinutes !== undefined) updateData.fajrIqamaMinutes = updateFixedPrayerTimeDto.fajrIqamaMinutes;
+		if (updateFixedPrayerTimeDto.shurukIqamaEnabled !== undefined) updateData.shurukIqamaEnabled = updateFixedPrayerTimeDto.shurukIqamaEnabled;
+		if (updateFixedPrayerTimeDto.shurukIqamaMinutes !== undefined) updateData.shurukIqamaMinutes = updateFixedPrayerTimeDto.shurukIqamaMinutes;
+		if (updateFixedPrayerTimeDto.zuhrIqamaEnabled !== undefined) updateData.zuhrIqamaEnabled = updateFixedPrayerTimeDto.zuhrIqamaEnabled;
+		if (updateFixedPrayerTimeDto.zuhrIqamaMinutes !== undefined) updateData.zuhrIqamaMinutes = updateFixedPrayerTimeDto.zuhrIqamaMinutes;
+		if (updateFixedPrayerTimeDto.asrIqamaEnabled !== undefined) updateData.asrIqamaEnabled = updateFixedPrayerTimeDto.asrIqamaEnabled;
+		if (updateFixedPrayerTimeDto.asrIqamaMinutes !== undefined) updateData.asrIqamaMinutes = updateFixedPrayerTimeDto.asrIqamaMinutes;
+		if (updateFixedPrayerTimeDto.maghribIqamaEnabled !== undefined) updateData.maghribIqamaEnabled = updateFixedPrayerTimeDto.maghribIqamaEnabled;
+		if (updateFixedPrayerTimeDto.maghribIqamaMinutes !== undefined) updateData.maghribIqamaMinutes = updateFixedPrayerTimeDto.maghribIqamaMinutes;
+		if (updateFixedPrayerTimeDto.ishaIqamaEnabled !== undefined) updateData.ishaIqamaEnabled = updateFixedPrayerTimeDto.ishaIqamaEnabled;
+		if (updateFixedPrayerTimeDto.ishaIqamaMinutes !== undefined) updateData.ishaIqamaMinutes = updateFixedPrayerTimeDto.ishaIqamaMinutes;
+		if (updateFixedPrayerTimeDto.mechetIqamaEnabled !== undefined) updateData.mechetIqamaEnabled = updateFixedPrayerTimeDto.mechetIqamaEnabled;
+		if (updateFixedPrayerTimeDto.mechetIqamaMinutes !== undefined) updateData.mechetIqamaMinutes = updateFixedPrayerTimeDto.mechetIqamaMinutes;
+
+		const updatedFixedTime = await this.prisma.fixedMosquePrayerTime.update({
+			where: { id: existingFixedTime.id },
+			data: updateData
+		});
+
+		if (userId) {
+			const admin = await this.prisma.admin.findUnique({
+				where: { id: userId }
+			});
+
+			if (admin) {
+				try {
+					await this.prisma.auditLog.create({
+						data: {
+							userId: userId,
+							action: 'update',
+							entity: 'FixedMosquePrayerTime',
+							entityId: existingFixedTime.id,
+							oldValue: oldValues,
+							newValue: {
+								fajr: updatedFixedTime.fajr,
+								shuruk: updatedFixedTime.shuruk,
+								zuhr: updatedFixedTime.zuhr,
+								asr: updatedFixedTime.asr,
+								maghrib: updatedFixedTime.maghrib,
+								isha: updatedFixedTime.isha,
+								mechet: updatedFixedTime.mechet,
+								fajrActive: updatedFixedTime.fajrActive,
+								shurukActive: updatedFixedTime.shurukActive,
+								zuhrActive: updatedFixedTime.zuhrActive,
+								asrActive: updatedFixedTime.asrActive,
+								maghribActive: updatedFixedTime.maghribActive,
+								ishaActive: updatedFixedTime.ishaActive,
+								mechetActive: updatedFixedTime.mechetActive,
+								fajrIqamaEnabled: updatedFixedTime.fajrIqamaEnabled,
+								fajrIqamaMinutes: updatedFixedTime.fajrIqamaMinutes,
+								shurukIqamaEnabled: updatedFixedTime.shurukIqamaEnabled,
+								shurukIqamaMinutes: updatedFixedTime.shurukIqamaMinutes,
+								zuhrIqamaEnabled: updatedFixedTime.zuhrIqamaEnabled,
+								zuhrIqamaMinutes: updatedFixedTime.zuhrIqamaMinutes,
+								asrIqamaEnabled: updatedFixedTime.asrIqamaEnabled,
+								asrIqamaMinutes: updatedFixedTime.asrIqamaMinutes,
+								maghribIqamaEnabled: updatedFixedTime.maghribIqamaEnabled,
+								maghribIqamaMinutes: updatedFixedTime.maghribIqamaMinutes,
+								ishaIqamaEnabled: updatedFixedTime.ishaIqamaEnabled,
+								ishaIqamaMinutes: updatedFixedTime.ishaIqamaMinutes,
+								mechetIqamaEnabled: updatedFixedTime.mechetIqamaEnabled,
+								mechetIqamaMinutes: updatedFixedTime.mechetIqamaMinutes,
+								mosqueId: mosque.id,
+								mosqueName: mosque.name,
+								cityName: mosque.city.name
+							}
+						}
+					});
+				} catch (error) {
+					// Логируем ошибку, но не прерываем выполнение
+					console.error('Error creating audit log:', error);
+					// Если это ошибка уникального ограничения, просто пропускаем
+					if (error.code === 'P2002') {
+						console.warn('Audit log entry already exists, skipping...');
+					}
+					// Для других ошибок тоже не прерываем выполнение
+				}
+			}
+		}
+
+		return {
+			...updatedFixedTime,
+			mosqueName: mosque.name,
+			cityName: mosque.city.name
+		};
+	}
+
+	async toggleMosquePrayerTime(mosqueId: number, prayerType: string, isActive: boolean, userId: number) {
+		const fixedTime = await this.prisma.fixedMosquePrayerTime.findUnique({
+			where: { mosqueId: Number(mosqueId) },
+			include: { mosque: { include: { city: true } } }
+		});
+
+		if (!fixedTime) {
+			throw new NotFoundException(`Фиксированное время для мечети с ID ${mosqueId} не найдено`);
+		}
+
+		// Проверяем права доступа: MOSQUE_ADMIN может управлять только фиксированным временем своей мечети
+		const admin = await this.prisma.admin.findUnique({
+			where: { id: userId }
+		});
+
+		if (admin && admin.role === 'MOSQUE_ADMIN') {
+			if (admin.mosqueId !== Number(mosqueId)) {
+				throw new BadRequestException('У вас нет прав для управления фиксированным временем этой мечети');
+			}
+		}
+
+		const prayerTypeMap = {
+			'fajr': 'fajrActive',
+			'shuruk': 'shurukActive',
+			'zuhr': 'zuhrActive',
+			'asr': 'asrActive',
+			'maghrib': 'maghribActive',
+			'isha': 'ishaActive',
+			'mechet': 'mechetActive'
+		};
+
+		const activeField = prayerTypeMap[prayerType.toLowerCase()];
+		if (!activeField) {
+			throw new BadRequestException(`Неверный тип молитвы: ${prayerType}`);
+		}
+
+		const oldValue = fixedTime[activeField];
+		if (oldValue === isActive) {
+			return fixedTime;
+		}
+
+		const updatedFixedTime = await this.prisma.fixedMosquePrayerTime.update({
+			where: { id: fixedTime.id },
+			data: { [activeField]: isActive },
+			include: { mosque: { include: { city: true } } }
+		});
+
+		if (admin) {
+			try {
+				await this.prisma.auditLog.create({
+					data: {
+						userId: userId,
+						action: 'update',
+						entity: 'FixedMosquePrayerTime',
+						entityId: fixedTime.id,
+						oldValue: {
+							prayerType: prayerType,
+							isActive: oldValue,
+							mosqueId: fixedTime.mosqueId,
+							mosqueName: fixedTime.mosque.name
+						},
+						newValue: {
+							prayerType: prayerType,
+							isActive: isActive,
+							mosqueId: fixedTime.mosqueId,
+							mosqueName: fixedTime.mosque.name
+						}
+					}
+				});
+			} catch (error: any) {
+				// Логируем ошибку, но не прерываем выполнение
+				console.error('Error creating audit log:', error);
+				console.error('Error type:', typeof error);
+				console.error('Error code:', error?.code);
+				console.error('Error message:', error?.message);
+				// Если это ошибка уникального ограничения, просто пропускаем
+				if (error?.code === 'P2002' || error?.meta?.code === '23505') {
+					console.warn('Audit log entry already exists (unique constraint), skipping...');
+				} else {
+					console.warn('Audit log creation failed, but operation continues:', error?.message || 'Unknown error');
+				}
+				// НЕ пробрасываем ошибку дальше - операция должна завершиться успешно
+			}
+		}
+
+		return updatedFixedTime;
 	}
 
 }

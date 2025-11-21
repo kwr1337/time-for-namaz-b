@@ -54,6 +54,11 @@ export type Admin = $Result.DefaultSelection<Prisma.$AdminPayload>
  */
 export type FixedPrayerTime = $Result.DefaultSelection<Prisma.$FixedPrayerTimePayload>
 /**
+ * Model FixedMosquePrayerTime
+ * 
+ */
+export type FixedMosquePrayerTime = $Result.DefaultSelection<Prisma.$FixedMosquePrayerTimePayload>
+/**
  * Model PrayerTimeChange
  * 
  */
@@ -63,6 +68,21 @@ export type PrayerTimeChange = $Result.DefaultSelection<Prisma.$PrayerTimeChange
  * 
  */
 export type AuditLog = $Result.DefaultSelection<Prisma.$AuditLogPayload>
+/**
+ * Model Translation
+ * 
+ */
+export type Translation = $Result.DefaultSelection<Prisma.$TranslationPayload>
+/**
+ * Model MosqueLanguageSettings
+ * 
+ */
+export type MosqueLanguageSettings = $Result.DefaultSelection<Prisma.$MosqueLanguageSettingsPayload>
+/**
+ * Model NameOfAllah
+ * 
+ */
+export type NameOfAllah = $Result.DefaultSelection<Prisma.$NameOfAllahPayload>
 
 /**
  * Enums
@@ -70,7 +90,8 @@ export type AuditLog = $Result.DefaultSelection<Prisma.$AuditLogPayload>
 export namespace $Enums {
   export const Role: {
   SUPER_ADMIN: 'SUPER_ADMIN',
-  CITY_ADMIN: 'CITY_ADMIN'
+  CITY_ADMIN: 'CITY_ADMIN',
+  MOSQUE_ADMIN: 'MOSQUE_ADMIN'
 };
 
 export type Role = (typeof Role)[keyof typeof Role]
@@ -284,6 +305,16 @@ export class PrismaClient<
   get fixedPrayerTime(): Prisma.FixedPrayerTimeDelegate<ExtArgs>;
 
   /**
+   * `prisma.fixedMosquePrayerTime`: Exposes CRUD operations for the **FixedMosquePrayerTime** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more FixedMosquePrayerTimes
+    * const fixedMosquePrayerTimes = await prisma.fixedMosquePrayerTime.findMany()
+    * ```
+    */
+  get fixedMosquePrayerTime(): Prisma.FixedMosquePrayerTimeDelegate<ExtArgs>;
+
+  /**
    * `prisma.prayerTimeChange`: Exposes CRUD operations for the **PrayerTimeChange** model.
     * Example usage:
     * ```ts
@@ -302,6 +333,36 @@ export class PrismaClient<
     * ```
     */
   get auditLog(): Prisma.AuditLogDelegate<ExtArgs>;
+
+  /**
+   * `prisma.translation`: Exposes CRUD operations for the **Translation** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Translations
+    * const translations = await prisma.translation.findMany()
+    * ```
+    */
+  get translation(): Prisma.TranslationDelegate<ExtArgs>;
+
+  /**
+   * `prisma.mosqueLanguageSettings`: Exposes CRUD operations for the **MosqueLanguageSettings** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MosqueLanguageSettings
+    * const mosqueLanguageSettings = await prisma.mosqueLanguageSettings.findMany()
+    * ```
+    */
+  get mosqueLanguageSettings(): Prisma.MosqueLanguageSettingsDelegate<ExtArgs>;
+
+  /**
+   * `prisma.nameOfAllah`: Exposes CRUD operations for the **NameOfAllah** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more NameOfAllahs
+    * const nameOfAllahs = await prisma.nameOfAllah.findMany()
+    * ```
+    */
+  get nameOfAllah(): Prisma.NameOfAllahDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -780,8 +841,12 @@ export namespace Prisma {
     ErrorMessage: 'ErrorMessage',
     Admin: 'Admin',
     FixedPrayerTime: 'FixedPrayerTime',
+    FixedMosquePrayerTime: 'FixedMosquePrayerTime',
     PrayerTimeChange: 'PrayerTimeChange',
-    AuditLog: 'AuditLog'
+    AuditLog: 'AuditLog',
+    Translation: 'Translation',
+    MosqueLanguageSettings: 'MosqueLanguageSettings',
+    NameOfAllah: 'NameOfAllah'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -798,7 +863,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'city' | 'prayer' | 'mosque' | 'media' | 'qRCode' | 'errorMessage' | 'admin' | 'fixedPrayerTime' | 'prayerTimeChange' | 'auditLog'
+      modelProps: 'city' | 'prayer' | 'mosque' | 'media' | 'qRCode' | 'errorMessage' | 'admin' | 'fixedPrayerTime' | 'fixedMosquePrayerTime' | 'prayerTimeChange' | 'auditLog' | 'translation' | 'mosqueLanguageSettings' | 'nameOfAllah'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -1330,6 +1395,72 @@ export namespace Prisma {
           }
         }
       }
+      FixedMosquePrayerTime: {
+        payload: Prisma.$FixedMosquePrayerTimePayload<ExtArgs>
+        fields: Prisma.FixedMosquePrayerTimeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.FixedMosquePrayerTimeFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FixedMosquePrayerTimePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.FixedMosquePrayerTimeFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FixedMosquePrayerTimePayload>
+          }
+          findFirst: {
+            args: Prisma.FixedMosquePrayerTimeFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FixedMosquePrayerTimePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.FixedMosquePrayerTimeFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FixedMosquePrayerTimePayload>
+          }
+          findMany: {
+            args: Prisma.FixedMosquePrayerTimeFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FixedMosquePrayerTimePayload>[]
+          }
+          create: {
+            args: Prisma.FixedMosquePrayerTimeCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FixedMosquePrayerTimePayload>
+          }
+          createMany: {
+            args: Prisma.FixedMosquePrayerTimeCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.FixedMosquePrayerTimeDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FixedMosquePrayerTimePayload>
+          }
+          update: {
+            args: Prisma.FixedMosquePrayerTimeUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FixedMosquePrayerTimePayload>
+          }
+          deleteMany: {
+            args: Prisma.FixedMosquePrayerTimeDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.FixedMosquePrayerTimeUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.FixedMosquePrayerTimeUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FixedMosquePrayerTimePayload>
+          }
+          aggregate: {
+            args: Prisma.FixedMosquePrayerTimeAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateFixedMosquePrayerTime>
+          }
+          groupBy: {
+            args: Prisma.FixedMosquePrayerTimeGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<FixedMosquePrayerTimeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.FixedMosquePrayerTimeCountArgs<ExtArgs>,
+            result: $Utils.Optional<FixedMosquePrayerTimeCountAggregateOutputType> | number
+          }
+        }
+      }
       PrayerTimeChange: {
         payload: Prisma.$PrayerTimeChangePayload<ExtArgs>
         fields: Prisma.PrayerTimeChangeFieldRefs
@@ -1459,6 +1590,204 @@ export namespace Prisma {
           count: {
             args: Prisma.AuditLogCountArgs<ExtArgs>,
             result: $Utils.Optional<AuditLogCountAggregateOutputType> | number
+          }
+        }
+      }
+      Translation: {
+        payload: Prisma.$TranslationPayload<ExtArgs>
+        fields: Prisma.TranslationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TranslationFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$TranslationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TranslationFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$TranslationPayload>
+          }
+          findFirst: {
+            args: Prisma.TranslationFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$TranslationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TranslationFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$TranslationPayload>
+          }
+          findMany: {
+            args: Prisma.TranslationFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$TranslationPayload>[]
+          }
+          create: {
+            args: Prisma.TranslationCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$TranslationPayload>
+          }
+          createMany: {
+            args: Prisma.TranslationCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.TranslationDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$TranslationPayload>
+          }
+          update: {
+            args: Prisma.TranslationUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$TranslationPayload>
+          }
+          deleteMany: {
+            args: Prisma.TranslationDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TranslationUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.TranslationUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$TranslationPayload>
+          }
+          aggregate: {
+            args: Prisma.TranslationAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateTranslation>
+          }
+          groupBy: {
+            args: Prisma.TranslationGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<TranslationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TranslationCountArgs<ExtArgs>,
+            result: $Utils.Optional<TranslationCountAggregateOutputType> | number
+          }
+        }
+      }
+      MosqueLanguageSettings: {
+        payload: Prisma.$MosqueLanguageSettingsPayload<ExtArgs>
+        fields: Prisma.MosqueLanguageSettingsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MosqueLanguageSettingsFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MosqueLanguageSettingsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MosqueLanguageSettingsFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MosqueLanguageSettingsPayload>
+          }
+          findFirst: {
+            args: Prisma.MosqueLanguageSettingsFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MosqueLanguageSettingsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MosqueLanguageSettingsFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MosqueLanguageSettingsPayload>
+          }
+          findMany: {
+            args: Prisma.MosqueLanguageSettingsFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MosqueLanguageSettingsPayload>[]
+          }
+          create: {
+            args: Prisma.MosqueLanguageSettingsCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MosqueLanguageSettingsPayload>
+          }
+          createMany: {
+            args: Prisma.MosqueLanguageSettingsCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.MosqueLanguageSettingsDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MosqueLanguageSettingsPayload>
+          }
+          update: {
+            args: Prisma.MosqueLanguageSettingsUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MosqueLanguageSettingsPayload>
+          }
+          deleteMany: {
+            args: Prisma.MosqueLanguageSettingsDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MosqueLanguageSettingsUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.MosqueLanguageSettingsUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MosqueLanguageSettingsPayload>
+          }
+          aggregate: {
+            args: Prisma.MosqueLanguageSettingsAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateMosqueLanguageSettings>
+          }
+          groupBy: {
+            args: Prisma.MosqueLanguageSettingsGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<MosqueLanguageSettingsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MosqueLanguageSettingsCountArgs<ExtArgs>,
+            result: $Utils.Optional<MosqueLanguageSettingsCountAggregateOutputType> | number
+          }
+        }
+      }
+      NameOfAllah: {
+        payload: Prisma.$NameOfAllahPayload<ExtArgs>
+        fields: Prisma.NameOfAllahFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.NameOfAllahFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$NameOfAllahPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.NameOfAllahFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$NameOfAllahPayload>
+          }
+          findFirst: {
+            args: Prisma.NameOfAllahFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$NameOfAllahPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.NameOfAllahFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$NameOfAllahPayload>
+          }
+          findMany: {
+            args: Prisma.NameOfAllahFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$NameOfAllahPayload>[]
+          }
+          create: {
+            args: Prisma.NameOfAllahCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$NameOfAllahPayload>
+          }
+          createMany: {
+            args: Prisma.NameOfAllahCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.NameOfAllahDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$NameOfAllahPayload>
+          }
+          update: {
+            args: Prisma.NameOfAllahUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$NameOfAllahPayload>
+          }
+          deleteMany: {
+            args: Prisma.NameOfAllahDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.NameOfAllahUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.NameOfAllahUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$NameOfAllahPayload>
+          }
+          aggregate: {
+            args: Prisma.NameOfAllahAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateNameOfAllah>
+          }
+          groupBy: {
+            args: Prisma.NameOfAllahGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<NameOfAllahGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.NameOfAllahCountArgs<ExtArgs>,
+            result: $Utils.Optional<NameOfAllahCountAggregateOutputType> | number
           }
         }
       }
@@ -1689,12 +2018,14 @@ export namespace Prisma {
    */
 
   export type MosqueCountOutputType = {
+    namesOfAllah: number
     media: number
     prayers: number
     qrCodes: number
   }
 
   export type MosqueCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    namesOfAllah?: boolean | MosqueCountOutputTypeCountNamesOfAllahArgs
     media?: boolean | MosqueCountOutputTypeCountMediaArgs
     prayers?: boolean | MosqueCountOutputTypeCountPrayersArgs
     qrCodes?: boolean | MosqueCountOutputTypeCountQrCodesArgs
@@ -1710,6 +2041,14 @@ export namespace Prisma {
      * Select specific fields to fetch from the MosqueCountOutputType
      */
     select?: MosqueCountOutputTypeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * MosqueCountOutputType without action
+   */
+  export type MosqueCountOutputTypeCountNamesOfAllahArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NameOfAllahWhereInput
   }
 
 
@@ -4076,6 +4415,10 @@ export namespace Prisma {
     cityId?: boolean
     name?: boolean
     logoUrl?: boolean
+    admin?: boolean | Mosque$adminArgs<ExtArgs>
+    fixedPrayerTime?: boolean | Mosque$fixedPrayerTimeArgs<ExtArgs>
+    languageSettings?: boolean | Mosque$languageSettingsArgs<ExtArgs>
+    namesOfAllah?: boolean | Mosque$namesOfAllahArgs<ExtArgs>
     media?: boolean | Mosque$mediaArgs<ExtArgs>
     city?: boolean | CityDefaultArgs<ExtArgs>
     prayers?: boolean | Mosque$prayersArgs<ExtArgs>
@@ -4091,6 +4434,10 @@ export namespace Prisma {
   }
 
   export type MosqueInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    admin?: boolean | Mosque$adminArgs<ExtArgs>
+    fixedPrayerTime?: boolean | Mosque$fixedPrayerTimeArgs<ExtArgs>
+    languageSettings?: boolean | Mosque$languageSettingsArgs<ExtArgs>
+    namesOfAllah?: boolean | Mosque$namesOfAllahArgs<ExtArgs>
     media?: boolean | Mosque$mediaArgs<ExtArgs>
     city?: boolean | CityDefaultArgs<ExtArgs>
     prayers?: boolean | Mosque$prayersArgs<ExtArgs>
@@ -4102,6 +4449,10 @@ export namespace Prisma {
   export type $MosquePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Mosque"
     objects: {
+      admin: Prisma.$AdminPayload<ExtArgs> | null
+      fixedPrayerTime: Prisma.$FixedMosquePrayerTimePayload<ExtArgs> | null
+      languageSettings: Prisma.$MosqueLanguageSettingsPayload<ExtArgs> | null
+      namesOfAllah: Prisma.$NameOfAllahPayload<ExtArgs>[]
       media: Prisma.$MediaPayload<ExtArgs>[]
       city: Prisma.$CityPayload<ExtArgs>
       prayers: Prisma.$PrayerPayload<ExtArgs>[]
@@ -4477,6 +4828,14 @@ export namespace Prisma {
   export interface Prisma__MosqueClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
 
+    admin<T extends Mosque$adminArgs<ExtArgs> = {}>(args?: Subset<T, Mosque$adminArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
+    fixedPrayerTime<T extends Mosque$fixedPrayerTimeArgs<ExtArgs> = {}>(args?: Subset<T, Mosque$fixedPrayerTimeArgs<ExtArgs>>): Prisma__FixedMosquePrayerTimeClient<$Result.GetResult<Prisma.$FixedMosquePrayerTimePayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
+    languageSettings<T extends Mosque$languageSettingsArgs<ExtArgs> = {}>(args?: Subset<T, Mosque$languageSettingsArgs<ExtArgs>>): Prisma__MosqueLanguageSettingsClient<$Result.GetResult<Prisma.$MosqueLanguageSettingsPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
+    namesOfAllah<T extends Mosque$namesOfAllahArgs<ExtArgs> = {}>(args?: Subset<T, Mosque$namesOfAllahArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NameOfAllahPayload<ExtArgs>, T, 'findMany'> | Null>;
+
     media<T extends Mosque$mediaArgs<ExtArgs> = {}>(args?: Subset<T, Mosque$mediaArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     city<T extends CityDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CityDefaultArgs<ExtArgs>>): Prisma__CityClient<$Result.GetResult<Prisma.$CityPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
@@ -4825,6 +5184,75 @@ export namespace Prisma {
      * Filter which Mosques to delete
      */
     where?: MosqueWhereInput
+  }
+
+
+  /**
+   * Mosque.admin
+   */
+  export type Mosque$adminArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AdminInclude<ExtArgs> | null
+    where?: AdminWhereInput
+  }
+
+
+  /**
+   * Mosque.fixedPrayerTime
+   */
+  export type Mosque$fixedPrayerTimeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FixedMosquePrayerTime
+     */
+    select?: FixedMosquePrayerTimeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FixedMosquePrayerTimeInclude<ExtArgs> | null
+    where?: FixedMosquePrayerTimeWhereInput
+  }
+
+
+  /**
+   * Mosque.languageSettings
+   */
+  export type Mosque$languageSettingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MosqueLanguageSettings
+     */
+    select?: MosqueLanguageSettingsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MosqueLanguageSettingsInclude<ExtArgs> | null
+    where?: MosqueLanguageSettingsWhereInput
+  }
+
+
+  /**
+   * Mosque.namesOfAllah
+   */
+  export type Mosque$namesOfAllahArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NameOfAllah
+     */
+    select?: NameOfAllahSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: NameOfAllahInclude<ExtArgs> | null
+    where?: NameOfAllahWhereInput
+    orderBy?: NameOfAllahOrderByWithRelationInput | NameOfAllahOrderByWithRelationInput[]
+    cursor?: NameOfAllahWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: NameOfAllahScalarFieldEnum | NameOfAllahScalarFieldEnum[]
   }
 
 
@@ -7705,11 +8133,13 @@ export namespace Prisma {
   export type AdminAvgAggregateOutputType = {
     id: number | null
     cityId: number | null
+    mosqueId: number | null
   }
 
   export type AdminSumAggregateOutputType = {
     id: number | null
     cityId: number | null
+    mosqueId: number | null
   }
 
   export type AdminMinAggregateOutputType = {
@@ -7719,6 +8149,7 @@ export namespace Prisma {
     createdAt: Date | null
     role: $Enums.Role | null
     cityId: number | null
+    mosqueId: number | null
   }
 
   export type AdminMaxAggregateOutputType = {
@@ -7728,6 +8159,7 @@ export namespace Prisma {
     createdAt: Date | null
     role: $Enums.Role | null
     cityId: number | null
+    mosqueId: number | null
   }
 
   export type AdminCountAggregateOutputType = {
@@ -7737,6 +8169,7 @@ export namespace Prisma {
     createdAt: number
     role: number
     cityId: number
+    mosqueId: number
     _all: number
   }
 
@@ -7744,11 +8177,13 @@ export namespace Prisma {
   export type AdminAvgAggregateInputType = {
     id?: true
     cityId?: true
+    mosqueId?: true
   }
 
   export type AdminSumAggregateInputType = {
     id?: true
     cityId?: true
+    mosqueId?: true
   }
 
   export type AdminMinAggregateInputType = {
@@ -7758,6 +8193,7 @@ export namespace Prisma {
     createdAt?: true
     role?: true
     cityId?: true
+    mosqueId?: true
   }
 
   export type AdminMaxAggregateInputType = {
@@ -7767,6 +8203,7 @@ export namespace Prisma {
     createdAt?: true
     role?: true
     cityId?: true
+    mosqueId?: true
   }
 
   export type AdminCountAggregateInputType = {
@@ -7776,6 +8213,7 @@ export namespace Prisma {
     createdAt?: true
     role?: true
     cityId?: true
+    mosqueId?: true
     _all?: true
   }
 
@@ -7872,6 +8310,7 @@ export namespace Prisma {
     createdAt: Date
     role: $Enums.Role
     cityId: number | null
+    mosqueId: number | null
     _count: AdminCountAggregateOutputType | null
     _avg: AdminAvgAggregateOutputType | null
     _sum: AdminSumAggregateOutputType | null
@@ -7900,7 +8339,9 @@ export namespace Prisma {
     createdAt?: boolean
     role?: boolean
     cityId?: boolean
+    mosqueId?: boolean
     city?: boolean | Admin$cityArgs<ExtArgs>
+    mosque?: boolean | Admin$mosqueArgs<ExtArgs>
     prayerChanges?: boolean | Admin$prayerChangesArgs<ExtArgs>
     auditLogs?: boolean | Admin$auditLogsArgs<ExtArgs>
     _count?: boolean | AdminCountOutputTypeDefaultArgs<ExtArgs>
@@ -7913,10 +8354,12 @@ export namespace Prisma {
     createdAt?: boolean
     role?: boolean
     cityId?: boolean
+    mosqueId?: boolean
   }
 
   export type AdminInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     city?: boolean | Admin$cityArgs<ExtArgs>
+    mosque?: boolean | Admin$mosqueArgs<ExtArgs>
     prayerChanges?: boolean | Admin$prayerChangesArgs<ExtArgs>
     auditLogs?: boolean | Admin$auditLogsArgs<ExtArgs>
     _count?: boolean | AdminCountOutputTypeDefaultArgs<ExtArgs>
@@ -7927,6 +8370,7 @@ export namespace Prisma {
     name: "Admin"
     objects: {
       city: Prisma.$CityPayload<ExtArgs> | null
+      mosque: Prisma.$MosquePayload<ExtArgs> | null
       prayerChanges: Prisma.$PrayerTimeChangePayload<ExtArgs>[]
       auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
     }
@@ -7937,6 +8381,7 @@ export namespace Prisma {
       createdAt: Date
       role: $Enums.Role
       cityId: number | null
+      mosqueId: number | null
     }, ExtArgs["result"]["admin"]>
     composites: {}
   }
@@ -8304,6 +8749,8 @@ export namespace Prisma {
 
     city<T extends Admin$cityArgs<ExtArgs> = {}>(args?: Subset<T, Admin$cityArgs<ExtArgs>>): Prisma__CityClient<$Result.GetResult<Prisma.$CityPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
+    mosque<T extends Admin$mosqueArgs<ExtArgs> = {}>(args?: Subset<T, Admin$mosqueArgs<ExtArgs>>): Prisma__MosqueClient<$Result.GetResult<Prisma.$MosquePayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
     prayerChanges<T extends Admin$prayerChangesArgs<ExtArgs> = {}>(args?: Subset<T, Admin$prayerChangesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PrayerTimeChangePayload<ExtArgs>, T, 'findMany'> | Null>;
 
     auditLogs<T extends Admin$auditLogsArgs<ExtArgs> = {}>(args?: Subset<T, Admin$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, 'findMany'> | Null>;
@@ -8342,6 +8789,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Admin", 'DateTime'>
     readonly role: FieldRef<"Admin", 'Role'>
     readonly cityId: FieldRef<"Admin", 'Int'>
+    readonly mosqueId: FieldRef<"Admin", 'Int'>
   }
     
 
@@ -8666,6 +9114,22 @@ export namespace Prisma {
      */
     include?: CityInclude<ExtArgs> | null
     where?: CityWhereInput
+  }
+
+
+  /**
+   * Admin.mosque
+   */
+  export type Admin$mosqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Mosque
+     */
+    select?: MosqueSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MosqueInclude<ExtArgs> | null
+    where?: MosqueWhereInput
   }
 
 
@@ -9822,6 +10286,1287 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well.
      */
     include?: FixedPrayerTimeInclude<ExtArgs> | null
+  }
+
+
+
+  /**
+   * Model FixedMosquePrayerTime
+   */
+
+  export type AggregateFixedMosquePrayerTime = {
+    _count: FixedMosquePrayerTimeCountAggregateOutputType | null
+    _avg: FixedMosquePrayerTimeAvgAggregateOutputType | null
+    _sum: FixedMosquePrayerTimeSumAggregateOutputType | null
+    _min: FixedMosquePrayerTimeMinAggregateOutputType | null
+    _max: FixedMosquePrayerTimeMaxAggregateOutputType | null
+  }
+
+  export type FixedMosquePrayerTimeAvgAggregateOutputType = {
+    id: number | null
+    mosqueId: number | null
+    fajrIqamaMinutes: number | null
+    shurukIqamaMinutes: number | null
+    zuhrIqamaMinutes: number | null
+    asrIqamaMinutes: number | null
+    maghribIqamaMinutes: number | null
+    ishaIqamaMinutes: number | null
+    mechetIqamaMinutes: number | null
+  }
+
+  export type FixedMosquePrayerTimeSumAggregateOutputType = {
+    id: number | null
+    mosqueId: number | null
+    fajrIqamaMinutes: number | null
+    shurukIqamaMinutes: number | null
+    zuhrIqamaMinutes: number | null
+    asrIqamaMinutes: number | null
+    maghribIqamaMinutes: number | null
+    ishaIqamaMinutes: number | null
+    mechetIqamaMinutes: number | null
+  }
+
+  export type FixedMosquePrayerTimeMinAggregateOutputType = {
+    id: number | null
+    mosqueId: number | null
+    fajr: string | null
+    shuruk: string | null
+    zuhr: string | null
+    asr: string | null
+    maghrib: string | null
+    isha: string | null
+    mechet: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    fajrActive: boolean | null
+    shurukActive: boolean | null
+    zuhrActive: boolean | null
+    asrActive: boolean | null
+    maghribActive: boolean | null
+    ishaActive: boolean | null
+    mechetActive: boolean | null
+    fajrIqamaEnabled: boolean | null
+    fajrIqamaMinutes: number | null
+    shurukIqamaEnabled: boolean | null
+    shurukIqamaMinutes: number | null
+    zuhrIqamaEnabled: boolean | null
+    zuhrIqamaMinutes: number | null
+    asrIqamaEnabled: boolean | null
+    asrIqamaMinutes: number | null
+    maghribIqamaEnabled: boolean | null
+    maghribIqamaMinutes: number | null
+    ishaIqamaEnabled: boolean | null
+    ishaIqamaMinutes: number | null
+    mechetIqamaEnabled: boolean | null
+    mechetIqamaMinutes: number | null
+  }
+
+  export type FixedMosquePrayerTimeMaxAggregateOutputType = {
+    id: number | null
+    mosqueId: number | null
+    fajr: string | null
+    shuruk: string | null
+    zuhr: string | null
+    asr: string | null
+    maghrib: string | null
+    isha: string | null
+    mechet: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    fajrActive: boolean | null
+    shurukActive: boolean | null
+    zuhrActive: boolean | null
+    asrActive: boolean | null
+    maghribActive: boolean | null
+    ishaActive: boolean | null
+    mechetActive: boolean | null
+    fajrIqamaEnabled: boolean | null
+    fajrIqamaMinutes: number | null
+    shurukIqamaEnabled: boolean | null
+    shurukIqamaMinutes: number | null
+    zuhrIqamaEnabled: boolean | null
+    zuhrIqamaMinutes: number | null
+    asrIqamaEnabled: boolean | null
+    asrIqamaMinutes: number | null
+    maghribIqamaEnabled: boolean | null
+    maghribIqamaMinutes: number | null
+    ishaIqamaEnabled: boolean | null
+    ishaIqamaMinutes: number | null
+    mechetIqamaEnabled: boolean | null
+    mechetIqamaMinutes: number | null
+  }
+
+  export type FixedMosquePrayerTimeCountAggregateOutputType = {
+    id: number
+    mosqueId: number
+    fajr: number
+    shuruk: number
+    zuhr: number
+    asr: number
+    maghrib: number
+    isha: number
+    mechet: number
+    createdAt: number
+    updatedAt: number
+    fajrActive: number
+    shurukActive: number
+    zuhrActive: number
+    asrActive: number
+    maghribActive: number
+    ishaActive: number
+    mechetActive: number
+    fajrIqamaEnabled: number
+    fajrIqamaMinutes: number
+    shurukIqamaEnabled: number
+    shurukIqamaMinutes: number
+    zuhrIqamaEnabled: number
+    zuhrIqamaMinutes: number
+    asrIqamaEnabled: number
+    asrIqamaMinutes: number
+    maghribIqamaEnabled: number
+    maghribIqamaMinutes: number
+    ishaIqamaEnabled: number
+    ishaIqamaMinutes: number
+    mechetIqamaEnabled: number
+    mechetIqamaMinutes: number
+    _all: number
+  }
+
+
+  export type FixedMosquePrayerTimeAvgAggregateInputType = {
+    id?: true
+    mosqueId?: true
+    fajrIqamaMinutes?: true
+    shurukIqamaMinutes?: true
+    zuhrIqamaMinutes?: true
+    asrIqamaMinutes?: true
+    maghribIqamaMinutes?: true
+    ishaIqamaMinutes?: true
+    mechetIqamaMinutes?: true
+  }
+
+  export type FixedMosquePrayerTimeSumAggregateInputType = {
+    id?: true
+    mosqueId?: true
+    fajrIqamaMinutes?: true
+    shurukIqamaMinutes?: true
+    zuhrIqamaMinutes?: true
+    asrIqamaMinutes?: true
+    maghribIqamaMinutes?: true
+    ishaIqamaMinutes?: true
+    mechetIqamaMinutes?: true
+  }
+
+  export type FixedMosquePrayerTimeMinAggregateInputType = {
+    id?: true
+    mosqueId?: true
+    fajr?: true
+    shuruk?: true
+    zuhr?: true
+    asr?: true
+    maghrib?: true
+    isha?: true
+    mechet?: true
+    createdAt?: true
+    updatedAt?: true
+    fajrActive?: true
+    shurukActive?: true
+    zuhrActive?: true
+    asrActive?: true
+    maghribActive?: true
+    ishaActive?: true
+    mechetActive?: true
+    fajrIqamaEnabled?: true
+    fajrIqamaMinutes?: true
+    shurukIqamaEnabled?: true
+    shurukIqamaMinutes?: true
+    zuhrIqamaEnabled?: true
+    zuhrIqamaMinutes?: true
+    asrIqamaEnabled?: true
+    asrIqamaMinutes?: true
+    maghribIqamaEnabled?: true
+    maghribIqamaMinutes?: true
+    ishaIqamaEnabled?: true
+    ishaIqamaMinutes?: true
+    mechetIqamaEnabled?: true
+    mechetIqamaMinutes?: true
+  }
+
+  export type FixedMosquePrayerTimeMaxAggregateInputType = {
+    id?: true
+    mosqueId?: true
+    fajr?: true
+    shuruk?: true
+    zuhr?: true
+    asr?: true
+    maghrib?: true
+    isha?: true
+    mechet?: true
+    createdAt?: true
+    updatedAt?: true
+    fajrActive?: true
+    shurukActive?: true
+    zuhrActive?: true
+    asrActive?: true
+    maghribActive?: true
+    ishaActive?: true
+    mechetActive?: true
+    fajrIqamaEnabled?: true
+    fajrIqamaMinutes?: true
+    shurukIqamaEnabled?: true
+    shurukIqamaMinutes?: true
+    zuhrIqamaEnabled?: true
+    zuhrIqamaMinutes?: true
+    asrIqamaEnabled?: true
+    asrIqamaMinutes?: true
+    maghribIqamaEnabled?: true
+    maghribIqamaMinutes?: true
+    ishaIqamaEnabled?: true
+    ishaIqamaMinutes?: true
+    mechetIqamaEnabled?: true
+    mechetIqamaMinutes?: true
+  }
+
+  export type FixedMosquePrayerTimeCountAggregateInputType = {
+    id?: true
+    mosqueId?: true
+    fajr?: true
+    shuruk?: true
+    zuhr?: true
+    asr?: true
+    maghrib?: true
+    isha?: true
+    mechet?: true
+    createdAt?: true
+    updatedAt?: true
+    fajrActive?: true
+    shurukActive?: true
+    zuhrActive?: true
+    asrActive?: true
+    maghribActive?: true
+    ishaActive?: true
+    mechetActive?: true
+    fajrIqamaEnabled?: true
+    fajrIqamaMinutes?: true
+    shurukIqamaEnabled?: true
+    shurukIqamaMinutes?: true
+    zuhrIqamaEnabled?: true
+    zuhrIqamaMinutes?: true
+    asrIqamaEnabled?: true
+    asrIqamaMinutes?: true
+    maghribIqamaEnabled?: true
+    maghribIqamaMinutes?: true
+    ishaIqamaEnabled?: true
+    ishaIqamaMinutes?: true
+    mechetIqamaEnabled?: true
+    mechetIqamaMinutes?: true
+    _all?: true
+  }
+
+  export type FixedMosquePrayerTimeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FixedMosquePrayerTime to aggregate.
+     */
+    where?: FixedMosquePrayerTimeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FixedMosquePrayerTimes to fetch.
+     */
+    orderBy?: FixedMosquePrayerTimeOrderByWithRelationInput | FixedMosquePrayerTimeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: FixedMosquePrayerTimeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FixedMosquePrayerTimes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FixedMosquePrayerTimes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned FixedMosquePrayerTimes
+    **/
+    _count?: true | FixedMosquePrayerTimeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: FixedMosquePrayerTimeAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: FixedMosquePrayerTimeSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FixedMosquePrayerTimeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FixedMosquePrayerTimeMaxAggregateInputType
+  }
+
+  export type GetFixedMosquePrayerTimeAggregateType<T extends FixedMosquePrayerTimeAggregateArgs> = {
+        [P in keyof T & keyof AggregateFixedMosquePrayerTime]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFixedMosquePrayerTime[P]>
+      : GetScalarType<T[P], AggregateFixedMosquePrayerTime[P]>
+  }
+
+
+
+
+  export type FixedMosquePrayerTimeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FixedMosquePrayerTimeWhereInput
+    orderBy?: FixedMosquePrayerTimeOrderByWithAggregationInput | FixedMosquePrayerTimeOrderByWithAggregationInput[]
+    by: FixedMosquePrayerTimeScalarFieldEnum[] | FixedMosquePrayerTimeScalarFieldEnum
+    having?: FixedMosquePrayerTimeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FixedMosquePrayerTimeCountAggregateInputType | true
+    _avg?: FixedMosquePrayerTimeAvgAggregateInputType
+    _sum?: FixedMosquePrayerTimeSumAggregateInputType
+    _min?: FixedMosquePrayerTimeMinAggregateInputType
+    _max?: FixedMosquePrayerTimeMaxAggregateInputType
+  }
+
+  export type FixedMosquePrayerTimeGroupByOutputType = {
+    id: number
+    mosqueId: number
+    fajr: string
+    shuruk: string
+    zuhr: string
+    asr: string
+    maghrib: string
+    isha: string
+    mechet: string | null
+    createdAt: Date
+    updatedAt: Date
+    fajrActive: boolean
+    shurukActive: boolean
+    zuhrActive: boolean
+    asrActive: boolean
+    maghribActive: boolean
+    ishaActive: boolean
+    mechetActive: boolean
+    fajrIqamaEnabled: boolean
+    fajrIqamaMinutes: number
+    shurukIqamaEnabled: boolean
+    shurukIqamaMinutes: number
+    zuhrIqamaEnabled: boolean
+    zuhrIqamaMinutes: number
+    asrIqamaEnabled: boolean
+    asrIqamaMinutes: number
+    maghribIqamaEnabled: boolean
+    maghribIqamaMinutes: number
+    ishaIqamaEnabled: boolean
+    ishaIqamaMinutes: number
+    mechetIqamaEnabled: boolean
+    mechetIqamaMinutes: number
+    _count: FixedMosquePrayerTimeCountAggregateOutputType | null
+    _avg: FixedMosquePrayerTimeAvgAggregateOutputType | null
+    _sum: FixedMosquePrayerTimeSumAggregateOutputType | null
+    _min: FixedMosquePrayerTimeMinAggregateOutputType | null
+    _max: FixedMosquePrayerTimeMaxAggregateOutputType | null
+  }
+
+  type GetFixedMosquePrayerTimeGroupByPayload<T extends FixedMosquePrayerTimeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<FixedMosquePrayerTimeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FixedMosquePrayerTimeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FixedMosquePrayerTimeGroupByOutputType[P]>
+            : GetScalarType<T[P], FixedMosquePrayerTimeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type FixedMosquePrayerTimeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    mosqueId?: boolean
+    fajr?: boolean
+    shuruk?: boolean
+    zuhr?: boolean
+    asr?: boolean
+    maghrib?: boolean
+    isha?: boolean
+    mechet?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    fajrActive?: boolean
+    shurukActive?: boolean
+    zuhrActive?: boolean
+    asrActive?: boolean
+    maghribActive?: boolean
+    ishaActive?: boolean
+    mechetActive?: boolean
+    fajrIqamaEnabled?: boolean
+    fajrIqamaMinutes?: boolean
+    shurukIqamaEnabled?: boolean
+    shurukIqamaMinutes?: boolean
+    zuhrIqamaEnabled?: boolean
+    zuhrIqamaMinutes?: boolean
+    asrIqamaEnabled?: boolean
+    asrIqamaMinutes?: boolean
+    maghribIqamaEnabled?: boolean
+    maghribIqamaMinutes?: boolean
+    ishaIqamaEnabled?: boolean
+    ishaIqamaMinutes?: boolean
+    mechetIqamaEnabled?: boolean
+    mechetIqamaMinutes?: boolean
+    mosque?: boolean | MosqueDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["fixedMosquePrayerTime"]>
+
+  export type FixedMosquePrayerTimeSelectScalar = {
+    id?: boolean
+    mosqueId?: boolean
+    fajr?: boolean
+    shuruk?: boolean
+    zuhr?: boolean
+    asr?: boolean
+    maghrib?: boolean
+    isha?: boolean
+    mechet?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    fajrActive?: boolean
+    shurukActive?: boolean
+    zuhrActive?: boolean
+    asrActive?: boolean
+    maghribActive?: boolean
+    ishaActive?: boolean
+    mechetActive?: boolean
+    fajrIqamaEnabled?: boolean
+    fajrIqamaMinutes?: boolean
+    shurukIqamaEnabled?: boolean
+    shurukIqamaMinutes?: boolean
+    zuhrIqamaEnabled?: boolean
+    zuhrIqamaMinutes?: boolean
+    asrIqamaEnabled?: boolean
+    asrIqamaMinutes?: boolean
+    maghribIqamaEnabled?: boolean
+    maghribIqamaMinutes?: boolean
+    ishaIqamaEnabled?: boolean
+    ishaIqamaMinutes?: boolean
+    mechetIqamaEnabled?: boolean
+    mechetIqamaMinutes?: boolean
+  }
+
+  export type FixedMosquePrayerTimeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    mosque?: boolean | MosqueDefaultArgs<ExtArgs>
+  }
+
+
+  export type $FixedMosquePrayerTimePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "FixedMosquePrayerTime"
+    objects: {
+      mosque: Prisma.$MosquePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      mosqueId: number
+      fajr: string
+      shuruk: string
+      zuhr: string
+      asr: string
+      maghrib: string
+      isha: string
+      mechet: string | null
+      createdAt: Date
+      updatedAt: Date
+      fajrActive: boolean
+      shurukActive: boolean
+      zuhrActive: boolean
+      asrActive: boolean
+      maghribActive: boolean
+      ishaActive: boolean
+      mechetActive: boolean
+      fajrIqamaEnabled: boolean
+      fajrIqamaMinutes: number
+      shurukIqamaEnabled: boolean
+      shurukIqamaMinutes: number
+      zuhrIqamaEnabled: boolean
+      zuhrIqamaMinutes: number
+      asrIqamaEnabled: boolean
+      asrIqamaMinutes: number
+      maghribIqamaEnabled: boolean
+      maghribIqamaMinutes: number
+      ishaIqamaEnabled: boolean
+      ishaIqamaMinutes: number
+      mechetIqamaEnabled: boolean
+      mechetIqamaMinutes: number
+    }, ExtArgs["result"]["fixedMosquePrayerTime"]>
+    composites: {}
+  }
+
+
+  type FixedMosquePrayerTimeGetPayload<S extends boolean | null | undefined | FixedMosquePrayerTimeDefaultArgs> = $Result.GetResult<Prisma.$FixedMosquePrayerTimePayload, S>
+
+  type FixedMosquePrayerTimeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<FixedMosquePrayerTimeFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: FixedMosquePrayerTimeCountAggregateInputType | true
+    }
+
+  export interface FixedMosquePrayerTimeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['FixedMosquePrayerTime'], meta: { name: 'FixedMosquePrayerTime' } }
+    /**
+     * Find zero or one FixedMosquePrayerTime that matches the filter.
+     * @param {FixedMosquePrayerTimeFindUniqueArgs} args - Arguments to find a FixedMosquePrayerTime
+     * @example
+     * // Get one FixedMosquePrayerTime
+     * const fixedMosquePrayerTime = await prisma.fixedMosquePrayerTime.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends FixedMosquePrayerTimeFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, FixedMosquePrayerTimeFindUniqueArgs<ExtArgs>>
+    ): Prisma__FixedMosquePrayerTimeClient<$Result.GetResult<Prisma.$FixedMosquePrayerTimePayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one FixedMosquePrayerTime that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {FixedMosquePrayerTimeFindUniqueOrThrowArgs} args - Arguments to find a FixedMosquePrayerTime
+     * @example
+     * // Get one FixedMosquePrayerTime
+     * const fixedMosquePrayerTime = await prisma.fixedMosquePrayerTime.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends FixedMosquePrayerTimeFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, FixedMosquePrayerTimeFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__FixedMosquePrayerTimeClient<$Result.GetResult<Prisma.$FixedMosquePrayerTimePayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first FixedMosquePrayerTime that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FixedMosquePrayerTimeFindFirstArgs} args - Arguments to find a FixedMosquePrayerTime
+     * @example
+     * // Get one FixedMosquePrayerTime
+     * const fixedMosquePrayerTime = await prisma.fixedMosquePrayerTime.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends FixedMosquePrayerTimeFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, FixedMosquePrayerTimeFindFirstArgs<ExtArgs>>
+    ): Prisma__FixedMosquePrayerTimeClient<$Result.GetResult<Prisma.$FixedMosquePrayerTimePayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first FixedMosquePrayerTime that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FixedMosquePrayerTimeFindFirstOrThrowArgs} args - Arguments to find a FixedMosquePrayerTime
+     * @example
+     * // Get one FixedMosquePrayerTime
+     * const fixedMosquePrayerTime = await prisma.fixedMosquePrayerTime.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends FixedMosquePrayerTimeFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, FixedMosquePrayerTimeFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__FixedMosquePrayerTimeClient<$Result.GetResult<Prisma.$FixedMosquePrayerTimePayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more FixedMosquePrayerTimes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FixedMosquePrayerTimeFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all FixedMosquePrayerTimes
+     * const fixedMosquePrayerTimes = await prisma.fixedMosquePrayerTime.findMany()
+     * 
+     * // Get first 10 FixedMosquePrayerTimes
+     * const fixedMosquePrayerTimes = await prisma.fixedMosquePrayerTime.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const fixedMosquePrayerTimeWithIdOnly = await prisma.fixedMosquePrayerTime.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends FixedMosquePrayerTimeFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, FixedMosquePrayerTimeFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FixedMosquePrayerTimePayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a FixedMosquePrayerTime.
+     * @param {FixedMosquePrayerTimeCreateArgs} args - Arguments to create a FixedMosquePrayerTime.
+     * @example
+     * // Create one FixedMosquePrayerTime
+     * const FixedMosquePrayerTime = await prisma.fixedMosquePrayerTime.create({
+     *   data: {
+     *     // ... data to create a FixedMosquePrayerTime
+     *   }
+     * })
+     * 
+    **/
+    create<T extends FixedMosquePrayerTimeCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, FixedMosquePrayerTimeCreateArgs<ExtArgs>>
+    ): Prisma__FixedMosquePrayerTimeClient<$Result.GetResult<Prisma.$FixedMosquePrayerTimePayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many FixedMosquePrayerTimes.
+     *     @param {FixedMosquePrayerTimeCreateManyArgs} args - Arguments to create many FixedMosquePrayerTimes.
+     *     @example
+     *     // Create many FixedMosquePrayerTimes
+     *     const fixedMosquePrayerTime = await prisma.fixedMosquePrayerTime.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends FixedMosquePrayerTimeCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, FixedMosquePrayerTimeCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a FixedMosquePrayerTime.
+     * @param {FixedMosquePrayerTimeDeleteArgs} args - Arguments to delete one FixedMosquePrayerTime.
+     * @example
+     * // Delete one FixedMosquePrayerTime
+     * const FixedMosquePrayerTime = await prisma.fixedMosquePrayerTime.delete({
+     *   where: {
+     *     // ... filter to delete one FixedMosquePrayerTime
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends FixedMosquePrayerTimeDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, FixedMosquePrayerTimeDeleteArgs<ExtArgs>>
+    ): Prisma__FixedMosquePrayerTimeClient<$Result.GetResult<Prisma.$FixedMosquePrayerTimePayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one FixedMosquePrayerTime.
+     * @param {FixedMosquePrayerTimeUpdateArgs} args - Arguments to update one FixedMosquePrayerTime.
+     * @example
+     * // Update one FixedMosquePrayerTime
+     * const fixedMosquePrayerTime = await prisma.fixedMosquePrayerTime.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends FixedMosquePrayerTimeUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, FixedMosquePrayerTimeUpdateArgs<ExtArgs>>
+    ): Prisma__FixedMosquePrayerTimeClient<$Result.GetResult<Prisma.$FixedMosquePrayerTimePayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more FixedMosquePrayerTimes.
+     * @param {FixedMosquePrayerTimeDeleteManyArgs} args - Arguments to filter FixedMosquePrayerTimes to delete.
+     * @example
+     * // Delete a few FixedMosquePrayerTimes
+     * const { count } = await prisma.fixedMosquePrayerTime.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends FixedMosquePrayerTimeDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, FixedMosquePrayerTimeDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more FixedMosquePrayerTimes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FixedMosquePrayerTimeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many FixedMosquePrayerTimes
+     * const fixedMosquePrayerTime = await prisma.fixedMosquePrayerTime.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends FixedMosquePrayerTimeUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, FixedMosquePrayerTimeUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one FixedMosquePrayerTime.
+     * @param {FixedMosquePrayerTimeUpsertArgs} args - Arguments to update or create a FixedMosquePrayerTime.
+     * @example
+     * // Update or create a FixedMosquePrayerTime
+     * const fixedMosquePrayerTime = await prisma.fixedMosquePrayerTime.upsert({
+     *   create: {
+     *     // ... data to create a FixedMosquePrayerTime
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the FixedMosquePrayerTime we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends FixedMosquePrayerTimeUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, FixedMosquePrayerTimeUpsertArgs<ExtArgs>>
+    ): Prisma__FixedMosquePrayerTimeClient<$Result.GetResult<Prisma.$FixedMosquePrayerTimePayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of FixedMosquePrayerTimes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FixedMosquePrayerTimeCountArgs} args - Arguments to filter FixedMosquePrayerTimes to count.
+     * @example
+     * // Count the number of FixedMosquePrayerTimes
+     * const count = await prisma.fixedMosquePrayerTime.count({
+     *   where: {
+     *     // ... the filter for the FixedMosquePrayerTimes we want to count
+     *   }
+     * })
+    **/
+    count<T extends FixedMosquePrayerTimeCountArgs>(
+      args?: Subset<T, FixedMosquePrayerTimeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FixedMosquePrayerTimeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a FixedMosquePrayerTime.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FixedMosquePrayerTimeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FixedMosquePrayerTimeAggregateArgs>(args: Subset<T, FixedMosquePrayerTimeAggregateArgs>): Prisma.PrismaPromise<GetFixedMosquePrayerTimeAggregateType<T>>
+
+    /**
+     * Group by FixedMosquePrayerTime.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FixedMosquePrayerTimeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends FixedMosquePrayerTimeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FixedMosquePrayerTimeGroupByArgs['orderBy'] }
+        : { orderBy?: FixedMosquePrayerTimeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, FixedMosquePrayerTimeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFixedMosquePrayerTimeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the FixedMosquePrayerTime model
+   */
+  readonly fields: FixedMosquePrayerTimeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for FixedMosquePrayerTime.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__FixedMosquePrayerTimeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    mosque<T extends MosqueDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MosqueDefaultArgs<ExtArgs>>): Prisma__MosqueClient<$Result.GetResult<Prisma.$MosquePayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the FixedMosquePrayerTime model
+   */ 
+  interface FixedMosquePrayerTimeFieldRefs {
+    readonly id: FieldRef<"FixedMosquePrayerTime", 'Int'>
+    readonly mosqueId: FieldRef<"FixedMosquePrayerTime", 'Int'>
+    readonly fajr: FieldRef<"FixedMosquePrayerTime", 'String'>
+    readonly shuruk: FieldRef<"FixedMosquePrayerTime", 'String'>
+    readonly zuhr: FieldRef<"FixedMosquePrayerTime", 'String'>
+    readonly asr: FieldRef<"FixedMosquePrayerTime", 'String'>
+    readonly maghrib: FieldRef<"FixedMosquePrayerTime", 'String'>
+    readonly isha: FieldRef<"FixedMosquePrayerTime", 'String'>
+    readonly mechet: FieldRef<"FixedMosquePrayerTime", 'String'>
+    readonly createdAt: FieldRef<"FixedMosquePrayerTime", 'DateTime'>
+    readonly updatedAt: FieldRef<"FixedMosquePrayerTime", 'DateTime'>
+    readonly fajrActive: FieldRef<"FixedMosquePrayerTime", 'Boolean'>
+    readonly shurukActive: FieldRef<"FixedMosquePrayerTime", 'Boolean'>
+    readonly zuhrActive: FieldRef<"FixedMosquePrayerTime", 'Boolean'>
+    readonly asrActive: FieldRef<"FixedMosquePrayerTime", 'Boolean'>
+    readonly maghribActive: FieldRef<"FixedMosquePrayerTime", 'Boolean'>
+    readonly ishaActive: FieldRef<"FixedMosquePrayerTime", 'Boolean'>
+    readonly mechetActive: FieldRef<"FixedMosquePrayerTime", 'Boolean'>
+    readonly fajrIqamaEnabled: FieldRef<"FixedMosquePrayerTime", 'Boolean'>
+    readonly fajrIqamaMinutes: FieldRef<"FixedMosquePrayerTime", 'Int'>
+    readonly shurukIqamaEnabled: FieldRef<"FixedMosquePrayerTime", 'Boolean'>
+    readonly shurukIqamaMinutes: FieldRef<"FixedMosquePrayerTime", 'Int'>
+    readonly zuhrIqamaEnabled: FieldRef<"FixedMosquePrayerTime", 'Boolean'>
+    readonly zuhrIqamaMinutes: FieldRef<"FixedMosquePrayerTime", 'Int'>
+    readonly asrIqamaEnabled: FieldRef<"FixedMosquePrayerTime", 'Boolean'>
+    readonly asrIqamaMinutes: FieldRef<"FixedMosquePrayerTime", 'Int'>
+    readonly maghribIqamaEnabled: FieldRef<"FixedMosquePrayerTime", 'Boolean'>
+    readonly maghribIqamaMinutes: FieldRef<"FixedMosquePrayerTime", 'Int'>
+    readonly ishaIqamaEnabled: FieldRef<"FixedMosquePrayerTime", 'Boolean'>
+    readonly ishaIqamaMinutes: FieldRef<"FixedMosquePrayerTime", 'Int'>
+    readonly mechetIqamaEnabled: FieldRef<"FixedMosquePrayerTime", 'Boolean'>
+    readonly mechetIqamaMinutes: FieldRef<"FixedMosquePrayerTime", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * FixedMosquePrayerTime findUnique
+   */
+  export type FixedMosquePrayerTimeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FixedMosquePrayerTime
+     */
+    select?: FixedMosquePrayerTimeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FixedMosquePrayerTimeInclude<ExtArgs> | null
+    /**
+     * Filter, which FixedMosquePrayerTime to fetch.
+     */
+    where: FixedMosquePrayerTimeWhereUniqueInput
+  }
+
+
+  /**
+   * FixedMosquePrayerTime findUniqueOrThrow
+   */
+  export type FixedMosquePrayerTimeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FixedMosquePrayerTime
+     */
+    select?: FixedMosquePrayerTimeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FixedMosquePrayerTimeInclude<ExtArgs> | null
+    /**
+     * Filter, which FixedMosquePrayerTime to fetch.
+     */
+    where: FixedMosquePrayerTimeWhereUniqueInput
+  }
+
+
+  /**
+   * FixedMosquePrayerTime findFirst
+   */
+  export type FixedMosquePrayerTimeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FixedMosquePrayerTime
+     */
+    select?: FixedMosquePrayerTimeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FixedMosquePrayerTimeInclude<ExtArgs> | null
+    /**
+     * Filter, which FixedMosquePrayerTime to fetch.
+     */
+    where?: FixedMosquePrayerTimeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FixedMosquePrayerTimes to fetch.
+     */
+    orderBy?: FixedMosquePrayerTimeOrderByWithRelationInput | FixedMosquePrayerTimeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FixedMosquePrayerTimes.
+     */
+    cursor?: FixedMosquePrayerTimeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FixedMosquePrayerTimes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FixedMosquePrayerTimes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FixedMosquePrayerTimes.
+     */
+    distinct?: FixedMosquePrayerTimeScalarFieldEnum | FixedMosquePrayerTimeScalarFieldEnum[]
+  }
+
+
+  /**
+   * FixedMosquePrayerTime findFirstOrThrow
+   */
+  export type FixedMosquePrayerTimeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FixedMosquePrayerTime
+     */
+    select?: FixedMosquePrayerTimeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FixedMosquePrayerTimeInclude<ExtArgs> | null
+    /**
+     * Filter, which FixedMosquePrayerTime to fetch.
+     */
+    where?: FixedMosquePrayerTimeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FixedMosquePrayerTimes to fetch.
+     */
+    orderBy?: FixedMosquePrayerTimeOrderByWithRelationInput | FixedMosquePrayerTimeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FixedMosquePrayerTimes.
+     */
+    cursor?: FixedMosquePrayerTimeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FixedMosquePrayerTimes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FixedMosquePrayerTimes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FixedMosquePrayerTimes.
+     */
+    distinct?: FixedMosquePrayerTimeScalarFieldEnum | FixedMosquePrayerTimeScalarFieldEnum[]
+  }
+
+
+  /**
+   * FixedMosquePrayerTime findMany
+   */
+  export type FixedMosquePrayerTimeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FixedMosquePrayerTime
+     */
+    select?: FixedMosquePrayerTimeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FixedMosquePrayerTimeInclude<ExtArgs> | null
+    /**
+     * Filter, which FixedMosquePrayerTimes to fetch.
+     */
+    where?: FixedMosquePrayerTimeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FixedMosquePrayerTimes to fetch.
+     */
+    orderBy?: FixedMosquePrayerTimeOrderByWithRelationInput | FixedMosquePrayerTimeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing FixedMosquePrayerTimes.
+     */
+    cursor?: FixedMosquePrayerTimeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FixedMosquePrayerTimes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FixedMosquePrayerTimes.
+     */
+    skip?: number
+    distinct?: FixedMosquePrayerTimeScalarFieldEnum | FixedMosquePrayerTimeScalarFieldEnum[]
+  }
+
+
+  /**
+   * FixedMosquePrayerTime create
+   */
+  export type FixedMosquePrayerTimeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FixedMosquePrayerTime
+     */
+    select?: FixedMosquePrayerTimeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FixedMosquePrayerTimeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a FixedMosquePrayerTime.
+     */
+    data: XOR<FixedMosquePrayerTimeCreateInput, FixedMosquePrayerTimeUncheckedCreateInput>
+  }
+
+
+  /**
+   * FixedMosquePrayerTime createMany
+   */
+  export type FixedMosquePrayerTimeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many FixedMosquePrayerTimes.
+     */
+    data: FixedMosquePrayerTimeCreateManyInput | FixedMosquePrayerTimeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * FixedMosquePrayerTime update
+   */
+  export type FixedMosquePrayerTimeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FixedMosquePrayerTime
+     */
+    select?: FixedMosquePrayerTimeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FixedMosquePrayerTimeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a FixedMosquePrayerTime.
+     */
+    data: XOR<FixedMosquePrayerTimeUpdateInput, FixedMosquePrayerTimeUncheckedUpdateInput>
+    /**
+     * Choose, which FixedMosquePrayerTime to update.
+     */
+    where: FixedMosquePrayerTimeWhereUniqueInput
+  }
+
+
+  /**
+   * FixedMosquePrayerTime updateMany
+   */
+  export type FixedMosquePrayerTimeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update FixedMosquePrayerTimes.
+     */
+    data: XOR<FixedMosquePrayerTimeUpdateManyMutationInput, FixedMosquePrayerTimeUncheckedUpdateManyInput>
+    /**
+     * Filter which FixedMosquePrayerTimes to update
+     */
+    where?: FixedMosquePrayerTimeWhereInput
+  }
+
+
+  /**
+   * FixedMosquePrayerTime upsert
+   */
+  export type FixedMosquePrayerTimeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FixedMosquePrayerTime
+     */
+    select?: FixedMosquePrayerTimeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FixedMosquePrayerTimeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the FixedMosquePrayerTime to update in case it exists.
+     */
+    where: FixedMosquePrayerTimeWhereUniqueInput
+    /**
+     * In case the FixedMosquePrayerTime found by the `where` argument doesn't exist, create a new FixedMosquePrayerTime with this data.
+     */
+    create: XOR<FixedMosquePrayerTimeCreateInput, FixedMosquePrayerTimeUncheckedCreateInput>
+    /**
+     * In case the FixedMosquePrayerTime was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<FixedMosquePrayerTimeUpdateInput, FixedMosquePrayerTimeUncheckedUpdateInput>
+  }
+
+
+  /**
+   * FixedMosquePrayerTime delete
+   */
+  export type FixedMosquePrayerTimeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FixedMosquePrayerTime
+     */
+    select?: FixedMosquePrayerTimeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FixedMosquePrayerTimeInclude<ExtArgs> | null
+    /**
+     * Filter which FixedMosquePrayerTime to delete.
+     */
+    where: FixedMosquePrayerTimeWhereUniqueInput
+  }
+
+
+  /**
+   * FixedMosquePrayerTime deleteMany
+   */
+  export type FixedMosquePrayerTimeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FixedMosquePrayerTimes to delete
+     */
+    where?: FixedMosquePrayerTimeWhereInput
+  }
+
+
+  /**
+   * FixedMosquePrayerTime without action
+   */
+  export type FixedMosquePrayerTimeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FixedMosquePrayerTime
+     */
+    select?: FixedMosquePrayerTimeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FixedMosquePrayerTimeInclude<ExtArgs> | null
   }
 
 
@@ -11814,6 +13559,2903 @@ export namespace Prisma {
 
 
   /**
+   * Model Translation
+   */
+
+  export type AggregateTranslation = {
+    _count: TranslationCountAggregateOutputType | null
+    _avg: TranslationAvgAggregateOutputType | null
+    _sum: TranslationSumAggregateOutputType | null
+    _min: TranslationMinAggregateOutputType | null
+    _max: TranslationMaxAggregateOutputType | null
+  }
+
+  export type TranslationAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type TranslationSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type TranslationMinAggregateOutputType = {
+    id: number | null
+    key: string | null
+    ru: string | null
+    tt: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TranslationMaxAggregateOutputType = {
+    id: number | null
+    key: string | null
+    ru: string | null
+    tt: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TranslationCountAggregateOutputType = {
+    id: number
+    key: number
+    ru: number
+    tt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type TranslationAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type TranslationSumAggregateInputType = {
+    id?: true
+  }
+
+  export type TranslationMinAggregateInputType = {
+    id?: true
+    key?: true
+    ru?: true
+    tt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TranslationMaxAggregateInputType = {
+    id?: true
+    key?: true
+    ru?: true
+    tt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TranslationCountAggregateInputType = {
+    id?: true
+    key?: true
+    ru?: true
+    tt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type TranslationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Translation to aggregate.
+     */
+    where?: TranslationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Translations to fetch.
+     */
+    orderBy?: TranslationOrderByWithRelationInput | TranslationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TranslationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Translations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Translations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Translations
+    **/
+    _count?: true | TranslationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TranslationAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TranslationSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TranslationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TranslationMaxAggregateInputType
+  }
+
+  export type GetTranslationAggregateType<T extends TranslationAggregateArgs> = {
+        [P in keyof T & keyof AggregateTranslation]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTranslation[P]>
+      : GetScalarType<T[P], AggregateTranslation[P]>
+  }
+
+
+
+
+  export type TranslationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TranslationWhereInput
+    orderBy?: TranslationOrderByWithAggregationInput | TranslationOrderByWithAggregationInput[]
+    by: TranslationScalarFieldEnum[] | TranslationScalarFieldEnum
+    having?: TranslationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TranslationCountAggregateInputType | true
+    _avg?: TranslationAvgAggregateInputType
+    _sum?: TranslationSumAggregateInputType
+    _min?: TranslationMinAggregateInputType
+    _max?: TranslationMaxAggregateInputType
+  }
+
+  export type TranslationGroupByOutputType = {
+    id: number
+    key: string
+    ru: string
+    tt: string
+    createdAt: Date
+    updatedAt: Date
+    _count: TranslationCountAggregateOutputType | null
+    _avg: TranslationAvgAggregateOutputType | null
+    _sum: TranslationSumAggregateOutputType | null
+    _min: TranslationMinAggregateOutputType | null
+    _max: TranslationMaxAggregateOutputType | null
+  }
+
+  type GetTranslationGroupByPayload<T extends TranslationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TranslationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TranslationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TranslationGroupByOutputType[P]>
+            : GetScalarType<T[P], TranslationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TranslationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    key?: boolean
+    ru?: boolean
+    tt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["translation"]>
+
+  export type TranslationSelectScalar = {
+    id?: boolean
+    key?: boolean
+    ru?: boolean
+    tt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+
+  export type $TranslationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Translation"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      key: string
+      ru: string
+      tt: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["translation"]>
+    composites: {}
+  }
+
+
+  type TranslationGetPayload<S extends boolean | null | undefined | TranslationDefaultArgs> = $Result.GetResult<Prisma.$TranslationPayload, S>
+
+  type TranslationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<TranslationFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: TranslationCountAggregateInputType | true
+    }
+
+  export interface TranslationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Translation'], meta: { name: 'Translation' } }
+    /**
+     * Find zero or one Translation that matches the filter.
+     * @param {TranslationFindUniqueArgs} args - Arguments to find a Translation
+     * @example
+     * // Get one Translation
+     * const translation = await prisma.translation.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends TranslationFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, TranslationFindUniqueArgs<ExtArgs>>
+    ): Prisma__TranslationClient<$Result.GetResult<Prisma.$TranslationPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one Translation that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {TranslationFindUniqueOrThrowArgs} args - Arguments to find a Translation
+     * @example
+     * // Get one Translation
+     * const translation = await prisma.translation.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends TranslationFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, TranslationFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__TranslationClient<$Result.GetResult<Prisma.$TranslationPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first Translation that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TranslationFindFirstArgs} args - Arguments to find a Translation
+     * @example
+     * // Get one Translation
+     * const translation = await prisma.translation.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends TranslationFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, TranslationFindFirstArgs<ExtArgs>>
+    ): Prisma__TranslationClient<$Result.GetResult<Prisma.$TranslationPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first Translation that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TranslationFindFirstOrThrowArgs} args - Arguments to find a Translation
+     * @example
+     * // Get one Translation
+     * const translation = await prisma.translation.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends TranslationFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, TranslationFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__TranslationClient<$Result.GetResult<Prisma.$TranslationPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more Translations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TranslationFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Translations
+     * const translations = await prisma.translation.findMany()
+     * 
+     * // Get first 10 Translations
+     * const translations = await prisma.translation.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const translationWithIdOnly = await prisma.translation.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends TranslationFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, TranslationFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TranslationPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a Translation.
+     * @param {TranslationCreateArgs} args - Arguments to create a Translation.
+     * @example
+     * // Create one Translation
+     * const Translation = await prisma.translation.create({
+     *   data: {
+     *     // ... data to create a Translation
+     *   }
+     * })
+     * 
+    **/
+    create<T extends TranslationCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, TranslationCreateArgs<ExtArgs>>
+    ): Prisma__TranslationClient<$Result.GetResult<Prisma.$TranslationPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many Translations.
+     *     @param {TranslationCreateManyArgs} args - Arguments to create many Translations.
+     *     @example
+     *     // Create many Translations
+     *     const translation = await prisma.translation.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends TranslationCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, TranslationCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Translation.
+     * @param {TranslationDeleteArgs} args - Arguments to delete one Translation.
+     * @example
+     * // Delete one Translation
+     * const Translation = await prisma.translation.delete({
+     *   where: {
+     *     // ... filter to delete one Translation
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends TranslationDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, TranslationDeleteArgs<ExtArgs>>
+    ): Prisma__TranslationClient<$Result.GetResult<Prisma.$TranslationPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one Translation.
+     * @param {TranslationUpdateArgs} args - Arguments to update one Translation.
+     * @example
+     * // Update one Translation
+     * const translation = await prisma.translation.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends TranslationUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, TranslationUpdateArgs<ExtArgs>>
+    ): Prisma__TranslationClient<$Result.GetResult<Prisma.$TranslationPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more Translations.
+     * @param {TranslationDeleteManyArgs} args - Arguments to filter Translations to delete.
+     * @example
+     * // Delete a few Translations
+     * const { count } = await prisma.translation.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends TranslationDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, TranslationDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Translations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TranslationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Translations
+     * const translation = await prisma.translation.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends TranslationUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, TranslationUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Translation.
+     * @param {TranslationUpsertArgs} args - Arguments to update or create a Translation.
+     * @example
+     * // Update or create a Translation
+     * const translation = await prisma.translation.upsert({
+     *   create: {
+     *     // ... data to create a Translation
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Translation we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends TranslationUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, TranslationUpsertArgs<ExtArgs>>
+    ): Prisma__TranslationClient<$Result.GetResult<Prisma.$TranslationPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of Translations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TranslationCountArgs} args - Arguments to filter Translations to count.
+     * @example
+     * // Count the number of Translations
+     * const count = await prisma.translation.count({
+     *   where: {
+     *     // ... the filter for the Translations we want to count
+     *   }
+     * })
+    **/
+    count<T extends TranslationCountArgs>(
+      args?: Subset<T, TranslationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TranslationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Translation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TranslationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TranslationAggregateArgs>(args: Subset<T, TranslationAggregateArgs>): Prisma.PrismaPromise<GetTranslationAggregateType<T>>
+
+    /**
+     * Group by Translation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TranslationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TranslationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TranslationGroupByArgs['orderBy'] }
+        : { orderBy?: TranslationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TranslationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTranslationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Translation model
+   */
+  readonly fields: TranslationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Translation.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TranslationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the Translation model
+   */ 
+  interface TranslationFieldRefs {
+    readonly id: FieldRef<"Translation", 'Int'>
+    readonly key: FieldRef<"Translation", 'String'>
+    readonly ru: FieldRef<"Translation", 'String'>
+    readonly tt: FieldRef<"Translation", 'String'>
+    readonly createdAt: FieldRef<"Translation", 'DateTime'>
+    readonly updatedAt: FieldRef<"Translation", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * Translation findUnique
+   */
+  export type TranslationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Translation
+     */
+    select?: TranslationSelect<ExtArgs> | null
+    /**
+     * Filter, which Translation to fetch.
+     */
+    where: TranslationWhereUniqueInput
+  }
+
+
+  /**
+   * Translation findUniqueOrThrow
+   */
+  export type TranslationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Translation
+     */
+    select?: TranslationSelect<ExtArgs> | null
+    /**
+     * Filter, which Translation to fetch.
+     */
+    where: TranslationWhereUniqueInput
+  }
+
+
+  /**
+   * Translation findFirst
+   */
+  export type TranslationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Translation
+     */
+    select?: TranslationSelect<ExtArgs> | null
+    /**
+     * Filter, which Translation to fetch.
+     */
+    where?: TranslationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Translations to fetch.
+     */
+    orderBy?: TranslationOrderByWithRelationInput | TranslationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Translations.
+     */
+    cursor?: TranslationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Translations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Translations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Translations.
+     */
+    distinct?: TranslationScalarFieldEnum | TranslationScalarFieldEnum[]
+  }
+
+
+  /**
+   * Translation findFirstOrThrow
+   */
+  export type TranslationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Translation
+     */
+    select?: TranslationSelect<ExtArgs> | null
+    /**
+     * Filter, which Translation to fetch.
+     */
+    where?: TranslationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Translations to fetch.
+     */
+    orderBy?: TranslationOrderByWithRelationInput | TranslationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Translations.
+     */
+    cursor?: TranslationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Translations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Translations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Translations.
+     */
+    distinct?: TranslationScalarFieldEnum | TranslationScalarFieldEnum[]
+  }
+
+
+  /**
+   * Translation findMany
+   */
+  export type TranslationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Translation
+     */
+    select?: TranslationSelect<ExtArgs> | null
+    /**
+     * Filter, which Translations to fetch.
+     */
+    where?: TranslationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Translations to fetch.
+     */
+    orderBy?: TranslationOrderByWithRelationInput | TranslationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Translations.
+     */
+    cursor?: TranslationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Translations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Translations.
+     */
+    skip?: number
+    distinct?: TranslationScalarFieldEnum | TranslationScalarFieldEnum[]
+  }
+
+
+  /**
+   * Translation create
+   */
+  export type TranslationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Translation
+     */
+    select?: TranslationSelect<ExtArgs> | null
+    /**
+     * The data needed to create a Translation.
+     */
+    data: XOR<TranslationCreateInput, TranslationUncheckedCreateInput>
+  }
+
+
+  /**
+   * Translation createMany
+   */
+  export type TranslationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Translations.
+     */
+    data: TranslationCreateManyInput | TranslationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * Translation update
+   */
+  export type TranslationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Translation
+     */
+    select?: TranslationSelect<ExtArgs> | null
+    /**
+     * The data needed to update a Translation.
+     */
+    data: XOR<TranslationUpdateInput, TranslationUncheckedUpdateInput>
+    /**
+     * Choose, which Translation to update.
+     */
+    where: TranslationWhereUniqueInput
+  }
+
+
+  /**
+   * Translation updateMany
+   */
+  export type TranslationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Translations.
+     */
+    data: XOR<TranslationUpdateManyMutationInput, TranslationUncheckedUpdateManyInput>
+    /**
+     * Filter which Translations to update
+     */
+    where?: TranslationWhereInput
+  }
+
+
+  /**
+   * Translation upsert
+   */
+  export type TranslationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Translation
+     */
+    select?: TranslationSelect<ExtArgs> | null
+    /**
+     * The filter to search for the Translation to update in case it exists.
+     */
+    where: TranslationWhereUniqueInput
+    /**
+     * In case the Translation found by the `where` argument doesn't exist, create a new Translation with this data.
+     */
+    create: XOR<TranslationCreateInput, TranslationUncheckedCreateInput>
+    /**
+     * In case the Translation was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TranslationUpdateInput, TranslationUncheckedUpdateInput>
+  }
+
+
+  /**
+   * Translation delete
+   */
+  export type TranslationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Translation
+     */
+    select?: TranslationSelect<ExtArgs> | null
+    /**
+     * Filter which Translation to delete.
+     */
+    where: TranslationWhereUniqueInput
+  }
+
+
+  /**
+   * Translation deleteMany
+   */
+  export type TranslationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Translations to delete
+     */
+    where?: TranslationWhereInput
+  }
+
+
+  /**
+   * Translation without action
+   */
+  export type TranslationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Translation
+     */
+    select?: TranslationSelect<ExtArgs> | null
+  }
+
+
+
+  /**
+   * Model MosqueLanguageSettings
+   */
+
+  export type AggregateMosqueLanguageSettings = {
+    _count: MosqueLanguageSettingsCountAggregateOutputType | null
+    _avg: MosqueLanguageSettingsAvgAggregateOutputType | null
+    _sum: MosqueLanguageSettingsSumAggregateOutputType | null
+    _min: MosqueLanguageSettingsMinAggregateOutputType | null
+    _max: MosqueLanguageSettingsMaxAggregateOutputType | null
+  }
+
+  export type MosqueLanguageSettingsAvgAggregateOutputType = {
+    id: number | null
+    mosqueId: number | null
+    languageToggleIntervalSeconds: number | null
+  }
+
+  export type MosqueLanguageSettingsSumAggregateOutputType = {
+    id: number | null
+    mosqueId: number | null
+    languageToggleIntervalSeconds: number | null
+  }
+
+  export type MosqueLanguageSettingsMinAggregateOutputType = {
+    id: number | null
+    mosqueId: number | null
+    translationsEnabled: boolean | null
+    languageToggleEnabled: boolean | null
+    languageToggleIntervalSeconds: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MosqueLanguageSettingsMaxAggregateOutputType = {
+    id: number | null
+    mosqueId: number | null
+    translationsEnabled: boolean | null
+    languageToggleEnabled: boolean | null
+    languageToggleIntervalSeconds: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MosqueLanguageSettingsCountAggregateOutputType = {
+    id: number
+    mosqueId: number
+    translationsEnabled: number
+    languageToggleEnabled: number
+    languageToggleIntervalSeconds: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type MosqueLanguageSettingsAvgAggregateInputType = {
+    id?: true
+    mosqueId?: true
+    languageToggleIntervalSeconds?: true
+  }
+
+  export type MosqueLanguageSettingsSumAggregateInputType = {
+    id?: true
+    mosqueId?: true
+    languageToggleIntervalSeconds?: true
+  }
+
+  export type MosqueLanguageSettingsMinAggregateInputType = {
+    id?: true
+    mosqueId?: true
+    translationsEnabled?: true
+    languageToggleEnabled?: true
+    languageToggleIntervalSeconds?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MosqueLanguageSettingsMaxAggregateInputType = {
+    id?: true
+    mosqueId?: true
+    translationsEnabled?: true
+    languageToggleEnabled?: true
+    languageToggleIntervalSeconds?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MosqueLanguageSettingsCountAggregateInputType = {
+    id?: true
+    mosqueId?: true
+    translationsEnabled?: true
+    languageToggleEnabled?: true
+    languageToggleIntervalSeconds?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type MosqueLanguageSettingsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MosqueLanguageSettings to aggregate.
+     */
+    where?: MosqueLanguageSettingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MosqueLanguageSettings to fetch.
+     */
+    orderBy?: MosqueLanguageSettingsOrderByWithRelationInput | MosqueLanguageSettingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MosqueLanguageSettingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MosqueLanguageSettings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MosqueLanguageSettings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MosqueLanguageSettings
+    **/
+    _count?: true | MosqueLanguageSettingsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MosqueLanguageSettingsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MosqueLanguageSettingsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MosqueLanguageSettingsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MosqueLanguageSettingsMaxAggregateInputType
+  }
+
+  export type GetMosqueLanguageSettingsAggregateType<T extends MosqueLanguageSettingsAggregateArgs> = {
+        [P in keyof T & keyof AggregateMosqueLanguageSettings]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMosqueLanguageSettings[P]>
+      : GetScalarType<T[P], AggregateMosqueLanguageSettings[P]>
+  }
+
+
+
+
+  export type MosqueLanguageSettingsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MosqueLanguageSettingsWhereInput
+    orderBy?: MosqueLanguageSettingsOrderByWithAggregationInput | MosqueLanguageSettingsOrderByWithAggregationInput[]
+    by: MosqueLanguageSettingsScalarFieldEnum[] | MosqueLanguageSettingsScalarFieldEnum
+    having?: MosqueLanguageSettingsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MosqueLanguageSettingsCountAggregateInputType | true
+    _avg?: MosqueLanguageSettingsAvgAggregateInputType
+    _sum?: MosqueLanguageSettingsSumAggregateInputType
+    _min?: MosqueLanguageSettingsMinAggregateInputType
+    _max?: MosqueLanguageSettingsMaxAggregateInputType
+  }
+
+  export type MosqueLanguageSettingsGroupByOutputType = {
+    id: number
+    mosqueId: number
+    translationsEnabled: boolean
+    languageToggleEnabled: boolean
+    languageToggleIntervalSeconds: number
+    createdAt: Date
+    updatedAt: Date
+    _count: MosqueLanguageSettingsCountAggregateOutputType | null
+    _avg: MosqueLanguageSettingsAvgAggregateOutputType | null
+    _sum: MosqueLanguageSettingsSumAggregateOutputType | null
+    _min: MosqueLanguageSettingsMinAggregateOutputType | null
+    _max: MosqueLanguageSettingsMaxAggregateOutputType | null
+  }
+
+  type GetMosqueLanguageSettingsGroupByPayload<T extends MosqueLanguageSettingsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MosqueLanguageSettingsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MosqueLanguageSettingsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MosqueLanguageSettingsGroupByOutputType[P]>
+            : GetScalarType<T[P], MosqueLanguageSettingsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MosqueLanguageSettingsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    mosqueId?: boolean
+    translationsEnabled?: boolean
+    languageToggleEnabled?: boolean
+    languageToggleIntervalSeconds?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    mosque?: boolean | MosqueDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["mosqueLanguageSettings"]>
+
+  export type MosqueLanguageSettingsSelectScalar = {
+    id?: boolean
+    mosqueId?: boolean
+    translationsEnabled?: boolean
+    languageToggleEnabled?: boolean
+    languageToggleIntervalSeconds?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type MosqueLanguageSettingsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    mosque?: boolean | MosqueDefaultArgs<ExtArgs>
+  }
+
+
+  export type $MosqueLanguageSettingsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MosqueLanguageSettings"
+    objects: {
+      mosque: Prisma.$MosquePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      mosqueId: number
+      translationsEnabled: boolean
+      languageToggleEnabled: boolean
+      languageToggleIntervalSeconds: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["mosqueLanguageSettings"]>
+    composites: {}
+  }
+
+
+  type MosqueLanguageSettingsGetPayload<S extends boolean | null | undefined | MosqueLanguageSettingsDefaultArgs> = $Result.GetResult<Prisma.$MosqueLanguageSettingsPayload, S>
+
+  type MosqueLanguageSettingsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<MosqueLanguageSettingsFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: MosqueLanguageSettingsCountAggregateInputType | true
+    }
+
+  export interface MosqueLanguageSettingsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MosqueLanguageSettings'], meta: { name: 'MosqueLanguageSettings' } }
+    /**
+     * Find zero or one MosqueLanguageSettings that matches the filter.
+     * @param {MosqueLanguageSettingsFindUniqueArgs} args - Arguments to find a MosqueLanguageSettings
+     * @example
+     * // Get one MosqueLanguageSettings
+     * const mosqueLanguageSettings = await prisma.mosqueLanguageSettings.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends MosqueLanguageSettingsFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, MosqueLanguageSettingsFindUniqueArgs<ExtArgs>>
+    ): Prisma__MosqueLanguageSettingsClient<$Result.GetResult<Prisma.$MosqueLanguageSettingsPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one MosqueLanguageSettings that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {MosqueLanguageSettingsFindUniqueOrThrowArgs} args - Arguments to find a MosqueLanguageSettings
+     * @example
+     * // Get one MosqueLanguageSettings
+     * const mosqueLanguageSettings = await prisma.mosqueLanguageSettings.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends MosqueLanguageSettingsFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, MosqueLanguageSettingsFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__MosqueLanguageSettingsClient<$Result.GetResult<Prisma.$MosqueLanguageSettingsPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first MosqueLanguageSettings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MosqueLanguageSettingsFindFirstArgs} args - Arguments to find a MosqueLanguageSettings
+     * @example
+     * // Get one MosqueLanguageSettings
+     * const mosqueLanguageSettings = await prisma.mosqueLanguageSettings.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends MosqueLanguageSettingsFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, MosqueLanguageSettingsFindFirstArgs<ExtArgs>>
+    ): Prisma__MosqueLanguageSettingsClient<$Result.GetResult<Prisma.$MosqueLanguageSettingsPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first MosqueLanguageSettings that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MosqueLanguageSettingsFindFirstOrThrowArgs} args - Arguments to find a MosqueLanguageSettings
+     * @example
+     * // Get one MosqueLanguageSettings
+     * const mosqueLanguageSettings = await prisma.mosqueLanguageSettings.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends MosqueLanguageSettingsFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, MosqueLanguageSettingsFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__MosqueLanguageSettingsClient<$Result.GetResult<Prisma.$MosqueLanguageSettingsPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more MosqueLanguageSettings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MosqueLanguageSettingsFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MosqueLanguageSettings
+     * const mosqueLanguageSettings = await prisma.mosqueLanguageSettings.findMany()
+     * 
+     * // Get first 10 MosqueLanguageSettings
+     * const mosqueLanguageSettings = await prisma.mosqueLanguageSettings.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const mosqueLanguageSettingsWithIdOnly = await prisma.mosqueLanguageSettings.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends MosqueLanguageSettingsFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, MosqueLanguageSettingsFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MosqueLanguageSettingsPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a MosqueLanguageSettings.
+     * @param {MosqueLanguageSettingsCreateArgs} args - Arguments to create a MosqueLanguageSettings.
+     * @example
+     * // Create one MosqueLanguageSettings
+     * const MosqueLanguageSettings = await prisma.mosqueLanguageSettings.create({
+     *   data: {
+     *     // ... data to create a MosqueLanguageSettings
+     *   }
+     * })
+     * 
+    **/
+    create<T extends MosqueLanguageSettingsCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, MosqueLanguageSettingsCreateArgs<ExtArgs>>
+    ): Prisma__MosqueLanguageSettingsClient<$Result.GetResult<Prisma.$MosqueLanguageSettingsPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many MosqueLanguageSettings.
+     *     @param {MosqueLanguageSettingsCreateManyArgs} args - Arguments to create many MosqueLanguageSettings.
+     *     @example
+     *     // Create many MosqueLanguageSettings
+     *     const mosqueLanguageSettings = await prisma.mosqueLanguageSettings.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends MosqueLanguageSettingsCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, MosqueLanguageSettingsCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a MosqueLanguageSettings.
+     * @param {MosqueLanguageSettingsDeleteArgs} args - Arguments to delete one MosqueLanguageSettings.
+     * @example
+     * // Delete one MosqueLanguageSettings
+     * const MosqueLanguageSettings = await prisma.mosqueLanguageSettings.delete({
+     *   where: {
+     *     // ... filter to delete one MosqueLanguageSettings
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends MosqueLanguageSettingsDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, MosqueLanguageSettingsDeleteArgs<ExtArgs>>
+    ): Prisma__MosqueLanguageSettingsClient<$Result.GetResult<Prisma.$MosqueLanguageSettingsPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one MosqueLanguageSettings.
+     * @param {MosqueLanguageSettingsUpdateArgs} args - Arguments to update one MosqueLanguageSettings.
+     * @example
+     * // Update one MosqueLanguageSettings
+     * const mosqueLanguageSettings = await prisma.mosqueLanguageSettings.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends MosqueLanguageSettingsUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, MosqueLanguageSettingsUpdateArgs<ExtArgs>>
+    ): Prisma__MosqueLanguageSettingsClient<$Result.GetResult<Prisma.$MosqueLanguageSettingsPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more MosqueLanguageSettings.
+     * @param {MosqueLanguageSettingsDeleteManyArgs} args - Arguments to filter MosqueLanguageSettings to delete.
+     * @example
+     * // Delete a few MosqueLanguageSettings
+     * const { count } = await prisma.mosqueLanguageSettings.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends MosqueLanguageSettingsDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, MosqueLanguageSettingsDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MosqueLanguageSettings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MosqueLanguageSettingsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MosqueLanguageSettings
+     * const mosqueLanguageSettings = await prisma.mosqueLanguageSettings.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends MosqueLanguageSettingsUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, MosqueLanguageSettingsUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one MosqueLanguageSettings.
+     * @param {MosqueLanguageSettingsUpsertArgs} args - Arguments to update or create a MosqueLanguageSettings.
+     * @example
+     * // Update or create a MosqueLanguageSettings
+     * const mosqueLanguageSettings = await prisma.mosqueLanguageSettings.upsert({
+     *   create: {
+     *     // ... data to create a MosqueLanguageSettings
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MosqueLanguageSettings we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends MosqueLanguageSettingsUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, MosqueLanguageSettingsUpsertArgs<ExtArgs>>
+    ): Prisma__MosqueLanguageSettingsClient<$Result.GetResult<Prisma.$MosqueLanguageSettingsPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of MosqueLanguageSettings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MosqueLanguageSettingsCountArgs} args - Arguments to filter MosqueLanguageSettings to count.
+     * @example
+     * // Count the number of MosqueLanguageSettings
+     * const count = await prisma.mosqueLanguageSettings.count({
+     *   where: {
+     *     // ... the filter for the MosqueLanguageSettings we want to count
+     *   }
+     * })
+    **/
+    count<T extends MosqueLanguageSettingsCountArgs>(
+      args?: Subset<T, MosqueLanguageSettingsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MosqueLanguageSettingsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MosqueLanguageSettings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MosqueLanguageSettingsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MosqueLanguageSettingsAggregateArgs>(args: Subset<T, MosqueLanguageSettingsAggregateArgs>): Prisma.PrismaPromise<GetMosqueLanguageSettingsAggregateType<T>>
+
+    /**
+     * Group by MosqueLanguageSettings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MosqueLanguageSettingsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MosqueLanguageSettingsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MosqueLanguageSettingsGroupByArgs['orderBy'] }
+        : { orderBy?: MosqueLanguageSettingsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MosqueLanguageSettingsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMosqueLanguageSettingsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MosqueLanguageSettings model
+   */
+  readonly fields: MosqueLanguageSettingsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MosqueLanguageSettings.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MosqueLanguageSettingsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    mosque<T extends MosqueDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MosqueDefaultArgs<ExtArgs>>): Prisma__MosqueClient<$Result.GetResult<Prisma.$MosquePayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the MosqueLanguageSettings model
+   */ 
+  interface MosqueLanguageSettingsFieldRefs {
+    readonly id: FieldRef<"MosqueLanguageSettings", 'Int'>
+    readonly mosqueId: FieldRef<"MosqueLanguageSettings", 'Int'>
+    readonly translationsEnabled: FieldRef<"MosqueLanguageSettings", 'Boolean'>
+    readonly languageToggleEnabled: FieldRef<"MosqueLanguageSettings", 'Boolean'>
+    readonly languageToggleIntervalSeconds: FieldRef<"MosqueLanguageSettings", 'Int'>
+    readonly createdAt: FieldRef<"MosqueLanguageSettings", 'DateTime'>
+    readonly updatedAt: FieldRef<"MosqueLanguageSettings", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * MosqueLanguageSettings findUnique
+   */
+  export type MosqueLanguageSettingsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MosqueLanguageSettings
+     */
+    select?: MosqueLanguageSettingsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MosqueLanguageSettingsInclude<ExtArgs> | null
+    /**
+     * Filter, which MosqueLanguageSettings to fetch.
+     */
+    where: MosqueLanguageSettingsWhereUniqueInput
+  }
+
+
+  /**
+   * MosqueLanguageSettings findUniqueOrThrow
+   */
+  export type MosqueLanguageSettingsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MosqueLanguageSettings
+     */
+    select?: MosqueLanguageSettingsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MosqueLanguageSettingsInclude<ExtArgs> | null
+    /**
+     * Filter, which MosqueLanguageSettings to fetch.
+     */
+    where: MosqueLanguageSettingsWhereUniqueInput
+  }
+
+
+  /**
+   * MosqueLanguageSettings findFirst
+   */
+  export type MosqueLanguageSettingsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MosqueLanguageSettings
+     */
+    select?: MosqueLanguageSettingsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MosqueLanguageSettingsInclude<ExtArgs> | null
+    /**
+     * Filter, which MosqueLanguageSettings to fetch.
+     */
+    where?: MosqueLanguageSettingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MosqueLanguageSettings to fetch.
+     */
+    orderBy?: MosqueLanguageSettingsOrderByWithRelationInput | MosqueLanguageSettingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MosqueLanguageSettings.
+     */
+    cursor?: MosqueLanguageSettingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MosqueLanguageSettings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MosqueLanguageSettings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MosqueLanguageSettings.
+     */
+    distinct?: MosqueLanguageSettingsScalarFieldEnum | MosqueLanguageSettingsScalarFieldEnum[]
+  }
+
+
+  /**
+   * MosqueLanguageSettings findFirstOrThrow
+   */
+  export type MosqueLanguageSettingsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MosqueLanguageSettings
+     */
+    select?: MosqueLanguageSettingsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MosqueLanguageSettingsInclude<ExtArgs> | null
+    /**
+     * Filter, which MosqueLanguageSettings to fetch.
+     */
+    where?: MosqueLanguageSettingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MosqueLanguageSettings to fetch.
+     */
+    orderBy?: MosqueLanguageSettingsOrderByWithRelationInput | MosqueLanguageSettingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MosqueLanguageSettings.
+     */
+    cursor?: MosqueLanguageSettingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MosqueLanguageSettings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MosqueLanguageSettings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MosqueLanguageSettings.
+     */
+    distinct?: MosqueLanguageSettingsScalarFieldEnum | MosqueLanguageSettingsScalarFieldEnum[]
+  }
+
+
+  /**
+   * MosqueLanguageSettings findMany
+   */
+  export type MosqueLanguageSettingsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MosqueLanguageSettings
+     */
+    select?: MosqueLanguageSettingsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MosqueLanguageSettingsInclude<ExtArgs> | null
+    /**
+     * Filter, which MosqueLanguageSettings to fetch.
+     */
+    where?: MosqueLanguageSettingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MosqueLanguageSettings to fetch.
+     */
+    orderBy?: MosqueLanguageSettingsOrderByWithRelationInput | MosqueLanguageSettingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MosqueLanguageSettings.
+     */
+    cursor?: MosqueLanguageSettingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MosqueLanguageSettings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MosqueLanguageSettings.
+     */
+    skip?: number
+    distinct?: MosqueLanguageSettingsScalarFieldEnum | MosqueLanguageSettingsScalarFieldEnum[]
+  }
+
+
+  /**
+   * MosqueLanguageSettings create
+   */
+  export type MosqueLanguageSettingsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MosqueLanguageSettings
+     */
+    select?: MosqueLanguageSettingsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MosqueLanguageSettingsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MosqueLanguageSettings.
+     */
+    data: XOR<MosqueLanguageSettingsCreateInput, MosqueLanguageSettingsUncheckedCreateInput>
+  }
+
+
+  /**
+   * MosqueLanguageSettings createMany
+   */
+  export type MosqueLanguageSettingsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MosqueLanguageSettings.
+     */
+    data: MosqueLanguageSettingsCreateManyInput | MosqueLanguageSettingsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * MosqueLanguageSettings update
+   */
+  export type MosqueLanguageSettingsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MosqueLanguageSettings
+     */
+    select?: MosqueLanguageSettingsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MosqueLanguageSettingsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MosqueLanguageSettings.
+     */
+    data: XOR<MosqueLanguageSettingsUpdateInput, MosqueLanguageSettingsUncheckedUpdateInput>
+    /**
+     * Choose, which MosqueLanguageSettings to update.
+     */
+    where: MosqueLanguageSettingsWhereUniqueInput
+  }
+
+
+  /**
+   * MosqueLanguageSettings updateMany
+   */
+  export type MosqueLanguageSettingsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MosqueLanguageSettings.
+     */
+    data: XOR<MosqueLanguageSettingsUpdateManyMutationInput, MosqueLanguageSettingsUncheckedUpdateManyInput>
+    /**
+     * Filter which MosqueLanguageSettings to update
+     */
+    where?: MosqueLanguageSettingsWhereInput
+  }
+
+
+  /**
+   * MosqueLanguageSettings upsert
+   */
+  export type MosqueLanguageSettingsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MosqueLanguageSettings
+     */
+    select?: MosqueLanguageSettingsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MosqueLanguageSettingsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MosqueLanguageSettings to update in case it exists.
+     */
+    where: MosqueLanguageSettingsWhereUniqueInput
+    /**
+     * In case the MosqueLanguageSettings found by the `where` argument doesn't exist, create a new MosqueLanguageSettings with this data.
+     */
+    create: XOR<MosqueLanguageSettingsCreateInput, MosqueLanguageSettingsUncheckedCreateInput>
+    /**
+     * In case the MosqueLanguageSettings was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MosqueLanguageSettingsUpdateInput, MosqueLanguageSettingsUncheckedUpdateInput>
+  }
+
+
+  /**
+   * MosqueLanguageSettings delete
+   */
+  export type MosqueLanguageSettingsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MosqueLanguageSettings
+     */
+    select?: MosqueLanguageSettingsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MosqueLanguageSettingsInclude<ExtArgs> | null
+    /**
+     * Filter which MosqueLanguageSettings to delete.
+     */
+    where: MosqueLanguageSettingsWhereUniqueInput
+  }
+
+
+  /**
+   * MosqueLanguageSettings deleteMany
+   */
+  export type MosqueLanguageSettingsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MosqueLanguageSettings to delete
+     */
+    where?: MosqueLanguageSettingsWhereInput
+  }
+
+
+  /**
+   * MosqueLanguageSettings without action
+   */
+  export type MosqueLanguageSettingsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MosqueLanguageSettings
+     */
+    select?: MosqueLanguageSettingsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MosqueLanguageSettingsInclude<ExtArgs> | null
+  }
+
+
+
+  /**
+   * Model NameOfAllah
+   */
+
+  export type AggregateNameOfAllah = {
+    _count: NameOfAllahCountAggregateOutputType | null
+    _avg: NameOfAllahAvgAggregateOutputType | null
+    _sum: NameOfAllahSumAggregateOutputType | null
+    _min: NameOfAllahMinAggregateOutputType | null
+    _max: NameOfAllahMaxAggregateOutputType | null
+  }
+
+  export type NameOfAllahAvgAggregateOutputType = {
+    id: number | null
+    mosqueId: number | null
+  }
+
+  export type NameOfAllahSumAggregateOutputType = {
+    id: number | null
+    mosqueId: number | null
+  }
+
+  export type NameOfAllahMinAggregateOutputType = {
+    id: number | null
+    mosqueId: number | null
+    arabic: string | null
+    transcription: string | null
+    meaning: string | null
+    transcriptionTatar: string | null
+    meaningTatar: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type NameOfAllahMaxAggregateOutputType = {
+    id: number | null
+    mosqueId: number | null
+    arabic: string | null
+    transcription: string | null
+    meaning: string | null
+    transcriptionTatar: string | null
+    meaningTatar: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type NameOfAllahCountAggregateOutputType = {
+    id: number
+    mosqueId: number
+    arabic: number
+    transcription: number
+    meaning: number
+    transcriptionTatar: number
+    meaningTatar: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type NameOfAllahAvgAggregateInputType = {
+    id?: true
+    mosqueId?: true
+  }
+
+  export type NameOfAllahSumAggregateInputType = {
+    id?: true
+    mosqueId?: true
+  }
+
+  export type NameOfAllahMinAggregateInputType = {
+    id?: true
+    mosqueId?: true
+    arabic?: true
+    transcription?: true
+    meaning?: true
+    transcriptionTatar?: true
+    meaningTatar?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type NameOfAllahMaxAggregateInputType = {
+    id?: true
+    mosqueId?: true
+    arabic?: true
+    transcription?: true
+    meaning?: true
+    transcriptionTatar?: true
+    meaningTatar?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type NameOfAllahCountAggregateInputType = {
+    id?: true
+    mosqueId?: true
+    arabic?: true
+    transcription?: true
+    meaning?: true
+    transcriptionTatar?: true
+    meaningTatar?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type NameOfAllahAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which NameOfAllah to aggregate.
+     */
+    where?: NameOfAllahWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NameOfAllahs to fetch.
+     */
+    orderBy?: NameOfAllahOrderByWithRelationInput | NameOfAllahOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: NameOfAllahWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NameOfAllahs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NameOfAllahs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned NameOfAllahs
+    **/
+    _count?: true | NameOfAllahCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: NameOfAllahAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: NameOfAllahSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: NameOfAllahMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: NameOfAllahMaxAggregateInputType
+  }
+
+  export type GetNameOfAllahAggregateType<T extends NameOfAllahAggregateArgs> = {
+        [P in keyof T & keyof AggregateNameOfAllah]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateNameOfAllah[P]>
+      : GetScalarType<T[P], AggregateNameOfAllah[P]>
+  }
+
+
+
+
+  export type NameOfAllahGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NameOfAllahWhereInput
+    orderBy?: NameOfAllahOrderByWithAggregationInput | NameOfAllahOrderByWithAggregationInput[]
+    by: NameOfAllahScalarFieldEnum[] | NameOfAllahScalarFieldEnum
+    having?: NameOfAllahScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: NameOfAllahCountAggregateInputType | true
+    _avg?: NameOfAllahAvgAggregateInputType
+    _sum?: NameOfAllahSumAggregateInputType
+    _min?: NameOfAllahMinAggregateInputType
+    _max?: NameOfAllahMaxAggregateInputType
+  }
+
+  export type NameOfAllahGroupByOutputType = {
+    id: number
+    mosqueId: number
+    arabic: string
+    transcription: string
+    meaning: string
+    transcriptionTatar: string | null
+    meaningTatar: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: NameOfAllahCountAggregateOutputType | null
+    _avg: NameOfAllahAvgAggregateOutputType | null
+    _sum: NameOfAllahSumAggregateOutputType | null
+    _min: NameOfAllahMinAggregateOutputType | null
+    _max: NameOfAllahMaxAggregateOutputType | null
+  }
+
+  type GetNameOfAllahGroupByPayload<T extends NameOfAllahGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<NameOfAllahGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof NameOfAllahGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], NameOfAllahGroupByOutputType[P]>
+            : GetScalarType<T[P], NameOfAllahGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type NameOfAllahSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    mosqueId?: boolean
+    arabic?: boolean
+    transcription?: boolean
+    meaning?: boolean
+    transcriptionTatar?: boolean
+    meaningTatar?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    mosque?: boolean | MosqueDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["nameOfAllah"]>
+
+  export type NameOfAllahSelectScalar = {
+    id?: boolean
+    mosqueId?: boolean
+    arabic?: boolean
+    transcription?: boolean
+    meaning?: boolean
+    transcriptionTatar?: boolean
+    meaningTatar?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type NameOfAllahInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    mosque?: boolean | MosqueDefaultArgs<ExtArgs>
+  }
+
+
+  export type $NameOfAllahPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "NameOfAllah"
+    objects: {
+      mosque: Prisma.$MosquePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      mosqueId: number
+      arabic: string
+      transcription: string
+      meaning: string
+      transcriptionTatar: string | null
+      meaningTatar: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["nameOfAllah"]>
+    composites: {}
+  }
+
+
+  type NameOfAllahGetPayload<S extends boolean | null | undefined | NameOfAllahDefaultArgs> = $Result.GetResult<Prisma.$NameOfAllahPayload, S>
+
+  type NameOfAllahCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<NameOfAllahFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: NameOfAllahCountAggregateInputType | true
+    }
+
+  export interface NameOfAllahDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['NameOfAllah'], meta: { name: 'NameOfAllah' } }
+    /**
+     * Find zero or one NameOfAllah that matches the filter.
+     * @param {NameOfAllahFindUniqueArgs} args - Arguments to find a NameOfAllah
+     * @example
+     * // Get one NameOfAllah
+     * const nameOfAllah = await prisma.nameOfAllah.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends NameOfAllahFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, NameOfAllahFindUniqueArgs<ExtArgs>>
+    ): Prisma__NameOfAllahClient<$Result.GetResult<Prisma.$NameOfAllahPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one NameOfAllah that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {NameOfAllahFindUniqueOrThrowArgs} args - Arguments to find a NameOfAllah
+     * @example
+     * // Get one NameOfAllah
+     * const nameOfAllah = await prisma.nameOfAllah.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends NameOfAllahFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, NameOfAllahFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__NameOfAllahClient<$Result.GetResult<Prisma.$NameOfAllahPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first NameOfAllah that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NameOfAllahFindFirstArgs} args - Arguments to find a NameOfAllah
+     * @example
+     * // Get one NameOfAllah
+     * const nameOfAllah = await prisma.nameOfAllah.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends NameOfAllahFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, NameOfAllahFindFirstArgs<ExtArgs>>
+    ): Prisma__NameOfAllahClient<$Result.GetResult<Prisma.$NameOfAllahPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first NameOfAllah that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NameOfAllahFindFirstOrThrowArgs} args - Arguments to find a NameOfAllah
+     * @example
+     * // Get one NameOfAllah
+     * const nameOfAllah = await prisma.nameOfAllah.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends NameOfAllahFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, NameOfAllahFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__NameOfAllahClient<$Result.GetResult<Prisma.$NameOfAllahPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more NameOfAllahs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NameOfAllahFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all NameOfAllahs
+     * const nameOfAllahs = await prisma.nameOfAllah.findMany()
+     * 
+     * // Get first 10 NameOfAllahs
+     * const nameOfAllahs = await prisma.nameOfAllah.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const nameOfAllahWithIdOnly = await prisma.nameOfAllah.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends NameOfAllahFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, NameOfAllahFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NameOfAllahPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a NameOfAllah.
+     * @param {NameOfAllahCreateArgs} args - Arguments to create a NameOfAllah.
+     * @example
+     * // Create one NameOfAllah
+     * const NameOfAllah = await prisma.nameOfAllah.create({
+     *   data: {
+     *     // ... data to create a NameOfAllah
+     *   }
+     * })
+     * 
+    **/
+    create<T extends NameOfAllahCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, NameOfAllahCreateArgs<ExtArgs>>
+    ): Prisma__NameOfAllahClient<$Result.GetResult<Prisma.$NameOfAllahPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many NameOfAllahs.
+     *     @param {NameOfAllahCreateManyArgs} args - Arguments to create many NameOfAllahs.
+     *     @example
+     *     // Create many NameOfAllahs
+     *     const nameOfAllah = await prisma.nameOfAllah.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends NameOfAllahCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, NameOfAllahCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a NameOfAllah.
+     * @param {NameOfAllahDeleteArgs} args - Arguments to delete one NameOfAllah.
+     * @example
+     * // Delete one NameOfAllah
+     * const NameOfAllah = await prisma.nameOfAllah.delete({
+     *   where: {
+     *     // ... filter to delete one NameOfAllah
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends NameOfAllahDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, NameOfAllahDeleteArgs<ExtArgs>>
+    ): Prisma__NameOfAllahClient<$Result.GetResult<Prisma.$NameOfAllahPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one NameOfAllah.
+     * @param {NameOfAllahUpdateArgs} args - Arguments to update one NameOfAllah.
+     * @example
+     * // Update one NameOfAllah
+     * const nameOfAllah = await prisma.nameOfAllah.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends NameOfAllahUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, NameOfAllahUpdateArgs<ExtArgs>>
+    ): Prisma__NameOfAllahClient<$Result.GetResult<Prisma.$NameOfAllahPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more NameOfAllahs.
+     * @param {NameOfAllahDeleteManyArgs} args - Arguments to filter NameOfAllahs to delete.
+     * @example
+     * // Delete a few NameOfAllahs
+     * const { count } = await prisma.nameOfAllah.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends NameOfAllahDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, NameOfAllahDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more NameOfAllahs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NameOfAllahUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many NameOfAllahs
+     * const nameOfAllah = await prisma.nameOfAllah.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends NameOfAllahUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, NameOfAllahUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one NameOfAllah.
+     * @param {NameOfAllahUpsertArgs} args - Arguments to update or create a NameOfAllah.
+     * @example
+     * // Update or create a NameOfAllah
+     * const nameOfAllah = await prisma.nameOfAllah.upsert({
+     *   create: {
+     *     // ... data to create a NameOfAllah
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the NameOfAllah we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends NameOfAllahUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, NameOfAllahUpsertArgs<ExtArgs>>
+    ): Prisma__NameOfAllahClient<$Result.GetResult<Prisma.$NameOfAllahPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of NameOfAllahs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NameOfAllahCountArgs} args - Arguments to filter NameOfAllahs to count.
+     * @example
+     * // Count the number of NameOfAllahs
+     * const count = await prisma.nameOfAllah.count({
+     *   where: {
+     *     // ... the filter for the NameOfAllahs we want to count
+     *   }
+     * })
+    **/
+    count<T extends NameOfAllahCountArgs>(
+      args?: Subset<T, NameOfAllahCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], NameOfAllahCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a NameOfAllah.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NameOfAllahAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends NameOfAllahAggregateArgs>(args: Subset<T, NameOfAllahAggregateArgs>): Prisma.PrismaPromise<GetNameOfAllahAggregateType<T>>
+
+    /**
+     * Group by NameOfAllah.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NameOfAllahGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends NameOfAllahGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: NameOfAllahGroupByArgs['orderBy'] }
+        : { orderBy?: NameOfAllahGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, NameOfAllahGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetNameOfAllahGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the NameOfAllah model
+   */
+  readonly fields: NameOfAllahFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for NameOfAllah.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__NameOfAllahClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    mosque<T extends MosqueDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MosqueDefaultArgs<ExtArgs>>): Prisma__MosqueClient<$Result.GetResult<Prisma.$MosquePayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the NameOfAllah model
+   */ 
+  interface NameOfAllahFieldRefs {
+    readonly id: FieldRef<"NameOfAllah", 'Int'>
+    readonly mosqueId: FieldRef<"NameOfAllah", 'Int'>
+    readonly arabic: FieldRef<"NameOfAllah", 'String'>
+    readonly transcription: FieldRef<"NameOfAllah", 'String'>
+    readonly meaning: FieldRef<"NameOfAllah", 'String'>
+    readonly transcriptionTatar: FieldRef<"NameOfAllah", 'String'>
+    readonly meaningTatar: FieldRef<"NameOfAllah", 'String'>
+    readonly createdAt: FieldRef<"NameOfAllah", 'DateTime'>
+    readonly updatedAt: FieldRef<"NameOfAllah", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * NameOfAllah findUnique
+   */
+  export type NameOfAllahFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NameOfAllah
+     */
+    select?: NameOfAllahSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: NameOfAllahInclude<ExtArgs> | null
+    /**
+     * Filter, which NameOfAllah to fetch.
+     */
+    where: NameOfAllahWhereUniqueInput
+  }
+
+
+  /**
+   * NameOfAllah findUniqueOrThrow
+   */
+  export type NameOfAllahFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NameOfAllah
+     */
+    select?: NameOfAllahSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: NameOfAllahInclude<ExtArgs> | null
+    /**
+     * Filter, which NameOfAllah to fetch.
+     */
+    where: NameOfAllahWhereUniqueInput
+  }
+
+
+  /**
+   * NameOfAllah findFirst
+   */
+  export type NameOfAllahFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NameOfAllah
+     */
+    select?: NameOfAllahSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: NameOfAllahInclude<ExtArgs> | null
+    /**
+     * Filter, which NameOfAllah to fetch.
+     */
+    where?: NameOfAllahWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NameOfAllahs to fetch.
+     */
+    orderBy?: NameOfAllahOrderByWithRelationInput | NameOfAllahOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for NameOfAllahs.
+     */
+    cursor?: NameOfAllahWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NameOfAllahs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NameOfAllahs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NameOfAllahs.
+     */
+    distinct?: NameOfAllahScalarFieldEnum | NameOfAllahScalarFieldEnum[]
+  }
+
+
+  /**
+   * NameOfAllah findFirstOrThrow
+   */
+  export type NameOfAllahFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NameOfAllah
+     */
+    select?: NameOfAllahSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: NameOfAllahInclude<ExtArgs> | null
+    /**
+     * Filter, which NameOfAllah to fetch.
+     */
+    where?: NameOfAllahWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NameOfAllahs to fetch.
+     */
+    orderBy?: NameOfAllahOrderByWithRelationInput | NameOfAllahOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for NameOfAllahs.
+     */
+    cursor?: NameOfAllahWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NameOfAllahs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NameOfAllahs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NameOfAllahs.
+     */
+    distinct?: NameOfAllahScalarFieldEnum | NameOfAllahScalarFieldEnum[]
+  }
+
+
+  /**
+   * NameOfAllah findMany
+   */
+  export type NameOfAllahFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NameOfAllah
+     */
+    select?: NameOfAllahSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: NameOfAllahInclude<ExtArgs> | null
+    /**
+     * Filter, which NameOfAllahs to fetch.
+     */
+    where?: NameOfAllahWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NameOfAllahs to fetch.
+     */
+    orderBy?: NameOfAllahOrderByWithRelationInput | NameOfAllahOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing NameOfAllahs.
+     */
+    cursor?: NameOfAllahWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NameOfAllahs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NameOfAllahs.
+     */
+    skip?: number
+    distinct?: NameOfAllahScalarFieldEnum | NameOfAllahScalarFieldEnum[]
+  }
+
+
+  /**
+   * NameOfAllah create
+   */
+  export type NameOfAllahCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NameOfAllah
+     */
+    select?: NameOfAllahSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: NameOfAllahInclude<ExtArgs> | null
+    /**
+     * The data needed to create a NameOfAllah.
+     */
+    data: XOR<NameOfAllahCreateInput, NameOfAllahUncheckedCreateInput>
+  }
+
+
+  /**
+   * NameOfAllah createMany
+   */
+  export type NameOfAllahCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many NameOfAllahs.
+     */
+    data: NameOfAllahCreateManyInput | NameOfAllahCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * NameOfAllah update
+   */
+  export type NameOfAllahUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NameOfAllah
+     */
+    select?: NameOfAllahSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: NameOfAllahInclude<ExtArgs> | null
+    /**
+     * The data needed to update a NameOfAllah.
+     */
+    data: XOR<NameOfAllahUpdateInput, NameOfAllahUncheckedUpdateInput>
+    /**
+     * Choose, which NameOfAllah to update.
+     */
+    where: NameOfAllahWhereUniqueInput
+  }
+
+
+  /**
+   * NameOfAllah updateMany
+   */
+  export type NameOfAllahUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update NameOfAllahs.
+     */
+    data: XOR<NameOfAllahUpdateManyMutationInput, NameOfAllahUncheckedUpdateManyInput>
+    /**
+     * Filter which NameOfAllahs to update
+     */
+    where?: NameOfAllahWhereInput
+  }
+
+
+  /**
+   * NameOfAllah upsert
+   */
+  export type NameOfAllahUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NameOfAllah
+     */
+    select?: NameOfAllahSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: NameOfAllahInclude<ExtArgs> | null
+    /**
+     * The filter to search for the NameOfAllah to update in case it exists.
+     */
+    where: NameOfAllahWhereUniqueInput
+    /**
+     * In case the NameOfAllah found by the `where` argument doesn't exist, create a new NameOfAllah with this data.
+     */
+    create: XOR<NameOfAllahCreateInput, NameOfAllahUncheckedCreateInput>
+    /**
+     * In case the NameOfAllah was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<NameOfAllahUpdateInput, NameOfAllahUncheckedUpdateInput>
+  }
+
+
+  /**
+   * NameOfAllah delete
+   */
+  export type NameOfAllahDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NameOfAllah
+     */
+    select?: NameOfAllahSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: NameOfAllahInclude<ExtArgs> | null
+    /**
+     * Filter which NameOfAllah to delete.
+     */
+    where: NameOfAllahWhereUniqueInput
+  }
+
+
+  /**
+   * NameOfAllah deleteMany
+   */
+  export type NameOfAllahDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which NameOfAllahs to delete
+     */
+    where?: NameOfAllahWhereInput
+  }
+
+
+  /**
+   * NameOfAllah without action
+   */
+  export type NameOfAllahDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NameOfAllah
+     */
+    select?: NameOfAllahSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: NameOfAllahInclude<ExtArgs> | null
+  }
+
+
+
+  /**
    * Enums
    */
 
@@ -11899,7 +16541,8 @@ export namespace Prisma {
     password: 'password',
     createdAt: 'createdAt',
     role: 'role',
-    cityId: 'cityId'
+    cityId: 'cityId',
+    mosqueId: 'mosqueId'
   };
 
   export type AdminScalarFieldEnum = (typeof AdminScalarFieldEnum)[keyof typeof AdminScalarFieldEnum]
@@ -11929,6 +16572,44 @@ export namespace Prisma {
   export type FixedPrayerTimeScalarFieldEnum = (typeof FixedPrayerTimeScalarFieldEnum)[keyof typeof FixedPrayerTimeScalarFieldEnum]
 
 
+  export const FixedMosquePrayerTimeScalarFieldEnum: {
+    id: 'id',
+    mosqueId: 'mosqueId',
+    fajr: 'fajr',
+    shuruk: 'shuruk',
+    zuhr: 'zuhr',
+    asr: 'asr',
+    maghrib: 'maghrib',
+    isha: 'isha',
+    mechet: 'mechet',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    fajrActive: 'fajrActive',
+    shurukActive: 'shurukActive',
+    zuhrActive: 'zuhrActive',
+    asrActive: 'asrActive',
+    maghribActive: 'maghribActive',
+    ishaActive: 'ishaActive',
+    mechetActive: 'mechetActive',
+    fajrIqamaEnabled: 'fajrIqamaEnabled',
+    fajrIqamaMinutes: 'fajrIqamaMinutes',
+    shurukIqamaEnabled: 'shurukIqamaEnabled',
+    shurukIqamaMinutes: 'shurukIqamaMinutes',
+    zuhrIqamaEnabled: 'zuhrIqamaEnabled',
+    zuhrIqamaMinutes: 'zuhrIqamaMinutes',
+    asrIqamaEnabled: 'asrIqamaEnabled',
+    asrIqamaMinutes: 'asrIqamaMinutes',
+    maghribIqamaEnabled: 'maghribIqamaEnabled',
+    maghribIqamaMinutes: 'maghribIqamaMinutes',
+    ishaIqamaEnabled: 'ishaIqamaEnabled',
+    ishaIqamaMinutes: 'ishaIqamaMinutes',
+    mechetIqamaEnabled: 'mechetIqamaEnabled',
+    mechetIqamaMinutes: 'mechetIqamaMinutes'
+  };
+
+  export type FixedMosquePrayerTimeScalarFieldEnum = (typeof FixedMosquePrayerTimeScalarFieldEnum)[keyof typeof FixedMosquePrayerTimeScalarFieldEnum]
+
+
   export const PrayerTimeChangeScalarFieldEnum: {
     id: 'id',
     prayerId: 'prayerId',
@@ -11955,6 +16636,46 @@ export namespace Prisma {
   };
 
   export type AuditLogScalarFieldEnum = (typeof AuditLogScalarFieldEnum)[keyof typeof AuditLogScalarFieldEnum]
+
+
+  export const TranslationScalarFieldEnum: {
+    id: 'id',
+    key: 'key',
+    ru: 'ru',
+    tt: 'tt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type TranslationScalarFieldEnum = (typeof TranslationScalarFieldEnum)[keyof typeof TranslationScalarFieldEnum]
+
+
+  export const MosqueLanguageSettingsScalarFieldEnum: {
+    id: 'id',
+    mosqueId: 'mosqueId',
+    translationsEnabled: 'translationsEnabled',
+    languageToggleEnabled: 'languageToggleEnabled',
+    languageToggleIntervalSeconds: 'languageToggleIntervalSeconds',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type MosqueLanguageSettingsScalarFieldEnum = (typeof MosqueLanguageSettingsScalarFieldEnum)[keyof typeof MosqueLanguageSettingsScalarFieldEnum]
+
+
+  export const NameOfAllahScalarFieldEnum: {
+    id: 'id',
+    mosqueId: 'mosqueId',
+    arabic: 'arabic',
+    transcription: 'transcription',
+    meaning: 'meaning',
+    transcriptionTatar: 'transcriptionTatar',
+    meaningTatar: 'meaningTatar',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type NameOfAllahScalarFieldEnum = (typeof NameOfAllahScalarFieldEnum)[keyof typeof NameOfAllahScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -12247,6 +16968,10 @@ export namespace Prisma {
     cityId?: IntFilter<"Mosque"> | number
     name?: StringFilter<"Mosque"> | string
     logoUrl?: StringNullableFilter<"Mosque"> | string | null
+    admin?: XOR<AdminNullableRelationFilter, AdminWhereInput> | null
+    fixedPrayerTime?: XOR<FixedMosquePrayerTimeNullableRelationFilter, FixedMosquePrayerTimeWhereInput> | null
+    languageSettings?: XOR<MosqueLanguageSettingsNullableRelationFilter, MosqueLanguageSettingsWhereInput> | null
+    namesOfAllah?: NameOfAllahListRelationFilter
     media?: MediaListRelationFilter
     city?: XOR<CityRelationFilter, CityWhereInput>
     prayers?: PrayerListRelationFilter
@@ -12258,6 +16983,10 @@ export namespace Prisma {
     cityId?: SortOrder
     name?: SortOrder
     logoUrl?: SortOrderInput | SortOrder
+    admin?: AdminOrderByWithRelationInput
+    fixedPrayerTime?: FixedMosquePrayerTimeOrderByWithRelationInput
+    languageSettings?: MosqueLanguageSettingsOrderByWithRelationInput
+    namesOfAllah?: NameOfAllahOrderByRelationAggregateInput
     media?: MediaOrderByRelationAggregateInput
     city?: CityOrderByWithRelationInput
     prayers?: PrayerOrderByRelationAggregateInput
@@ -12272,6 +17001,10 @@ export namespace Prisma {
     cityId?: IntFilter<"Mosque"> | number
     name?: StringFilter<"Mosque"> | string
     logoUrl?: StringNullableFilter<"Mosque"> | string | null
+    admin?: XOR<AdminNullableRelationFilter, AdminWhereInput> | null
+    fixedPrayerTime?: XOR<FixedMosquePrayerTimeNullableRelationFilter, FixedMosquePrayerTimeWhereInput> | null
+    languageSettings?: XOR<MosqueLanguageSettingsNullableRelationFilter, MosqueLanguageSettingsWhereInput> | null
+    namesOfAllah?: NameOfAllahListRelationFilter
     media?: MediaListRelationFilter
     city?: XOR<CityRelationFilter, CityWhereInput>
     prayers?: PrayerListRelationFilter
@@ -12463,7 +17196,9 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Admin"> | Date | string
     role?: EnumRoleFilter<"Admin"> | $Enums.Role
     cityId?: IntNullableFilter<"Admin"> | number | null
+    mosqueId?: IntNullableFilter<"Admin"> | number | null
     city?: XOR<CityNullableRelationFilter, CityWhereInput> | null
+    mosque?: XOR<MosqueNullableRelationFilter, MosqueWhereInput> | null
     prayerChanges?: PrayerTimeChangeListRelationFilter
     auditLogs?: AuditLogListRelationFilter
   }
@@ -12475,7 +17210,9 @@ export namespace Prisma {
     createdAt?: SortOrder
     role?: SortOrder
     cityId?: SortOrderInput | SortOrder
+    mosqueId?: SortOrderInput | SortOrder
     city?: CityOrderByWithRelationInput
+    mosque?: MosqueOrderByWithRelationInput
     prayerChanges?: PrayerTimeChangeOrderByRelationAggregateInput
     auditLogs?: AuditLogOrderByRelationAggregateInput
   }
@@ -12484,6 +17221,7 @@ export namespace Prisma {
     id?: number
     email?: string
     cityId?: number
+    mosqueId?: number
     AND?: AdminWhereInput | AdminWhereInput[]
     OR?: AdminWhereInput[]
     NOT?: AdminWhereInput | AdminWhereInput[]
@@ -12491,9 +17229,10 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Admin"> | Date | string
     role?: EnumRoleFilter<"Admin"> | $Enums.Role
     city?: XOR<CityNullableRelationFilter, CityWhereInput> | null
+    mosque?: XOR<MosqueNullableRelationFilter, MosqueWhereInput> | null
     prayerChanges?: PrayerTimeChangeListRelationFilter
     auditLogs?: AuditLogListRelationFilter
-  }, "id" | "email" | "cityId">
+  }, "id" | "email" | "cityId" | "mosqueId">
 
   export type AdminOrderByWithAggregationInput = {
     id?: SortOrder
@@ -12502,6 +17241,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     role?: SortOrder
     cityId?: SortOrderInput | SortOrder
+    mosqueId?: SortOrderInput | SortOrder
     _count?: AdminCountOrderByAggregateInput
     _avg?: AdminAvgOrderByAggregateInput
     _max?: AdminMaxOrderByAggregateInput
@@ -12519,6 +17259,7 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Admin"> | Date | string
     role?: EnumRoleWithAggregatesFilter<"Admin"> | $Enums.Role
     cityId?: IntNullableWithAggregatesFilter<"Admin"> | number | null
+    mosqueId?: IntNullableWithAggregatesFilter<"Admin"> | number | null
   }
 
   export type FixedPrayerTimeWhereInput = {
@@ -12641,6 +17382,198 @@ export namespace Prisma {
     maghribActive?: BoolWithAggregatesFilter<"FixedPrayerTime"> | boolean
     ishaActive?: BoolWithAggregatesFilter<"FixedPrayerTime"> | boolean
     mechetActive?: BoolWithAggregatesFilter<"FixedPrayerTime"> | boolean
+  }
+
+  export type FixedMosquePrayerTimeWhereInput = {
+    AND?: FixedMosquePrayerTimeWhereInput | FixedMosquePrayerTimeWhereInput[]
+    OR?: FixedMosquePrayerTimeWhereInput[]
+    NOT?: FixedMosquePrayerTimeWhereInput | FixedMosquePrayerTimeWhereInput[]
+    id?: IntFilter<"FixedMosquePrayerTime"> | number
+    mosqueId?: IntFilter<"FixedMosquePrayerTime"> | number
+    fajr?: StringFilter<"FixedMosquePrayerTime"> | string
+    shuruk?: StringFilter<"FixedMosquePrayerTime"> | string
+    zuhr?: StringFilter<"FixedMosquePrayerTime"> | string
+    asr?: StringFilter<"FixedMosquePrayerTime"> | string
+    maghrib?: StringFilter<"FixedMosquePrayerTime"> | string
+    isha?: StringFilter<"FixedMosquePrayerTime"> | string
+    mechet?: StringNullableFilter<"FixedMosquePrayerTime"> | string | null
+    createdAt?: DateTimeFilter<"FixedMosquePrayerTime"> | Date | string
+    updatedAt?: DateTimeFilter<"FixedMosquePrayerTime"> | Date | string
+    fajrActive?: BoolFilter<"FixedMosquePrayerTime"> | boolean
+    shurukActive?: BoolFilter<"FixedMosquePrayerTime"> | boolean
+    zuhrActive?: BoolFilter<"FixedMosquePrayerTime"> | boolean
+    asrActive?: BoolFilter<"FixedMosquePrayerTime"> | boolean
+    maghribActive?: BoolFilter<"FixedMosquePrayerTime"> | boolean
+    ishaActive?: BoolFilter<"FixedMosquePrayerTime"> | boolean
+    mechetActive?: BoolFilter<"FixedMosquePrayerTime"> | boolean
+    fajrIqamaEnabled?: BoolFilter<"FixedMosquePrayerTime"> | boolean
+    fajrIqamaMinutes?: IntFilter<"FixedMosquePrayerTime"> | number
+    shurukIqamaEnabled?: BoolFilter<"FixedMosquePrayerTime"> | boolean
+    shurukIqamaMinutes?: IntFilter<"FixedMosquePrayerTime"> | number
+    zuhrIqamaEnabled?: BoolFilter<"FixedMosquePrayerTime"> | boolean
+    zuhrIqamaMinutes?: IntFilter<"FixedMosquePrayerTime"> | number
+    asrIqamaEnabled?: BoolFilter<"FixedMosquePrayerTime"> | boolean
+    asrIqamaMinutes?: IntFilter<"FixedMosquePrayerTime"> | number
+    maghribIqamaEnabled?: BoolFilter<"FixedMosquePrayerTime"> | boolean
+    maghribIqamaMinutes?: IntFilter<"FixedMosquePrayerTime"> | number
+    ishaIqamaEnabled?: BoolFilter<"FixedMosquePrayerTime"> | boolean
+    ishaIqamaMinutes?: IntFilter<"FixedMosquePrayerTime"> | number
+    mechetIqamaEnabled?: BoolFilter<"FixedMosquePrayerTime"> | boolean
+    mechetIqamaMinutes?: IntFilter<"FixedMosquePrayerTime"> | number
+    mosque?: XOR<MosqueRelationFilter, MosqueWhereInput>
+  }
+
+  export type FixedMosquePrayerTimeOrderByWithRelationInput = {
+    id?: SortOrder
+    mosqueId?: SortOrder
+    fajr?: SortOrder
+    shuruk?: SortOrder
+    zuhr?: SortOrder
+    asr?: SortOrder
+    maghrib?: SortOrder
+    isha?: SortOrder
+    mechet?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    fajrActive?: SortOrder
+    shurukActive?: SortOrder
+    zuhrActive?: SortOrder
+    asrActive?: SortOrder
+    maghribActive?: SortOrder
+    ishaActive?: SortOrder
+    mechetActive?: SortOrder
+    fajrIqamaEnabled?: SortOrder
+    fajrIqamaMinutes?: SortOrder
+    shurukIqamaEnabled?: SortOrder
+    shurukIqamaMinutes?: SortOrder
+    zuhrIqamaEnabled?: SortOrder
+    zuhrIqamaMinutes?: SortOrder
+    asrIqamaEnabled?: SortOrder
+    asrIqamaMinutes?: SortOrder
+    maghribIqamaEnabled?: SortOrder
+    maghribIqamaMinutes?: SortOrder
+    ishaIqamaEnabled?: SortOrder
+    ishaIqamaMinutes?: SortOrder
+    mechetIqamaEnabled?: SortOrder
+    mechetIqamaMinutes?: SortOrder
+    mosque?: MosqueOrderByWithRelationInput
+  }
+
+  export type FixedMosquePrayerTimeWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    mosqueId?: number
+    AND?: FixedMosquePrayerTimeWhereInput | FixedMosquePrayerTimeWhereInput[]
+    OR?: FixedMosquePrayerTimeWhereInput[]
+    NOT?: FixedMosquePrayerTimeWhereInput | FixedMosquePrayerTimeWhereInput[]
+    fajr?: StringFilter<"FixedMosquePrayerTime"> | string
+    shuruk?: StringFilter<"FixedMosquePrayerTime"> | string
+    zuhr?: StringFilter<"FixedMosquePrayerTime"> | string
+    asr?: StringFilter<"FixedMosquePrayerTime"> | string
+    maghrib?: StringFilter<"FixedMosquePrayerTime"> | string
+    isha?: StringFilter<"FixedMosquePrayerTime"> | string
+    mechet?: StringNullableFilter<"FixedMosquePrayerTime"> | string | null
+    createdAt?: DateTimeFilter<"FixedMosquePrayerTime"> | Date | string
+    updatedAt?: DateTimeFilter<"FixedMosquePrayerTime"> | Date | string
+    fajrActive?: BoolFilter<"FixedMosquePrayerTime"> | boolean
+    shurukActive?: BoolFilter<"FixedMosquePrayerTime"> | boolean
+    zuhrActive?: BoolFilter<"FixedMosquePrayerTime"> | boolean
+    asrActive?: BoolFilter<"FixedMosquePrayerTime"> | boolean
+    maghribActive?: BoolFilter<"FixedMosquePrayerTime"> | boolean
+    ishaActive?: BoolFilter<"FixedMosquePrayerTime"> | boolean
+    mechetActive?: BoolFilter<"FixedMosquePrayerTime"> | boolean
+    fajrIqamaEnabled?: BoolFilter<"FixedMosquePrayerTime"> | boolean
+    fajrIqamaMinutes?: IntFilter<"FixedMosquePrayerTime"> | number
+    shurukIqamaEnabled?: BoolFilter<"FixedMosquePrayerTime"> | boolean
+    shurukIqamaMinutes?: IntFilter<"FixedMosquePrayerTime"> | number
+    zuhrIqamaEnabled?: BoolFilter<"FixedMosquePrayerTime"> | boolean
+    zuhrIqamaMinutes?: IntFilter<"FixedMosquePrayerTime"> | number
+    asrIqamaEnabled?: BoolFilter<"FixedMosquePrayerTime"> | boolean
+    asrIqamaMinutes?: IntFilter<"FixedMosquePrayerTime"> | number
+    maghribIqamaEnabled?: BoolFilter<"FixedMosquePrayerTime"> | boolean
+    maghribIqamaMinutes?: IntFilter<"FixedMosquePrayerTime"> | number
+    ishaIqamaEnabled?: BoolFilter<"FixedMosquePrayerTime"> | boolean
+    ishaIqamaMinutes?: IntFilter<"FixedMosquePrayerTime"> | number
+    mechetIqamaEnabled?: BoolFilter<"FixedMosquePrayerTime"> | boolean
+    mechetIqamaMinutes?: IntFilter<"FixedMosquePrayerTime"> | number
+    mosque?: XOR<MosqueRelationFilter, MosqueWhereInput>
+  }, "id" | "mosqueId">
+
+  export type FixedMosquePrayerTimeOrderByWithAggregationInput = {
+    id?: SortOrder
+    mosqueId?: SortOrder
+    fajr?: SortOrder
+    shuruk?: SortOrder
+    zuhr?: SortOrder
+    asr?: SortOrder
+    maghrib?: SortOrder
+    isha?: SortOrder
+    mechet?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    fajrActive?: SortOrder
+    shurukActive?: SortOrder
+    zuhrActive?: SortOrder
+    asrActive?: SortOrder
+    maghribActive?: SortOrder
+    ishaActive?: SortOrder
+    mechetActive?: SortOrder
+    fajrIqamaEnabled?: SortOrder
+    fajrIqamaMinutes?: SortOrder
+    shurukIqamaEnabled?: SortOrder
+    shurukIqamaMinutes?: SortOrder
+    zuhrIqamaEnabled?: SortOrder
+    zuhrIqamaMinutes?: SortOrder
+    asrIqamaEnabled?: SortOrder
+    asrIqamaMinutes?: SortOrder
+    maghribIqamaEnabled?: SortOrder
+    maghribIqamaMinutes?: SortOrder
+    ishaIqamaEnabled?: SortOrder
+    ishaIqamaMinutes?: SortOrder
+    mechetIqamaEnabled?: SortOrder
+    mechetIqamaMinutes?: SortOrder
+    _count?: FixedMosquePrayerTimeCountOrderByAggregateInput
+    _avg?: FixedMosquePrayerTimeAvgOrderByAggregateInput
+    _max?: FixedMosquePrayerTimeMaxOrderByAggregateInput
+    _min?: FixedMosquePrayerTimeMinOrderByAggregateInput
+    _sum?: FixedMosquePrayerTimeSumOrderByAggregateInput
+  }
+
+  export type FixedMosquePrayerTimeScalarWhereWithAggregatesInput = {
+    AND?: FixedMosquePrayerTimeScalarWhereWithAggregatesInput | FixedMosquePrayerTimeScalarWhereWithAggregatesInput[]
+    OR?: FixedMosquePrayerTimeScalarWhereWithAggregatesInput[]
+    NOT?: FixedMosquePrayerTimeScalarWhereWithAggregatesInput | FixedMosquePrayerTimeScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"FixedMosquePrayerTime"> | number
+    mosqueId?: IntWithAggregatesFilter<"FixedMosquePrayerTime"> | number
+    fajr?: StringWithAggregatesFilter<"FixedMosquePrayerTime"> | string
+    shuruk?: StringWithAggregatesFilter<"FixedMosquePrayerTime"> | string
+    zuhr?: StringWithAggregatesFilter<"FixedMosquePrayerTime"> | string
+    asr?: StringWithAggregatesFilter<"FixedMosquePrayerTime"> | string
+    maghrib?: StringWithAggregatesFilter<"FixedMosquePrayerTime"> | string
+    isha?: StringWithAggregatesFilter<"FixedMosquePrayerTime"> | string
+    mechet?: StringNullableWithAggregatesFilter<"FixedMosquePrayerTime"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"FixedMosquePrayerTime"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"FixedMosquePrayerTime"> | Date | string
+    fajrActive?: BoolWithAggregatesFilter<"FixedMosquePrayerTime"> | boolean
+    shurukActive?: BoolWithAggregatesFilter<"FixedMosquePrayerTime"> | boolean
+    zuhrActive?: BoolWithAggregatesFilter<"FixedMosquePrayerTime"> | boolean
+    asrActive?: BoolWithAggregatesFilter<"FixedMosquePrayerTime"> | boolean
+    maghribActive?: BoolWithAggregatesFilter<"FixedMosquePrayerTime"> | boolean
+    ishaActive?: BoolWithAggregatesFilter<"FixedMosquePrayerTime"> | boolean
+    mechetActive?: BoolWithAggregatesFilter<"FixedMosquePrayerTime"> | boolean
+    fajrIqamaEnabled?: BoolWithAggregatesFilter<"FixedMosquePrayerTime"> | boolean
+    fajrIqamaMinutes?: IntWithAggregatesFilter<"FixedMosquePrayerTime"> | number
+    shurukIqamaEnabled?: BoolWithAggregatesFilter<"FixedMosquePrayerTime"> | boolean
+    shurukIqamaMinutes?: IntWithAggregatesFilter<"FixedMosquePrayerTime"> | number
+    zuhrIqamaEnabled?: BoolWithAggregatesFilter<"FixedMosquePrayerTime"> | boolean
+    zuhrIqamaMinutes?: IntWithAggregatesFilter<"FixedMosquePrayerTime"> | number
+    asrIqamaEnabled?: BoolWithAggregatesFilter<"FixedMosquePrayerTime"> | boolean
+    asrIqamaMinutes?: IntWithAggregatesFilter<"FixedMosquePrayerTime"> | number
+    maghribIqamaEnabled?: BoolWithAggregatesFilter<"FixedMosquePrayerTime"> | boolean
+    maghribIqamaMinutes?: IntWithAggregatesFilter<"FixedMosquePrayerTime"> | number
+    ishaIqamaEnabled?: BoolWithAggregatesFilter<"FixedMosquePrayerTime"> | boolean
+    ishaIqamaMinutes?: IntWithAggregatesFilter<"FixedMosquePrayerTime"> | number
+    mechetIqamaEnabled?: BoolWithAggregatesFilter<"FixedMosquePrayerTime"> | boolean
+    mechetIqamaMinutes?: IntWithAggregatesFilter<"FixedMosquePrayerTime"> | number
   }
 
   export type PrayerTimeChangeWhereInput = {
@@ -12788,6 +17721,210 @@ export namespace Prisma {
     oldValue?: JsonNullableWithAggregatesFilter<"AuditLog">
     newValue?: JsonNullableWithAggregatesFilter<"AuditLog">
     createdAt?: DateTimeWithAggregatesFilter<"AuditLog"> | Date | string
+  }
+
+  export type TranslationWhereInput = {
+    AND?: TranslationWhereInput | TranslationWhereInput[]
+    OR?: TranslationWhereInput[]
+    NOT?: TranslationWhereInput | TranslationWhereInput[]
+    id?: IntFilter<"Translation"> | number
+    key?: StringFilter<"Translation"> | string
+    ru?: StringFilter<"Translation"> | string
+    tt?: StringFilter<"Translation"> | string
+    createdAt?: DateTimeFilter<"Translation"> | Date | string
+    updatedAt?: DateTimeFilter<"Translation"> | Date | string
+  }
+
+  export type TranslationOrderByWithRelationInput = {
+    id?: SortOrder
+    key?: SortOrder
+    ru?: SortOrder
+    tt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TranslationWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    key?: string
+    AND?: TranslationWhereInput | TranslationWhereInput[]
+    OR?: TranslationWhereInput[]
+    NOT?: TranslationWhereInput | TranslationWhereInput[]
+    ru?: StringFilter<"Translation"> | string
+    tt?: StringFilter<"Translation"> | string
+    createdAt?: DateTimeFilter<"Translation"> | Date | string
+    updatedAt?: DateTimeFilter<"Translation"> | Date | string
+  }, "id" | "key">
+
+  export type TranslationOrderByWithAggregationInput = {
+    id?: SortOrder
+    key?: SortOrder
+    ru?: SortOrder
+    tt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: TranslationCountOrderByAggregateInput
+    _avg?: TranslationAvgOrderByAggregateInput
+    _max?: TranslationMaxOrderByAggregateInput
+    _min?: TranslationMinOrderByAggregateInput
+    _sum?: TranslationSumOrderByAggregateInput
+  }
+
+  export type TranslationScalarWhereWithAggregatesInput = {
+    AND?: TranslationScalarWhereWithAggregatesInput | TranslationScalarWhereWithAggregatesInput[]
+    OR?: TranslationScalarWhereWithAggregatesInput[]
+    NOT?: TranslationScalarWhereWithAggregatesInput | TranslationScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Translation"> | number
+    key?: StringWithAggregatesFilter<"Translation"> | string
+    ru?: StringWithAggregatesFilter<"Translation"> | string
+    tt?: StringWithAggregatesFilter<"Translation"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Translation"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Translation"> | Date | string
+  }
+
+  export type MosqueLanguageSettingsWhereInput = {
+    AND?: MosqueLanguageSettingsWhereInput | MosqueLanguageSettingsWhereInput[]
+    OR?: MosqueLanguageSettingsWhereInput[]
+    NOT?: MosqueLanguageSettingsWhereInput | MosqueLanguageSettingsWhereInput[]
+    id?: IntFilter<"MosqueLanguageSettings"> | number
+    mosqueId?: IntFilter<"MosqueLanguageSettings"> | number
+    translationsEnabled?: BoolFilter<"MosqueLanguageSettings"> | boolean
+    languageToggleEnabled?: BoolFilter<"MosqueLanguageSettings"> | boolean
+    languageToggleIntervalSeconds?: IntFilter<"MosqueLanguageSettings"> | number
+    createdAt?: DateTimeFilter<"MosqueLanguageSettings"> | Date | string
+    updatedAt?: DateTimeFilter<"MosqueLanguageSettings"> | Date | string
+    mosque?: XOR<MosqueRelationFilter, MosqueWhereInput>
+  }
+
+  export type MosqueLanguageSettingsOrderByWithRelationInput = {
+    id?: SortOrder
+    mosqueId?: SortOrder
+    translationsEnabled?: SortOrder
+    languageToggleEnabled?: SortOrder
+    languageToggleIntervalSeconds?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    mosque?: MosqueOrderByWithRelationInput
+  }
+
+  export type MosqueLanguageSettingsWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    mosqueId?: number
+    AND?: MosqueLanguageSettingsWhereInput | MosqueLanguageSettingsWhereInput[]
+    OR?: MosqueLanguageSettingsWhereInput[]
+    NOT?: MosqueLanguageSettingsWhereInput | MosqueLanguageSettingsWhereInput[]
+    translationsEnabled?: BoolFilter<"MosqueLanguageSettings"> | boolean
+    languageToggleEnabled?: BoolFilter<"MosqueLanguageSettings"> | boolean
+    languageToggleIntervalSeconds?: IntFilter<"MosqueLanguageSettings"> | number
+    createdAt?: DateTimeFilter<"MosqueLanguageSettings"> | Date | string
+    updatedAt?: DateTimeFilter<"MosqueLanguageSettings"> | Date | string
+    mosque?: XOR<MosqueRelationFilter, MosqueWhereInput>
+  }, "id" | "mosqueId">
+
+  export type MosqueLanguageSettingsOrderByWithAggregationInput = {
+    id?: SortOrder
+    mosqueId?: SortOrder
+    translationsEnabled?: SortOrder
+    languageToggleEnabled?: SortOrder
+    languageToggleIntervalSeconds?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: MosqueLanguageSettingsCountOrderByAggregateInput
+    _avg?: MosqueLanguageSettingsAvgOrderByAggregateInput
+    _max?: MosqueLanguageSettingsMaxOrderByAggregateInput
+    _min?: MosqueLanguageSettingsMinOrderByAggregateInput
+    _sum?: MosqueLanguageSettingsSumOrderByAggregateInput
+  }
+
+  export type MosqueLanguageSettingsScalarWhereWithAggregatesInput = {
+    AND?: MosqueLanguageSettingsScalarWhereWithAggregatesInput | MosqueLanguageSettingsScalarWhereWithAggregatesInput[]
+    OR?: MosqueLanguageSettingsScalarWhereWithAggregatesInput[]
+    NOT?: MosqueLanguageSettingsScalarWhereWithAggregatesInput | MosqueLanguageSettingsScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"MosqueLanguageSettings"> | number
+    mosqueId?: IntWithAggregatesFilter<"MosqueLanguageSettings"> | number
+    translationsEnabled?: BoolWithAggregatesFilter<"MosqueLanguageSettings"> | boolean
+    languageToggleEnabled?: BoolWithAggregatesFilter<"MosqueLanguageSettings"> | boolean
+    languageToggleIntervalSeconds?: IntWithAggregatesFilter<"MosqueLanguageSettings"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"MosqueLanguageSettings"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"MosqueLanguageSettings"> | Date | string
+  }
+
+  export type NameOfAllahWhereInput = {
+    AND?: NameOfAllahWhereInput | NameOfAllahWhereInput[]
+    OR?: NameOfAllahWhereInput[]
+    NOT?: NameOfAllahWhereInput | NameOfAllahWhereInput[]
+    id?: IntFilter<"NameOfAllah"> | number
+    mosqueId?: IntFilter<"NameOfAllah"> | number
+    arabic?: StringFilter<"NameOfAllah"> | string
+    transcription?: StringFilter<"NameOfAllah"> | string
+    meaning?: StringFilter<"NameOfAllah"> | string
+    transcriptionTatar?: StringNullableFilter<"NameOfAllah"> | string | null
+    meaningTatar?: StringNullableFilter<"NameOfAllah"> | string | null
+    createdAt?: DateTimeFilter<"NameOfAllah"> | Date | string
+    updatedAt?: DateTimeFilter<"NameOfAllah"> | Date | string
+    mosque?: XOR<MosqueRelationFilter, MosqueWhereInput>
+  }
+
+  export type NameOfAllahOrderByWithRelationInput = {
+    id?: SortOrder
+    mosqueId?: SortOrder
+    arabic?: SortOrder
+    transcription?: SortOrder
+    meaning?: SortOrder
+    transcriptionTatar?: SortOrderInput | SortOrder
+    meaningTatar?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    mosque?: MosqueOrderByWithRelationInput
+  }
+
+  export type NameOfAllahWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    mosqueId_arabic?: NameOfAllahMosqueIdArabicCompoundUniqueInput
+    AND?: NameOfAllahWhereInput | NameOfAllahWhereInput[]
+    OR?: NameOfAllahWhereInput[]
+    NOT?: NameOfAllahWhereInput | NameOfAllahWhereInput[]
+    mosqueId?: IntFilter<"NameOfAllah"> | number
+    arabic?: StringFilter<"NameOfAllah"> | string
+    transcription?: StringFilter<"NameOfAllah"> | string
+    meaning?: StringFilter<"NameOfAllah"> | string
+    transcriptionTatar?: StringNullableFilter<"NameOfAllah"> | string | null
+    meaningTatar?: StringNullableFilter<"NameOfAllah"> | string | null
+    createdAt?: DateTimeFilter<"NameOfAllah"> | Date | string
+    updatedAt?: DateTimeFilter<"NameOfAllah"> | Date | string
+    mosque?: XOR<MosqueRelationFilter, MosqueWhereInput>
+  }, "id" | "mosqueId_arabic">
+
+  export type NameOfAllahOrderByWithAggregationInput = {
+    id?: SortOrder
+    mosqueId?: SortOrder
+    arabic?: SortOrder
+    transcription?: SortOrder
+    meaning?: SortOrder
+    transcriptionTatar?: SortOrderInput | SortOrder
+    meaningTatar?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: NameOfAllahCountOrderByAggregateInput
+    _avg?: NameOfAllahAvgOrderByAggregateInput
+    _max?: NameOfAllahMaxOrderByAggregateInput
+    _min?: NameOfAllahMinOrderByAggregateInput
+    _sum?: NameOfAllahSumOrderByAggregateInput
+  }
+
+  export type NameOfAllahScalarWhereWithAggregatesInput = {
+    AND?: NameOfAllahScalarWhereWithAggregatesInput | NameOfAllahScalarWhereWithAggregatesInput[]
+    OR?: NameOfAllahScalarWhereWithAggregatesInput[]
+    NOT?: NameOfAllahScalarWhereWithAggregatesInput | NameOfAllahScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"NameOfAllah"> | number
+    mosqueId?: IntWithAggregatesFilter<"NameOfAllah"> | number
+    arabic?: StringWithAggregatesFilter<"NameOfAllah"> | string
+    transcription?: StringWithAggregatesFilter<"NameOfAllah"> | string
+    meaning?: StringWithAggregatesFilter<"NameOfAllah"> | string
+    transcriptionTatar?: StringNullableWithAggregatesFilter<"NameOfAllah"> | string | null
+    meaningTatar?: StringNullableWithAggregatesFilter<"NameOfAllah"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"NameOfAllah"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"NameOfAllah"> | Date | string
   }
 
   export type CityCreateInput = {
@@ -12945,6 +18082,10 @@ export namespace Prisma {
   export type MosqueCreateInput = {
     name: string
     logoUrl?: string | null
+    admin?: AdminCreateNestedOneWithoutMosqueInput
+    fixedPrayerTime?: FixedMosquePrayerTimeCreateNestedOneWithoutMosqueInput
+    languageSettings?: MosqueLanguageSettingsCreateNestedOneWithoutMosqueInput
+    namesOfAllah?: NameOfAllahCreateNestedManyWithoutMosqueInput
     media?: MediaCreateNestedManyWithoutMosqueInput
     city: CityCreateNestedOneWithoutMosqueInput
     prayers?: PrayerCreateNestedManyWithoutMosqueInput
@@ -12956,6 +18097,10 @@ export namespace Prisma {
     cityId: number
     name: string
     logoUrl?: string | null
+    admin?: AdminUncheckedCreateNestedOneWithoutMosqueInput
+    fixedPrayerTime?: FixedMosquePrayerTimeUncheckedCreateNestedOneWithoutMosqueInput
+    languageSettings?: MosqueLanguageSettingsUncheckedCreateNestedOneWithoutMosqueInput
+    namesOfAllah?: NameOfAllahUncheckedCreateNestedManyWithoutMosqueInput
     media?: MediaUncheckedCreateNestedManyWithoutMosqueInput
     prayers?: PrayerUncheckedCreateNestedManyWithoutMosqueInput
     qrCodes?: QRCodeUncheckedCreateNestedManyWithoutMosqueInput
@@ -12964,6 +18109,10 @@ export namespace Prisma {
   export type MosqueUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    admin?: AdminUpdateOneWithoutMosqueNestedInput
+    fixedPrayerTime?: FixedMosquePrayerTimeUpdateOneWithoutMosqueNestedInput
+    languageSettings?: MosqueLanguageSettingsUpdateOneWithoutMosqueNestedInput
+    namesOfAllah?: NameOfAllahUpdateManyWithoutMosqueNestedInput
     media?: MediaUpdateManyWithoutMosqueNestedInput
     city?: CityUpdateOneRequiredWithoutMosqueNestedInput
     prayers?: PrayerUpdateManyWithoutMosqueNestedInput
@@ -12975,6 +18124,10 @@ export namespace Prisma {
     cityId?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    admin?: AdminUncheckedUpdateOneWithoutMosqueNestedInput
+    fixedPrayerTime?: FixedMosquePrayerTimeUncheckedUpdateOneWithoutMosqueNestedInput
+    languageSettings?: MosqueLanguageSettingsUncheckedUpdateOneWithoutMosqueNestedInput
+    namesOfAllah?: NameOfAllahUncheckedUpdateManyWithoutMosqueNestedInput
     media?: MediaUncheckedUpdateManyWithoutMosqueNestedInput
     prayers?: PrayerUncheckedUpdateManyWithoutMosqueNestedInput
     qrCodes?: QRCodeUncheckedUpdateManyWithoutMosqueNestedInput
@@ -13141,6 +18294,7 @@ export namespace Prisma {
     createdAt?: Date | string
     role: $Enums.Role
     city?: CityCreateNestedOneWithoutAdminInput
+    mosque?: MosqueCreateNestedOneWithoutAdminInput
     prayerChanges?: PrayerTimeChangeCreateNestedManyWithoutUserInput
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
   }
@@ -13152,6 +18306,7 @@ export namespace Prisma {
     createdAt?: Date | string
     role: $Enums.Role
     cityId?: number | null
+    mosqueId?: number | null
     prayerChanges?: PrayerTimeChangeUncheckedCreateNestedManyWithoutUserInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
   }
@@ -13162,6 +18317,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     city?: CityUpdateOneWithoutAdminNestedInput
+    mosque?: MosqueUpdateOneWithoutAdminNestedInput
     prayerChanges?: PrayerTimeChangeUpdateManyWithoutUserNestedInput
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
   }
@@ -13173,6 +18329,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     cityId?: NullableIntFieldUpdateOperationsInput | number | null
+    mosqueId?: NullableIntFieldUpdateOperationsInput | number | null
     prayerChanges?: PrayerTimeChangeUncheckedUpdateManyWithoutUserNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -13184,6 +18341,7 @@ export namespace Prisma {
     createdAt?: Date | string
     role: $Enums.Role
     cityId?: number | null
+    mosqueId?: number | null
   }
 
   export type AdminUpdateManyMutationInput = {
@@ -13200,6 +18358,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     cityId?: NullableIntFieldUpdateOperationsInput | number | null
+    mosqueId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type FixedPrayerTimeCreateInput = {
@@ -13345,6 +18504,247 @@ export namespace Prisma {
     mechetActive?: BoolFieldUpdateOperationsInput | boolean
   }
 
+  export type FixedMosquePrayerTimeCreateInput = {
+    fajr: string
+    shuruk: string
+    zuhr: string
+    asr: string
+    maghrib: string
+    isha: string
+    mechet?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    fajrActive?: boolean
+    shurukActive?: boolean
+    zuhrActive?: boolean
+    asrActive?: boolean
+    maghribActive?: boolean
+    ishaActive?: boolean
+    mechetActive?: boolean
+    fajrIqamaEnabled?: boolean
+    fajrIqamaMinutes?: number
+    shurukIqamaEnabled?: boolean
+    shurukIqamaMinutes?: number
+    zuhrIqamaEnabled?: boolean
+    zuhrIqamaMinutes?: number
+    asrIqamaEnabled?: boolean
+    asrIqamaMinutes?: number
+    maghribIqamaEnabled?: boolean
+    maghribIqamaMinutes?: number
+    ishaIqamaEnabled?: boolean
+    ishaIqamaMinutes?: number
+    mechetIqamaEnabled?: boolean
+    mechetIqamaMinutes?: number
+    mosque: MosqueCreateNestedOneWithoutFixedPrayerTimeInput
+  }
+
+  export type FixedMosquePrayerTimeUncheckedCreateInput = {
+    id?: number
+    mosqueId: number
+    fajr: string
+    shuruk: string
+    zuhr: string
+    asr: string
+    maghrib: string
+    isha: string
+    mechet?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    fajrActive?: boolean
+    shurukActive?: boolean
+    zuhrActive?: boolean
+    asrActive?: boolean
+    maghribActive?: boolean
+    ishaActive?: boolean
+    mechetActive?: boolean
+    fajrIqamaEnabled?: boolean
+    fajrIqamaMinutes?: number
+    shurukIqamaEnabled?: boolean
+    shurukIqamaMinutes?: number
+    zuhrIqamaEnabled?: boolean
+    zuhrIqamaMinutes?: number
+    asrIqamaEnabled?: boolean
+    asrIqamaMinutes?: number
+    maghribIqamaEnabled?: boolean
+    maghribIqamaMinutes?: number
+    ishaIqamaEnabled?: boolean
+    ishaIqamaMinutes?: number
+    mechetIqamaEnabled?: boolean
+    mechetIqamaMinutes?: number
+  }
+
+  export type FixedMosquePrayerTimeUpdateInput = {
+    fajr?: StringFieldUpdateOperationsInput | string
+    shuruk?: StringFieldUpdateOperationsInput | string
+    zuhr?: StringFieldUpdateOperationsInput | string
+    asr?: StringFieldUpdateOperationsInput | string
+    maghrib?: StringFieldUpdateOperationsInput | string
+    isha?: StringFieldUpdateOperationsInput | string
+    mechet?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    fajrActive?: BoolFieldUpdateOperationsInput | boolean
+    shurukActive?: BoolFieldUpdateOperationsInput | boolean
+    zuhrActive?: BoolFieldUpdateOperationsInput | boolean
+    asrActive?: BoolFieldUpdateOperationsInput | boolean
+    maghribActive?: BoolFieldUpdateOperationsInput | boolean
+    ishaActive?: BoolFieldUpdateOperationsInput | boolean
+    mechetActive?: BoolFieldUpdateOperationsInput | boolean
+    fajrIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    fajrIqamaMinutes?: IntFieldUpdateOperationsInput | number
+    shurukIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    shurukIqamaMinutes?: IntFieldUpdateOperationsInput | number
+    zuhrIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    zuhrIqamaMinutes?: IntFieldUpdateOperationsInput | number
+    asrIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    asrIqamaMinutes?: IntFieldUpdateOperationsInput | number
+    maghribIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    maghribIqamaMinutes?: IntFieldUpdateOperationsInput | number
+    ishaIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    ishaIqamaMinutes?: IntFieldUpdateOperationsInput | number
+    mechetIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mechetIqamaMinutes?: IntFieldUpdateOperationsInput | number
+    mosque?: MosqueUpdateOneRequiredWithoutFixedPrayerTimeNestedInput
+  }
+
+  export type FixedMosquePrayerTimeUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    mosqueId?: IntFieldUpdateOperationsInput | number
+    fajr?: StringFieldUpdateOperationsInput | string
+    shuruk?: StringFieldUpdateOperationsInput | string
+    zuhr?: StringFieldUpdateOperationsInput | string
+    asr?: StringFieldUpdateOperationsInput | string
+    maghrib?: StringFieldUpdateOperationsInput | string
+    isha?: StringFieldUpdateOperationsInput | string
+    mechet?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    fajrActive?: BoolFieldUpdateOperationsInput | boolean
+    shurukActive?: BoolFieldUpdateOperationsInput | boolean
+    zuhrActive?: BoolFieldUpdateOperationsInput | boolean
+    asrActive?: BoolFieldUpdateOperationsInput | boolean
+    maghribActive?: BoolFieldUpdateOperationsInput | boolean
+    ishaActive?: BoolFieldUpdateOperationsInput | boolean
+    mechetActive?: BoolFieldUpdateOperationsInput | boolean
+    fajrIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    fajrIqamaMinutes?: IntFieldUpdateOperationsInput | number
+    shurukIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    shurukIqamaMinutes?: IntFieldUpdateOperationsInput | number
+    zuhrIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    zuhrIqamaMinutes?: IntFieldUpdateOperationsInput | number
+    asrIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    asrIqamaMinutes?: IntFieldUpdateOperationsInput | number
+    maghribIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    maghribIqamaMinutes?: IntFieldUpdateOperationsInput | number
+    ishaIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    ishaIqamaMinutes?: IntFieldUpdateOperationsInput | number
+    mechetIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mechetIqamaMinutes?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type FixedMosquePrayerTimeCreateManyInput = {
+    id?: number
+    mosqueId: number
+    fajr: string
+    shuruk: string
+    zuhr: string
+    asr: string
+    maghrib: string
+    isha: string
+    mechet?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    fajrActive?: boolean
+    shurukActive?: boolean
+    zuhrActive?: boolean
+    asrActive?: boolean
+    maghribActive?: boolean
+    ishaActive?: boolean
+    mechetActive?: boolean
+    fajrIqamaEnabled?: boolean
+    fajrIqamaMinutes?: number
+    shurukIqamaEnabled?: boolean
+    shurukIqamaMinutes?: number
+    zuhrIqamaEnabled?: boolean
+    zuhrIqamaMinutes?: number
+    asrIqamaEnabled?: boolean
+    asrIqamaMinutes?: number
+    maghribIqamaEnabled?: boolean
+    maghribIqamaMinutes?: number
+    ishaIqamaEnabled?: boolean
+    ishaIqamaMinutes?: number
+    mechetIqamaEnabled?: boolean
+    mechetIqamaMinutes?: number
+  }
+
+  export type FixedMosquePrayerTimeUpdateManyMutationInput = {
+    fajr?: StringFieldUpdateOperationsInput | string
+    shuruk?: StringFieldUpdateOperationsInput | string
+    zuhr?: StringFieldUpdateOperationsInput | string
+    asr?: StringFieldUpdateOperationsInput | string
+    maghrib?: StringFieldUpdateOperationsInput | string
+    isha?: StringFieldUpdateOperationsInput | string
+    mechet?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    fajrActive?: BoolFieldUpdateOperationsInput | boolean
+    shurukActive?: BoolFieldUpdateOperationsInput | boolean
+    zuhrActive?: BoolFieldUpdateOperationsInput | boolean
+    asrActive?: BoolFieldUpdateOperationsInput | boolean
+    maghribActive?: BoolFieldUpdateOperationsInput | boolean
+    ishaActive?: BoolFieldUpdateOperationsInput | boolean
+    mechetActive?: BoolFieldUpdateOperationsInput | boolean
+    fajrIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    fajrIqamaMinutes?: IntFieldUpdateOperationsInput | number
+    shurukIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    shurukIqamaMinutes?: IntFieldUpdateOperationsInput | number
+    zuhrIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    zuhrIqamaMinutes?: IntFieldUpdateOperationsInput | number
+    asrIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    asrIqamaMinutes?: IntFieldUpdateOperationsInput | number
+    maghribIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    maghribIqamaMinutes?: IntFieldUpdateOperationsInput | number
+    ishaIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    ishaIqamaMinutes?: IntFieldUpdateOperationsInput | number
+    mechetIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mechetIqamaMinutes?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type FixedMosquePrayerTimeUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    mosqueId?: IntFieldUpdateOperationsInput | number
+    fajr?: StringFieldUpdateOperationsInput | string
+    shuruk?: StringFieldUpdateOperationsInput | string
+    zuhr?: StringFieldUpdateOperationsInput | string
+    asr?: StringFieldUpdateOperationsInput | string
+    maghrib?: StringFieldUpdateOperationsInput | string
+    isha?: StringFieldUpdateOperationsInput | string
+    mechet?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    fajrActive?: BoolFieldUpdateOperationsInput | boolean
+    shurukActive?: BoolFieldUpdateOperationsInput | boolean
+    zuhrActive?: BoolFieldUpdateOperationsInput | boolean
+    asrActive?: BoolFieldUpdateOperationsInput | boolean
+    maghribActive?: BoolFieldUpdateOperationsInput | boolean
+    ishaActive?: BoolFieldUpdateOperationsInput | boolean
+    mechetActive?: BoolFieldUpdateOperationsInput | boolean
+    fajrIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    fajrIqamaMinutes?: IntFieldUpdateOperationsInput | number
+    shurukIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    shurukIqamaMinutes?: IntFieldUpdateOperationsInput | number
+    zuhrIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    zuhrIqamaMinutes?: IntFieldUpdateOperationsInput | number
+    asrIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    asrIqamaMinutes?: IntFieldUpdateOperationsInput | number
+    maghribIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    maghribIqamaMinutes?: IntFieldUpdateOperationsInput | number
+    ishaIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    ishaIqamaMinutes?: IntFieldUpdateOperationsInput | number
+    mechetIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mechetIqamaMinutes?: IntFieldUpdateOperationsInput | number
+  }
+
   export type PrayerTimeChangeCreateInput = {
     prayerType: string
     oldTime: string
@@ -13488,6 +18888,212 @@ export namespace Prisma {
     oldValue?: NullableJsonNullValueInput | InputJsonValue
     newValue?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TranslationCreateInput = {
+    key: string
+    ru: string
+    tt: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TranslationUncheckedCreateInput = {
+    id?: number
+    key: string
+    ru: string
+    tt: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TranslationUpdateInput = {
+    key?: StringFieldUpdateOperationsInput | string
+    ru?: StringFieldUpdateOperationsInput | string
+    tt?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TranslationUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    key?: StringFieldUpdateOperationsInput | string
+    ru?: StringFieldUpdateOperationsInput | string
+    tt?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TranslationCreateManyInput = {
+    id?: number
+    key: string
+    ru: string
+    tt: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TranslationUpdateManyMutationInput = {
+    key?: StringFieldUpdateOperationsInput | string
+    ru?: StringFieldUpdateOperationsInput | string
+    tt?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TranslationUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    key?: StringFieldUpdateOperationsInput | string
+    ru?: StringFieldUpdateOperationsInput | string
+    tt?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MosqueLanguageSettingsCreateInput = {
+    translationsEnabled?: boolean
+    languageToggleEnabled?: boolean
+    languageToggleIntervalSeconds?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    mosque: MosqueCreateNestedOneWithoutLanguageSettingsInput
+  }
+
+  export type MosqueLanguageSettingsUncheckedCreateInput = {
+    id?: number
+    mosqueId: number
+    translationsEnabled?: boolean
+    languageToggleEnabled?: boolean
+    languageToggleIntervalSeconds?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MosqueLanguageSettingsUpdateInput = {
+    translationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    languageToggleEnabled?: BoolFieldUpdateOperationsInput | boolean
+    languageToggleIntervalSeconds?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mosque?: MosqueUpdateOneRequiredWithoutLanguageSettingsNestedInput
+  }
+
+  export type MosqueLanguageSettingsUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    mosqueId?: IntFieldUpdateOperationsInput | number
+    translationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    languageToggleEnabled?: BoolFieldUpdateOperationsInput | boolean
+    languageToggleIntervalSeconds?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MosqueLanguageSettingsCreateManyInput = {
+    id?: number
+    mosqueId: number
+    translationsEnabled?: boolean
+    languageToggleEnabled?: boolean
+    languageToggleIntervalSeconds?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MosqueLanguageSettingsUpdateManyMutationInput = {
+    translationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    languageToggleEnabled?: BoolFieldUpdateOperationsInput | boolean
+    languageToggleIntervalSeconds?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MosqueLanguageSettingsUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    mosqueId?: IntFieldUpdateOperationsInput | number
+    translationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    languageToggleEnabled?: BoolFieldUpdateOperationsInput | boolean
+    languageToggleIntervalSeconds?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NameOfAllahCreateInput = {
+    arabic: string
+    transcription: string
+    meaning: string
+    transcriptionTatar?: string | null
+    meaningTatar?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    mosque: MosqueCreateNestedOneWithoutNamesOfAllahInput
+  }
+
+  export type NameOfAllahUncheckedCreateInput = {
+    id?: number
+    mosqueId: number
+    arabic: string
+    transcription: string
+    meaning: string
+    transcriptionTatar?: string | null
+    meaningTatar?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NameOfAllahUpdateInput = {
+    arabic?: StringFieldUpdateOperationsInput | string
+    transcription?: StringFieldUpdateOperationsInput | string
+    meaning?: StringFieldUpdateOperationsInput | string
+    transcriptionTatar?: NullableStringFieldUpdateOperationsInput | string | null
+    meaningTatar?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mosque?: MosqueUpdateOneRequiredWithoutNamesOfAllahNestedInput
+  }
+
+  export type NameOfAllahUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    mosqueId?: IntFieldUpdateOperationsInput | number
+    arabic?: StringFieldUpdateOperationsInput | string
+    transcription?: StringFieldUpdateOperationsInput | string
+    meaning?: StringFieldUpdateOperationsInput | string
+    transcriptionTatar?: NullableStringFieldUpdateOperationsInput | string | null
+    meaningTatar?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NameOfAllahCreateManyInput = {
+    id?: number
+    mosqueId: number
+    arabic: string
+    transcription: string
+    meaning: string
+    transcriptionTatar?: string | null
+    meaningTatar?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NameOfAllahUpdateManyMutationInput = {
+    arabic?: StringFieldUpdateOperationsInput | string
+    transcription?: StringFieldUpdateOperationsInput | string
+    meaning?: StringFieldUpdateOperationsInput | string
+    transcriptionTatar?: NullableStringFieldUpdateOperationsInput | string | null
+    meaningTatar?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NameOfAllahUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    mosqueId?: IntFieldUpdateOperationsInput | number
+    arabic?: StringFieldUpdateOperationsInput | string
+    transcription?: StringFieldUpdateOperationsInput | string
+    meaning?: StringFieldUpdateOperationsInput | string
+    transcriptionTatar?: NullableStringFieldUpdateOperationsInput | string | null
+    meaningTatar?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -13745,6 +19351,22 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
+  export type FixedMosquePrayerTimeNullableRelationFilter = {
+    is?: FixedMosquePrayerTimeWhereInput | null
+    isNot?: FixedMosquePrayerTimeWhereInput | null
+  }
+
+  export type MosqueLanguageSettingsNullableRelationFilter = {
+    is?: MosqueLanguageSettingsWhereInput | null
+    isNot?: MosqueLanguageSettingsWhereInput | null
+  }
+
+  export type NameOfAllahListRelationFilter = {
+    every?: NameOfAllahWhereInput
+    some?: NameOfAllahWhereInput
+    none?: NameOfAllahWhereInput
+  }
+
   export type MediaListRelationFilter = {
     every?: MediaWhereInput
     some?: MediaWhereInput
@@ -13755,6 +19377,10 @@ export namespace Prisma {
     every?: QRCodeWhereInput
     some?: QRCodeWhereInput
     none?: QRCodeWhereInput
+  }
+
+  export type NameOfAllahOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type MediaOrderByRelationAggregateInput = {
@@ -13959,11 +19585,13 @@ export namespace Prisma {
     createdAt?: SortOrder
     role?: SortOrder
     cityId?: SortOrder
+    mosqueId?: SortOrder
   }
 
   export type AdminAvgOrderByAggregateInput = {
     id?: SortOrder
     cityId?: SortOrder
+    mosqueId?: SortOrder
   }
 
   export type AdminMaxOrderByAggregateInput = {
@@ -13973,6 +19601,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     role?: SortOrder
     cityId?: SortOrder
+    mosqueId?: SortOrder
   }
 
   export type AdminMinOrderByAggregateInput = {
@@ -13982,11 +19611,13 @@ export namespace Prisma {
     createdAt?: SortOrder
     role?: SortOrder
     cityId?: SortOrder
+    mosqueId?: SortOrder
   }
 
   export type AdminSumOrderByAggregateInput = {
     id?: SortOrder
     cityId?: SortOrder
+    mosqueId?: SortOrder
   }
 
   export type EnumRoleWithAggregatesFilter<$PrismaModel = never> = {
@@ -14070,6 +19701,135 @@ export namespace Prisma {
   export type FixedPrayerTimeSumOrderByAggregateInput = {
     id?: SortOrder
     cityId?: SortOrder
+  }
+
+  export type FixedMosquePrayerTimeCountOrderByAggregateInput = {
+    id?: SortOrder
+    mosqueId?: SortOrder
+    fajr?: SortOrder
+    shuruk?: SortOrder
+    zuhr?: SortOrder
+    asr?: SortOrder
+    maghrib?: SortOrder
+    isha?: SortOrder
+    mechet?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    fajrActive?: SortOrder
+    shurukActive?: SortOrder
+    zuhrActive?: SortOrder
+    asrActive?: SortOrder
+    maghribActive?: SortOrder
+    ishaActive?: SortOrder
+    mechetActive?: SortOrder
+    fajrIqamaEnabled?: SortOrder
+    fajrIqamaMinutes?: SortOrder
+    shurukIqamaEnabled?: SortOrder
+    shurukIqamaMinutes?: SortOrder
+    zuhrIqamaEnabled?: SortOrder
+    zuhrIqamaMinutes?: SortOrder
+    asrIqamaEnabled?: SortOrder
+    asrIqamaMinutes?: SortOrder
+    maghribIqamaEnabled?: SortOrder
+    maghribIqamaMinutes?: SortOrder
+    ishaIqamaEnabled?: SortOrder
+    ishaIqamaMinutes?: SortOrder
+    mechetIqamaEnabled?: SortOrder
+    mechetIqamaMinutes?: SortOrder
+  }
+
+  export type FixedMosquePrayerTimeAvgOrderByAggregateInput = {
+    id?: SortOrder
+    mosqueId?: SortOrder
+    fajrIqamaMinutes?: SortOrder
+    shurukIqamaMinutes?: SortOrder
+    zuhrIqamaMinutes?: SortOrder
+    asrIqamaMinutes?: SortOrder
+    maghribIqamaMinutes?: SortOrder
+    ishaIqamaMinutes?: SortOrder
+    mechetIqamaMinutes?: SortOrder
+  }
+
+  export type FixedMosquePrayerTimeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    mosqueId?: SortOrder
+    fajr?: SortOrder
+    shuruk?: SortOrder
+    zuhr?: SortOrder
+    asr?: SortOrder
+    maghrib?: SortOrder
+    isha?: SortOrder
+    mechet?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    fajrActive?: SortOrder
+    shurukActive?: SortOrder
+    zuhrActive?: SortOrder
+    asrActive?: SortOrder
+    maghribActive?: SortOrder
+    ishaActive?: SortOrder
+    mechetActive?: SortOrder
+    fajrIqamaEnabled?: SortOrder
+    fajrIqamaMinutes?: SortOrder
+    shurukIqamaEnabled?: SortOrder
+    shurukIqamaMinutes?: SortOrder
+    zuhrIqamaEnabled?: SortOrder
+    zuhrIqamaMinutes?: SortOrder
+    asrIqamaEnabled?: SortOrder
+    asrIqamaMinutes?: SortOrder
+    maghribIqamaEnabled?: SortOrder
+    maghribIqamaMinutes?: SortOrder
+    ishaIqamaEnabled?: SortOrder
+    ishaIqamaMinutes?: SortOrder
+    mechetIqamaEnabled?: SortOrder
+    mechetIqamaMinutes?: SortOrder
+  }
+
+  export type FixedMosquePrayerTimeMinOrderByAggregateInput = {
+    id?: SortOrder
+    mosqueId?: SortOrder
+    fajr?: SortOrder
+    shuruk?: SortOrder
+    zuhr?: SortOrder
+    asr?: SortOrder
+    maghrib?: SortOrder
+    isha?: SortOrder
+    mechet?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    fajrActive?: SortOrder
+    shurukActive?: SortOrder
+    zuhrActive?: SortOrder
+    asrActive?: SortOrder
+    maghribActive?: SortOrder
+    ishaActive?: SortOrder
+    mechetActive?: SortOrder
+    fajrIqamaEnabled?: SortOrder
+    fajrIqamaMinutes?: SortOrder
+    shurukIqamaEnabled?: SortOrder
+    shurukIqamaMinutes?: SortOrder
+    zuhrIqamaEnabled?: SortOrder
+    zuhrIqamaMinutes?: SortOrder
+    asrIqamaEnabled?: SortOrder
+    asrIqamaMinutes?: SortOrder
+    maghribIqamaEnabled?: SortOrder
+    maghribIqamaMinutes?: SortOrder
+    ishaIqamaEnabled?: SortOrder
+    ishaIqamaMinutes?: SortOrder
+    mechetIqamaEnabled?: SortOrder
+    mechetIqamaMinutes?: SortOrder
+  }
+
+  export type FixedMosquePrayerTimeSumOrderByAggregateInput = {
+    id?: SortOrder
+    mosqueId?: SortOrder
+    fajrIqamaMinutes?: SortOrder
+    shurukIqamaMinutes?: SortOrder
+    zuhrIqamaMinutes?: SortOrder
+    asrIqamaMinutes?: SortOrder
+    maghribIqamaMinutes?: SortOrder
+    ishaIqamaMinutes?: SortOrder
+    mechetIqamaMinutes?: SortOrder
   }
 
   export type PrayerRelationFilter = {
@@ -14215,6 +19975,134 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedJsonNullableFilter<$PrismaModel>
     _max?: NestedJsonNullableFilter<$PrismaModel>
+  }
+
+  export type TranslationCountOrderByAggregateInput = {
+    id?: SortOrder
+    key?: SortOrder
+    ru?: SortOrder
+    tt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TranslationAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type TranslationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    key?: SortOrder
+    ru?: SortOrder
+    tt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TranslationMinOrderByAggregateInput = {
+    id?: SortOrder
+    key?: SortOrder
+    ru?: SortOrder
+    tt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TranslationSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type MosqueLanguageSettingsCountOrderByAggregateInput = {
+    id?: SortOrder
+    mosqueId?: SortOrder
+    translationsEnabled?: SortOrder
+    languageToggleEnabled?: SortOrder
+    languageToggleIntervalSeconds?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MosqueLanguageSettingsAvgOrderByAggregateInput = {
+    id?: SortOrder
+    mosqueId?: SortOrder
+    languageToggleIntervalSeconds?: SortOrder
+  }
+
+  export type MosqueLanguageSettingsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    mosqueId?: SortOrder
+    translationsEnabled?: SortOrder
+    languageToggleEnabled?: SortOrder
+    languageToggleIntervalSeconds?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MosqueLanguageSettingsMinOrderByAggregateInput = {
+    id?: SortOrder
+    mosqueId?: SortOrder
+    translationsEnabled?: SortOrder
+    languageToggleEnabled?: SortOrder
+    languageToggleIntervalSeconds?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MosqueLanguageSettingsSumOrderByAggregateInput = {
+    id?: SortOrder
+    mosqueId?: SortOrder
+    languageToggleIntervalSeconds?: SortOrder
+  }
+
+  export type NameOfAllahMosqueIdArabicCompoundUniqueInput = {
+    mosqueId: number
+    arabic: string
+  }
+
+  export type NameOfAllahCountOrderByAggregateInput = {
+    id?: SortOrder
+    mosqueId?: SortOrder
+    arabic?: SortOrder
+    transcription?: SortOrder
+    meaning?: SortOrder
+    transcriptionTatar?: SortOrder
+    meaningTatar?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type NameOfAllahAvgOrderByAggregateInput = {
+    id?: SortOrder
+    mosqueId?: SortOrder
+  }
+
+  export type NameOfAllahMaxOrderByAggregateInput = {
+    id?: SortOrder
+    mosqueId?: SortOrder
+    arabic?: SortOrder
+    transcription?: SortOrder
+    meaning?: SortOrder
+    transcriptionTatar?: SortOrder
+    meaningTatar?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type NameOfAllahMinOrderByAggregateInput = {
+    id?: SortOrder
+    mosqueId?: SortOrder
+    arabic?: SortOrder
+    transcription?: SortOrder
+    meaning?: SortOrder
+    transcriptionTatar?: SortOrder
+    meaningTatar?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type NameOfAllahSumOrderByAggregateInput = {
+    id?: SortOrder
+    mosqueId?: SortOrder
   }
 
   export type AdminCreateNestedOneWithoutCityInput = {
@@ -14461,6 +20349,31 @@ export namespace Prisma {
     deleteMany?: PrayerTimeChangeScalarWhereInput | PrayerTimeChangeScalarWhereInput[]
   }
 
+  export type AdminCreateNestedOneWithoutMosqueInput = {
+    create?: XOR<AdminCreateWithoutMosqueInput, AdminUncheckedCreateWithoutMosqueInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutMosqueInput
+    connect?: AdminWhereUniqueInput
+  }
+
+  export type FixedMosquePrayerTimeCreateNestedOneWithoutMosqueInput = {
+    create?: XOR<FixedMosquePrayerTimeCreateWithoutMosqueInput, FixedMosquePrayerTimeUncheckedCreateWithoutMosqueInput>
+    connectOrCreate?: FixedMosquePrayerTimeCreateOrConnectWithoutMosqueInput
+    connect?: FixedMosquePrayerTimeWhereUniqueInput
+  }
+
+  export type MosqueLanguageSettingsCreateNestedOneWithoutMosqueInput = {
+    create?: XOR<MosqueLanguageSettingsCreateWithoutMosqueInput, MosqueLanguageSettingsUncheckedCreateWithoutMosqueInput>
+    connectOrCreate?: MosqueLanguageSettingsCreateOrConnectWithoutMosqueInput
+    connect?: MosqueLanguageSettingsWhereUniqueInput
+  }
+
+  export type NameOfAllahCreateNestedManyWithoutMosqueInput = {
+    create?: XOR<NameOfAllahCreateWithoutMosqueInput, NameOfAllahUncheckedCreateWithoutMosqueInput> | NameOfAllahCreateWithoutMosqueInput[] | NameOfAllahUncheckedCreateWithoutMosqueInput[]
+    connectOrCreate?: NameOfAllahCreateOrConnectWithoutMosqueInput | NameOfAllahCreateOrConnectWithoutMosqueInput[]
+    createMany?: NameOfAllahCreateManyMosqueInputEnvelope
+    connect?: NameOfAllahWhereUniqueInput | NameOfAllahWhereUniqueInput[]
+  }
+
   export type MediaCreateNestedManyWithoutMosqueInput = {
     create?: XOR<MediaCreateWithoutMosqueInput, MediaUncheckedCreateWithoutMosqueInput> | MediaCreateWithoutMosqueInput[] | MediaUncheckedCreateWithoutMosqueInput[]
     connectOrCreate?: MediaCreateOrConnectWithoutMosqueInput | MediaCreateOrConnectWithoutMosqueInput[]
@@ -14488,6 +20401,31 @@ export namespace Prisma {
     connect?: QRCodeWhereUniqueInput | QRCodeWhereUniqueInput[]
   }
 
+  export type AdminUncheckedCreateNestedOneWithoutMosqueInput = {
+    create?: XOR<AdminCreateWithoutMosqueInput, AdminUncheckedCreateWithoutMosqueInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutMosqueInput
+    connect?: AdminWhereUniqueInput
+  }
+
+  export type FixedMosquePrayerTimeUncheckedCreateNestedOneWithoutMosqueInput = {
+    create?: XOR<FixedMosquePrayerTimeCreateWithoutMosqueInput, FixedMosquePrayerTimeUncheckedCreateWithoutMosqueInput>
+    connectOrCreate?: FixedMosquePrayerTimeCreateOrConnectWithoutMosqueInput
+    connect?: FixedMosquePrayerTimeWhereUniqueInput
+  }
+
+  export type MosqueLanguageSettingsUncheckedCreateNestedOneWithoutMosqueInput = {
+    create?: XOR<MosqueLanguageSettingsCreateWithoutMosqueInput, MosqueLanguageSettingsUncheckedCreateWithoutMosqueInput>
+    connectOrCreate?: MosqueLanguageSettingsCreateOrConnectWithoutMosqueInput
+    connect?: MosqueLanguageSettingsWhereUniqueInput
+  }
+
+  export type NameOfAllahUncheckedCreateNestedManyWithoutMosqueInput = {
+    create?: XOR<NameOfAllahCreateWithoutMosqueInput, NameOfAllahUncheckedCreateWithoutMosqueInput> | NameOfAllahCreateWithoutMosqueInput[] | NameOfAllahUncheckedCreateWithoutMosqueInput[]
+    connectOrCreate?: NameOfAllahCreateOrConnectWithoutMosqueInput | NameOfAllahCreateOrConnectWithoutMosqueInput[]
+    createMany?: NameOfAllahCreateManyMosqueInputEnvelope
+    connect?: NameOfAllahWhereUniqueInput | NameOfAllahWhereUniqueInput[]
+  }
+
   export type MediaUncheckedCreateNestedManyWithoutMosqueInput = {
     create?: XOR<MediaCreateWithoutMosqueInput, MediaUncheckedCreateWithoutMosqueInput> | MediaCreateWithoutMosqueInput[] | MediaUncheckedCreateWithoutMosqueInput[]
     connectOrCreate?: MediaCreateOrConnectWithoutMosqueInput | MediaCreateOrConnectWithoutMosqueInput[]
@@ -14507,6 +20445,50 @@ export namespace Prisma {
     connectOrCreate?: QRCodeCreateOrConnectWithoutMosqueInput | QRCodeCreateOrConnectWithoutMosqueInput[]
     createMany?: QRCodeCreateManyMosqueInputEnvelope
     connect?: QRCodeWhereUniqueInput | QRCodeWhereUniqueInput[]
+  }
+
+  export type AdminUpdateOneWithoutMosqueNestedInput = {
+    create?: XOR<AdminCreateWithoutMosqueInput, AdminUncheckedCreateWithoutMosqueInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutMosqueInput
+    upsert?: AdminUpsertWithoutMosqueInput
+    disconnect?: AdminWhereInput | boolean
+    delete?: AdminWhereInput | boolean
+    connect?: AdminWhereUniqueInput
+    update?: XOR<XOR<AdminUpdateToOneWithWhereWithoutMosqueInput, AdminUpdateWithoutMosqueInput>, AdminUncheckedUpdateWithoutMosqueInput>
+  }
+
+  export type FixedMosquePrayerTimeUpdateOneWithoutMosqueNestedInput = {
+    create?: XOR<FixedMosquePrayerTimeCreateWithoutMosqueInput, FixedMosquePrayerTimeUncheckedCreateWithoutMosqueInput>
+    connectOrCreate?: FixedMosquePrayerTimeCreateOrConnectWithoutMosqueInput
+    upsert?: FixedMosquePrayerTimeUpsertWithoutMosqueInput
+    disconnect?: FixedMosquePrayerTimeWhereInput | boolean
+    delete?: FixedMosquePrayerTimeWhereInput | boolean
+    connect?: FixedMosquePrayerTimeWhereUniqueInput
+    update?: XOR<XOR<FixedMosquePrayerTimeUpdateToOneWithWhereWithoutMosqueInput, FixedMosquePrayerTimeUpdateWithoutMosqueInput>, FixedMosquePrayerTimeUncheckedUpdateWithoutMosqueInput>
+  }
+
+  export type MosqueLanguageSettingsUpdateOneWithoutMosqueNestedInput = {
+    create?: XOR<MosqueLanguageSettingsCreateWithoutMosqueInput, MosqueLanguageSettingsUncheckedCreateWithoutMosqueInput>
+    connectOrCreate?: MosqueLanguageSettingsCreateOrConnectWithoutMosqueInput
+    upsert?: MosqueLanguageSettingsUpsertWithoutMosqueInput
+    disconnect?: MosqueLanguageSettingsWhereInput | boolean
+    delete?: MosqueLanguageSettingsWhereInput | boolean
+    connect?: MosqueLanguageSettingsWhereUniqueInput
+    update?: XOR<XOR<MosqueLanguageSettingsUpdateToOneWithWhereWithoutMosqueInput, MosqueLanguageSettingsUpdateWithoutMosqueInput>, MosqueLanguageSettingsUncheckedUpdateWithoutMosqueInput>
+  }
+
+  export type NameOfAllahUpdateManyWithoutMosqueNestedInput = {
+    create?: XOR<NameOfAllahCreateWithoutMosqueInput, NameOfAllahUncheckedCreateWithoutMosqueInput> | NameOfAllahCreateWithoutMosqueInput[] | NameOfAllahUncheckedCreateWithoutMosqueInput[]
+    connectOrCreate?: NameOfAllahCreateOrConnectWithoutMosqueInput | NameOfAllahCreateOrConnectWithoutMosqueInput[]
+    upsert?: NameOfAllahUpsertWithWhereUniqueWithoutMosqueInput | NameOfAllahUpsertWithWhereUniqueWithoutMosqueInput[]
+    createMany?: NameOfAllahCreateManyMosqueInputEnvelope
+    set?: NameOfAllahWhereUniqueInput | NameOfAllahWhereUniqueInput[]
+    disconnect?: NameOfAllahWhereUniqueInput | NameOfAllahWhereUniqueInput[]
+    delete?: NameOfAllahWhereUniqueInput | NameOfAllahWhereUniqueInput[]
+    connect?: NameOfAllahWhereUniqueInput | NameOfAllahWhereUniqueInput[]
+    update?: NameOfAllahUpdateWithWhereUniqueWithoutMosqueInput | NameOfAllahUpdateWithWhereUniqueWithoutMosqueInput[]
+    updateMany?: NameOfAllahUpdateManyWithWhereWithoutMosqueInput | NameOfAllahUpdateManyWithWhereWithoutMosqueInput[]
+    deleteMany?: NameOfAllahScalarWhereInput | NameOfAllahScalarWhereInput[]
   }
 
   export type MediaUpdateManyWithoutMosqueNestedInput = {
@@ -14557,6 +20539,50 @@ export namespace Prisma {
     update?: QRCodeUpdateWithWhereUniqueWithoutMosqueInput | QRCodeUpdateWithWhereUniqueWithoutMosqueInput[]
     updateMany?: QRCodeUpdateManyWithWhereWithoutMosqueInput | QRCodeUpdateManyWithWhereWithoutMosqueInput[]
     deleteMany?: QRCodeScalarWhereInput | QRCodeScalarWhereInput[]
+  }
+
+  export type AdminUncheckedUpdateOneWithoutMosqueNestedInput = {
+    create?: XOR<AdminCreateWithoutMosqueInput, AdminUncheckedCreateWithoutMosqueInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutMosqueInput
+    upsert?: AdminUpsertWithoutMosqueInput
+    disconnect?: AdminWhereInput | boolean
+    delete?: AdminWhereInput | boolean
+    connect?: AdminWhereUniqueInput
+    update?: XOR<XOR<AdminUpdateToOneWithWhereWithoutMosqueInput, AdminUpdateWithoutMosqueInput>, AdminUncheckedUpdateWithoutMosqueInput>
+  }
+
+  export type FixedMosquePrayerTimeUncheckedUpdateOneWithoutMosqueNestedInput = {
+    create?: XOR<FixedMosquePrayerTimeCreateWithoutMosqueInput, FixedMosquePrayerTimeUncheckedCreateWithoutMosqueInput>
+    connectOrCreate?: FixedMosquePrayerTimeCreateOrConnectWithoutMosqueInput
+    upsert?: FixedMosquePrayerTimeUpsertWithoutMosqueInput
+    disconnect?: FixedMosquePrayerTimeWhereInput | boolean
+    delete?: FixedMosquePrayerTimeWhereInput | boolean
+    connect?: FixedMosquePrayerTimeWhereUniqueInput
+    update?: XOR<XOR<FixedMosquePrayerTimeUpdateToOneWithWhereWithoutMosqueInput, FixedMosquePrayerTimeUpdateWithoutMosqueInput>, FixedMosquePrayerTimeUncheckedUpdateWithoutMosqueInput>
+  }
+
+  export type MosqueLanguageSettingsUncheckedUpdateOneWithoutMosqueNestedInput = {
+    create?: XOR<MosqueLanguageSettingsCreateWithoutMosqueInput, MosqueLanguageSettingsUncheckedCreateWithoutMosqueInput>
+    connectOrCreate?: MosqueLanguageSettingsCreateOrConnectWithoutMosqueInput
+    upsert?: MosqueLanguageSettingsUpsertWithoutMosqueInput
+    disconnect?: MosqueLanguageSettingsWhereInput | boolean
+    delete?: MosqueLanguageSettingsWhereInput | boolean
+    connect?: MosqueLanguageSettingsWhereUniqueInput
+    update?: XOR<XOR<MosqueLanguageSettingsUpdateToOneWithWhereWithoutMosqueInput, MosqueLanguageSettingsUpdateWithoutMosqueInput>, MosqueLanguageSettingsUncheckedUpdateWithoutMosqueInput>
+  }
+
+  export type NameOfAllahUncheckedUpdateManyWithoutMosqueNestedInput = {
+    create?: XOR<NameOfAllahCreateWithoutMosqueInput, NameOfAllahUncheckedCreateWithoutMosqueInput> | NameOfAllahCreateWithoutMosqueInput[] | NameOfAllahUncheckedCreateWithoutMosqueInput[]
+    connectOrCreate?: NameOfAllahCreateOrConnectWithoutMosqueInput | NameOfAllahCreateOrConnectWithoutMosqueInput[]
+    upsert?: NameOfAllahUpsertWithWhereUniqueWithoutMosqueInput | NameOfAllahUpsertWithWhereUniqueWithoutMosqueInput[]
+    createMany?: NameOfAllahCreateManyMosqueInputEnvelope
+    set?: NameOfAllahWhereUniqueInput | NameOfAllahWhereUniqueInput[]
+    disconnect?: NameOfAllahWhereUniqueInput | NameOfAllahWhereUniqueInput[]
+    delete?: NameOfAllahWhereUniqueInput | NameOfAllahWhereUniqueInput[]
+    connect?: NameOfAllahWhereUniqueInput | NameOfAllahWhereUniqueInput[]
+    update?: NameOfAllahUpdateWithWhereUniqueWithoutMosqueInput | NameOfAllahUpdateWithWhereUniqueWithoutMosqueInput[]
+    updateMany?: NameOfAllahUpdateManyWithWhereWithoutMosqueInput | NameOfAllahUpdateManyWithWhereWithoutMosqueInput[]
+    deleteMany?: NameOfAllahScalarWhereInput | NameOfAllahScalarWhereInput[]
   }
 
   export type MediaUncheckedUpdateManyWithoutMosqueNestedInput = {
@@ -14643,6 +20669,12 @@ export namespace Prisma {
     connect?: CityWhereUniqueInput
   }
 
+  export type MosqueCreateNestedOneWithoutAdminInput = {
+    create?: XOR<MosqueCreateWithoutAdminInput, MosqueUncheckedCreateWithoutAdminInput>
+    connectOrCreate?: MosqueCreateOrConnectWithoutAdminInput
+    connect?: MosqueWhereUniqueInput
+  }
+
   export type PrayerTimeChangeCreateNestedManyWithoutUserInput = {
     create?: XOR<PrayerTimeChangeCreateWithoutUserInput, PrayerTimeChangeUncheckedCreateWithoutUserInput> | PrayerTimeChangeCreateWithoutUserInput[] | PrayerTimeChangeUncheckedCreateWithoutUserInput[]
     connectOrCreate?: PrayerTimeChangeCreateOrConnectWithoutUserInput | PrayerTimeChangeCreateOrConnectWithoutUserInput[]
@@ -14683,6 +20715,16 @@ export namespace Prisma {
     delete?: CityWhereInput | boolean
     connect?: CityWhereUniqueInput
     update?: XOR<XOR<CityUpdateToOneWithWhereWithoutAdminInput, CityUpdateWithoutAdminInput>, CityUncheckedUpdateWithoutAdminInput>
+  }
+
+  export type MosqueUpdateOneWithoutAdminNestedInput = {
+    create?: XOR<MosqueCreateWithoutAdminInput, MosqueUncheckedCreateWithoutAdminInput>
+    connectOrCreate?: MosqueCreateOrConnectWithoutAdminInput
+    upsert?: MosqueUpsertWithoutAdminInput
+    disconnect?: MosqueWhereInput | boolean
+    delete?: MosqueWhereInput | boolean
+    connect?: MosqueWhereUniqueInput
+    update?: XOR<XOR<MosqueUpdateToOneWithWhereWithoutAdminInput, MosqueUpdateWithoutAdminInput>, MosqueUncheckedUpdateWithoutAdminInput>
   }
 
   export type PrayerTimeChangeUpdateManyWithoutUserNestedInput = {
@@ -14755,6 +20797,20 @@ export namespace Prisma {
     update?: XOR<XOR<CityUpdateToOneWithWhereWithoutFixedPrayerTimeInput, CityUpdateWithoutFixedPrayerTimeInput>, CityUncheckedUpdateWithoutFixedPrayerTimeInput>
   }
 
+  export type MosqueCreateNestedOneWithoutFixedPrayerTimeInput = {
+    create?: XOR<MosqueCreateWithoutFixedPrayerTimeInput, MosqueUncheckedCreateWithoutFixedPrayerTimeInput>
+    connectOrCreate?: MosqueCreateOrConnectWithoutFixedPrayerTimeInput
+    connect?: MosqueWhereUniqueInput
+  }
+
+  export type MosqueUpdateOneRequiredWithoutFixedPrayerTimeNestedInput = {
+    create?: XOR<MosqueCreateWithoutFixedPrayerTimeInput, MosqueUncheckedCreateWithoutFixedPrayerTimeInput>
+    connectOrCreate?: MosqueCreateOrConnectWithoutFixedPrayerTimeInput
+    upsert?: MosqueUpsertWithoutFixedPrayerTimeInput
+    connect?: MosqueWhereUniqueInput
+    update?: XOR<XOR<MosqueUpdateToOneWithWhereWithoutFixedPrayerTimeInput, MosqueUpdateWithoutFixedPrayerTimeInput>, MosqueUncheckedUpdateWithoutFixedPrayerTimeInput>
+  }
+
   export type PrayerCreateNestedOneWithoutChangesInput = {
     create?: XOR<PrayerCreateWithoutChangesInput, PrayerUncheckedCreateWithoutChangesInput>
     connectOrCreate?: PrayerCreateOrConnectWithoutChangesInput
@@ -14795,6 +20851,34 @@ export namespace Prisma {
     upsert?: AdminUpsertWithoutAuditLogsInput
     connect?: AdminWhereUniqueInput
     update?: XOR<XOR<AdminUpdateToOneWithWhereWithoutAuditLogsInput, AdminUpdateWithoutAuditLogsInput>, AdminUncheckedUpdateWithoutAuditLogsInput>
+  }
+
+  export type MosqueCreateNestedOneWithoutLanguageSettingsInput = {
+    create?: XOR<MosqueCreateWithoutLanguageSettingsInput, MosqueUncheckedCreateWithoutLanguageSettingsInput>
+    connectOrCreate?: MosqueCreateOrConnectWithoutLanguageSettingsInput
+    connect?: MosqueWhereUniqueInput
+  }
+
+  export type MosqueUpdateOneRequiredWithoutLanguageSettingsNestedInput = {
+    create?: XOR<MosqueCreateWithoutLanguageSettingsInput, MosqueUncheckedCreateWithoutLanguageSettingsInput>
+    connectOrCreate?: MosqueCreateOrConnectWithoutLanguageSettingsInput
+    upsert?: MosqueUpsertWithoutLanguageSettingsInput
+    connect?: MosqueWhereUniqueInput
+    update?: XOR<XOR<MosqueUpdateToOneWithWhereWithoutLanguageSettingsInput, MosqueUpdateWithoutLanguageSettingsInput>, MosqueUncheckedUpdateWithoutLanguageSettingsInput>
+  }
+
+  export type MosqueCreateNestedOneWithoutNamesOfAllahInput = {
+    create?: XOR<MosqueCreateWithoutNamesOfAllahInput, MosqueUncheckedCreateWithoutNamesOfAllahInput>
+    connectOrCreate?: MosqueCreateOrConnectWithoutNamesOfAllahInput
+    connect?: MosqueWhereUniqueInput
+  }
+
+  export type MosqueUpdateOneRequiredWithoutNamesOfAllahNestedInput = {
+    create?: XOR<MosqueCreateWithoutNamesOfAllahInput, MosqueUncheckedCreateWithoutNamesOfAllahInput>
+    connectOrCreate?: MosqueCreateOrConnectWithoutNamesOfAllahInput
+    upsert?: MosqueUpsertWithoutNamesOfAllahInput
+    connect?: MosqueWhereUniqueInput
+    update?: XOR<XOR<MosqueUpdateToOneWithWhereWithoutNamesOfAllahInput, MosqueUpdateWithoutNamesOfAllahInput>, MosqueUncheckedUpdateWithoutNamesOfAllahInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -15017,6 +21101,7 @@ export namespace Prisma {
     password: string
     createdAt?: Date | string
     role: $Enums.Role
+    mosque?: MosqueCreateNestedOneWithoutAdminInput
     prayerChanges?: PrayerTimeChangeCreateNestedManyWithoutUserInput
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
   }
@@ -15027,6 +21112,7 @@ export namespace Prisma {
     password: string
     createdAt?: Date | string
     role: $Enums.Role
+    mosqueId?: number | null
     prayerChanges?: PrayerTimeChangeUncheckedCreateNestedManyWithoutUserInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
   }
@@ -15083,6 +21169,10 @@ export namespace Prisma {
   export type MosqueCreateWithoutCityInput = {
     name: string
     logoUrl?: string | null
+    admin?: AdminCreateNestedOneWithoutMosqueInput
+    fixedPrayerTime?: FixedMosquePrayerTimeCreateNestedOneWithoutMosqueInput
+    languageSettings?: MosqueLanguageSettingsCreateNestedOneWithoutMosqueInput
+    namesOfAllah?: NameOfAllahCreateNestedManyWithoutMosqueInput
     media?: MediaCreateNestedManyWithoutMosqueInput
     prayers?: PrayerCreateNestedManyWithoutMosqueInput
     qrCodes?: QRCodeCreateNestedManyWithoutMosqueInput
@@ -15092,6 +21182,10 @@ export namespace Prisma {
     id?: number
     name: string
     logoUrl?: string | null
+    admin?: AdminUncheckedCreateNestedOneWithoutMosqueInput
+    fixedPrayerTime?: FixedMosquePrayerTimeUncheckedCreateNestedOneWithoutMosqueInput
+    languageSettings?: MosqueLanguageSettingsUncheckedCreateNestedOneWithoutMosqueInput
+    namesOfAllah?: NameOfAllahUncheckedCreateNestedManyWithoutMosqueInput
     media?: MediaUncheckedCreateNestedManyWithoutMosqueInput
     prayers?: PrayerUncheckedCreateNestedManyWithoutMosqueInput
     qrCodes?: QRCodeUncheckedCreateNestedManyWithoutMosqueInput
@@ -15160,6 +21254,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    mosque?: MosqueUpdateOneWithoutAdminNestedInput
     prayerChanges?: PrayerTimeChangeUpdateManyWithoutUserNestedInput
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
   }
@@ -15170,6 +21265,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    mosqueId?: NullableIntFieldUpdateOperationsInput | number | null
     prayerChanges?: PrayerTimeChangeUncheckedUpdateManyWithoutUserNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -15308,6 +21404,10 @@ export namespace Prisma {
   export type MosqueCreateWithoutPrayersInput = {
     name: string
     logoUrl?: string | null
+    admin?: AdminCreateNestedOneWithoutMosqueInput
+    fixedPrayerTime?: FixedMosquePrayerTimeCreateNestedOneWithoutMosqueInput
+    languageSettings?: MosqueLanguageSettingsCreateNestedOneWithoutMosqueInput
+    namesOfAllah?: NameOfAllahCreateNestedManyWithoutMosqueInput
     media?: MediaCreateNestedManyWithoutMosqueInput
     city: CityCreateNestedOneWithoutMosqueInput
     qrCodes?: QRCodeCreateNestedManyWithoutMosqueInput
@@ -15318,6 +21418,10 @@ export namespace Prisma {
     cityId: number
     name: string
     logoUrl?: string | null
+    admin?: AdminUncheckedCreateNestedOneWithoutMosqueInput
+    fixedPrayerTime?: FixedMosquePrayerTimeUncheckedCreateNestedOneWithoutMosqueInput
+    languageSettings?: MosqueLanguageSettingsUncheckedCreateNestedOneWithoutMosqueInput
+    namesOfAllah?: NameOfAllahUncheckedCreateNestedManyWithoutMosqueInput
     media?: MediaUncheckedCreateNestedManyWithoutMosqueInput
     qrCodes?: QRCodeUncheckedCreateNestedManyWithoutMosqueInput
   }
@@ -15398,6 +21502,10 @@ export namespace Prisma {
   export type MosqueUpdateWithoutPrayersInput = {
     name?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    admin?: AdminUpdateOneWithoutMosqueNestedInput
+    fixedPrayerTime?: FixedMosquePrayerTimeUpdateOneWithoutMosqueNestedInput
+    languageSettings?: MosqueLanguageSettingsUpdateOneWithoutMosqueNestedInput
+    namesOfAllah?: NameOfAllahUpdateManyWithoutMosqueNestedInput
     media?: MediaUpdateManyWithoutMosqueNestedInput
     city?: CityUpdateOneRequiredWithoutMosqueNestedInput
     qrCodes?: QRCodeUpdateManyWithoutMosqueNestedInput
@@ -15408,6 +21516,10 @@ export namespace Prisma {
     cityId?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    admin?: AdminUncheckedUpdateOneWithoutMosqueNestedInput
+    fixedPrayerTime?: FixedMosquePrayerTimeUncheckedUpdateOneWithoutMosqueNestedInput
+    languageSettings?: MosqueLanguageSettingsUncheckedUpdateOneWithoutMosqueNestedInput
+    namesOfAllah?: NameOfAllahUncheckedUpdateManyWithoutMosqueNestedInput
     media?: MediaUncheckedUpdateManyWithoutMosqueNestedInput
     qrCodes?: QRCodeUncheckedUpdateManyWithoutMosqueNestedInput
   }
@@ -15440,6 +21552,157 @@ export namespace Prisma {
     shiftMinutes?: IntFilter<"PrayerTimeChange"> | number
     changedAt?: DateTimeFilter<"PrayerTimeChange"> | Date | string
     changedBy?: IntFilter<"PrayerTimeChange"> | number
+  }
+
+  export type AdminCreateWithoutMosqueInput = {
+    email: string
+    password: string
+    createdAt?: Date | string
+    role: $Enums.Role
+    city?: CityCreateNestedOneWithoutAdminInput
+    prayerChanges?: PrayerTimeChangeCreateNestedManyWithoutUserInput
+    auditLogs?: AuditLogCreateNestedManyWithoutUserInput
+  }
+
+  export type AdminUncheckedCreateWithoutMosqueInput = {
+    id?: number
+    email: string
+    password: string
+    createdAt?: Date | string
+    role: $Enums.Role
+    cityId?: number | null
+    prayerChanges?: PrayerTimeChangeUncheckedCreateNestedManyWithoutUserInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type AdminCreateOrConnectWithoutMosqueInput = {
+    where: AdminWhereUniqueInput
+    create: XOR<AdminCreateWithoutMosqueInput, AdminUncheckedCreateWithoutMosqueInput>
+  }
+
+  export type FixedMosquePrayerTimeCreateWithoutMosqueInput = {
+    fajr: string
+    shuruk: string
+    zuhr: string
+    asr: string
+    maghrib: string
+    isha: string
+    mechet?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    fajrActive?: boolean
+    shurukActive?: boolean
+    zuhrActive?: boolean
+    asrActive?: boolean
+    maghribActive?: boolean
+    ishaActive?: boolean
+    mechetActive?: boolean
+    fajrIqamaEnabled?: boolean
+    fajrIqamaMinutes?: number
+    shurukIqamaEnabled?: boolean
+    shurukIqamaMinutes?: number
+    zuhrIqamaEnabled?: boolean
+    zuhrIqamaMinutes?: number
+    asrIqamaEnabled?: boolean
+    asrIqamaMinutes?: number
+    maghribIqamaEnabled?: boolean
+    maghribIqamaMinutes?: number
+    ishaIqamaEnabled?: boolean
+    ishaIqamaMinutes?: number
+    mechetIqamaEnabled?: boolean
+    mechetIqamaMinutes?: number
+  }
+
+  export type FixedMosquePrayerTimeUncheckedCreateWithoutMosqueInput = {
+    id?: number
+    fajr: string
+    shuruk: string
+    zuhr: string
+    asr: string
+    maghrib: string
+    isha: string
+    mechet?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    fajrActive?: boolean
+    shurukActive?: boolean
+    zuhrActive?: boolean
+    asrActive?: boolean
+    maghribActive?: boolean
+    ishaActive?: boolean
+    mechetActive?: boolean
+    fajrIqamaEnabled?: boolean
+    fajrIqamaMinutes?: number
+    shurukIqamaEnabled?: boolean
+    shurukIqamaMinutes?: number
+    zuhrIqamaEnabled?: boolean
+    zuhrIqamaMinutes?: number
+    asrIqamaEnabled?: boolean
+    asrIqamaMinutes?: number
+    maghribIqamaEnabled?: boolean
+    maghribIqamaMinutes?: number
+    ishaIqamaEnabled?: boolean
+    ishaIqamaMinutes?: number
+    mechetIqamaEnabled?: boolean
+    mechetIqamaMinutes?: number
+  }
+
+  export type FixedMosquePrayerTimeCreateOrConnectWithoutMosqueInput = {
+    where: FixedMosquePrayerTimeWhereUniqueInput
+    create: XOR<FixedMosquePrayerTimeCreateWithoutMosqueInput, FixedMosquePrayerTimeUncheckedCreateWithoutMosqueInput>
+  }
+
+  export type MosqueLanguageSettingsCreateWithoutMosqueInput = {
+    translationsEnabled?: boolean
+    languageToggleEnabled?: boolean
+    languageToggleIntervalSeconds?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MosqueLanguageSettingsUncheckedCreateWithoutMosqueInput = {
+    id?: number
+    translationsEnabled?: boolean
+    languageToggleEnabled?: boolean
+    languageToggleIntervalSeconds?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MosqueLanguageSettingsCreateOrConnectWithoutMosqueInput = {
+    where: MosqueLanguageSettingsWhereUniqueInput
+    create: XOR<MosqueLanguageSettingsCreateWithoutMosqueInput, MosqueLanguageSettingsUncheckedCreateWithoutMosqueInput>
+  }
+
+  export type NameOfAllahCreateWithoutMosqueInput = {
+    arabic: string
+    transcription: string
+    meaning: string
+    transcriptionTatar?: string | null
+    meaningTatar?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NameOfAllahUncheckedCreateWithoutMosqueInput = {
+    id?: number
+    arabic: string
+    transcription: string
+    meaning: string
+    transcriptionTatar?: string | null
+    meaningTatar?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NameOfAllahCreateOrConnectWithoutMosqueInput = {
+    where: NameOfAllahWhereUniqueInput
+    create: XOR<NameOfAllahCreateWithoutMosqueInput, NameOfAllahUncheckedCreateWithoutMosqueInput>
+  }
+
+  export type NameOfAllahCreateManyMosqueInputEnvelope = {
+    data: NameOfAllahCreateManyMosqueInput | NameOfAllahCreateManyMosqueInput[]
+    skipDuplicates?: boolean
   }
 
   export type MediaCreateWithoutMosqueInput = {
@@ -15547,6 +21810,175 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type AdminUpsertWithoutMosqueInput = {
+    update: XOR<AdminUpdateWithoutMosqueInput, AdminUncheckedUpdateWithoutMosqueInput>
+    create: XOR<AdminCreateWithoutMosqueInput, AdminUncheckedCreateWithoutMosqueInput>
+    where?: AdminWhereInput
+  }
+
+  export type AdminUpdateToOneWithWhereWithoutMosqueInput = {
+    where?: AdminWhereInput
+    data: XOR<AdminUpdateWithoutMosqueInput, AdminUncheckedUpdateWithoutMosqueInput>
+  }
+
+  export type AdminUpdateWithoutMosqueInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    city?: CityUpdateOneWithoutAdminNestedInput
+    prayerChanges?: PrayerTimeChangeUpdateManyWithoutUserNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
+  }
+
+  export type AdminUncheckedUpdateWithoutMosqueInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    cityId?: NullableIntFieldUpdateOperationsInput | number | null
+    prayerChanges?: PrayerTimeChangeUncheckedUpdateManyWithoutUserNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type FixedMosquePrayerTimeUpsertWithoutMosqueInput = {
+    update: XOR<FixedMosquePrayerTimeUpdateWithoutMosqueInput, FixedMosquePrayerTimeUncheckedUpdateWithoutMosqueInput>
+    create: XOR<FixedMosquePrayerTimeCreateWithoutMosqueInput, FixedMosquePrayerTimeUncheckedCreateWithoutMosqueInput>
+    where?: FixedMosquePrayerTimeWhereInput
+  }
+
+  export type FixedMosquePrayerTimeUpdateToOneWithWhereWithoutMosqueInput = {
+    where?: FixedMosquePrayerTimeWhereInput
+    data: XOR<FixedMosquePrayerTimeUpdateWithoutMosqueInput, FixedMosquePrayerTimeUncheckedUpdateWithoutMosqueInput>
+  }
+
+  export type FixedMosquePrayerTimeUpdateWithoutMosqueInput = {
+    fajr?: StringFieldUpdateOperationsInput | string
+    shuruk?: StringFieldUpdateOperationsInput | string
+    zuhr?: StringFieldUpdateOperationsInput | string
+    asr?: StringFieldUpdateOperationsInput | string
+    maghrib?: StringFieldUpdateOperationsInput | string
+    isha?: StringFieldUpdateOperationsInput | string
+    mechet?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    fajrActive?: BoolFieldUpdateOperationsInput | boolean
+    shurukActive?: BoolFieldUpdateOperationsInput | boolean
+    zuhrActive?: BoolFieldUpdateOperationsInput | boolean
+    asrActive?: BoolFieldUpdateOperationsInput | boolean
+    maghribActive?: BoolFieldUpdateOperationsInput | boolean
+    ishaActive?: BoolFieldUpdateOperationsInput | boolean
+    mechetActive?: BoolFieldUpdateOperationsInput | boolean
+    fajrIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    fajrIqamaMinutes?: IntFieldUpdateOperationsInput | number
+    shurukIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    shurukIqamaMinutes?: IntFieldUpdateOperationsInput | number
+    zuhrIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    zuhrIqamaMinutes?: IntFieldUpdateOperationsInput | number
+    asrIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    asrIqamaMinutes?: IntFieldUpdateOperationsInput | number
+    maghribIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    maghribIqamaMinutes?: IntFieldUpdateOperationsInput | number
+    ishaIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    ishaIqamaMinutes?: IntFieldUpdateOperationsInput | number
+    mechetIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mechetIqamaMinutes?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type FixedMosquePrayerTimeUncheckedUpdateWithoutMosqueInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    fajr?: StringFieldUpdateOperationsInput | string
+    shuruk?: StringFieldUpdateOperationsInput | string
+    zuhr?: StringFieldUpdateOperationsInput | string
+    asr?: StringFieldUpdateOperationsInput | string
+    maghrib?: StringFieldUpdateOperationsInput | string
+    isha?: StringFieldUpdateOperationsInput | string
+    mechet?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    fajrActive?: BoolFieldUpdateOperationsInput | boolean
+    shurukActive?: BoolFieldUpdateOperationsInput | boolean
+    zuhrActive?: BoolFieldUpdateOperationsInput | boolean
+    asrActive?: BoolFieldUpdateOperationsInput | boolean
+    maghribActive?: BoolFieldUpdateOperationsInput | boolean
+    ishaActive?: BoolFieldUpdateOperationsInput | boolean
+    mechetActive?: BoolFieldUpdateOperationsInput | boolean
+    fajrIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    fajrIqamaMinutes?: IntFieldUpdateOperationsInput | number
+    shurukIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    shurukIqamaMinutes?: IntFieldUpdateOperationsInput | number
+    zuhrIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    zuhrIqamaMinutes?: IntFieldUpdateOperationsInput | number
+    asrIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    asrIqamaMinutes?: IntFieldUpdateOperationsInput | number
+    maghribIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    maghribIqamaMinutes?: IntFieldUpdateOperationsInput | number
+    ishaIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    ishaIqamaMinutes?: IntFieldUpdateOperationsInput | number
+    mechetIqamaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mechetIqamaMinutes?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type MosqueLanguageSettingsUpsertWithoutMosqueInput = {
+    update: XOR<MosqueLanguageSettingsUpdateWithoutMosqueInput, MosqueLanguageSettingsUncheckedUpdateWithoutMosqueInput>
+    create: XOR<MosqueLanguageSettingsCreateWithoutMosqueInput, MosqueLanguageSettingsUncheckedCreateWithoutMosqueInput>
+    where?: MosqueLanguageSettingsWhereInput
+  }
+
+  export type MosqueLanguageSettingsUpdateToOneWithWhereWithoutMosqueInput = {
+    where?: MosqueLanguageSettingsWhereInput
+    data: XOR<MosqueLanguageSettingsUpdateWithoutMosqueInput, MosqueLanguageSettingsUncheckedUpdateWithoutMosqueInput>
+  }
+
+  export type MosqueLanguageSettingsUpdateWithoutMosqueInput = {
+    translationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    languageToggleEnabled?: BoolFieldUpdateOperationsInput | boolean
+    languageToggleIntervalSeconds?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MosqueLanguageSettingsUncheckedUpdateWithoutMosqueInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    translationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    languageToggleEnabled?: BoolFieldUpdateOperationsInput | boolean
+    languageToggleIntervalSeconds?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NameOfAllahUpsertWithWhereUniqueWithoutMosqueInput = {
+    where: NameOfAllahWhereUniqueInput
+    update: XOR<NameOfAllahUpdateWithoutMosqueInput, NameOfAllahUncheckedUpdateWithoutMosqueInput>
+    create: XOR<NameOfAllahCreateWithoutMosqueInput, NameOfAllahUncheckedCreateWithoutMosqueInput>
+  }
+
+  export type NameOfAllahUpdateWithWhereUniqueWithoutMosqueInput = {
+    where: NameOfAllahWhereUniqueInput
+    data: XOR<NameOfAllahUpdateWithoutMosqueInput, NameOfAllahUncheckedUpdateWithoutMosqueInput>
+  }
+
+  export type NameOfAllahUpdateManyWithWhereWithoutMosqueInput = {
+    where: NameOfAllahScalarWhereInput
+    data: XOR<NameOfAllahUpdateManyMutationInput, NameOfAllahUncheckedUpdateManyWithoutMosqueInput>
+  }
+
+  export type NameOfAllahScalarWhereInput = {
+    AND?: NameOfAllahScalarWhereInput | NameOfAllahScalarWhereInput[]
+    OR?: NameOfAllahScalarWhereInput[]
+    NOT?: NameOfAllahScalarWhereInput | NameOfAllahScalarWhereInput[]
+    id?: IntFilter<"NameOfAllah"> | number
+    mosqueId?: IntFilter<"NameOfAllah"> | number
+    arabic?: StringFilter<"NameOfAllah"> | string
+    transcription?: StringFilter<"NameOfAllah"> | string
+    meaning?: StringFilter<"NameOfAllah"> | string
+    transcriptionTatar?: StringNullableFilter<"NameOfAllah"> | string | null
+    meaningTatar?: StringNullableFilter<"NameOfAllah"> | string | null
+    createdAt?: DateTimeFilter<"NameOfAllah"> | Date | string
+    updatedAt?: DateTimeFilter<"NameOfAllah"> | Date | string
+  }
+
   export type MediaUpsertWithWhereUniqueWithoutMosqueInput = {
     where: MediaWhereUniqueInput
     update: XOR<MediaUpdateWithoutMosqueInput, MediaUncheckedUpdateWithoutMosqueInput>
@@ -15648,6 +22080,10 @@ export namespace Prisma {
   export type MosqueCreateWithoutMediaInput = {
     name: string
     logoUrl?: string | null
+    admin?: AdminCreateNestedOneWithoutMosqueInput
+    fixedPrayerTime?: FixedMosquePrayerTimeCreateNestedOneWithoutMosqueInput
+    languageSettings?: MosqueLanguageSettingsCreateNestedOneWithoutMosqueInput
+    namesOfAllah?: NameOfAllahCreateNestedManyWithoutMosqueInput
     city: CityCreateNestedOneWithoutMosqueInput
     prayers?: PrayerCreateNestedManyWithoutMosqueInput
     qrCodes?: QRCodeCreateNestedManyWithoutMosqueInput
@@ -15658,6 +22094,10 @@ export namespace Prisma {
     cityId: number
     name: string
     logoUrl?: string | null
+    admin?: AdminUncheckedCreateNestedOneWithoutMosqueInput
+    fixedPrayerTime?: FixedMosquePrayerTimeUncheckedCreateNestedOneWithoutMosqueInput
+    languageSettings?: MosqueLanguageSettingsUncheckedCreateNestedOneWithoutMosqueInput
+    namesOfAllah?: NameOfAllahUncheckedCreateNestedManyWithoutMosqueInput
     prayers?: PrayerUncheckedCreateNestedManyWithoutMosqueInput
     qrCodes?: QRCodeUncheckedCreateNestedManyWithoutMosqueInput
   }
@@ -15681,6 +22121,10 @@ export namespace Prisma {
   export type MosqueUpdateWithoutMediaInput = {
     name?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    admin?: AdminUpdateOneWithoutMosqueNestedInput
+    fixedPrayerTime?: FixedMosquePrayerTimeUpdateOneWithoutMosqueNestedInput
+    languageSettings?: MosqueLanguageSettingsUpdateOneWithoutMosqueNestedInput
+    namesOfAllah?: NameOfAllahUpdateManyWithoutMosqueNestedInput
     city?: CityUpdateOneRequiredWithoutMosqueNestedInput
     prayers?: PrayerUpdateManyWithoutMosqueNestedInput
     qrCodes?: QRCodeUpdateManyWithoutMosqueNestedInput
@@ -15691,6 +22135,10 @@ export namespace Prisma {
     cityId?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    admin?: AdminUncheckedUpdateOneWithoutMosqueNestedInput
+    fixedPrayerTime?: FixedMosquePrayerTimeUncheckedUpdateOneWithoutMosqueNestedInput
+    languageSettings?: MosqueLanguageSettingsUncheckedUpdateOneWithoutMosqueNestedInput
+    namesOfAllah?: NameOfAllahUncheckedUpdateManyWithoutMosqueNestedInput
     prayers?: PrayerUncheckedUpdateManyWithoutMosqueNestedInput
     qrCodes?: QRCodeUncheckedUpdateManyWithoutMosqueNestedInput
   }
@@ -15698,6 +22146,10 @@ export namespace Prisma {
   export type MosqueCreateWithoutQrCodesInput = {
     name: string
     logoUrl?: string | null
+    admin?: AdminCreateNestedOneWithoutMosqueInput
+    fixedPrayerTime?: FixedMosquePrayerTimeCreateNestedOneWithoutMosqueInput
+    languageSettings?: MosqueLanguageSettingsCreateNestedOneWithoutMosqueInput
+    namesOfAllah?: NameOfAllahCreateNestedManyWithoutMosqueInput
     media?: MediaCreateNestedManyWithoutMosqueInput
     city: CityCreateNestedOneWithoutMosqueInput
     prayers?: PrayerCreateNestedManyWithoutMosqueInput
@@ -15708,6 +22160,10 @@ export namespace Prisma {
     cityId: number
     name: string
     logoUrl?: string | null
+    admin?: AdminUncheckedCreateNestedOneWithoutMosqueInput
+    fixedPrayerTime?: FixedMosquePrayerTimeUncheckedCreateNestedOneWithoutMosqueInput
+    languageSettings?: MosqueLanguageSettingsUncheckedCreateNestedOneWithoutMosqueInput
+    namesOfAllah?: NameOfAllahUncheckedCreateNestedManyWithoutMosqueInput
     media?: MediaUncheckedCreateNestedManyWithoutMosqueInput
     prayers?: PrayerUncheckedCreateNestedManyWithoutMosqueInput
   }
@@ -15731,6 +22187,10 @@ export namespace Prisma {
   export type MosqueUpdateWithoutQrCodesInput = {
     name?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    admin?: AdminUpdateOneWithoutMosqueNestedInput
+    fixedPrayerTime?: FixedMosquePrayerTimeUpdateOneWithoutMosqueNestedInput
+    languageSettings?: MosqueLanguageSettingsUpdateOneWithoutMosqueNestedInput
+    namesOfAllah?: NameOfAllahUpdateManyWithoutMosqueNestedInput
     media?: MediaUpdateManyWithoutMosqueNestedInput
     city?: CityUpdateOneRequiredWithoutMosqueNestedInput
     prayers?: PrayerUpdateManyWithoutMosqueNestedInput
@@ -15741,6 +22201,10 @@ export namespace Prisma {
     cityId?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    admin?: AdminUncheckedUpdateOneWithoutMosqueNestedInput
+    fixedPrayerTime?: FixedMosquePrayerTimeUncheckedUpdateOneWithoutMosqueNestedInput
+    languageSettings?: MosqueLanguageSettingsUncheckedUpdateOneWithoutMosqueNestedInput
+    namesOfAllah?: NameOfAllahUncheckedUpdateManyWithoutMosqueNestedInput
     media?: MediaUncheckedUpdateManyWithoutMosqueNestedInput
     prayers?: PrayerUncheckedUpdateManyWithoutMosqueNestedInput
   }
@@ -15765,6 +22229,36 @@ export namespace Prisma {
   export type CityCreateOrConnectWithoutAdminInput = {
     where: CityWhereUniqueInput
     create: XOR<CityCreateWithoutAdminInput, CityUncheckedCreateWithoutAdminInput>
+  }
+
+  export type MosqueCreateWithoutAdminInput = {
+    name: string
+    logoUrl?: string | null
+    fixedPrayerTime?: FixedMosquePrayerTimeCreateNestedOneWithoutMosqueInput
+    languageSettings?: MosqueLanguageSettingsCreateNestedOneWithoutMosqueInput
+    namesOfAllah?: NameOfAllahCreateNestedManyWithoutMosqueInput
+    media?: MediaCreateNestedManyWithoutMosqueInput
+    city: CityCreateNestedOneWithoutMosqueInput
+    prayers?: PrayerCreateNestedManyWithoutMosqueInput
+    qrCodes?: QRCodeCreateNestedManyWithoutMosqueInput
+  }
+
+  export type MosqueUncheckedCreateWithoutAdminInput = {
+    id?: number
+    cityId: number
+    name: string
+    logoUrl?: string | null
+    fixedPrayerTime?: FixedMosquePrayerTimeUncheckedCreateNestedOneWithoutMosqueInput
+    languageSettings?: MosqueLanguageSettingsUncheckedCreateNestedOneWithoutMosqueInput
+    namesOfAllah?: NameOfAllahUncheckedCreateNestedManyWithoutMosqueInput
+    media?: MediaUncheckedCreateNestedManyWithoutMosqueInput
+    prayers?: PrayerUncheckedCreateNestedManyWithoutMosqueInput
+    qrCodes?: QRCodeUncheckedCreateNestedManyWithoutMosqueInput
+  }
+
+  export type MosqueCreateOrConnectWithoutAdminInput = {
+    where: MosqueWhereUniqueInput
+    create: XOR<MosqueCreateWithoutAdminInput, MosqueUncheckedCreateWithoutAdminInput>
   }
 
   export type PrayerTimeChangeCreateWithoutUserInput = {
@@ -15851,6 +22345,42 @@ export namespace Prisma {
     fixedPrayerTime?: FixedPrayerTimeUncheckedUpdateOneWithoutCityNestedInput
     Mosque?: MosqueUncheckedUpdateManyWithoutCityNestedInput
     prayers?: PrayerUncheckedUpdateManyWithoutCityNestedInput
+  }
+
+  export type MosqueUpsertWithoutAdminInput = {
+    update: XOR<MosqueUpdateWithoutAdminInput, MosqueUncheckedUpdateWithoutAdminInput>
+    create: XOR<MosqueCreateWithoutAdminInput, MosqueUncheckedCreateWithoutAdminInput>
+    where?: MosqueWhereInput
+  }
+
+  export type MosqueUpdateToOneWithWhereWithoutAdminInput = {
+    where?: MosqueWhereInput
+    data: XOR<MosqueUpdateWithoutAdminInput, MosqueUncheckedUpdateWithoutAdminInput>
+  }
+
+  export type MosqueUpdateWithoutAdminInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    fixedPrayerTime?: FixedMosquePrayerTimeUpdateOneWithoutMosqueNestedInput
+    languageSettings?: MosqueLanguageSettingsUpdateOneWithoutMosqueNestedInput
+    namesOfAllah?: NameOfAllahUpdateManyWithoutMosqueNestedInput
+    media?: MediaUpdateManyWithoutMosqueNestedInput
+    city?: CityUpdateOneRequiredWithoutMosqueNestedInput
+    prayers?: PrayerUpdateManyWithoutMosqueNestedInput
+    qrCodes?: QRCodeUpdateManyWithoutMosqueNestedInput
+  }
+
+  export type MosqueUncheckedUpdateWithoutAdminInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    cityId?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    fixedPrayerTime?: FixedMosquePrayerTimeUncheckedUpdateOneWithoutMosqueNestedInput
+    languageSettings?: MosqueLanguageSettingsUncheckedUpdateOneWithoutMosqueNestedInput
+    namesOfAllah?: NameOfAllahUncheckedUpdateManyWithoutMosqueNestedInput
+    media?: MediaUncheckedUpdateManyWithoutMosqueNestedInput
+    prayers?: PrayerUncheckedUpdateManyWithoutMosqueNestedInput
+    qrCodes?: QRCodeUncheckedUpdateManyWithoutMosqueNestedInput
   }
 
   export type PrayerTimeChangeUpsertWithWhereUniqueWithoutUserInput = {
@@ -15949,6 +22479,72 @@ export namespace Prisma {
     prayers?: PrayerUncheckedUpdateManyWithoutCityNestedInput
   }
 
+  export type MosqueCreateWithoutFixedPrayerTimeInput = {
+    name: string
+    logoUrl?: string | null
+    admin?: AdminCreateNestedOneWithoutMosqueInput
+    languageSettings?: MosqueLanguageSettingsCreateNestedOneWithoutMosqueInput
+    namesOfAllah?: NameOfAllahCreateNestedManyWithoutMosqueInput
+    media?: MediaCreateNestedManyWithoutMosqueInput
+    city: CityCreateNestedOneWithoutMosqueInput
+    prayers?: PrayerCreateNestedManyWithoutMosqueInput
+    qrCodes?: QRCodeCreateNestedManyWithoutMosqueInput
+  }
+
+  export type MosqueUncheckedCreateWithoutFixedPrayerTimeInput = {
+    id?: number
+    cityId: number
+    name: string
+    logoUrl?: string | null
+    admin?: AdminUncheckedCreateNestedOneWithoutMosqueInput
+    languageSettings?: MosqueLanguageSettingsUncheckedCreateNestedOneWithoutMosqueInput
+    namesOfAllah?: NameOfAllahUncheckedCreateNestedManyWithoutMosqueInput
+    media?: MediaUncheckedCreateNestedManyWithoutMosqueInput
+    prayers?: PrayerUncheckedCreateNestedManyWithoutMosqueInput
+    qrCodes?: QRCodeUncheckedCreateNestedManyWithoutMosqueInput
+  }
+
+  export type MosqueCreateOrConnectWithoutFixedPrayerTimeInput = {
+    where: MosqueWhereUniqueInput
+    create: XOR<MosqueCreateWithoutFixedPrayerTimeInput, MosqueUncheckedCreateWithoutFixedPrayerTimeInput>
+  }
+
+  export type MosqueUpsertWithoutFixedPrayerTimeInput = {
+    update: XOR<MosqueUpdateWithoutFixedPrayerTimeInput, MosqueUncheckedUpdateWithoutFixedPrayerTimeInput>
+    create: XOR<MosqueCreateWithoutFixedPrayerTimeInput, MosqueUncheckedCreateWithoutFixedPrayerTimeInput>
+    where?: MosqueWhereInput
+  }
+
+  export type MosqueUpdateToOneWithWhereWithoutFixedPrayerTimeInput = {
+    where?: MosqueWhereInput
+    data: XOR<MosqueUpdateWithoutFixedPrayerTimeInput, MosqueUncheckedUpdateWithoutFixedPrayerTimeInput>
+  }
+
+  export type MosqueUpdateWithoutFixedPrayerTimeInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    admin?: AdminUpdateOneWithoutMosqueNestedInput
+    languageSettings?: MosqueLanguageSettingsUpdateOneWithoutMosqueNestedInput
+    namesOfAllah?: NameOfAllahUpdateManyWithoutMosqueNestedInput
+    media?: MediaUpdateManyWithoutMosqueNestedInput
+    city?: CityUpdateOneRequiredWithoutMosqueNestedInput
+    prayers?: PrayerUpdateManyWithoutMosqueNestedInput
+    qrCodes?: QRCodeUpdateManyWithoutMosqueNestedInput
+  }
+
+  export type MosqueUncheckedUpdateWithoutFixedPrayerTimeInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    cityId?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    admin?: AdminUncheckedUpdateOneWithoutMosqueNestedInput
+    languageSettings?: MosqueLanguageSettingsUncheckedUpdateOneWithoutMosqueNestedInput
+    namesOfAllah?: NameOfAllahUncheckedUpdateManyWithoutMosqueNestedInput
+    media?: MediaUncheckedUpdateManyWithoutMosqueNestedInput
+    prayers?: PrayerUncheckedUpdateManyWithoutMosqueNestedInput
+    qrCodes?: QRCodeUncheckedUpdateManyWithoutMosqueNestedInput
+  }
+
   export type PrayerCreateWithoutChangesInput = {
     date?: string | null
     fajr?: string | null
@@ -15987,6 +22583,7 @@ export namespace Prisma {
     createdAt?: Date | string
     role: $Enums.Role
     city?: CityCreateNestedOneWithoutAdminInput
+    mosque?: MosqueCreateNestedOneWithoutAdminInput
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
   }
 
@@ -15997,6 +22594,7 @@ export namespace Prisma {
     createdAt?: Date | string
     role: $Enums.Role
     cityId?: number | null
+    mosqueId?: number | null
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -16060,6 +22658,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     city?: CityUpdateOneWithoutAdminNestedInput
+    mosque?: MosqueUpdateOneWithoutAdminNestedInput
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
   }
 
@@ -16070,6 +22669,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     cityId?: NullableIntFieldUpdateOperationsInput | number | null
+    mosqueId?: NullableIntFieldUpdateOperationsInput | number | null
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -16079,6 +22679,7 @@ export namespace Prisma {
     createdAt?: Date | string
     role: $Enums.Role
     city?: CityCreateNestedOneWithoutAdminInput
+    mosque?: MosqueCreateNestedOneWithoutAdminInput
     prayerChanges?: PrayerTimeChangeCreateNestedManyWithoutUserInput
   }
 
@@ -16089,6 +22690,7 @@ export namespace Prisma {
     createdAt?: Date | string
     role: $Enums.Role
     cityId?: number | null
+    mosqueId?: number | null
     prayerChanges?: PrayerTimeChangeUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -16114,6 +22716,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     city?: CityUpdateOneWithoutAdminNestedInput
+    mosque?: MosqueUpdateOneWithoutAdminNestedInput
     prayerChanges?: PrayerTimeChangeUpdateManyWithoutUserNestedInput
   }
 
@@ -16124,7 +22727,140 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     cityId?: NullableIntFieldUpdateOperationsInput | number | null
+    mosqueId?: NullableIntFieldUpdateOperationsInput | number | null
     prayerChanges?: PrayerTimeChangeUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type MosqueCreateWithoutLanguageSettingsInput = {
+    name: string
+    logoUrl?: string | null
+    admin?: AdminCreateNestedOneWithoutMosqueInput
+    fixedPrayerTime?: FixedMosquePrayerTimeCreateNestedOneWithoutMosqueInput
+    namesOfAllah?: NameOfAllahCreateNestedManyWithoutMosqueInput
+    media?: MediaCreateNestedManyWithoutMosqueInput
+    city: CityCreateNestedOneWithoutMosqueInput
+    prayers?: PrayerCreateNestedManyWithoutMosqueInput
+    qrCodes?: QRCodeCreateNestedManyWithoutMosqueInput
+  }
+
+  export type MosqueUncheckedCreateWithoutLanguageSettingsInput = {
+    id?: number
+    cityId: number
+    name: string
+    logoUrl?: string | null
+    admin?: AdminUncheckedCreateNestedOneWithoutMosqueInput
+    fixedPrayerTime?: FixedMosquePrayerTimeUncheckedCreateNestedOneWithoutMosqueInput
+    namesOfAllah?: NameOfAllahUncheckedCreateNestedManyWithoutMosqueInput
+    media?: MediaUncheckedCreateNestedManyWithoutMosqueInput
+    prayers?: PrayerUncheckedCreateNestedManyWithoutMosqueInput
+    qrCodes?: QRCodeUncheckedCreateNestedManyWithoutMosqueInput
+  }
+
+  export type MosqueCreateOrConnectWithoutLanguageSettingsInput = {
+    where: MosqueWhereUniqueInput
+    create: XOR<MosqueCreateWithoutLanguageSettingsInput, MosqueUncheckedCreateWithoutLanguageSettingsInput>
+  }
+
+  export type MosqueUpsertWithoutLanguageSettingsInput = {
+    update: XOR<MosqueUpdateWithoutLanguageSettingsInput, MosqueUncheckedUpdateWithoutLanguageSettingsInput>
+    create: XOR<MosqueCreateWithoutLanguageSettingsInput, MosqueUncheckedCreateWithoutLanguageSettingsInput>
+    where?: MosqueWhereInput
+  }
+
+  export type MosqueUpdateToOneWithWhereWithoutLanguageSettingsInput = {
+    where?: MosqueWhereInput
+    data: XOR<MosqueUpdateWithoutLanguageSettingsInput, MosqueUncheckedUpdateWithoutLanguageSettingsInput>
+  }
+
+  export type MosqueUpdateWithoutLanguageSettingsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    admin?: AdminUpdateOneWithoutMosqueNestedInput
+    fixedPrayerTime?: FixedMosquePrayerTimeUpdateOneWithoutMosqueNestedInput
+    namesOfAllah?: NameOfAllahUpdateManyWithoutMosqueNestedInput
+    media?: MediaUpdateManyWithoutMosqueNestedInput
+    city?: CityUpdateOneRequiredWithoutMosqueNestedInput
+    prayers?: PrayerUpdateManyWithoutMosqueNestedInput
+    qrCodes?: QRCodeUpdateManyWithoutMosqueNestedInput
+  }
+
+  export type MosqueUncheckedUpdateWithoutLanguageSettingsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    cityId?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    admin?: AdminUncheckedUpdateOneWithoutMosqueNestedInput
+    fixedPrayerTime?: FixedMosquePrayerTimeUncheckedUpdateOneWithoutMosqueNestedInput
+    namesOfAllah?: NameOfAllahUncheckedUpdateManyWithoutMosqueNestedInput
+    media?: MediaUncheckedUpdateManyWithoutMosqueNestedInput
+    prayers?: PrayerUncheckedUpdateManyWithoutMosqueNestedInput
+    qrCodes?: QRCodeUncheckedUpdateManyWithoutMosqueNestedInput
+  }
+
+  export type MosqueCreateWithoutNamesOfAllahInput = {
+    name: string
+    logoUrl?: string | null
+    admin?: AdminCreateNestedOneWithoutMosqueInput
+    fixedPrayerTime?: FixedMosquePrayerTimeCreateNestedOneWithoutMosqueInput
+    languageSettings?: MosqueLanguageSettingsCreateNestedOneWithoutMosqueInput
+    media?: MediaCreateNestedManyWithoutMosqueInput
+    city: CityCreateNestedOneWithoutMosqueInput
+    prayers?: PrayerCreateNestedManyWithoutMosqueInput
+    qrCodes?: QRCodeCreateNestedManyWithoutMosqueInput
+  }
+
+  export type MosqueUncheckedCreateWithoutNamesOfAllahInput = {
+    id?: number
+    cityId: number
+    name: string
+    logoUrl?: string | null
+    admin?: AdminUncheckedCreateNestedOneWithoutMosqueInput
+    fixedPrayerTime?: FixedMosquePrayerTimeUncheckedCreateNestedOneWithoutMosqueInput
+    languageSettings?: MosqueLanguageSettingsUncheckedCreateNestedOneWithoutMosqueInput
+    media?: MediaUncheckedCreateNestedManyWithoutMosqueInput
+    prayers?: PrayerUncheckedCreateNestedManyWithoutMosqueInput
+    qrCodes?: QRCodeUncheckedCreateNestedManyWithoutMosqueInput
+  }
+
+  export type MosqueCreateOrConnectWithoutNamesOfAllahInput = {
+    where: MosqueWhereUniqueInput
+    create: XOR<MosqueCreateWithoutNamesOfAllahInput, MosqueUncheckedCreateWithoutNamesOfAllahInput>
+  }
+
+  export type MosqueUpsertWithoutNamesOfAllahInput = {
+    update: XOR<MosqueUpdateWithoutNamesOfAllahInput, MosqueUncheckedUpdateWithoutNamesOfAllahInput>
+    create: XOR<MosqueCreateWithoutNamesOfAllahInput, MosqueUncheckedCreateWithoutNamesOfAllahInput>
+    where?: MosqueWhereInput
+  }
+
+  export type MosqueUpdateToOneWithWhereWithoutNamesOfAllahInput = {
+    where?: MosqueWhereInput
+    data: XOR<MosqueUpdateWithoutNamesOfAllahInput, MosqueUncheckedUpdateWithoutNamesOfAllahInput>
+  }
+
+  export type MosqueUpdateWithoutNamesOfAllahInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    admin?: AdminUpdateOneWithoutMosqueNestedInput
+    fixedPrayerTime?: FixedMosquePrayerTimeUpdateOneWithoutMosqueNestedInput
+    languageSettings?: MosqueLanguageSettingsUpdateOneWithoutMosqueNestedInput
+    media?: MediaUpdateManyWithoutMosqueNestedInput
+    city?: CityUpdateOneRequiredWithoutMosqueNestedInput
+    prayers?: PrayerUpdateManyWithoutMosqueNestedInput
+    qrCodes?: QRCodeUpdateManyWithoutMosqueNestedInput
+  }
+
+  export type MosqueUncheckedUpdateWithoutNamesOfAllahInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    cityId?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    admin?: AdminUncheckedUpdateOneWithoutMosqueNestedInput
+    fixedPrayerTime?: FixedMosquePrayerTimeUncheckedUpdateOneWithoutMosqueNestedInput
+    languageSettings?: MosqueLanguageSettingsUncheckedUpdateOneWithoutMosqueNestedInput
+    media?: MediaUncheckedUpdateManyWithoutMosqueNestedInput
+    prayers?: PrayerUncheckedUpdateManyWithoutMosqueNestedInput
+    qrCodes?: QRCodeUncheckedUpdateManyWithoutMosqueNestedInput
   }
 
   export type MosqueCreateManyCityInput = {
@@ -16149,6 +22885,10 @@ export namespace Prisma {
   export type MosqueUpdateWithoutCityInput = {
     name?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    admin?: AdminUpdateOneWithoutMosqueNestedInput
+    fixedPrayerTime?: FixedMosquePrayerTimeUpdateOneWithoutMosqueNestedInput
+    languageSettings?: MosqueLanguageSettingsUpdateOneWithoutMosqueNestedInput
+    namesOfAllah?: NameOfAllahUpdateManyWithoutMosqueNestedInput
     media?: MediaUpdateManyWithoutMosqueNestedInput
     prayers?: PrayerUpdateManyWithoutMosqueNestedInput
     qrCodes?: QRCodeUpdateManyWithoutMosqueNestedInput
@@ -16158,6 +22898,10 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    admin?: AdminUncheckedUpdateOneWithoutMosqueNestedInput
+    fixedPrayerTime?: FixedMosquePrayerTimeUncheckedUpdateOneWithoutMosqueNestedInput
+    languageSettings?: MosqueLanguageSettingsUncheckedUpdateOneWithoutMosqueNestedInput
+    namesOfAllah?: NameOfAllahUncheckedUpdateManyWithoutMosqueNestedInput
     media?: MediaUncheckedUpdateManyWithoutMosqueNestedInput
     prayers?: PrayerUncheckedUpdateManyWithoutMosqueNestedInput
     qrCodes?: QRCodeUncheckedUpdateManyWithoutMosqueNestedInput
@@ -16248,6 +22992,17 @@ export namespace Prisma {
     changedBy?: IntFieldUpdateOperationsInput | number
   }
 
+  export type NameOfAllahCreateManyMosqueInput = {
+    id?: number
+    arabic: string
+    transcription: string
+    meaning: string
+    transcriptionTatar?: string | null
+    meaningTatar?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type MediaCreateManyMosqueInput = {
     id?: number
     videoUrl?: string | null
@@ -16273,6 +23028,38 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     imageUrl: string
+  }
+
+  export type NameOfAllahUpdateWithoutMosqueInput = {
+    arabic?: StringFieldUpdateOperationsInput | string
+    transcription?: StringFieldUpdateOperationsInput | string
+    meaning?: StringFieldUpdateOperationsInput | string
+    transcriptionTatar?: NullableStringFieldUpdateOperationsInput | string | null
+    meaningTatar?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NameOfAllahUncheckedUpdateWithoutMosqueInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    arabic?: StringFieldUpdateOperationsInput | string
+    transcription?: StringFieldUpdateOperationsInput | string
+    meaning?: StringFieldUpdateOperationsInput | string
+    transcriptionTatar?: NullableStringFieldUpdateOperationsInput | string | null
+    meaningTatar?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NameOfAllahUncheckedUpdateManyWithoutMosqueInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    arabic?: StringFieldUpdateOperationsInput | string
+    transcription?: StringFieldUpdateOperationsInput | string
+    meaning?: StringFieldUpdateOperationsInput | string
+    transcriptionTatar?: NullableStringFieldUpdateOperationsInput | string | null
+    meaningTatar?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MediaUpdateWithoutMosqueInput = {
@@ -16487,6 +23274,10 @@ export namespace Prisma {
      */
     export type FixedPrayerTimeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = FixedPrayerTimeDefaultArgs<ExtArgs>
     /**
+     * @deprecated Use FixedMosquePrayerTimeDefaultArgs instead
+     */
+    export type FixedMosquePrayerTimeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = FixedMosquePrayerTimeDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use PrayerTimeChangeDefaultArgs instead
      */
     export type PrayerTimeChangeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PrayerTimeChangeDefaultArgs<ExtArgs>
@@ -16494,6 +23285,18 @@ export namespace Prisma {
      * @deprecated Use AuditLogDefaultArgs instead
      */
     export type AuditLogArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AuditLogDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use TranslationDefaultArgs instead
+     */
+    export type TranslationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TranslationDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use MosqueLanguageSettingsDefaultArgs instead
+     */
+    export type MosqueLanguageSettingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MosqueLanguageSettingsDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use NameOfAllahDefaultArgs instead
+     */
+    export type NameOfAllahArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = NameOfAllahDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

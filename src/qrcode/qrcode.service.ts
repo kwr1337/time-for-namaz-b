@@ -33,6 +33,21 @@ export class QRCodeService {
 				`Мечеть с ID ${mosqueId} не найдена`
 			);
 		}
+
+		// Проверяем права доступа: MOSQUE_ADMIN может создавать QR-коды только для своей мечети
+		const admin = await this.prisma.admin.findUnique({
+			where: { id: userId }
+		});
+
+		if (admin && admin.role === 'MOSQUE_ADMIN') {
+			if (admin.mosqueId !== mosqueId) {
+				// Удаляем загруженный файл, если нет прав
+				if (image && image.path) {
+					fs.unlinkSync(image.path);
+				}
+				throw new HttpException('У вас нет прав для создания QR-кода для этой мечети', HttpStatus.FORBIDDEN);
+			}
+		}
 		
 		// Проверка количества существующих QR-кодов для мечети
 		const existingQRCodes = await this.prisma.qRCode.findMany({
@@ -137,6 +152,21 @@ export class QRCodeService {
 				fs.unlinkSync(image.path);
 			}
 			throw new NotFoundException(`QR-код с ID ${id} не найден`);
+		}
+
+		// Проверяем права доступа: MOSQUE_ADMIN может редактировать только QR-коды своей мечети
+		const admin = await this.prisma.admin.findUnique({
+			where: { id: userId }
+		});
+
+		if (admin && admin.role === 'MOSQUE_ADMIN') {
+			if (admin.mosqueId !== existingQRCode.mosqueId) {
+				// Удаляем загруженный файл, если нет прав
+				if (image && image.path) {
+					fs.unlinkSync(image.path);
+				}
+				throw new HttpException('У вас нет прав для редактирования этого QR-кода', HttpStatus.FORBIDDEN);
+			}
 		}
 
 		// Подготавливаем объект с данными для обновления
@@ -266,6 +296,17 @@ export class QRCodeService {
 		
 		if (!qrCode) {
 			throw new NotFoundException(`QR-код с ID ${id} не найден`);
+		}
+
+		// Проверяем права доступа: MOSQUE_ADMIN может удалять только QR-коды своей мечети
+		const admin = await this.prisma.admin.findUnique({
+			where: { id: userId }
+		});
+
+		if (admin && admin.role === 'MOSQUE_ADMIN') {
+			if (admin.mosqueId !== qrCode.mosqueId) {
+				throw new HttpException('У вас нет прав для удаления этого QR-кода', HttpStatus.FORBIDDEN);
+			}
 		}
 
 		// Если удаляемый QR-код был основным и есть второй QR-код, делаем второй основным

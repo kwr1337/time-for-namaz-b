@@ -14,4 +14,7 @@ export class CreateAdminDto {
 
 	@IsOptional() // Делаем это поле необязательным
 	cityId?: number; // ID города
+
+	@IsOptional() // Делаем это поле необязательным
+	mosqueId?: number; // ID мечети
 }

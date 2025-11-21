@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common'
+import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { PrayerModule } from './prayer/prayer.module'
 import { MediaModule } from './media/media.module'
@@ -8,6 +8,10 @@ import { ErrorMessageModule } from './errorMessage/error-message.module'
 import { CityModule } from './сity/city.module'
 import { MosqueModule } from './mosque/mosque.module'
 import { AuditLogModule } from './audit-log/audit-log.module'
+import { TranslationModule } from './translation/translation.module'
+import { MosqueLanguageSettingsModule } from './mosque-language-settings/mosque-language-settings.module'
+import { NamesOfAllahModule } from './names-of-allah/names-of-allah.module'
+import { RequestLoggerMiddleware } from './common/request-logger.middleware'
 
 @Module({
 	imports: [
@@ -19,7 +23,16 @@ import { AuditLogModule } from './audit-log/audit-log.module'
 		ErrorMessageModule,
 		CityModule,
 		MosqueModule,
-		AuditLogModule
+		AuditLogModule,
+		TranslationModule,
+		MosqueLanguageSettingsModule,
+		NamesOfAllahModule
 	]
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+	configure(consumer: MiddlewareConsumer) {
+		consumer
+			.apply(RequestLoggerMiddleware)
+			.forRoutes('*');
+	}
+}

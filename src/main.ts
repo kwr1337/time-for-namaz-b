@@ -14,7 +14,7 @@ async function bootstrap() {
 	app.setGlobalPrefix('api')
 	app.use(cookieParser())
 	app.enableCors({
-		origin: ['https://nmzvrm.ru'],
+		origin: ['https://nmzvrm.ru', 'http://localhost:3000', 'http://localhost:3001'],
 		credentials: true,
 		exposedHeaders: 'set-cookie'
 	})
