@@ -56,15 +56,21 @@ export class NamesOfAllahService {
       throw new NotFoundException(`Мечеть с ID ${mosqueId} не найдена`);
     }
 
-    // Проверяем права доступа: MOSQUE_ADMIN может создавать только для своей мечети
+    // Проверяем права доступа
     if (userId) {
       const admin = await this.prisma.admin.findUnique({
         where: { id: userId }
       });
 
-      if (admin && admin.role === 'MOSQUE_ADMIN') {
-        if (admin.mosqueId !== Number(mosqueId)) {
-          throw new BadRequestException('У вас нет прав для создания имен Аллаха для этой мечети');
+      if (admin) {
+        if (admin.role === 'MOSQUE_ADMIN') {
+          if (admin.mosqueId !== Number(mosqueId)) {
+            throw new BadRequestException('У вас нет прав для создания имен Аллаха для этой мечети');
+          }
+        } else if (admin.role === 'CITY_ADMIN') {
+          if (admin.cityId !== mosque.cityId) {
+            throw new BadRequestException('У вас нет прав для создания имен Аллаха для этой мечети');
+          }
         }
       }
     }
@@ -104,15 +110,21 @@ export class NamesOfAllahService {
       throw new NotFoundException(`Имя Аллаха с ID ${id} не найдено`);
     }
 
-    // Проверяем права доступа: MOSQUE_ADMIN может редактировать только имена своей мечети
+    // Проверяем права доступа
     if (userId) {
       const admin = await this.prisma.admin.findUnique({
         where: { id: userId }
       });
 
-      if (admin && admin.role === 'MOSQUE_ADMIN') {
-        if (admin.mosqueId !== existing.mosqueId) {
-          throw new BadRequestException('У вас нет прав для редактирования этого имени Аллаха');
+      if (admin) {
+        if (admin.role === 'MOSQUE_ADMIN') {
+          if (admin.mosqueId !== existing.mosqueId) {
+            throw new BadRequestException('У вас нет прав для редактирования этого имени Аллаха');
+          }
+        } else if (admin.role === 'CITY_ADMIN') {
+          if (admin.cityId !== existing.mosque.cityId) {
+            throw new BadRequestException('У вас нет прав для редактирования этого имени Аллаха');
+          }
         }
       }
     }
@@ -128,28 +140,76 @@ export class NamesOfAllahService {
    */
   async remove(id: number, userId?: number) {
     const existing = await this.prisma.nameOfAllah.findUnique({
-      where: { id: Number(id) }
+      where: { id: Number(id) },
+      include: { mosque: true }
     });
 
     if (!existing) {
       throw new NotFoundException(`Имя Аллаха с ID ${id} не найдено`);
     }
 
-    // Проверяем права доступа: MOSQUE_ADMIN может удалять только имена своей мечети
+    // Проверяем права доступа
     if (userId) {
       const admin = await this.prisma.admin.findUnique({
         where: { id: userId }
       });
 
-      if (admin && admin.role === 'MOSQUE_ADMIN') {
-        if (admin.mosqueId !== existing.mosqueId) {
-          throw new BadRequestException('У вас нет прав для удаления этого имени Аллаха');
+      if (admin) {
+        if (admin.role === 'MOSQUE_ADMIN') {
+          if (admin.mosqueId !== existing.mosqueId) {
+            throw new BadRequestException('У вас нет прав для удаления этого имени Аллаха');
+          }
+        } else if (admin.role === 'CITY_ADMIN') {
+          if (admin.cityId !== existing.mosque.cityId) {
+            throw new BadRequestException('У вас нет прав для удаления этого имени Аллаха');
+          }
         }
       }
     }
 
     return this.prisma.nameOfAllah.delete({
       where: { id: Number(id) }
+    });
+  }
+
+  /**
+   * Включить/выключить имя Аллаха для мечети
+   */
+  async toggleEnabled(id: number, userId?: number) {
+    const existing = await this.prisma.nameOfAllah.findUnique({
+      where: { id: Number(id) },
+      include: { mosque: true }
+    });
+
+    if (!existing) {
+      throw new NotFoundException(`Имя Аллаха с ID ${id} не найдено`);
+    }
+
+    // Проверяем права доступа
+    if (userId) {
+      const admin = await this.prisma.admin.findUnique({
+        where: { id: userId }
+      });
+
+      if (admin) {
+        if (admin.role === 'MOSQUE_ADMIN') {
+          if (admin.mosqueId !== existing.mosqueId) {
+            throw new BadRequestException('У вас нет прав для изменения состояния этого имени Аллаха');
+          }
+        } else if (admin.role === 'CITY_ADMIN') {
+          if (admin.cityId !== existing.mosque.cityId) {
+            throw new BadRequestException('У вас нет прав для изменения состояния этого имени Аллаха');
+          }
+        }
+        // SUPER_ADMIN может управлять всеми именами
+      }
+    }
+
+    return this.prisma.nameOfAllah.update({
+      where: { id: Number(id) },
+      data: {
+        isEnabled: !existing.isEnabled
+      }
     });
   }
 
@@ -172,9 +232,15 @@ export class NamesOfAllahService {
         where: { id: userId }
       });
 
-      if (admin && admin.role === 'MOSQUE_ADMIN') {
-        if (admin.mosqueId !== Number(mosqueId)) {
-          throw new BadRequestException('У вас нет прав для инициализации имен Аллаха для этой мечети');
+      if (admin) {
+        if (admin.role === 'MOSQUE_ADMIN') {
+          if (admin.mosqueId !== Number(mosqueId)) {
+            throw new BadRequestException('У вас нет прав для инициализации имен Аллаха для этой мечети');
+          }
+        } else if (admin.role === 'CITY_ADMIN') {
+          if (admin.cityId !== mosque.cityId) {
+            throw new BadRequestException('У вас нет прав для инициализации имен Аллаха для этой мечети');
+          }
         }
       }
     }
@@ -227,9 +293,15 @@ export class NamesOfAllahService {
         where: { id: userId }
       });
 
-      if (admin && admin.role === 'MOSQUE_ADMIN') {
-        if (admin.mosqueId !== Number(mosqueId)) {
-          throw new BadRequestException('У вас нет прав для массового обновления имен Аллаха для этой мечети');
+      if (admin) {
+        if (admin.role === 'MOSQUE_ADMIN') {
+          if (admin.mosqueId !== Number(mosqueId)) {
+            throw new BadRequestException('У вас нет прав для массового обновления имен Аллаха для этой мечети');
+          }
+        } else if (admin.role === 'CITY_ADMIN') {
+          if (admin.cityId !== mosque.cityId) {
+            throw new BadRequestException('У вас нет прав для массового обновления имен Аллаха для этой мечети');
+          }
         }
       }
     }

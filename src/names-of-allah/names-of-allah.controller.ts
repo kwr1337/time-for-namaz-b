@@ -131,6 +131,28 @@ export class NamesOfAllahController {
     }
   }
 
+  @Patch(':id/toggle-enabled')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(Role.SUPER_ADMIN, Role.CITY_ADMIN, Role.MOSQUE_ADMIN)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Включить/выключить имя Аллаха для мечети' })
+  @ApiResponse({ status: 200, description: 'Состояние имени Аллаха успешно изменено' })
+  @ApiResponse({ status: 404, description: 'Имя Аллаха не найдено' })
+  @ApiResponse({ status: 400, description: 'Нет прав для изменения состояния' })
+  async toggleEnabled(@Param('id') id: string, @Req() req: any) {
+    try {
+      return await this.namesOfAllahService.toggleEnabled(+id, req.user?.id);
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+      }
+      if (error instanceof BadRequestException) {
+        throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+      }
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
   @Post('mosque/:mosqueId/initialize')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles(Role.SUPER_ADMIN, Role.CITY_ADMIN, Role.MOSQUE_ADMIN)

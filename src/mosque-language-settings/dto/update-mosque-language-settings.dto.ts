@@ -17,5 +17,10 @@ export class UpdateMosqueLanguageSettingsDto {
   @IsOptional()
   @Min(1)
   languageToggleIntervalSeconds?: number;
+
+  @ApiProperty({ description: 'Показывать ли название "Жомга" вместо "Зухр" в пятницу', required: false })
+  @IsBoolean()
+  @IsOptional()
+  fridayZuhrAsJomgaEnabled?: boolean;
 }
 

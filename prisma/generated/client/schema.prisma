@@ -191,6 +191,7 @@ model MosqueLanguageSettings {
   translationsEnabled         Boolean  @default(true)
   languageToggleEnabled       Boolean  @default(false)
   languageToggleIntervalSeconds Int    @default(30)
+  fridayZuhrAsJomgaEnabled    Boolean  @default(false)
   createdAt                   DateTime @default(now())
   updatedAt                   DateTime @updatedAt
   mosque                      Mosque   @relation(fields: [mosqueId], references: [id])
@@ -204,6 +205,7 @@ model NameOfAllah {
   meaning           String
   transcriptionTatar String?
   meaningTatar      String?
+  isEnabled         Boolean  @default(true)
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
   mosque            Mosque   @relation(fields: [mosqueId], references: [id])

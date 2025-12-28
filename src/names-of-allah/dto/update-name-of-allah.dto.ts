@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsOptional } from 'class-validator';
+import { IsString, IsOptional, IsBoolean } from 'class-validator';
 
 export class UpdateNameOfAllahDto {
   @ApiProperty({ description: 'Транскрипция имени', required: false })
@@ -21,5 +21,10 @@ export class UpdateNameOfAllahDto {
   @IsString()
   @IsOptional()
   meaningTatar?: string;
+
+  @ApiProperty({ description: 'Включено ли имя Аллаха для отображения', required: false })
+  @IsBoolean()
+  @IsOptional()
+  isEnabled?: boolean;
 }
 

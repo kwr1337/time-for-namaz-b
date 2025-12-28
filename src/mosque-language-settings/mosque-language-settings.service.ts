@@ -29,7 +29,8 @@ export class MosqueLanguageSettingsService {
           mosqueId: Number(mosqueId),
           translationsEnabled: true,
           languageToggleEnabled: false,
-          languageToggleIntervalSeconds: 30
+          languageToggleIntervalSeconds: 30,
+          fridayZuhrAsJomgaEnabled: false
         }
       });
     }
@@ -52,16 +53,23 @@ export class MosqueLanguageSettingsService {
       throw new NotFoundException(`Мечеть с ID ${mosqueId} не найдена`);
     }
 
-    // Проверяем права доступа: MOSQUE_ADMIN может редактировать только настройки своей мечети
+    // Проверяем права доступа
     if (userId) {
       const admin = await this.prisma.admin.findUnique({
         where: { id: userId }
       });
 
-      if (admin && admin.role === 'MOSQUE_ADMIN') {
-        if (admin.mosqueId !== Number(mosqueId)) {
-          throw new BadRequestException('У вас нет прав для редактирования настроек этой мечети');
+      if (admin) {
+        if (admin.role === 'MOSQUE_ADMIN') {
+          if (admin.mosqueId !== Number(mosqueId)) {
+            throw new BadRequestException('У вас нет прав для редактирования настроек этой мечети');
+          }
+        } else if (admin.role === 'CITY_ADMIN') {
+          if (admin.cityId !== mosque.cityId) {
+            throw new BadRequestException('У вас нет прав для редактирования настроек этой мечети');
+          }
         }
+        // SUPER_ADMIN может управлять всеми настройками
       }
     }
 
@@ -79,20 +87,26 @@ export class MosqueLanguageSettingsService {
           mosqueId: Number(mosqueId),
           translationsEnabled: updateDto.translationsEnabled ?? true,
           languageToggleEnabled: updateDto.languageToggleEnabled ?? false,
-          languageToggleIntervalSeconds: updateDto.languageToggleIntervalSeconds ?? 30
+          languageToggleIntervalSeconds: updateDto.languageToggleIntervalSeconds ?? 30,
+          fridayZuhrAsJomgaEnabled: updateDto.fridayZuhrAsJomgaEnabled ?? false
         }
       });
     } else {
       // Обновляем существующие настройки
       const updateData: any = {};
-      if (updateDto.translationsEnabled !== undefined) {
+      
+      // Явно проверяем наличие поля в DTO (включая false)
+      if ('translationsEnabled' in updateDto) {
         updateData.translationsEnabled = updateDto.translationsEnabled;
       }
-      if (updateDto.languageToggleEnabled !== undefined) {
+      if ('languageToggleEnabled' in updateDto) {
         updateData.languageToggleEnabled = updateDto.languageToggleEnabled;
       }
-      if (updateDto.languageToggleIntervalSeconds !== undefined) {
+      if ('languageToggleIntervalSeconds' in updateDto) {
         updateData.languageToggleIntervalSeconds = updateDto.languageToggleIntervalSeconds;
+      }
+      if ('fridayZuhrAsJomgaEnabled' in updateDto) {
+        updateData.fridayZuhrAsJomgaEnabled = updateDto.fridayZuhrAsJomgaEnabled;
       }
 
       if (Object.keys(updateData).length > 0) {
@@ -117,6 +131,7 @@ export class MosqueLanguageSettingsService {
               translationsEnabled: existingSettings.translationsEnabled,
               languageToggleEnabled: existingSettings.languageToggleEnabled,
               languageToggleIntervalSeconds: existingSettings.languageToggleIntervalSeconds,
+              fridayZuhrAsJomgaEnabled: existingSettings.fridayZuhrAsJomgaEnabled,
               mosqueId: mosque.id,
               mosqueName: mosque.name,
               cityName: mosque.city.name
@@ -131,8 +146,13 @@ export class MosqueLanguageSettingsService {
       }
     }
 
+    // Явно получаем обновленные данные из БД, чтобы гарантировать актуальность
+    const finalSettings = await this.prisma.mosqueLanguageSettings.findUnique({
+      where: { id: existingSettings.id }
+    });
+
     return {
-      ...existingSettings,
+      ...finalSettings,
       mosqueName: mosque.name,
       cityName: mosque.city.name
     };

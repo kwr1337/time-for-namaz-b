@@ -14503,6 +14503,7 @@ export namespace Prisma {
     translationsEnabled: boolean | null
     languageToggleEnabled: boolean | null
     languageToggleIntervalSeconds: number | null
+    fridayZuhrAsJomgaEnabled: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -14513,6 +14514,7 @@ export namespace Prisma {
     translationsEnabled: boolean | null
     languageToggleEnabled: boolean | null
     languageToggleIntervalSeconds: number | null
+    fridayZuhrAsJomgaEnabled: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -14523,6 +14525,7 @@ export namespace Prisma {
     translationsEnabled: number
     languageToggleEnabled: number
     languageToggleIntervalSeconds: number
+    fridayZuhrAsJomgaEnabled: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -14547,6 +14550,7 @@ export namespace Prisma {
     translationsEnabled?: true
     languageToggleEnabled?: true
     languageToggleIntervalSeconds?: true
+    fridayZuhrAsJomgaEnabled?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -14557,6 +14561,7 @@ export namespace Prisma {
     translationsEnabled?: true
     languageToggleEnabled?: true
     languageToggleIntervalSeconds?: true
+    fridayZuhrAsJomgaEnabled?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -14567,6 +14572,7 @@ export namespace Prisma {
     translationsEnabled?: true
     languageToggleEnabled?: true
     languageToggleIntervalSeconds?: true
+    fridayZuhrAsJomgaEnabled?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -14664,6 +14670,7 @@ export namespace Prisma {
     translationsEnabled: boolean
     languageToggleEnabled: boolean
     languageToggleIntervalSeconds: number
+    fridayZuhrAsJomgaEnabled: boolean
     createdAt: Date
     updatedAt: Date
     _count: MosqueLanguageSettingsCountAggregateOutputType | null
@@ -14693,6 +14700,7 @@ export namespace Prisma {
     translationsEnabled?: boolean
     languageToggleEnabled?: boolean
     languageToggleIntervalSeconds?: boolean
+    fridayZuhrAsJomgaEnabled?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     mosque?: boolean | MosqueDefaultArgs<ExtArgs>
@@ -14704,6 +14712,7 @@ export namespace Prisma {
     translationsEnabled?: boolean
     languageToggleEnabled?: boolean
     languageToggleIntervalSeconds?: boolean
+    fridayZuhrAsJomgaEnabled?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
@@ -14724,6 +14733,7 @@ export namespace Prisma {
       translationsEnabled: boolean
       languageToggleEnabled: boolean
       languageToggleIntervalSeconds: number
+      fridayZuhrAsJomgaEnabled: boolean
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["mosqueLanguageSettings"]>
@@ -15126,6 +15136,7 @@ export namespace Prisma {
     readonly translationsEnabled: FieldRef<"MosqueLanguageSettings", 'Boolean'>
     readonly languageToggleEnabled: FieldRef<"MosqueLanguageSettings", 'Boolean'>
     readonly languageToggleIntervalSeconds: FieldRef<"MosqueLanguageSettings", 'Int'>
+    readonly fridayZuhrAsJomgaEnabled: FieldRef<"MosqueLanguageSettings", 'Boolean'>
     readonly createdAt: FieldRef<"MosqueLanguageSettings", 'DateTime'>
     readonly updatedAt: FieldRef<"MosqueLanguageSettings", 'DateTime'>
   }
@@ -15485,6 +15496,7 @@ export namespace Prisma {
     meaning: string | null
     transcriptionTatar: string | null
     meaningTatar: string | null
+    isEnabled: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -15497,6 +15509,7 @@ export namespace Prisma {
     meaning: string | null
     transcriptionTatar: string | null
     meaningTatar: string | null
+    isEnabled: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -15509,6 +15522,7 @@ export namespace Prisma {
     meaning: number
     transcriptionTatar: number
     meaningTatar: number
+    isEnabled: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -15533,6 +15547,7 @@ export namespace Prisma {
     meaning?: true
     transcriptionTatar?: true
     meaningTatar?: true
+    isEnabled?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -15545,6 +15560,7 @@ export namespace Prisma {
     meaning?: true
     transcriptionTatar?: true
     meaningTatar?: true
+    isEnabled?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -15557,6 +15573,7 @@ export namespace Prisma {
     meaning?: true
     transcriptionTatar?: true
     meaningTatar?: true
+    isEnabled?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -15656,6 +15673,7 @@ export namespace Prisma {
     meaning: string
     transcriptionTatar: string | null
     meaningTatar: string | null
+    isEnabled: boolean
     createdAt: Date
     updatedAt: Date
     _count: NameOfAllahCountAggregateOutputType | null
@@ -15687,6 +15705,7 @@ export namespace Prisma {
     meaning?: boolean
     transcriptionTatar?: boolean
     meaningTatar?: boolean
+    isEnabled?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     mosque?: boolean | MosqueDefaultArgs<ExtArgs>
@@ -15700,6 +15719,7 @@ export namespace Prisma {
     meaning?: boolean
     transcriptionTatar?: boolean
     meaningTatar?: boolean
+    isEnabled?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
@@ -15722,6 +15742,7 @@ export namespace Prisma {
       meaning: string
       transcriptionTatar: string | null
       meaningTatar: string | null
+      isEnabled: boolean
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["nameOfAllah"]>
@@ -16126,6 +16147,7 @@ export namespace Prisma {
     readonly meaning: FieldRef<"NameOfAllah", 'String'>
     readonly transcriptionTatar: FieldRef<"NameOfAllah", 'String'>
     readonly meaningTatar: FieldRef<"NameOfAllah", 'String'>
+    readonly isEnabled: FieldRef<"NameOfAllah", 'Boolean'>
     readonly createdAt: FieldRef<"NameOfAllah", 'DateTime'>
     readonly updatedAt: FieldRef<"NameOfAllah", 'DateTime'>
   }
@@ -16656,6 +16678,7 @@ export namespace Prisma {
     translationsEnabled: 'translationsEnabled',
     languageToggleEnabled: 'languageToggleEnabled',
     languageToggleIntervalSeconds: 'languageToggleIntervalSeconds',
+    fridayZuhrAsJomgaEnabled: 'fridayZuhrAsJomgaEnabled',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -16671,6 +16694,7 @@ export namespace Prisma {
     meaning: 'meaning',
     transcriptionTatar: 'transcriptionTatar',
     meaningTatar: 'meaningTatar',
+    isEnabled: 'isEnabled',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -17791,6 +17815,7 @@ export namespace Prisma {
     translationsEnabled?: BoolFilter<"MosqueLanguageSettings"> | boolean
     languageToggleEnabled?: BoolFilter<"MosqueLanguageSettings"> | boolean
     languageToggleIntervalSeconds?: IntFilter<"MosqueLanguageSettings"> | number
+    fridayZuhrAsJomgaEnabled?: BoolFilter<"MosqueLanguageSettings"> | boolean
     createdAt?: DateTimeFilter<"MosqueLanguageSettings"> | Date | string
     updatedAt?: DateTimeFilter<"MosqueLanguageSettings"> | Date | string
     mosque?: XOR<MosqueRelationFilter, MosqueWhereInput>
@@ -17802,6 +17827,7 @@ export namespace Prisma {
     translationsEnabled?: SortOrder
     languageToggleEnabled?: SortOrder
     languageToggleIntervalSeconds?: SortOrder
+    fridayZuhrAsJomgaEnabled?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     mosque?: MosqueOrderByWithRelationInput
@@ -17816,6 +17842,7 @@ export namespace Prisma {
     translationsEnabled?: BoolFilter<"MosqueLanguageSettings"> | boolean
     languageToggleEnabled?: BoolFilter<"MosqueLanguageSettings"> | boolean
     languageToggleIntervalSeconds?: IntFilter<"MosqueLanguageSettings"> | number
+    fridayZuhrAsJomgaEnabled?: BoolFilter<"MosqueLanguageSettings"> | boolean
     createdAt?: DateTimeFilter<"MosqueLanguageSettings"> | Date | string
     updatedAt?: DateTimeFilter<"MosqueLanguageSettings"> | Date | string
     mosque?: XOR<MosqueRelationFilter, MosqueWhereInput>
@@ -17827,6 +17854,7 @@ export namespace Prisma {
     translationsEnabled?: SortOrder
     languageToggleEnabled?: SortOrder
     languageToggleIntervalSeconds?: SortOrder
+    fridayZuhrAsJomgaEnabled?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: MosqueLanguageSettingsCountOrderByAggregateInput
@@ -17845,6 +17873,7 @@ export namespace Prisma {
     translationsEnabled?: BoolWithAggregatesFilter<"MosqueLanguageSettings"> | boolean
     languageToggleEnabled?: BoolWithAggregatesFilter<"MosqueLanguageSettings"> | boolean
     languageToggleIntervalSeconds?: IntWithAggregatesFilter<"MosqueLanguageSettings"> | number
+    fridayZuhrAsJomgaEnabled?: BoolWithAggregatesFilter<"MosqueLanguageSettings"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"MosqueLanguageSettings"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"MosqueLanguageSettings"> | Date | string
   }
@@ -17860,6 +17889,7 @@ export namespace Prisma {
     meaning?: StringFilter<"NameOfAllah"> | string
     transcriptionTatar?: StringNullableFilter<"NameOfAllah"> | string | null
     meaningTatar?: StringNullableFilter<"NameOfAllah"> | string | null
+    isEnabled?: BoolFilter<"NameOfAllah"> | boolean
     createdAt?: DateTimeFilter<"NameOfAllah"> | Date | string
     updatedAt?: DateTimeFilter<"NameOfAllah"> | Date | string
     mosque?: XOR<MosqueRelationFilter, MosqueWhereInput>
@@ -17873,6 +17903,7 @@ export namespace Prisma {
     meaning?: SortOrder
     transcriptionTatar?: SortOrderInput | SortOrder
     meaningTatar?: SortOrderInput | SortOrder
+    isEnabled?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     mosque?: MosqueOrderByWithRelationInput
@@ -17890,6 +17921,7 @@ export namespace Prisma {
     meaning?: StringFilter<"NameOfAllah"> | string
     transcriptionTatar?: StringNullableFilter<"NameOfAllah"> | string | null
     meaningTatar?: StringNullableFilter<"NameOfAllah"> | string | null
+    isEnabled?: BoolFilter<"NameOfAllah"> | boolean
     createdAt?: DateTimeFilter<"NameOfAllah"> | Date | string
     updatedAt?: DateTimeFilter<"NameOfAllah"> | Date | string
     mosque?: XOR<MosqueRelationFilter, MosqueWhereInput>
@@ -17903,6 +17935,7 @@ export namespace Prisma {
     meaning?: SortOrder
     transcriptionTatar?: SortOrderInput | SortOrder
     meaningTatar?: SortOrderInput | SortOrder
+    isEnabled?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: NameOfAllahCountOrderByAggregateInput
@@ -17923,6 +17956,7 @@ export namespace Prisma {
     meaning?: StringWithAggregatesFilter<"NameOfAllah"> | string
     transcriptionTatar?: StringNullableWithAggregatesFilter<"NameOfAllah"> | string | null
     meaningTatar?: StringNullableWithAggregatesFilter<"NameOfAllah"> | string | null
+    isEnabled?: BoolWithAggregatesFilter<"NameOfAllah"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"NameOfAllah"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"NameOfAllah"> | Date | string
   }
@@ -18954,6 +18988,7 @@ export namespace Prisma {
     translationsEnabled?: boolean
     languageToggleEnabled?: boolean
     languageToggleIntervalSeconds?: number
+    fridayZuhrAsJomgaEnabled?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     mosque: MosqueCreateNestedOneWithoutLanguageSettingsInput
@@ -18965,6 +19000,7 @@ export namespace Prisma {
     translationsEnabled?: boolean
     languageToggleEnabled?: boolean
     languageToggleIntervalSeconds?: number
+    fridayZuhrAsJomgaEnabled?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -18973,6 +19009,7 @@ export namespace Prisma {
     translationsEnabled?: BoolFieldUpdateOperationsInput | boolean
     languageToggleEnabled?: BoolFieldUpdateOperationsInput | boolean
     languageToggleIntervalSeconds?: IntFieldUpdateOperationsInput | number
+    fridayZuhrAsJomgaEnabled?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     mosque?: MosqueUpdateOneRequiredWithoutLanguageSettingsNestedInput
@@ -18984,6 +19021,7 @@ export namespace Prisma {
     translationsEnabled?: BoolFieldUpdateOperationsInput | boolean
     languageToggleEnabled?: BoolFieldUpdateOperationsInput | boolean
     languageToggleIntervalSeconds?: IntFieldUpdateOperationsInput | number
+    fridayZuhrAsJomgaEnabled?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -18994,6 +19032,7 @@ export namespace Prisma {
     translationsEnabled?: boolean
     languageToggleEnabled?: boolean
     languageToggleIntervalSeconds?: number
+    fridayZuhrAsJomgaEnabled?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -19002,6 +19041,7 @@ export namespace Prisma {
     translationsEnabled?: BoolFieldUpdateOperationsInput | boolean
     languageToggleEnabled?: BoolFieldUpdateOperationsInput | boolean
     languageToggleIntervalSeconds?: IntFieldUpdateOperationsInput | number
+    fridayZuhrAsJomgaEnabled?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -19012,6 +19052,7 @@ export namespace Prisma {
     translationsEnabled?: BoolFieldUpdateOperationsInput | boolean
     languageToggleEnabled?: BoolFieldUpdateOperationsInput | boolean
     languageToggleIntervalSeconds?: IntFieldUpdateOperationsInput | number
+    fridayZuhrAsJomgaEnabled?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -19022,6 +19063,7 @@ export namespace Prisma {
     meaning: string
     transcriptionTatar?: string | null
     meaningTatar?: string | null
+    isEnabled?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     mosque: MosqueCreateNestedOneWithoutNamesOfAllahInput
@@ -19035,6 +19077,7 @@ export namespace Prisma {
     meaning: string
     transcriptionTatar?: string | null
     meaningTatar?: string | null
+    isEnabled?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -19045,6 +19088,7 @@ export namespace Prisma {
     meaning?: StringFieldUpdateOperationsInput | string
     transcriptionTatar?: NullableStringFieldUpdateOperationsInput | string | null
     meaningTatar?: NullableStringFieldUpdateOperationsInput | string | null
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     mosque?: MosqueUpdateOneRequiredWithoutNamesOfAllahNestedInput
@@ -19058,6 +19102,7 @@ export namespace Prisma {
     meaning?: StringFieldUpdateOperationsInput | string
     transcriptionTatar?: NullableStringFieldUpdateOperationsInput | string | null
     meaningTatar?: NullableStringFieldUpdateOperationsInput | string | null
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -19070,6 +19115,7 @@ export namespace Prisma {
     meaning: string
     transcriptionTatar?: string | null
     meaningTatar?: string | null
+    isEnabled?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -19080,6 +19126,7 @@ export namespace Prisma {
     meaning?: StringFieldUpdateOperationsInput | string
     transcriptionTatar?: NullableStringFieldUpdateOperationsInput | string | null
     meaningTatar?: NullableStringFieldUpdateOperationsInput | string | null
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -19092,6 +19139,7 @@ export namespace Prisma {
     meaning?: StringFieldUpdateOperationsInput | string
     transcriptionTatar?: NullableStringFieldUpdateOperationsInput | string | null
     meaningTatar?: NullableStringFieldUpdateOperationsInput | string | null
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -20018,6 +20066,7 @@ export namespace Prisma {
     translationsEnabled?: SortOrder
     languageToggleEnabled?: SortOrder
     languageToggleIntervalSeconds?: SortOrder
+    fridayZuhrAsJomgaEnabled?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -20034,6 +20083,7 @@ export namespace Prisma {
     translationsEnabled?: SortOrder
     languageToggleEnabled?: SortOrder
     languageToggleIntervalSeconds?: SortOrder
+    fridayZuhrAsJomgaEnabled?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -20044,6 +20094,7 @@ export namespace Prisma {
     translationsEnabled?: SortOrder
     languageToggleEnabled?: SortOrder
     languageToggleIntervalSeconds?: SortOrder
+    fridayZuhrAsJomgaEnabled?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -20067,6 +20118,7 @@ export namespace Prisma {
     meaning?: SortOrder
     transcriptionTatar?: SortOrder
     meaningTatar?: SortOrder
+    isEnabled?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -20084,6 +20136,7 @@ export namespace Prisma {
     meaning?: SortOrder
     transcriptionTatar?: SortOrder
     meaningTatar?: SortOrder
+    isEnabled?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -20096,6 +20149,7 @@ export namespace Prisma {
     meaning?: SortOrder
     transcriptionTatar?: SortOrder
     meaningTatar?: SortOrder
+    isEnabled?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -21656,6 +21710,7 @@ export namespace Prisma {
     translationsEnabled?: boolean
     languageToggleEnabled?: boolean
     languageToggleIntervalSeconds?: number
+    fridayZuhrAsJomgaEnabled?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -21665,6 +21720,7 @@ export namespace Prisma {
     translationsEnabled?: boolean
     languageToggleEnabled?: boolean
     languageToggleIntervalSeconds?: number
+    fridayZuhrAsJomgaEnabled?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -21680,6 +21736,7 @@ export namespace Prisma {
     meaning: string
     transcriptionTatar?: string | null
     meaningTatar?: string | null
+    isEnabled?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -21691,6 +21748,7 @@ export namespace Prisma {
     meaning: string
     transcriptionTatar?: string | null
     meaningTatar?: string | null
+    isEnabled?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -21935,6 +21993,7 @@ export namespace Prisma {
     translationsEnabled?: BoolFieldUpdateOperationsInput | boolean
     languageToggleEnabled?: BoolFieldUpdateOperationsInput | boolean
     languageToggleIntervalSeconds?: IntFieldUpdateOperationsInput | number
+    fridayZuhrAsJomgaEnabled?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -21944,6 +22003,7 @@ export namespace Prisma {
     translationsEnabled?: BoolFieldUpdateOperationsInput | boolean
     languageToggleEnabled?: BoolFieldUpdateOperationsInput | boolean
     languageToggleIntervalSeconds?: IntFieldUpdateOperationsInput | number
+    fridayZuhrAsJomgaEnabled?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -21975,6 +22035,7 @@ export namespace Prisma {
     meaning?: StringFilter<"NameOfAllah"> | string
     transcriptionTatar?: StringNullableFilter<"NameOfAllah"> | string | null
     meaningTatar?: StringNullableFilter<"NameOfAllah"> | string | null
+    isEnabled?: BoolFilter<"NameOfAllah"> | boolean
     createdAt?: DateTimeFilter<"NameOfAllah"> | Date | string
     updatedAt?: DateTimeFilter<"NameOfAllah"> | Date | string
   }
@@ -22999,6 +23060,7 @@ export namespace Prisma {
     meaning: string
     transcriptionTatar?: string | null
     meaningTatar?: string | null
+    isEnabled?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -23036,6 +23098,7 @@ export namespace Prisma {
     meaning?: StringFieldUpdateOperationsInput | string
     transcriptionTatar?: NullableStringFieldUpdateOperationsInput | string | null
     meaningTatar?: NullableStringFieldUpdateOperationsInput | string | null
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -23047,6 +23110,7 @@ export namespace Prisma {
     meaning?: StringFieldUpdateOperationsInput | string
     transcriptionTatar?: NullableStringFieldUpdateOperationsInput | string | null
     meaningTatar?: NullableStringFieldUpdateOperationsInput | string | null
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -23058,6 +23122,7 @@ export namespace Prisma {
     meaning?: StringFieldUpdateOperationsInput | string
     transcriptionTatar?: NullableStringFieldUpdateOperationsInput | string | null
     meaningTatar?: NullableStringFieldUpdateOperationsInput | string | null
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

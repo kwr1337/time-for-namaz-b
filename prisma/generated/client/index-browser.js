@@ -258,6 +258,7 @@ exports.Prisma.MosqueLanguageSettingsScalarFieldEnum = {
   translationsEnabled: 'translationsEnabled',
   languageToggleEnabled: 'languageToggleEnabled',
   languageToggleIntervalSeconds: 'languageToggleIntervalSeconds',
+  fridayZuhrAsJomgaEnabled: 'fridayZuhrAsJomgaEnabled',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -270,6 +271,7 @@ exports.Prisma.NameOfAllahScalarFieldEnum = {
   meaning: 'meaning',
   transcriptionTatar: 'transcriptionTatar',
   meaningTatar: 'meaningTatar',
+  isEnabled: 'isEnabled',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
