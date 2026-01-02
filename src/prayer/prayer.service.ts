@@ -573,128 +573,248 @@ export class PrayerService {
 			let errors = [];
 			const changedCities: {id: number, name: string, action: string}[] = [];
 
-			// Обрабатываем данные пакетами по 100 записей
-			const batchSize = 100;
-			for (let i = 0; i < worksheet.length; i += batchSize) {
-				const batch = worksheet.slice(i, i + batchSize);
-				
-				for (const row of batch) {
-					try {
-						const cityName = String(row['Город'] || '').trim();
-						const date = this.formatDate(row['День'] || row['Дата']);
-						const fajr = this.formatTime(row['ФАДЖР'] || row['Фаджр']);
-			const shuruk = this.formatTime(row['Шурук']);
-			const zuhr = this.formatTime(row['Зухр']);
-						const asr = this.formatTime(row['АСР'] || row['Аср']);
-						const maghrib = this.formatTime(row['МАГРИБ'] || row['Магриб']);
-						const isha = this.formatTime(row['ИША'] || row['Иша']);
-						const mechet = this.formatTime(row['Мечеть']);
+			// Кэш для городов и мечетей (чтобы не запрашивать каждый раз)
+			const cityCache = new Map<string, { id: number; mosques: { id: number }[] }>();
+			
+			// Группируем данные по городу для оптимизации
+			const cityDataMap = new Map<string, Array<{
+				date: string;
+				fajr: string;
+				shuruk: string;
+				zuhr: string;
+				asr: string;
+				maghrib: string;
+				isha: string;
+				mechet: string | null;
+			}>>();
 
-						if (!cityName || !date || !fajr || !shuruk || !zuhr || !asr || !maghrib || !isha) {
-							errors.push({ cityName, date, error: 'Неполные данные в строке' });
-							skipped++;
-				continue;
+			// Сначала парсим и валидируем все данные
+			for (const row of worksheet) {
+				try {
+					const cityName = String(row['Город'] || '').trim();
+					const date = this.formatDate(row['День'] || row['Дата']);
+					const fajr = this.formatTime(row['ФАДЖР'] || row['Фаджр']);
+					const shuruk = this.formatTime(row['Шурук']);
+					const zuhr = this.formatTime(row['Зухр']);
+					const asr = this.formatTime(row['АСР'] || row['Аср']);
+					const maghrib = this.formatTime(row['МАГРИБ'] || row['Магриб']);
+					const isha = this.formatTime(row['ИША'] || row['Иша']);
+					const mechet = this.formatTime(row['Мечеть']);
+
+					if (!cityName || !date || !fajr || !shuruk || !zuhr || !asr || !maghrib || !isha) {
+						errors.push({ cityName, date, error: 'Неполные данные в строке' });
+						skipped++;
+						continue;
+					}
+
+					if (!cityDataMap.has(cityName)) {
+						cityDataMap.set(cityName, []);
+					}
+					cityDataMap.get(cityName)!.push({
+						date,
+						fajr,
+						shuruk,
+						zuhr,
+						asr,
+						maghrib,
+						isha,
+						mechet
+					});
+				} catch (error) {
+					console.error('Ошибка при парсинге строки:', error);
+					errors.push({ 
+						row: processed + skipped + 1, 
+						error: error.message,
+						data: row 
+					});
+					skipped++;
+				}
 			}
 
-						// Используем транзакцию для каждой записи
+			// Обрабатываем данные по городам (батчами по городу)
+			const batchSize = 50; // Обрабатываем по 50 дат за раз для каждого города
+			for (const [cityName, prayers] of cityDataMap.entries()) {
+				try {
+					// Получаем или создаем город
+					let city = await this.prisma.city.findFirst({ where: { name: cityName } });
+					let cityAction = '';
+
+					if (!city) {
+						city = await this.prisma.city.create({ data: { name: cityName } });
+						cityAction = 'created';
+						try { 
+							await this.createDefaultFixedPrayerTime(city.id); 
+						} catch (error) {
+							console.error(`Ошибка создания фиксированного времени для города ${cityName}:`, error);
+						}
+					}
+
+					// Получаем мечети города (кэшируем)
+					if (!cityCache.has(cityName)) {
+						const mosques = await this.prisma.mosque.findMany({
+							where: { cityId: city.id },
+							select: { id: true }
+						});
+						cityCache.set(cityName, { id: city.id, mosques });
+					}
+					const cityInfo = cityCache.get(cityName)!;
+
+					// Обрабатываем даты батчами
+					for (let i = 0; i < prayers.length; i += batchSize) {
+						const batch = prayers.slice(i, i + batchSize);
+						
 						await this.prisma.$transaction(async (prisma) => {
-							let city = await prisma.city.findFirst({ where: { name: cityName } });
-							let cityAction = '';
+							// Подготавливаем данные для города
+							const cityPrayersToCreate: any[] = [];
+							const cityPrayersToUpdate: Array<{ id: number; data: any }> = [];
 
-							if (!city) {
-								city = await prisma.city.create({ data: { name: cityName } });
-								cityAction = 'created';
-								try { 
-									await this.createDefaultFixedPrayerTime(city.id); 
-								} catch (error) {
-									console.error(`Ошибка создания фиксированного времени для города ${cityName}:`, error);
+							// Подготавливаем данные для мечетей
+							const mosquePrayersToCreate: any[] = [];
+							const mosquePrayersToUpdate: Array<{ id: number; data: any }> = [];
+
+							// Получаем существующие записи для города и мечетей
+							const dates = batch.map(p => p.date);
+							const existingCityPrayers = await prisma.prayer.findMany({
+								where: {
+									cityId: cityInfo.id,
+									date: { in: dates },
+									mosqueId: null
 								}
-							}
-
-							// Обновляем или создаем запись для города (mosqueId = null)
-							const existingCityPrayer = await prisma.prayer.findFirst({ 
-								where: { cityId: city.id, date: date, mosqueId: null } 
 							});
 
-							if (existingCityPrayer) {
-								await prisma.prayer.update({ 
-									where: { id: existingCityPrayer.id },
-									data: { fajr, shuruk, zuhr, asr, maghrib, isha, mechet } 
-								});
-								cityAction = cityAction || 'updated';
-							} else {
-								await prisma.prayer.create({ 
-									data: {
-										cityId: city.id,
-										mosqueId: null,
-										date,
-										fajr,
-										shuruk,
-										zuhr,
-										asr,
-										maghrib,
-										isha,
-										mechet 
-									} 
-								});
-								cityAction = cityAction || 'created';
-							}
-
-							// Получаем все мечети этого города
-							const mosques = await prisma.mosque.findMany({
-								where: { cityId: city.id }
+							const existingMosquePrayers = await prisma.prayer.findMany({
+								where: {
+									cityId: cityInfo.id,
+									date: { in: dates },
+									mosqueId: { not: null }
+								}
 							});
 
-							// Обновляем или создаем записи для всех мечетей города
-							for (const mosque of mosques) {
-								const existingMosquePrayer = await prisma.prayer.findFirst({
-									where: { cityId: city.id, mosqueId: mosque.id, date: date }
-								});
+							// Создаем мапы для быстрого поиска
+							const cityPrayerMap = new Map(existingCityPrayers.map(p => [p.date!, p]));
+							const mosquePrayerMap = new Map(
+								existingMosquePrayers.map(p => [`${p.mosqueId}-${p.date}`, p])
+							);
 
-								if (existingMosquePrayer) {
-									await prisma.prayer.update({
-										where: { id: existingMosquePrayer.id },
-										data: { fajr, shuruk, zuhr, asr, maghrib, isha, mechet }
-									});
-								} else {
-									await prisma.prayer.create({
+							// Обрабатываем каждую дату в батче
+							for (const prayer of batch) {
+								// Для города
+								const existingCityPrayer = cityPrayerMap.get(prayer.date);
+								if (existingCityPrayer) {
+									cityPrayersToUpdate.push({
+										id: existingCityPrayer.id,
 										data: {
-											cityId: city.id,
-											mosqueId: mosque.id,
-											date,
-											fajr,
-											shuruk,
-											zuhr,
-											asr,
-											maghrib,
-											isha,
-											mechet
+											fajr: prayer.fajr,
+											shuruk: prayer.shuruk,
+											zuhr: prayer.zuhr,
+											asr: prayer.asr,
+											maghrib: prayer.maghrib,
+											isha: prayer.isha,
+											mechet: prayer.mechet
 										}
 									});
+									cityAction = cityAction || 'updated';
+								} else {
+									cityPrayersToCreate.push({
+										cityId: cityInfo.id,
+										mosqueId: null,
+										date: prayer.date,
+										fajr: prayer.fajr,
+										shuruk: prayer.shuruk,
+										zuhr: prayer.zuhr,
+										asr: prayer.asr,
+										maghrib: prayer.maghrib,
+										isha: prayer.isha,
+										mechet: prayer.mechet
+									});
+									cityAction = cityAction || 'created';
+								}
+
+								// Для всех мечетей города
+								for (const mosque of cityInfo.mosques) {
+									const key = `${mosque.id}-${prayer.date}`;
+									const existingMosquePrayer = mosquePrayerMap.get(key);
+									
+									if (existingMosquePrayer) {
+										mosquePrayersToUpdate.push({
+											id: existingMosquePrayer.id,
+											data: {
+												fajr: prayer.fajr,
+												shuruk: prayer.shuruk,
+												zuhr: prayer.zuhr,
+												asr: prayer.asr,
+												maghrib: prayer.maghrib,
+												isha: prayer.isha,
+												mechet: prayer.mechet
+											}
+										});
+									} else {
+										mosquePrayersToCreate.push({
+											cityId: cityInfo.id,
+											mosqueId: mosque.id,
+											date: prayer.date,
+											fajr: prayer.fajr,
+											shuruk: prayer.shuruk,
+											zuhr: prayer.zuhr,
+											asr: prayer.asr,
+											maghrib: prayer.maghrib,
+											isha: prayer.isha,
+											mechet: prayer.mechet
+										});
+									}
 								}
 							}
 
-							if (!changedCities.find(c => c.id === city.id)) {
-								changedCities.push({ id: city.id, name: city.name, action: cityAction });
+							// Выполняем массовые операции
+							if (cityPrayersToCreate.length > 0) {
+								await prisma.prayer.createMany({
+									data: cityPrayersToCreate,
+									skipDuplicates: true
+								});
+							}
+
+							if (cityPrayersToUpdate.length > 0) {
+								await Promise.all(
+									cityPrayersToUpdate.map(({ id, data }) =>
+										prisma.prayer.update({ where: { id }, data })
+									)
+								);
+							}
+
+							if (mosquePrayersToCreate.length > 0) {
+								await prisma.prayer.createMany({
+									data: mosquePrayersToCreate,
+									skipDuplicates: true
+								});
+							}
+
+							if (mosquePrayersToUpdate.length > 0) {
+								await Promise.all(
+									mosquePrayersToUpdate.map(({ id, data }) =>
+										prisma.prayer.update({ where: { id }, data })
+									)
+								);
 							}
 						});
 
-						processed++;
+						processed += batch.length;
 						
-						// Логируем прогресс каждые 100 записей
-						if (processed % 100 === 0) {
+						// Логируем прогресс каждые 500 записей
+						if (processed % 500 === 0) {
 							console.log(`Обработано ${processed} записей из ${worksheet.length}`);
 						}
-
-					} catch (error) {
-						console.error('Ошибка при обработке строки:', error);
-						errors.push({ 
-							row: processed + skipped + 1, 
-							error: error.message,
-							data: row 
-						});
-						skipped++;
 					}
+
+					if (!changedCities.find(c => c.id === city.id)) {
+						changedCities.push({ id: city.id, name: city.name, action: cityAction || 'updated' });
+					}
+				} catch (error) {
+					console.error(`Ошибка при обработке города ${cityName}:`, error);
+					errors.push({ 
+						cityName,
+						error: error.message
+					});
+					skipped += prayers.length;
 				}
 			}
 
