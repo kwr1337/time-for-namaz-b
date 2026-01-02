@@ -601,7 +601,7 @@ export class PrayerService {
 							let city = await prisma.city.findFirst({ where: { name: cityName } });
 							let cityAction = '';
 
-			if (!city) {
+							if (!city) {
 								city = await prisma.city.create({ data: { name: cityName } });
 								cityAction = 'created';
 								try { 
@@ -611,31 +611,67 @@ export class PrayerService {
 								}
 							}
 
-							const existingPrayer = await prisma.prayer.findFirst({ 
-								where: { cityId: city.id, date: date } 
-			});
+							// Обновляем или создаем запись для города (mosqueId = null)
+							const existingCityPrayer = await prisma.prayer.findFirst({ 
+								where: { cityId: city.id, date: date, mosqueId: null } 
+							});
 
-			if (existingPrayer) {
+							if (existingCityPrayer) {
 								await prisma.prayer.update({ 
-					where: { id: existingPrayer.id },
+									where: { id: existingCityPrayer.id },
 									data: { fajr, shuruk, zuhr, asr, maghrib, isha, mechet } 
-				});
+								});
 								cityAction = cityAction || 'updated';
-			} else {
+							} else {
 								await prisma.prayer.create({ 
-					data: {
-						cityId: city.id,
-						date,
-						fajr,
-						shuruk,
-						zuhr,
-						asr,
-						maghrib,
-						isha,
+									data: {
+										cityId: city.id,
+										mosqueId: null,
+										date,
+										fajr,
+										shuruk,
+										zuhr,
+										asr,
+										maghrib,
+										isha,
 										mechet 
 									} 
 								});
 								cityAction = cityAction || 'created';
+							}
+
+							// Получаем все мечети этого города
+							const mosques = await prisma.mosque.findMany({
+								where: { cityId: city.id }
+							});
+
+							// Обновляем или создаем записи для всех мечетей города
+							for (const mosque of mosques) {
+								const existingMosquePrayer = await prisma.prayer.findFirst({
+									where: { cityId: city.id, mosqueId: mosque.id, date: date }
+								});
+
+								if (existingMosquePrayer) {
+									await prisma.prayer.update({
+										where: { id: existingMosquePrayer.id },
+										data: { fajr, shuruk, zuhr, asr, maghrib, isha, mechet }
+									});
+								} else {
+									await prisma.prayer.create({
+										data: {
+											cityId: city.id,
+											mosqueId: mosque.id,
+											date,
+											fajr,
+											shuruk,
+											zuhr,
+											asr,
+											maghrib,
+											isha,
+											mechet
+										}
+									});
+								}
 							}
 
 							if (!changedCities.find(c => c.id === city.id)) {
