@@ -11,6 +11,42 @@ import { logAction } from 'src/common/audit-log.util';
 export class PrayerService {
 	constructor(private prisma: PrismaService) {}
 
+	/**
+	 * Безопасное создание записи об изменении времени намаза с автоматическим исправлением последовательности
+	 */
+	private async createPrayerTimeChangeSafely(data: {
+		prayerId: number;
+		prayerType: string;
+		oldTime: string;
+		newTime: string;
+		shiftMinutes: number;
+		changedBy: number;
+	}): Promise<void> {
+		try {
+			await this.prisma.prayerTimeChange.create({ data });
+		} catch (error) {
+			// Если ошибка уникальности по ID, исправляем последовательность PostgreSQL
+			if (error.code === 'P2002' && error.meta?.target?.includes('id')) {
+				console.warn('Ошибка последовательности ID для PrayerTimeChange, исправляем...');
+				try {
+					// Исправляем последовательность PostgreSQL
+					await this.prisma.$executeRawUnsafe(`
+						SELECT setval(pg_get_serial_sequence('"PrayerTimeChange"', 'id'), 
+							COALESCE((SELECT MAX(id) FROM "PrayerTimeChange"), 1), true);
+					`);
+					// Пытаемся создать снова
+					await this.prisma.prayerTimeChange.create({ data });
+				} catch (retryError) {
+					console.error('Не удалось исправить последовательность и создать запись:', retryError);
+					// Пропускаем создание записи об изменении, но продолжаем работу
+				}
+			} else {
+				// Для других ошибок пробрасываем дальше
+				throw error;
+			}
+		}
+	}
+
 	private excelDateToJsDate(excelDate: number): Date {
 		// Excel использует систему дат, где 1 = 1 день, а дробная часть = время
 		const days = Math.floor(excelDate);
@@ -348,15 +384,13 @@ export class PrayerService {
 					continue;
 				}
 			} else {
-				await this.prisma.prayerTimeChange.create({
-					data: {
-						prayerId: prayer.id,
-						prayerType: prayerName.toLowerCase(),
-						oldTime: oldTime ?? '',
-						newTime: updatedTime ?? '',
-						shiftMinutes: shiftMinutes,
-						changedBy: userId,
-					},
+				await this.createPrayerTimeChangeSafely({
+					prayerId: prayer.id,
+					prayerType: prayerName.toLowerCase(),
+					oldTime: oldTime ?? '',
+					newTime: updatedTime ?? '',
+					shiftMinutes: shiftMinutes,
+					changedBy: userId,
 				});
 			}
 		}
@@ -486,15 +520,13 @@ export class PrayerService {
 					continue;
 				}
 			} else {
-				await this.prisma.prayerTimeChange.create({
-					data: {
-						prayerId: prayer.id,
-						prayerType: prayerName.toLowerCase(),
-						oldTime: oldTime ?? '',
-						newTime: updatedTime ?? '',
-						shiftMinutes: shiftMinutes,
-						changedBy: userId,
-					},
+				await this.createPrayerTimeChangeSafely({
+					prayerId: prayer.id,
+					prayerType: prayerName.toLowerCase(),
+					oldTime: oldTime ?? '',
+					newTime: updatedTime ?? '',
+					shiftMinutes: shiftMinutes,
+					changedBy: userId,
 				});
 			}
 		}
@@ -1391,15 +1423,13 @@ export class PrayerService {
 				return updatedPrayer;
 			}
 		} else {
-			await this.prisma.prayerTimeChange.create({
-				data: {
-					prayerId: id,
-					prayerType,
-					oldTime,
-					newTime,
-					shiftMinutes: shift,
-					changedBy: userId,
-				},
+			await this.createPrayerTimeChangeSafely({
+				prayerId: id,
+				prayerType,
+				oldTime,
+				newTime,
+				shiftMinutes: shift,
+				changedBy: userId,
 			});
 			return updatedPrayer;
 		}
