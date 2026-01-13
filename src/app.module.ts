@@ -11,6 +11,7 @@ import { AuditLogModule } from './audit-log/audit-log.module'
 import { TranslationModule } from './translation/translation.module'
 import { MosqueLanguageSettingsModule } from './mosque-language-settings/mosque-language-settings.module'
 import { NamesOfAllahModule } from './names-of-allah/names-of-allah.module'
+import { MosqueHolidayModule } from './mosque-holiday/mosque-holiday.module'
 import { RequestLoggerMiddleware } from './common/request-logger.middleware'
 
 @Module({
@@ -26,7 +27,8 @@ import { RequestLoggerMiddleware } from './common/request-logger.middleware'
 		AuditLogModule,
 		TranslationModule,
 		MosqueLanguageSettingsModule,
-		NamesOfAllahModule
+		NamesOfAllahModule,
+		MosqueHolidayModule
 	]
 })
 export class AppModule implements NestModule {

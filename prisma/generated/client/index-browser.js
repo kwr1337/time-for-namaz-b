@@ -276,6 +276,18 @@ exports.Prisma.NameOfAllahScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.MosqueHolidayScalarFieldEnum = {
+  id: 'id',
+  mosqueId: 'mosqueId',
+  nameRu: 'nameRu',
+  nameTatar: 'nameTatar',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  isEnabled: 'isEnabled',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -321,7 +333,8 @@ exports.Prisma.ModelName = {
   AuditLog: 'AuditLog',
   Translation: 'Translation',
   MosqueLanguageSettings: 'MosqueLanguageSettings',
-  NameOfAllah: 'NameOfAllah'
+  NameOfAllah: 'NameOfAllah',
+  MosqueHoliday: 'MosqueHoliday'
 };
 
 /**

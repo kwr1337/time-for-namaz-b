@@ -45,6 +45,7 @@ model Mosque {
   languageSettings MosqueLanguageSettings?
   namesOfAllah    NameOfAllah[]
   media           Media[]
+  holidays        MosqueHoliday[]
   city            City                   @relation(fields: [cityId], references: [id])
   prayers         Prayer[]
   qrCodes         QRCode[]               @relation("MosqueQRCode")
@@ -212,4 +213,20 @@ model NameOfAllah {
   
   @@unique([mosqueId, arabic])
   @@index([mosqueId])
+}
+
+model MosqueHoliday {
+  id        Int      @id @default(autoincrement())
+  mosqueId  Int
+  nameRu    String
+  nameTatar String
+  startDate String   // Формат "MM-DD" (например: "03-01")
+  endDate   String?  // Формат "MM-DD" (например: "03-30") или null для однодневных праздников
+  isEnabled Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  mosque    Mosque   @relation(fields: [mosqueId], references: [id])
+  
+  @@index([mosqueId])
+  @@index([mosqueId, startDate])
 }
